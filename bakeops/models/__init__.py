@@ -10,6 +10,15 @@ from .production import (
     RecipeLine,
     WasteRecord,
 )
+from .analytics import (
+    BakeryMetricRunLog,
+    CustomerLoyaltySnapshot,
+    DailyBakeryMetric,
+    DataQualityIssue,
+    IngredientUsageSnapshot,
+    OccasionDemandSnapshot,
+    ProductPerformanceSnapshot,
+)
 
 __all__ = [
     "Workspace",
@@ -30,4 +39,11 @@ __all__ = [
     "ProductionBatchLine",
     "BatchAllocation",
     "WasteRecord",
+    "DailyBakeryMetric",
+    "ProductPerformanceSnapshot",
+    "IngredientUsageSnapshot",
+    "OccasionDemandSnapshot",
+    "CustomerLoyaltySnapshot",
+    "BakeryMetricRunLog",
+    "DataQualityIssue",
 ]
