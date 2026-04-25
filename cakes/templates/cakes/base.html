@@ -1,0 +1,415 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}BakeOps Intelligence | SweetCakes Bakery Demo Workspace{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="BakeOps Intelligence is a bakery operations analytics platform for profitability, waste, ingredient risk, data quality, and BI-ready reporting.">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="color-scheme" content="light">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <style>
+    :root {
+      --bo-bg: #f8fafc;
+      --bo-surface: #ffffff;
+      --bo-surface-soft: #f1f5f9;
+      --bo-ink: #0f172a;
+      --bo-muted: #64748b;
+      --bo-border: #e2e8f0;
+      --bo-teal: #0f766e;
+      --bo-teal-soft: #ccfbf1;
+      --bo-amber: #d97706;
+      --bo-amber-soft: #fef3c7;
+      --bo-red: #dc2626;
+      --bo-red-soft: #fee2e2;
+      --bo-green: #16a34a;
+      --bo-green-soft: #dcfce7;
+      --bo-radius: 1.25rem;
+      --bo-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bo-bg);
+      color: var(--bo-ink);
+    }
+
+    .bo-header {
+      background:
+        radial-gradient(circle at top left, rgba(20, 184, 166, 0.14), transparent 34%),
+        linear-gradient(135deg, #ffffff, #f8fafc);
+      border-bottom: 1px solid var(--bo-border);
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+      backdrop-filter: blur(18px);
+    }
+
+    .bo-brand-mark {
+      width: 2.25rem;
+      height: 2.25rem;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 0.75rem;
+      background: linear-gradient(135deg, #0f766e, #14b8a6);
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(15, 118, 110, 0.28);
+    }
+
+    .bo-brand-title {
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--bo-ink);
+    }
+
+    .bo-brand-subtitle {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--bo-teal);
+      font-weight: 700;
+      margin-top: 0.15rem;
+    }
+
+    .bo-nav-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--bo-muted);
+      border-radius: 999px;
+      padding: 0.55rem 0.9rem !important;
+    }
+
+    .bo-nav-link:hover,
+    .bo-nav-link.active {
+      color: var(--bo-teal);
+      background: var(--bo-teal-soft);
+    }
+
+    .bo-workspace-pill {
+      border: 1px solid var(--bo-border);
+      background: var(--bo-surface);
+      color: var(--bo-muted);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bo-primary-btn {
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0f766e, #14b8a6);
+      color: white !important;
+      font-weight: 800;
+      padding: 0.65rem 1rem;
+      text-decoration: none;
+      box-shadow: 0 14px 30px rgba(15, 118, 110, 0.22);
+    }
+
+    .bo-secondary-btn {
+      border: 1px solid var(--bo-border);
+      border-radius: 999px;
+      color: var(--bo-ink);
+      background: white;
+      font-weight: 700;
+      padding: 0.65rem 1rem;
+      text-decoration: none;
+    }
+
+    .bo-page-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 2rem 1rem 0;
+    }
+
+    .bo-hero {
+      background:
+        radial-gradient(circle at top right, rgba(20, 184, 166, 0.16), transparent 34%),
+        linear-gradient(135deg, #ffffff, #f8fafc);
+      border: 1px solid var(--bo-border);
+      border-radius: var(--bo-radius);
+      padding: 2rem;
+      box-shadow: var(--bo-shadow);
+    }
+
+    .bo-eyebrow {
+      color: var(--bo-teal);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 800;
+      font-size: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .bo-title {
+      font-weight: 800;
+      letter-spacing: -0.055em;
+      color: var(--bo-ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .bo-subtitle {
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 820px;
+    }
+
+    .bo-card {
+      background: var(--bo-surface);
+      border: 1px solid var(--bo-border);
+      border-radius: var(--bo-radius);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .bo-card-pad {
+      padding: 1.2rem;
+    }
+
+    .bo-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .bo-kpi-label,
+    .bo-section-label {
+      text-transform: uppercase;
+      color: #94a3b8;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .bo-kpi-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-top: 0.4rem;
+    }
+
+    .bo-kpi-note {
+      color: var(--bo-muted);
+      font-size: 0.82rem;
+      margin-top: 0.25rem;
+    }
+
+    .bo-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.28rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .bo-status-promote { background: var(--bo-green-soft); color: #166534; }
+    .bo-status-stable { background: var(--bo-surface-soft); color: #475569; }
+    .bo-status-review { background: var(--bo-amber-soft); color: #92400e; }
+    .bo-status-remove { background: var(--bo-red-soft); color: #991b1b; }
+    .bo-status-info { background: var(--bo-teal-soft); color: #115e59; }
+
+    .bo-table {
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+
+    .bo-table th {
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.72rem;
+      border-bottom: 1px solid var(--bo-border);
+      font-weight: 800;
+    }
+
+    .bo-table td {
+      border-bottom: 1px solid #edf2f7;
+      color: #334155;
+      font-size: 0.9rem;
+    }
+
+    .bo-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .bo-muted {
+      color: var(--bo-muted);
+    }
+
+    .bo-footer {
+      margin-top: 4rem;
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .bo-footer h5,
+    .bo-footer h6 {
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .bo-footer a {
+      color: #99f6e4;
+      text-decoration: none;
+    }
+
+    @media (max-width: 991.98px) {
+      .bo-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .bo-kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bo-hero {
+        padding: 1.4rem;
+      }
+    }
+  </style>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  <a href="#main-content" class="visually-hidden-focusable">
+    Skip to main content
+  </a>
+
+  <div class="page-wrapper d-flex flex-column min-vh-100">
+
+    <header class="bo-header">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
+            <span class="bo-brand-mark">BO</span>
+            <span>
+              <span class="bo-brand-title">BakeOps Intelligence</span>
+              <span class="bo-brand-subtitle">SweetCakes demo workspace</span>
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+                  aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+              <li class="nav-item">
+                <a class="nav-link bo-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                   href="{% url 'home' %}">
+                  Analytics
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link bo-nav-link {% if request.resolver_match.url_name == 'cake_list' %}active{% endif %}"
+                   href="{% url 'cake_list' %}">
+                  Products
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link bo-nav-link {% if request.resolver_match.url_name == 'welcome' %}active{% endif %}"
+                   href="{% url 'welcome' %}">
+                  Data Quality
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link bo-nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                   href="{% url 'contact' %}">
+                  Exports
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link bo-nav-link" href="/admin/">
+                  Admin
+                </a>
+              </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 ms-lg-3">
+              <span class="bo-workspace-pill">V1 target · seeded demo</span>
+              <a href="{% url 'home' %}" class="bo-primary-btn d-none d-md-inline-flex">
+                View dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-main flex-grow-1">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bo-footer">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-md-5">
+            <h5>BakeOps Intelligence</h5>
+            <p class="mb-2">
+              Bakery operations analytics platform for profitability, waste, ingredient risk,
+              data quality checks, and BI-ready reporting.
+            </p>
+            <p class="small mb-0">
+              SweetCakes Bakery is the seeded demo workspace used for reviewer inspection.
+            </p>
+          </div>
+
+          <div class="col-md-3">
+            <h6>V1 proof areas</h6>
+            <ul class="list-unstyled mb-0 small">
+              <li><a href="{% url 'home' %}">Analytics dashboard</a></li>
+              <li><a href="{% url 'cake_list' %}">Product profitability</a></li>
+              <li><a href="{% url 'welcome' %}">Data quality layer</a></li>
+              <li><a href="{% url 'contact' %}">BI export plan</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-4">
+            <h6>Reviewer workflow</h6>
+            <p class="small mb-1">1. Seed demo data</p>
+            <p class="small mb-1">2. Build bakery metrics</p>
+            <p class="small mb-1">3. Inspect dashboard, admin, and exports</p>
+            <p class="small mb-0">4. Verify the waste-adjusted profitability story</p>
+          </div>
+        </div>
+
+        <hr class="border-secondary-subtle my-4">
+
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 small">
+          <div>© 2026 Aminul Islam. Portfolio project.</div>
+          <div>V1 = Works · V2 = Trusted · V3 = Commercial</div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

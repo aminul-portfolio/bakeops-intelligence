@@ -1,0 +1,74 @@
+{% extends "cakes/base.html" %}
+{% load static %}
+
+{% block title %}Promotion | Cilza Cakes Studio{% endblock %}
+
+{% block content %}
+<section class="py-4">
+  <div class="container">
+
+    <!-- Header / intro -->
+    <div class="mb-4 text-center">
+      <p class="promise-pretitle">Limited Offer</p>
+      <h1 class="section-title mb-2">Special Promotion</h1>
+      <p class="text-muted mb-0" style="max-width: 640px; margin: 0 auto;">
+        Treat yourself (or the office table) to something soft, moist and lighter on the sugar.
+        This week only at Cilza Cakes Studio.
+      </p>
+    </div>
+
+    <!-- Promo card -->
+    <div class="promo-card card border-0 shadow-sm rounded-4 overflow-hidden">
+      <div class="row g-0 align-items-stretch">
+
+        <!-- Left: title / headline -->
+        <div class="col-md-3 d-flex align-items-center justify-content-center bg-light">
+          <div class="p-4 text-center text-md-start">
+            <h2 class="h4 mb-1">Special Sale</h2>
+            <p class="promo-subtitle text-muted mb-0">
+              This week only
+            </p>
+          </div>
+        </div>
+
+        <!-- Middle: text + button -->
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="p-4">
+            <p class="mb-3">
+              Enjoy <strong>20% off</strong> a curated range of Cilza cakes this week.
+              Soft, moist slices made with real ingredients, lighter creams and vibrant toppings —
+              all the flavour, with a gentler finish.
+            </p>
+            <p class="mb-3 text-muted small">
+              Perfect for birthdays, office treats or adding a second cake to your celebration table.
+              Discount is applied at checkout on eligible designs.
+            </p>
+
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'cake_list' %}" class="hc-btn-primary text-decoration-none">
+                Grab the offer
+              </a>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">
+                Back to home
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: visual area -->
+        <div class="col-md-3">
+          <div class="h-100 w-100" style="
+              min-height: 180px;
+              background-image: url('{% static 'img/banana_cloud.jpg' %}');
+              background-size: cover;
+              background-position: center;
+            ">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

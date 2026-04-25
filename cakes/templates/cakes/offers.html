@@ -1,0 +1,242 @@
+{% extends "cakes/base.html" %}
+{% load static %}
+
+{% block title %}Offers | Cilza Cakes Studio{% endblock %}
+
+{% block content %}
+<section class="py-4">
+  <div class="container">
+
+    <!-- Hero strip -->
+    <div class="mb-4">
+      <p class="promise-pretitle text-center">This Week’s Treats</p>
+      <h1 class="section-title text-center mb-3">Cilza Cakes Studio Offers</h1>
+      <p class="text-center text-muted mb-0" style="max-width: 640px; margin: 0 auto;">
+        A few of our favourite cakes with lighter prices – perfect for trying
+        something new or adding an extra cake for the office table.
+      </p>
+    </div>
+
+    <!-- Offer highlight banner -->
+    <div class="mb-4">
+      <div class="alert alert-warning d-flex flex-column flex-md-row align-items-md-center gap-2" style="border-radius: 1rem;">
+        <div class="me-md-3">
+          <strong>Limited time:</strong> 10% off your second cake when you order
+          any two of our <strong>“Selling quickly”</strong> favourites.
+        </div>
+        <div class="ms-md-auto">
+          <a href="{% url 'cake_list' %}" class="hc-btn-primary text-decoration-none">
+            Browse all cakes
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offer cards – SAME card layout as cakes grid -->
+    <div class="cake-grid">
+
+      <!-- 1: Carrot Walnut Glow Cake -->
+      <article class="cake-card card h-100">
+        <a href="{% url 'cake_detail' slug='carrot-walnut-glow-cake' %}"
+           class="cake-card-link text-decoration-none text-reset">
+          <div class="cake-card-visual">
+            <div class="cake-card-border"></div>
+            <img
+              src="{% static 'img/carrot_walnut.jpg' %}"
+              alt="Carrot Walnut Glow Cake"
+              class="cake-card-img"
+              loading="lazy"
+            >
+            <div class="cake-card-overlay">
+              <div class="cake-card-overlay-inner">
+                <h3 class="cake-card-title">Carrot Walnut Glow Cake</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <div class="cake-card-body card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h2 class="h6 mb-0">Carrot Walnut Glow Cake</h2>
+            <span class="badge bg-success-subtle text-success border border-success-subtle">
+              Offer
+            </span>
+          </div>
+
+          <p class="mb-1 text-success fw-semibold">Now from £19.90</p>
+          <p class="small text-muted mb-3">
+            Everyday favourite with a lighter cream cheese finish and toasted walnuts.
+          </p>
+          <span class="badge bg-success-subtle text-success border border-success-subtle mb-3">
+            Weekday favourite
+          </span>
+
+          <div class="mt-auto d-flex justify-content-between align-items-center gap-2">
+            <a href="{% url 'cake_detail' slug='carrot-walnut-glow-cake' %}"
+               class="btn btn-outline-secondary btn-sm">
+              Details
+            </a>
+            <button class="btn btn-sm hc-btn-primary"
+                    type="button"
+                    data-add-to-cart="carrot-walnut-glow-cake">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2: Dark Choco Berry Indulgence -->
+      <article class="cake-card card h-100">
+        <a href="{% url 'cake_detail' slug='dark-choco-berry-indulgence' %}"
+           class="cake-card-link text-decoration-none text-reset">
+          <div class="cake-card-visual">
+            <div class="cake-card-border"></div>
+            <img
+              src="{% static 'img/dark_choco.jpg' %}"
+              alt="Dark Choco Berry Indulgence"
+              class="cake-card-img"
+              loading="lazy"
+            >
+            <div class="cake-card-overlay">
+              <div class="cake-card-overlay-inner">
+                <h3 class="cake-card-title">Dark Choco Berry Indulgence</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <div class="cake-card-body card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h2 class="h6 mb-0">Dark Choco Berry Indulgence</h2>
+            <span class="badge bg-dark text-light">
+              Offer
+            </span>
+          </div>
+
+          <p class="mb-1 text-success fw-semibold">£22.50 • bundle savings</p>
+          <p class="small text-muted mb-3">
+            Rich cocoa layers with seasonal berries – ideal for birthdays and weekend nights in.
+          </p>
+          <span class="badge bg-dark text-light mb-3">
+            Chocolate lovers
+          </span>
+
+          <div class="mt-auto d-flex justify-content-between align-items-center gap-2">
+            <a href="{% url 'cake_detail' slug='dark-choco-berry-indulgence' %}"
+               class="btn btn-outline-secondary btn-sm">
+              Details
+            </a>
+            <button class="btn btn-sm hc-btn-primary"
+                    type="button"
+                    data-add-to-cart="dark-choco-berry-indulgence">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3: Matcha Citrus Loaf -->
+      <article class="cake-card card h-100">
+        <a href="{% url 'cake_detail' slug='matcha-citrus-loaf' %}"
+           class="cake-card-link text-decoration-none text-reset">
+          <div class="cake-card-visual">
+            <div class="cake-card-border"></div>
+            <img
+              src="{% static 'img/matcha_citrus.jpg' %}"
+              alt="Matcha Citrus Loaf"
+              class="cake-card-img"
+              loading="lazy"
+            >
+            <div class="cake-card-overlay">
+              <div class="cake-card-overlay-inner">
+                <h3 class="cake-card-title">Matcha Citrus Loaf</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <div class="cake-card-body card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h2 class="h6 mb-0">Matcha Citrus Loaf</h2>
+            <span class="badge bg-info-subtle text-info border border-info-subtle">
+              Offer
+            </span>
+          </div>
+
+          <p class="mb-1 text-success fw-semibold">From £17.40</p>
+          <p class="small text-muted mb-3">
+            Light, aromatic and gently sweet – perfect for tea breaks and smaller gatherings.
+          </p>
+          <span class="badge bg-info-subtle text-info border border-info-subtle mb-3">
+            Afternoon tea
+          </span>
+
+          <div class="mt-auto d-flex justify-content-between align-items-center gap-2">
+            <a href="{% url 'cake_detail' slug='matcha-citrus-loaf' %}"
+               class="btn btn-outline-secondary btn-sm">
+              Details
+            </a>
+            <button class="btn btn-sm hc-btn-primary"
+                    type="button"
+                    data-add-to-cart="matcha-citrus-loaf">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4: Banana Cloud Layer Cake -->
+      <article class="cake-card card h-100">
+        <a href="{% url 'cake_detail' slug='banana-cloud-layer-cake' %}"
+           class="cake-card-link text-decoration-none text-reset">
+          <div class="cake-card-visual">
+            <div class="cake-card-border"></div>
+            <img
+              src="{% static 'img/banana_cloud.jpg' %}"
+              alt="Banana Cloud Layer Cake"
+              class="cake-card-img"
+              loading="lazy"
+            >
+            <div class="cake-card-overlay">
+              <div class="cake-card-overlay-inner">
+                <h3 class="cake-card-title">Banana Cloud Layer Cake</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <div class="cake-card-body card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h2 class="h6 mb-0">Banana Cloud Layer Cake</h2>
+            <span class="badge bg-warning-subtle text-warning border border-warning-subtle">
+              Offer
+            </span>
+          </div>
+
+          <p class="mb-1 text-success fw-semibold">From £18.90</p>
+          <p class="small text-muted mb-3">
+            A soft, cloud-like banana cake that kids love and adults keep slicing.
+          </p>
+          <span class="badge bg-warning-subtle text-warning border border-warning-subtle mb-3">
+            Kids’ favourite
+          </span>
+
+          <div class="mt-auto d-flex justify-content-between align-items-center gap-2">
+            <a href="{% url 'cake_detail' slug='banana-cloud-layer-cake' %}"
+               class="btn btn-outline-secondary btn-sm">
+              Details
+            </a>
+            <button class="btn btn-sm hc-btn-primary"
+                    type="button"
+                    data-add-to-cart="banana-cloud-layer-cake">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}

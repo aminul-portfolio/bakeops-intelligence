@@ -1,0 +1,51 @@
+@"
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Django
+db.sqlite3
+*.sqlite3
+staticfiles/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Generated exports
+exports/*
+!exports/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# IDE / editor
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+"@ | Set-Content .\.gitignore
+# User-uploaded media files
+media/

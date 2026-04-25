@@ -1,0 +1,68 @@
+{% load static %}
+
+<article
+  class="cake-card card h-100"
+  data-category="{{ cake.occasion_type }} {% for col in cake.collections.all %}{{ col.key }} {% endfor %}"
+>
+  <a href="{% url 'cake_detail' slug=cake.slug %}"
+     class="cake-card-link text-decoration-none text-reset">
+    <div class="cake-card-visual">
+      <div class="cake-card-border"></div>
+
+      {% if cake.main_image %}
+        <img src="{{ cake.main_image.url }}"
+             alt="{{ cake.name }}"
+             class="cake-card-img"
+             loading="lazy">
+      {% else %}
+        <img src="{% static 'img/placeholder.jpg' %}"
+             alt="{{ cake.name }}"
+             class="cake-card-img"
+             loading="lazy">
+      {% endif %}
+
+      <div class="cake-card-overlay">
+        <div class="cake-card-overlay-inner">
+          <h3 class="cake-card-title">{{ cake.name }}</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <div class="cake-card-body card-body d-flex justify-content-between align-items-center">
+    <div>
+      <h3 class="cake-card-title h6 mb-1">{{ cake.name }}</h3>
+
+      {% with v=cake.default_variant %}
+        {% if v %}
+          <div class="text-success fw-semibold small">
+            From £{{ v.price }}
+          </div>
+        {% else %}
+          <div class="text-muted small">
+            Price coming soon
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <div class="d-flex flex-column align-items-end gap-1">
+      <a href="{% url 'cake_detail' slug=cake.slug %}"
+         class="btn btn-outline-secondary btn-sm">
+        Details
+      </a>
+
+      {% if show_add_to_cart %}
+        {% with v=cake.default_variant %}
+          <button class="btn btn-sm hc-btn-primary"
+                  type="button"
+                  data-add-to-cart="{{ cake.slug }}"
+                  data-cake-name="{{ cake.name }}"
+                  {% if v %}data-price="{{ v.price }}"{% endif %}>
+            Add to cart
+          </button>
+        {% endwith %}
+      {% endif %}
+    </div>
+  </div>
+</article>

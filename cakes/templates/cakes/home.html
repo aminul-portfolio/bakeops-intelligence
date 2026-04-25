@@ -1,0 +1,248 @@
+{% extends "cakes/base.html" %}
+{% load static %}
+
+{% block title %}Analytics Dashboard | BakeOps Intelligence{% endblock %}
+{% block body_class %}bakeops-dashboard-page{% endblock %}
+
+{% block content %}
+<div class="bo-page-shell">
+
+  <section class="bo-hero mb-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-8">
+        <div class="bo-eyebrow">V1 analytics surface</div>
+        <h1 class="bo-title display-5">
+          Bakery operations analytics dashboard
+        </h1>
+        <p class="bo-subtitle mb-0">
+          BakeOps Intelligence turns SweetCakes Bakery demo data into trusted KPI snapshots,
+          product profitability analysis, waste-adjusted margin signals, data quality checks,
+          and weekly action recommendations.
+        </p>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="bo-card bo-card-pad">
+          <div class="bo-section-label mb-2">Reviewer workflow</div>
+          <ol class="mb-0 small bo-muted">
+            <li>Run <code>seed_demo_data</code></li>
+            <li>Run <code>build_bakery_metrics</code></li>
+            <li>Inspect dashboard, admin, and exports</li>
+            <li>Verify the waste-adjusted profitability story</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bo-kpi-grid mb-4" aria-label="Headline KPI cards">
+    <article class="bo-card bo-card-pad">
+      <div class="bo-kpi-label">Total revenue</div>
+      <div class="bo-kpi-value">{{ total_revenue|default:"£18,240" }}</div>
+      <div class="bo-kpi-note">Paid order revenue from seeded demo data</div>
+    </article>
+
+    <article class="bo-card bo-card-pad">
+      <div class="bo-kpi-label">Paid orders</div>
+      <div class="bo-kpi-value">{{ paid_orders|default:"147" }}</div>
+      <div class="bo-kpi-note">Average order value: {{ average_order_value|default:"£124" }}</div>
+    </article>
+
+    <article class="bo-card bo-card-pad">
+      <div class="bo-kpi-label">Gross margin</div>
+      <div class="bo-kpi-value">{{ gross_margin_percent|default:"38.4%" }}</div>
+      <div class="bo-kpi-note">Before waste adjustment</div>
+    </article>
+
+    <article class="bo-card bo-card-pad">
+      <div class="bo-kpi-label">Waste cost</div>
+      <div class="bo-kpi-value">{{ total_waste_cost|default:"£892" }}</div>
+      <div class="bo-kpi-note">Estimated margin leakage from waste records</div>
+    </article>
+  </section>
+
+  <div class="row g-4">
+    <div class="col-xl-8">
+      <section class="bo-card">
+        <div class="bo-card-pad border-bottom">
+          <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+            <div>
+              <div class="bo-section-label">Product profitability</div>
+              <h2 class="h4 fw-bold mb-1">Revenue vs waste-adjusted margin</h2>
+              <p class="bo-muted mb-0">
+                V1 should reveal products that look strong by sales but become weaker after ingredient cost and waste.
+              </p>
+            </div>
+            <a href="{% url 'cake_list' %}" class="bo-secondary-btn align-self-start">View products</a>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table bo-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Revenue</th>
+                <th>Gross margin</th>
+                <th>Waste-adjusted</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if product_snapshots %}
+                {% for item in product_snapshots %}
+                  <tr>
+                    <td>
+                      <strong>{{ item.cake.name }}</strong>
+                      <div class="small bo-muted">{{ item.variant.name|default:"Standard variant" }}</div>
+                    </td>
+                    <td>{{ item.revenue }}</td>
+                    <td>{{ item.gross_margin_percent }}%</td>
+                    <td>{{ item.waste_adjusted_margin_percent }}%</td>
+                    <td>
+                      {% if item.waste_adjusted_margin_percent < 15 %}
+                        <span class="bo-status bo-status-remove">Remove</span>
+                      {% elif item.waste_adjusted_margin_percent < 25 %}
+                        <span class="bo-status bo-status-review">Review</span>
+                      {% elif item.waste_adjusted_margin_percent > 40 %}
+                        <span class="bo-status bo-status-promote">Promote</span>
+                      {% else %}
+                        <span class="bo-status bo-status-stable">Stable</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td><strong>Seasonal Fruit Gateau</strong><div class="small bo-muted">High margin, rising demand</div></td>
+                  <td>£2,105</td>
+                  <td>52%</td>
+                  <td>49%</td>
+                  <td><span class="bo-status bo-status-promote">Promote</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Wedding Tier Cake</strong><div class="small bo-muted">Stable premium order profile</div></td>
+                  <td>£3,240</td>
+                  <td>44%</td>
+                  <td>41%</td>
+                  <td><span class="bo-status bo-status-stable">Stable</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Birthday Classic</strong><div class="small bo-muted">Best-seller with waste pressure</div></td>
+                  <td>£2,890</td>
+                  <td>31%</td>
+                  <td>18%</td>
+                  <td><span class="bo-status bo-status-review">Review</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Everyday Victoria</strong><div class="small bo-muted">Low demand and weak margin</div></td>
+                  <td>£980</td>
+                  <td>14%</td>
+                  <td>7%</td>
+                  <td><span class="bo-status bo-status-remove">Remove</span></td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bo-card bo-card-pad mt-4">
+        <div class="bo-section-label">Data quality</div>
+        <h2 class="h4 fw-bold mb-3">Trust checks before decision-making</h2>
+
+        <div class="row g-3">
+          {% if data_quality_issues %}
+            {% for issue in data_quality_issues %}
+              <div class="col-md-6">
+                <div class="p-3 rounded-4 border bg-light h-100">
+                  <span class="bo-status bo-status-review">{{ issue.severity }}</span>
+                  <h3 class="h6 fw-bold mt-2 mb-1">{{ issue.issue_type }}</h3>
+                  <p class="small bo-muted mb-0">{{ issue.message }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="col-md-6">
+              <div class="p-3 rounded-4 border bg-light h-100">
+                <span class="bo-status bo-status-remove">Critical</span>
+                <h3 class="h6 fw-bold mt-2 mb-1">Missing recipe</h3>
+                <p class="small bo-muted mb-0">A product without recipe lines cannot produce trusted ingredient cost or margin.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 rounded-4 border bg-light h-100">
+                <span class="bo-status bo-status-review">Medium</span>
+                <h3 class="h6 fw-bold mt-2 mb-1">Low stock ingredient</h3>
+                <p class="small bo-muted mb-0">Unsalted butter is below reorder level before upcoming production demand.</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+
+    <div class="col-xl-4">
+      <section class="bo-card bo-card-pad mb-4">
+        <div class="bo-section-label">Weekly action cards</div>
+        <h2 class="h4 fw-bold mb-3">Recommended next decisions</h2>
+
+        {% if weekly_actions %}
+          {% for action in weekly_actions %}
+            <article class="border-bottom pb-3 mb-3">
+              <span class="bo-status bo-status-info">{{ action.priority }}</span>
+              <h3 class="h6 fw-bold mt-2 mb-1">{{ action.title }}</h3>
+              <p class="small bo-muted mb-0">{{ action.reason }}</p>
+            </article>
+          {% endfor %}
+        {% else %}
+          <article class="border-bottom pb-3 mb-3">
+            <span class="bo-status bo-status-promote">Promote</span>
+            <h3 class="h6 fw-bold mt-2 mb-1">Seasonal Fruit Gateau</h3>
+            <p class="small bo-muted mb-0">Highest waste-adjusted margin with rising demand and available stock.</p>
+          </article>
+
+          <article class="border-bottom pb-3 mb-3">
+            <span class="bo-status bo-status-review">Review</span>
+            <h3 class="h6 fw-bold mt-2 mb-1">Birthday Classic pricing</h3>
+            <p class="small bo-muted mb-0">Revenue rank is strong, but waste-adjusted margin is weak after waste is included.</p>
+          </article>
+
+          <article>
+            <span class="bo-status bo-status-review">Reorder</span>
+            <h3 class="h6 fw-bold mt-2 mb-1">Unsalted butter</h3>
+            <p class="small bo-muted mb-0">Current stock is below reorder level and upcoming production requires more supply.</p>
+          </article>
+        {% endif %}
+      </section>
+
+      <section class="bo-card bo-card-pad mb-4">
+        <div class="bo-section-label">Ingredient risk</div>
+        <h2 class="h5 fw-bold mb-3">Stock and expiry pressure</h2>
+        <div class="d-flex justify-content-between border-bottom py-2">
+          <span>Double cream</span>
+          <strong class="text-danger">Near expiry</strong>
+        </div>
+        <div class="d-flex justify-content-between border-bottom py-2">
+          <span>Unsalted butter</span>
+          <strong class="text-warning">Low stock</strong>
+        </div>
+        <div class="d-flex justify-content-between py-2">
+          <span>Fresh raspberries</span>
+          <strong class="text-warning">Use soon</strong>
+        </div>
+      </section>
+
+      <section class="bo-card bo-card-pad">
+        <div class="bo-section-label">BI-ready outputs</div>
+        <h2 class="h5 fw-bold mb-2">Export layer</h2>
+        <p class="small bo-muted">
+          V1 exports should include fact and dimension CSVs for dashboard validation and BI inspection.
+        </p>
+        <a href="{% url 'contact' %}" class="bo-secondary-btn">Review export plan</a>
+      </section>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

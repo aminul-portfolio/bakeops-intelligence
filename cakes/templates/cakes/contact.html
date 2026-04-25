@@ -1,0 +1,124 @@
+{% extends "cakes/base.html" %}
+{% load static %}
+
+{% block title %}BI Exports | BakeOps Intelligence{% endblock %}
+
+{% block content %}
+<div class="bo-page-shell">
+
+  <section class="bo-hero mb-4">
+    <div class="bo-eyebrow">BI-ready reporting layer</div>
+    <h1 class="bo-title display-6">Exports and reviewer walkthrough</h1>
+    <p class="bo-subtitle mb-0">
+      BakeOps V1 should produce stable CSV outputs so dashboard metrics can be inspected outside the app,
+      tested against source records, and reused in BI tools.
+    </p>
+  </section>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <section class="bo-card">
+        <div class="bo-card-pad border-bottom">
+          <div class="bo-section-label">Required V1 exports</div>
+          <h2 class="h4 fw-bold mb-1">BI-ready CSV files</h2>
+          <p class="bo-muted mb-0">
+            These files should be generated from the same data and metric logic used by the dashboard.
+          </p>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table bo-table">
+            <thead>
+              <tr>
+                <th>Export file</th>
+                <th>Purpose</th>
+                <th>Grain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>fact_orders.csv</code></td>
+                <td>Paid order revenue and status context</td>
+                <td>One row per order</td>
+              </tr>
+              <tr>
+                <td><code>fact_order_items.csv</code></td>
+                <td>Product quantity, line total, and item-level demand</td>
+                <td>One row per order item</td>
+              </tr>
+              <tr>
+                <td><code>fact_waste.csv</code></td>
+                <td>Waste reason, ingredient/product context, and estimated cost</td>
+                <td>One row per waste record</td>
+              </tr>
+              <tr>
+                <td><code>fact_production_batches.csv</code></td>
+                <td>Production batch output and allocation context</td>
+                <td>One row per batch line/allocation</td>
+              </tr>
+              <tr>
+                <td><code>dim_cake.csv</code></td>
+                <td>Product and category attributes</td>
+                <td>One row per cake or variant</td>
+              </tr>
+              <tr>
+                <td><code>dim_ingredient.csv</code></td>
+                <td>Ingredient, supplier, cost, stock, and reorder attributes</td>
+                <td>One row per ingredient/lot</td>
+              </tr>
+              <tr>
+                <td><code>dim_customer.csv</code></td>
+                <td>Customer and loyalty reporting dimension</td>
+                <td>One row per customer</td>
+              </tr>
+              <tr>
+                <td><code>daily_bakery_metrics.csv</code></td>
+                <td>Gold-layer KPI snapshot for dashboard validation</td>
+                <td>One row per workspace per day</td>
+              </tr>
+              <tr>
+                <td><code>product_performance_snapshot.csv</code></td>
+                <td>Revenue, cost, margin, waste-adjusted margin, ratings</td>
+                <td>One row per product/variant/period</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-lg-4">
+      <section class="bo-card bo-card-pad mb-4">
+        <div class="bo-section-label">Command target</div>
+        <h2 class="h5 fw-bold mb-3">Export command</h2>
+        <pre class="bg-dark text-light rounded-4 p-3 small mb-3"><code>python manage.py export_bi_csv</code></pre>
+        <p class="small bo-muted mb-0">
+          This command can be optional in early V1, but the export service should use the same metric definitions
+          as the dashboard to avoid reporting drift.
+        </p>
+      </section>
+
+      <section class="bo-card bo-card-pad mb-4">
+        <div class="bo-section-label">Reviewer proof</div>
+        <h2 class="h5 fw-bold mb-3">What exports prove</h2>
+        <ul class="small bo-muted mb-0">
+          <li>Dashboard values are not isolated UI numbers.</li>
+          <li>Metrics can be reused by BI/reporting tools.</li>
+          <li>Operational data is transformed into a reporting layer.</li>
+          <li>Export totals can be tested against dashboard totals.</li>
+        </ul>
+      </section>
+
+      <section class="bo-card bo-card-pad">
+        <div class="bo-section-label">Portfolio note</div>
+        <h2 class="h5 fw-bold mb-2">V1 scope boundary</h2>
+        <p class="small bo-muted mb-0">
+          V1 focuses on CSV exports. JSON, Excel, and Parquet can wait until V3 when the platform moves toward
+          commercial SaaS readiness.
+        </p>
+      </section>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

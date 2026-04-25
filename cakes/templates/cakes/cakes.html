@@ -1,0 +1,153 @@
+{% extends "cakes/base.html" %}
+{% load static %}
+
+{% block title %}Product Profitability | BakeOps Intelligence{% endblock %}
+
+{% block content %}
+<div class="bo-page-shell">
+
+  <section class="bo-hero mb-4">
+    <div class="bo-eyebrow">Product performance layer</div>
+    <h1 class="bo-title display-6">Product profitability reference</h1>
+    <p class="bo-subtitle mb-0">
+      This page keeps the useful product catalogue from the original bakery project, but reframes it for BakeOps V1:
+      each cake becomes part of the analytics model for revenue, recipe cost, waste, reviews, and margin reporting.
+    </p>
+  </section>
+
+  <section class="bo-card bo-card-pad mb-4">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="bo-kpi-label">Product records</div>
+        <div class="bo-kpi-value">{{ cakes|length|default:"20+" }}</div>
+        <div class="bo-kpi-note">Used for Cake and CakeVariant seed data</div>
+      </div>
+      <div class="col-md-3">
+        <div class="bo-kpi-label">Signature test</div>
+        <div class="bo-kpi-value">Rank gap</div>
+        <div class="bo-kpi-note">Revenue rank vs waste-adjusted margin rank</div>
+      </div>
+      <div class="col-md-3">
+        <div class="bo-kpi-label">Costing input</div>
+        <div class="bo-kpi-value">Recipes</div>
+        <div class="bo-kpi-note">Each product must map to recipe lines</div>
+      </div>
+      <div class="col-md-3">
+        <div class="bo-kpi-label">V1 action</div>
+        <div class="bo-kpi-value">Flag</div>
+        <div class="bo-kpi-note">Promote, Stable, Review, or Remove</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bo-card">
+    <div class="bo-card-pad border-bottom">
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2 align-items-md-center">
+        <div>
+          <div class="bo-section-label">Seed catalogue</div>
+          <h2 class="h4 fw-bold mb-1">Products to convert into analytics-ready seed data</h2>
+          <p class="bo-muted mb-0">
+            Keep the image and catalogue content, but add recipes, ingredients, waste records, reviews, and production context.
+          </p>
+        </div>
+        <span class="bo-status bo-status-info">V1 seed input</span>
+      </div>
+    </div>
+
+    <div class="bo-card-pad">
+      {% if cakes %}
+        <div class="row g-4">
+          {% for cake in cakes %}
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+              <article class="bo-card h-100 overflow-hidden">
+                {% if cake.image %}
+                  <img src="{{ cake.image.url }}" alt="{{ cake.name }}" class="w-100" style="height: 170px; object-fit: cover;">
+                {% else %}
+                  <div class="bg-light d-grid place-items-center" style="height: 170px;">
+                    <span class="bo-muted">No image</span>
+                  </div>
+                {% endif %}
+                <div class="bo-card-pad">
+                  <h3 class="h6 fw-bold mb-1">{{ cake.name }}</h3>
+                  <p class="small bo-muted mb-2">
+                    {{ cake.short_description|default:"Catalogue item ready for BakeOps seed data." }}
+                  </p>
+
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    {% if forloop.counter == 1 %}
+                      <span class="bo-status bo-status-review">Review</span>
+                    {% elif forloop.counter == 2 %}
+                      <span class="bo-status bo-status-promote">Promote</span>
+                    {% elif forloop.counter == 3 %}
+                      <span class="bo-status bo-status-stable">Stable</span>
+                    {% else %}
+                      <span class="bo-status bo-status-info">Seed item</span>
+                    {% endif %}
+                  </div>
+
+                  {% if cake.slug %}
+                    <a href="{% url 'cake_detail' slug=cake.slug %}" class="bo-secondary-btn d-inline-flex">
+                      Inspect product
+                    </a>
+                  {% endif %}
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-3">
+            <article class="bo-card bo-card-pad h-100">
+              <span class="bo-status bo-status-review">Review</span>
+              <h3 class="h5 fw-bold mt-3">Birthday Classic</h3>
+              <p class="bo-muted small">High revenue, weak waste-adjusted margin. This is the signature V1 insight.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="bo-card bo-card-pad h-100">
+              <span class="bo-status bo-status-promote">Promote</span>
+              <h3 class="h5 fw-bold mt-3">Seasonal Fruit Gateau</h3>
+              <p class="bo-muted small">Lower revenue but strong adjusted margin and clear promotion potential.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="bo-card bo-card-pad h-100">
+              <span class="bo-status bo-status-stable">Stable</span>
+              <h3 class="h5 fw-bold mt-3">Wedding Tier Cake</h3>
+              <p class="bo-muted small">Premium product with stable profitability and lower waste pressure.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="bo-card bo-card-pad h-100">
+              <span class="bo-status bo-status-remove">Remove</span>
+              <h3 class="h5 fw-bold mt-3">Everyday Victoria</h3>
+              <p class="bo-muted small">Low demand and weak adjusted margin after ingredient and waste cost.</p>
+            </article>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="bo-card bo-card-pad mt-4">
+    <div class="bo-section-label">Implementation note</div>
+    <h2 class="h5 fw-bold mb-2">What to add beyond the catalogue</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <strong>Recipe costing</strong>
+        <p class="small bo-muted mb-0">Each CakeVariant needs Recipe and RecipeLine records for ingredient-cost calculation.</p>
+      </div>
+      <div class="col-md-4">
+        <strong>Waste records</strong>
+        <p class="small bo-muted mb-0">WasteRecord should connect product, batch, ingredient, reason, and estimated cost.</p>
+      </div>
+      <div class="col-md-4">
+        <strong>Gold snapshots</strong>
+        <p class="small bo-muted mb-0">ProductPerformanceSnapshot should power the dashboard and export layer.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
