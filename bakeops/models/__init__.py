@@ -1,7 +1,33 @@
+from .workspace import StaffMember, Workspace
+from .catalog import CakeReview, Customer, LoyaltyAccount, OccasionType
+from .orders import BakeryOrder, BakeryOrderItem, DeliverySlot
+from .ingredients import Ingredient, IngredientLot, Supplier
+from .production import (
+    BatchAllocation,
+    ProductionBatch,
+    ProductionBatchLine,
+    Recipe,
+    RecipeLine,
+    WasteRecord,
+)
 
-"""
-Model package for the BakeOps analytics layer.
-
-Sprint 2 intentionally keeps this package as planning-only.
-Real database models will be added in the next model-building sprint.
-"""
+__all__ = [
+    "Workspace",
+    "StaffMember",
+    "Customer",
+    "LoyaltyAccount",
+    "CakeReview",
+    "OccasionType",
+    "DeliverySlot",
+    "BakeryOrder",
+    "BakeryOrderItem",
+    "Supplier",
+    "Ingredient",
+    "IngredientLot",
+    "Recipe",
+    "RecipeLine",
+    "ProductionBatch",
+    "ProductionBatchLine",
+    "BatchAllocation",
+    "WasteRecord",
+]
