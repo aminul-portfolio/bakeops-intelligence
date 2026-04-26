@@ -350,7 +350,10 @@
                 <small>BakeOps Intelligence</small>
                 <strong>Bakery Operations Analytics</strong>
             </div>
-            <a class="nav-pill" href="/">← Back to catalogue</a>
+            <div class="badge-row" style="margin-top: 0;">
+                <a class="nav-pill" href="{% url 'bakeops:product-profitability' %}">Product profitability →</a>
+                <a class="nav-pill" href="/">← Back to catalogue</a>
+            </div>
         </header>
 
         {% if latest_metric %}

@@ -8,4 +8,5 @@ app_name = "bakeops"
 
 urlpatterns = [
     path("", views.analytics_dashboard, name="analytics-dashboard"),
+    path("products/", views.product_profitability, name="product-profitability"),
 ]
