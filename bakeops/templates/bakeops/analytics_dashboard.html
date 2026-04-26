@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BakeOps Intelligence — Analytics Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --bg: #111827;
+            --panel: #1f2937;
+            --panel-soft: #273449;
+            --text: #f9fafb;
+            --muted: #9ca3af;
+            --line: rgba(255, 255, 255, 0.1);
+            --good: #22c55e;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --info: #38bdf8;
+            --accent: #f97316;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 34rem),
+                radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 30rem),
+                var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+            padding: 16px 0 28px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand small {
+            color: var(--muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .brand strong {
+            font-size: 1.25rem;
+        }
+
+        .nav-pill {
+            border: 1px solid var(--line);
+            background: rgba(31, 41, 55, 0.8);
+            padding: 10px 14px;
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            background: rgba(31, 41, 55, 0.86);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1;
+            margin: 12px 0;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-copy {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 720px;
+            line-height: 1.65;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .badge.orange {
+            color: #fed7aa;
+            border-color: rgba(249, 115, 22, 0.35);
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 800;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            margin-top: 8px;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+        }
+
+        .kpi-foot {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: end;
+            margin: 28px 0 14px;
+        }
+
+        .section-head h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .section-head p {
+            margin: 5px 0 0;
+            color: var(--muted);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+            background: rgba(31, 41, 55, 0.72);
+        }
+
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        td {
+            font-size: 0.95rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr.signature {
+            background: rgba(249, 115, 22, 0.13);
+        }
+
+        .rank {
+            font-weight: 900;
+            font-size: 1rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            padding: 5px 9px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .pill.review,
+        .pill.warning,
+        .pill.high {
+            color: #fed7aa;
+            background: rgba(249, 115, 22, 0.13);
+            border-color: rgba(249, 115, 22, 0.38);
+        }
+
+        .pill.promote,
+        .pill.success,
+        .pill.low {
+            color: #bbf7d0;
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.34);
+        }
+
+        .pill.critical,
+        .pill.error {
+            color: #fecaca;
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.34);
+        }
+
+        .pill.info,
+        .pill.medium {
+            color: #bae6fd;
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.34);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .action-card h3 {
+            margin: 10px 0 8px;
+            font-size: 1rem;
+        }
+
+        .action-card p {
+            margin: 0 0 8px;
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 0.92rem;
+        }
+
+        .empty {
+            border: 1px dashed var(--line);
+            color: var(--muted);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .code {
+            display: inline-block;
+            font-family: Consolas, Monaco, monospace;
+            color: #fed7aa;
+            background: rgba(249, 115, 22, 0.12);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            border-radius: 8px;
+            padding: 2px 6px;
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        @media (max-width: 960px) {
+            .hero,
+            .two-col,
+            .three-col,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="shell">
+        <header class="topbar">
+            <div class="brand">
+                <small>BakeOps Intelligence</small>
+                <strong>Bakery Operations Analytics</strong>
+            </div>
+            <a class="nav-pill" href="/">← Back to catalogue</a>
+        </header>
+
+        {% if latest_metric %}
+            <section class="hero">
+                <div class="card">
+                    <span class="badge orange">V1 Analytics Dashboard</span>
+                    <h1 class="hero-title">Waste-adjusted profitability for bakery decisions.</h1>
+                    <p class="hero-copy">
+                        This dashboard is powered by real seeded operational data and gold-layer metric snapshots.
+                        It connects orders, recipes, ingredient costs, production output, waste, customer loyalty,
+                        and data quality into decision-ready bakery intelligence.
+                    </p>
+
+                    <div class="badge-row">
+                        <span class="badge">Workspace: {{ workspace.name }}</span>
+                        <span class="badge">Snapshot: {{ snapshot_date }}</span>
+                        <span class="badge">Source: Gold-layer snapshots</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="kpi-label">Last Metric Build</div>
+                    {% if last_run_log %}
+                        <div class="kpi-value">{{ last_run_log.get_status_display }}</div>
+                        <div class="kpi-foot">
+                            Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
+                            Rows processed: {{ last_run_log.rows_processed }}<br>
+                            Snapshots: {{ last_run_log.snapshots_created }} · Issues: {{ last_run_log.issues_created }}
+                        </div>
+                    {% else %}
+                        <div class="kpi-value">No run log</div>
+                        <div class="kpi-foot">Run <span class="code">python manage.py build_bakery_metrics</span></div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <section class="grid-4">
+                <div class="card">
+                    <div class="kpi-label">Revenue</div>
+                    <div class="kpi-value">£{{ latest_metric.revenue }}</div>
+                    <div class="kpi-foot">{{ latest_metric.paid_orders }} paid / fulfilled orders</div>
+                </div>
+
+                <div class="card">
+                    <div class="kpi-label">Average Order Value</div>
+                    <div class="kpi-value">£{{ latest_metric.average_order_value }}</div>
+                    <div class="kpi-foot">{{ latest_metric.total_items_sold }} items sold</div>
+                </div>
+
+                <div class="card">
+                    <div class="kpi-label">Gross Margin</div>
+                    <div class="kpi-value">£{{ latest_metric.gross_margin }}</div>
+                    <div class="kpi-foot">{{ latest_metric.gross_margin_percent }}% before waste</div>
+                </div>
+
+                <div class="card">
+                    <div class="kpi-label">Waste-adjusted Margin</div>
+                    <div class="kpi-value">£{{ latest_metric.waste_adjusted_margin }}</div>
+                    <div class="kpi-foot">{{ latest_metric.waste_adjusted_margin_percent }}% after waste</div>
+                </div>
+            </section>
+
+            {% if signature_product %}
+                <section class="card section">
+                    <span class="badge orange">Signature Insight</span>
+                    <h2>{{ signature_product.cake.name }} is the best seller, but not the strongest margin product.</h2>
+                    <p class="hero-copy">
+                        {{ signature_product.cake.name }} is revenue rank
+                        <strong>#{{ signature_product.revenue_rank }}</strong>, but drops to
+                        waste-adjusted margin rank
+                        <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
+                        after ingredient cost and waste are included.
+                    </p>
+                </section>
+            {% endif %}
+
+            <section class="section">
+                <div class="section-head">
+                    <div>
+                        <h2>Product Profitability</h2>
+                        <p>Revenue rank vs waste-adjusted margin rank.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Revenue</th>
+                                <th>Revenue Rank</th>
+                                <th>Ingredient Cost</th>
+                                <th>Waste Cost</th>
+                                <th>Waste-adjusted Margin</th>
+                                <th>Margin Rank</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in product_snapshots %}
+                                <tr class="{% if signature_product and product.id == signature_product.id %}signature{% endif %}">
+                                    <td>
+                                        <strong>{{ product.cake.name }}</strong><br>
+                                        <span style="color: var(--muted);">{{ product.variant|default:"Default variant" }}</span>
+                                    </td>
+                                    <td>£{{ product.revenue }}</td>
+                                    <td><span class="rank">#{{ product.revenue_rank }}</span></td>
+                                    <td>£{{ product.ingredient_cost }}</td>
+                                    <td>£{{ product.waste_cost }}</td>
+                                    <td>
+                                        £{{ product.waste_adjusted_margin }}<br>
+                                        <span style="color: var(--muted);">{{ product.waste_adjusted_margin_percent }}%</span>
+                                    </td>
+                                    <td><span class="rank">#{{ product.waste_adjusted_margin_rank }}</span></td>
+                                    <td>
+                                        <span class="pill {{ product.action_flag }}">{{ product.get_action_flag_display }}</span><br>
+                                        <span style="color: var(--muted); font-size: 0.84rem;">{{ product.action_reason }}</span>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="8">No product snapshots found.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-head">
+                    <div>
+                        <h2>Weekly Action Cards</h2>
+                        <p>Actions generated from product margin, ingredient risk, and data quality signals.</p>
+                    </div>
+                </div>
+
+                <div class="three-col">
+                    {% for action in weekly_actions %}
+                        <div class="action-card">
+                            <span class="pill {{ action.priority|lower }}">{{ action.priority }}</span>
+                            <h3>{{ action.title }}</h3>
+                            <p><strong>Metric:</strong> {{ action.metric }}</p>
+                            <p><strong>Reason:</strong> {{ action.reason }}</p>
+                            <p><strong>Suggested action:</strong> {{ action.action }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="section two-col">
+                <div class="card">
+                    <div class="section-head" style="margin-top: 0;">
+                        <div>
+                            <h2>Ingredient Risk</h2>
+                            <p>Low stock and near-expiry signals.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table style="min-width: 620px;">
+                            <thead>
+                                <tr>
+                                    <th>Ingredient</th>
+                                    <th>Risk</th>
+                                    <th>Stock</th>
+                                    <th>Reorder</th>
+                                    <th>Nearest Expiry</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in ingredient_risks %}
+                                    <tr>
+                                        <td>{{ item.ingredient.name }}</td>
+                                        <td><span class="pill {{ item.stock_risk_level }}">{{ item.get_stock_risk_level_display }}</span></td>
+                                        <td>{{ item.current_stock_quantity }}</td>
+                                        <td>{{ item.reorder_level_quantity }}</td>
+                                        <td>{{ item.nearest_expiry_date|default:"—" }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5">No ingredient risks found.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="section-head" style="margin-top: 0;">
+                        <div>
+                            <h2>Data Quality Issues</h2>
+                            <p>Open trust issues from the latest build.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table style="min-width: 620px;">
+                            <thead>
+                                <tr>
+                                    <th>Issue</th>
+                                    <th>Severity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for issue in data_quality_issues %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ issue.title }}</strong><br>
+                                            <span style="color: var(--muted);">{{ issue.get_issue_type_display }}</span>
+                                        </td>
+                                        <td><span class="pill {{ issue.severity }}">{{ issue.get_severity_display }}</span></td>
+                                        <td>{{ issue.get_status_display }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="3">No open data quality issues found.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section two-col">
+                <div class="card">
+                    <div class="section-head" style="margin-top: 0;">
+                        <div>
+                            <h2>Occasion Demand</h2>
+                            <p>Demand and revenue by occasion.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table style="min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th>Occasion</th>
+                                    <th>Orders</th>
+                                    <th>Revenue</th>
+                                    <th>Upcoming</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for occasion in occasion_snapshots %}
+                                    <tr>
+                                        <td>{{ occasion.occasion.name }}</td>
+                                        <td>{{ occasion.order_count }}</td>
+                                        <td>£{{ occasion.revenue }}</td>
+                                        <td>{{ occasion.upcoming_order_count }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4">No occasion snapshots found.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="section-head" style="margin-top: 0;">
+                        <div>
+                            <h2>Customer Loyalty</h2>
+                            <p>Top customer value and loyalty context.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table style="min-width: 620px;">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Orders</th>
+                                    <th>Revenue</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for customer in customer_snapshots %}
+                                    <tr>
+                                        <td>{{ customer.customer.full_name }}</td>
+                                        <td>{{ customer.total_orders }}</td>
+                                        <td>£{{ customer.total_revenue }}</td>
+                                        <td>{{ customer.current_points_balance }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4">No customer snapshots found.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card section">
+                <span class="badge">BI Export Status</span>
+                <h2>CSV export action is planned for Sprint 9.</h2>
+                <p class="hero-copy">
+                    This dashboard is already reading from stable gold-layer snapshot tables.
+                    In Sprint 9, these same records will power BI-ready CSV exports.
+                </p>
+            </section>
+        {% else %}
+            <section class="card">
+                <span class="badge orange">No Metrics Yet</span>
+                <h1 class="hero-title">Build metrics to activate the dashboard.</h1>
+                <p class="hero-copy">
+                    No `DailyBakeryMetric` record was found. Run these commands first:
+                </p>
+
+                <p>
+                    <span class="code">python manage.py seed_demo_data --reset</span>
+                </p>
+                <p>
+                    <span class="code">python manage.py build_bakery_metrics</span>
+                </p>
+            </section>
+        {% endif %}
+
+        <p class="footer-note">
+            BakeOps Intelligence V1 · Analytics dashboard powered by seeded operational data and gold-layer metrics.
+        </p>
+    </main>
+</body>
+</html>
