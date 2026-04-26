@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.db.models import Sum
 from django.shortcuts import render
+from bakeops.services.exports import EXPORT_FILE_NAMES
 
 from .models import (
     BakeryMetricRunLog,
@@ -505,6 +506,7 @@ def _get_ingredient_risk_legend():
             "meaning": "Stock is currently above reorder level.",
         },
     ]
+
 def waste_analysis(request):
     latest_metric = (
         DailyBakeryMetric.objects.select_related("workspace")
@@ -751,6 +753,7 @@ def _get_waste_reason_recommended_action(reason):
         reason,
         "Review the waste record and decide whether process controls need improvement.",
     )
+
 def occasion_analytics(request):
     latest_metric = (
         DailyBakeryMetric.objects.select_related("workspace")
@@ -1092,6 +1095,7 @@ def _get_customer_recommended_action(snapshot):
     return (
         "Continue monitoring customer value after the next metric build."
     )
+
 def data_quality_review(request):
     latest_metric = (
         DailyBakeryMetric.objects.select_related("workspace")
@@ -1303,6 +1307,193 @@ def _summarise_data_quality_rows(rows, key, label_key):
             item["label"],
         ),
     )
+
+def export_centre(request):
+    latest_metric = (
+        DailyBakeryMetric.objects.select_related("workspace")
+        .order_by("-metric_date")
+        .first()
+    )
+
+    workspace = latest_metric.workspace if latest_metric else None
+    snapshot_date = latest_metric.metric_date if latest_metric else None
+
+    export_cards = _build_export_contract_cards()
+    fact_exports = [card for card in export_cards if card["layer"] == "Fact"]
+    dimension_exports = [card for card in export_cards if card["layer"] == "Dimension"]
+    gold_exports = [card for card in export_cards if card["layer"] == "Gold"]
+
+    context = {
+        "latest_metric": latest_metric,
+        "workspace": workspace,
+        "snapshot_date": snapshot_date,
+        "export_cards": export_cards,
+        "fact_exports": fact_exports,
+        "dimension_exports": dimension_exports,
+        "gold_exports": gold_exports,
+        "export_count": len(export_cards),
+        "fact_export_count": len(fact_exports),
+        "dimension_export_count": len(dimension_exports),
+        "gold_export_count": len(gold_exports),
+        "export_command": "python manage.py export_bi_csv",
+        "output_folder": "exports/",
+        "contract_principles": _get_export_contract_principles(),
+    }
+
+    return render(request, "bakeops/export_centre.html", context)
+
+
+def _build_export_contract_cards():
+    contract = {
+        "fact_orders": {
+            "title": "Fact Orders",
+            "layer": "Fact",
+            "source_model": "Order",
+            "purpose": "Order-level sales facts for BI reporting and revenue analysis.",
+            "contains": "Order number, customer, occasion, order status, channel, totals, loyalty usage, and delivery information.",
+            "use_case": "Use this as the main sales fact table for dashboards, order trend analysis, and customer/occasion revenue reporting.",
+        },
+        "fact_order_items": {
+            "title": "Fact Order Items",
+            "layer": "Fact",
+            "source_model": "OrderItem",
+            "purpose": "Line-level product sales facts for product mix and quantity analysis.",
+            "contains": "Order item rows linked to cake, variant, quantity, unit price, and line total.",
+            "use_case": "Use this to analyse which cakes and variants drive volume, revenue, and order composition.",
+        },
+        "fact_waste": {
+            "title": "Fact Waste",
+            "layer": "Fact",
+            "source_model": "WasteRecord",
+            "purpose": "Operational waste facts for cost leakage and process review.",
+            "contains": "Waste reason, linked product or ingredient, quantity, estimated cost, and operational notes.",
+            "use_case": "Use this to explain how waste reduces true profitability and where process controls may be needed.",
+        },
+        "fact_production_batches": {
+            "title": "Fact Production Batches",
+            "layer": "Fact",
+            "source_model": "ProductionBatch",
+            "purpose": "Production output facts for batch planning and fulfilment review.",
+            "contains": "Recipe, planned quantity, produced quantity, failed quantity, production status, and production timing.",
+            "use_case": "Use this to compare planned production against actual output and detect production risk.",
+        },
+        "dim_cake": {
+            "title": "Dim Cake",
+            "layer": "Dimension",
+            "source_model": "Cake",
+            "purpose": "Product dimension table for joining product facts to cake catalogue attributes.",
+            "contains": "Cake identity, name, category, price, active status, and catalogue metadata.",
+            "use_case": "Use this as the product lookup table for fact order items and product performance reporting.",
+        },
+        "dim_ingredient": {
+            "title": "Dim Ingredient",
+            "layer": "Dimension",
+            "source_model": "Ingredient",
+            "purpose": "Ingredient dimension table for stock, supplier, and recipe analysis.",
+            "contains": "Ingredient name, unit, supplier, current stock, reorder level, and cost information.",
+            "use_case": "Use this to connect stock risk, recipe costing, supplier review, and ingredient-level waste.",
+        },
+        "dim_customer": {
+            "title": "Dim Customer",
+            "layer": "Dimension",
+            "source_model": "Customer",
+            "purpose": "Customer dimension table for customer value and loyalty reporting.",
+            "contains": "Customer name, contact identity, loyalty state, and customer metadata.",
+            "use_case": "Use this to join order facts to customer-level revenue and loyalty analysis.",
+        },
+        "dim_occasion": {
+            "title": "Dim Occasion",
+            "layer": "Dimension",
+            "source_model": "OccasionType",
+            "purpose": "Occasion dimension table for demand planning and event-driven sales analysis.",
+            "contains": "Occasion name, description, and tracking metadata.",
+            "use_case": "Use this to group orders and revenue by birthday, wedding, anniversary, and everyday demand.",
+        },
+        "dim_collection": {
+            "title": "Dim Collection",
+            "layer": "Dimension",
+            "source_model": "CakeCollection",
+            "purpose": "Collection dimension table for catalogue grouping and merchandising analysis.",
+            "contains": "Collection label, slug, display metadata, and linked catalogue grouping information.",
+            "use_case": "Use this to understand how cake collections support browsing, merchandising, and product grouping.",
+        },
+        "daily_bakery_metrics": {
+            "title": "Daily Bakery Metrics",
+            "layer": "Gold",
+            "source_model": "DailyBakeryMetric",
+            "purpose": "Gold-layer daily KPI table for trusted bakery performance reporting.",
+            "contains": "Revenue, paid orders, gross margin, waste cost, waste-adjusted margin, average order value, and KPI totals.",
+            "use_case": "Use this as the executive-level KPI table for BI dashboards and metric parity checks.",
+        },
+        "product_performance_snapshot": {
+            "title": "Product Performance Snapshot",
+            "layer": "Gold",
+            "source_model": "ProductPerformanceSnapshot",
+            "purpose": "Gold-layer product profitability snapshot used by the V1 and V2 product pages.",
+            "contains": "Product revenue, quantity, gross margin, waste cost, waste-adjusted margin, ranks, and action flag.",
+            "use_case": "Use this to prove the signature insight: Birthday Classic sells most but needs review after waste-adjusted margin.",
+        },
+    }
+
+    cards = []
+
+    for key, file_name in EXPORT_FILE_NAMES.items():
+        details = contract.get(
+            key,
+            {
+                "title": key.replace("_", " ").title(),
+                "layer": "Other",
+                "source_model": "Unknown",
+                "purpose": "Export file generated by the BI export service.",
+                "contains": "Unknown. Review the export service fieldnames before relying on this contract.",
+                "use_case": "Review before using in external BI reporting.",
+            },
+        )
+
+        cards.append(
+            {
+                "key": key,
+                "file_name": file_name,
+                **details,
+            }
+        )
+
+    layer_order = {
+        "Fact": 1,
+        "Dimension": 2,
+        "Gold": 3,
+        "Other": 4,
+    }
+
+    return sorted(
+        cards,
+        key=lambda card: (
+            layer_order.get(card["layer"], 99),
+            card["file_name"],
+        ),
+    )
+
+
+def _get_export_contract_principles():
+    return [
+        {
+            "title": "Stable file names",
+            "description": "Export files use predictable CSV names so reviewers and BI tools can reconnect consistently.",
+        },
+        {
+            "title": "Facts and dimensions separated",
+            "description": "Operational events are exported as fact tables, while catalogue, customer, ingredient, and occasion lookups are exported as dimensions.",
+        },
+        {
+            "title": "Gold-layer snapshots included",
+            "description": "Daily metrics and product performance snapshots are exported from the same trusted layer used by the analytics dashboard.",
+        },
+        {
+            "title": "Generated by command",
+            "description": "Exports are generated with python manage.py export_bi_csv and written to the project exports/ folder.",
+        },
+    ]
+
 def _find_signature_product(product_snapshots):
     for product in product_snapshots:
         if (

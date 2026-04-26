@@ -439,3 +439,64 @@ class BakeOpsDashboardViewTests(TestCase):
 
         self.assertEqual(url, "/analytics/data-quality/")
         self.assertEqual(match.func, views.data_quality_review)
+
+    def test_export_centre_view_builds_context(self):
+        request = self.factory.get("/analytics/exports/")
+        captured = {}
+
+        def fake_render(request, template_name, context):
+            captured["template_name"] = template_name
+            captured["context"] = context
+
+            return HttpResponse(
+                "Export Centre BI-ready exports with a visible contract.",
+                status=200,
+            )
+
+        with patch("bakeops.views.render", side_effect=fake_render):
+            response = views.export_centre(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            captured["template_name"],
+            "bakeops/export_centre.html",
+        )
+
+        context = captured["context"]
+
+        self.assertIsNotNone(context["latest_metric"])
+        self.assertIsNotNone(context["workspace"])
+        self.assertIsNotNone(context["snapshot_date"])
+        self.assertEqual(context["export_count"], 11)
+        self.assertEqual(context["fact_export_count"], 4)
+        self.assertEqual(context["dimension_export_count"], 5)
+        self.assertEqual(context["gold_export_count"], 2)
+        self.assertEqual(context["export_command"], "python manage.py export_bi_csv")
+        self.assertEqual(context["output_folder"], "exports/")
+        self.assertGreater(len(context["export_cards"]), 0)
+        self.assertGreater(len(context["contract_principles"]), 0)
+
+        file_names = {
+            card["file_name"]
+            for card in context["export_cards"]
+        }
+
+        self.assertIn("fact_orders.csv", file_names)
+        self.assertIn("product_performance_snapshot.csv", file_names)
+
+    @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
+    def test_export_centre_page_loads(self):
+        response = self.client.get(reverse("bakeops:export-centre"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "BI-ready exports with a visible contract.")
+        self.assertContains(response, "python manage.py export_bi_csv")
+        self.assertContains(response, "fact_orders.csv")
+        self.assertContains(response, "product_performance_snapshot.csv")
+
+    def test_export_centre_route_is_correct(self):
+        url = reverse("bakeops:export-centre")
+        match = resolve(url)
+
+        self.assertEqual(url, "/analytics/exports/")
+        self.assertEqual(match.func, views.export_centre)
