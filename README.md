@@ -10,13 +10,13 @@ It transforms bakery catalogue, customer, order, ingredient, recipe, production,
 
 ```text
 V1 = Works
-V2 = Trusted - in progress
+V2 = Trusted
 V3 = Commercial - planned
 ```
 
 V1 delivered a working analytics dashboard powered by seeded operational data and a repeatable metric build command.
 
-V2 adds deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, and data lineage documentation.
+V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, and final release verification.
 
 ---
 
@@ -127,6 +127,7 @@ Birthday Classic 1 4 review
 | `docs/REVIEWER_WALKTHROUGH.md` | Reviewer path for running the demo and validating the project |
 | `docs/METRIC_GOVERNANCE.md` | Explains the metric build process, gold-layer snapshots, run logging, and verification commands |
 | `docs/LINEAGE.md` | Explains the data lineage from seeded operational records to analytics pages and BI exports |
+| `docs/V2_RELEASE_CHECKLIST.md` | Final V2 release checklist covering tests, routes, metrics, exports, documentation, and Git hygiene |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
