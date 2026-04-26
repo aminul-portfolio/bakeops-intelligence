@@ -374,3 +374,68 @@ class BakeOpsDashboardViewTests(TestCase):
 
         self.assertEqual(url, "/analytics/customers/")
         self.assertEqual(match.func, views.customer_analytics)
+
+    def test_data_quality_review_view_builds_context(self):
+        request = self.factory.get("/analytics/data-quality/")
+        captured = {}
+
+        def fake_render(request, template_name, context):
+            captured["template_name"] = template_name
+            captured["context"] = context
+
+            return HttpResponse(
+                "Data Quality Review DataQualityIssue Ingredient below reorder level: Butter",
+                status=200,
+            )
+
+        with patch("bakeops.views.render", side_effect=fake_render):
+            response = views.data_quality_review(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            captured["template_name"],
+            "bakeops/data_quality_review.html",
+        )
+
+        context = captured["context"]
+
+        self.assertIsNotNone(context["latest_metric"])
+        self.assertIsNotNone(context["workspace"])
+        self.assertIsNotNone(context["snapshot_date"])
+        self.assertEqual(context["total_issue_count"], 12)
+        self.assertEqual(context["open_issue_count"], 12)
+        self.assertEqual(context["warning_issue_count"], 11)
+        self.assertEqual(context["info_issue_count"], 1)
+        self.assertGreaterEqual(context["high_priority_issue_count"], 1)
+        self.assertGreater(len(context["issue_rows"]), 0)
+        self.assertGreater(len(context["open_issue_rows"]), 0)
+        self.assertGreater(len(context["severity_summary"]), 0)
+        self.assertGreater(len(context["issue_type_summary"]), 0)
+        self.assertGreater(len(context["status_summary"]), 0)
+
+        top_issue = context["top_issue"]
+
+        self.assertIsNotNone(top_issue)
+        self.assertEqual(top_issue["issue"].status, "open")
+        self.assertEqual(top_issue["severity_label"], "Warning")
+        self.assertTrue(top_issue["is_high_priority"])
+
+    @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
+    def test_data_quality_review_page_loads(self):
+        response = self.client.get(reverse("bakeops:data-quality-review"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Trusted metrics need visible data quality evidence.",
+        )
+        self.assertContains(response, "DataQualityIssue")
+        self.assertContains(response, "Ingredient below reorder level: Butter")
+        self.assertContains(response, "Data Quality Issue Register")
+
+    def test_data_quality_review_route_is_correct(self):
+        url = reverse("bakeops:data-quality-review")
+        match = resolve(url)
+
+        self.assertEqual(url, "/analytics/data-quality/")
+        self.assertEqual(match.func, views.data_quality_review)

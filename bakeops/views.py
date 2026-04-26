@@ -1092,7 +1092,217 @@ def _get_customer_recommended_action(snapshot):
     return (
         "Continue monitoring customer value after the next metric build."
     )
+def data_quality_review(request):
+    latest_metric = (
+        DailyBakeryMetric.objects.select_related("workspace")
+        .order_by("-metric_date")
+        .first()
+    )
 
+    workspace = latest_metric.workspace if latest_metric else None
+    snapshot_date = latest_metric.metric_date if latest_metric else None
+
+    issues = []
+    issue_rows = []
+    open_issue_rows = []
+    top_issue = None
+    severity_summary = []
+    issue_type_summary = []
+    status_summary = []
+
+    total_issue_count = 0
+    open_issue_count = 0
+    warning_issue_count = 0
+    info_issue_count = 0
+    high_priority_issue_count = 0
+
+    if workspace:
+        issues = list(
+            DataQualityIssue.objects.filter(workspace=workspace)
+            .order_by("-detected_at", "severity", "issue_type", "title")
+        )
+
+        issue_rows = _build_data_quality_issue_rows(issues)
+
+        open_issue_rows = [
+            row
+            for row in issue_rows
+            if row["issue"].status == DataQualityIssue.STATUS_OPEN
+        ]
+
+        total_issue_count = len(issue_rows)
+        open_issue_count = len(open_issue_rows)
+
+        warning_issue_count = sum(
+            1
+            for row in issue_rows
+            if row["severity_label"] == "Warning"
+        )
+
+        info_issue_count = sum(
+            1
+            for row in issue_rows
+            if row["severity_label"] == "Info"
+        )
+
+        high_priority_issue_count = sum(
+            1
+            for row in issue_rows
+            if row["is_high_priority"]
+        )
+
+        severity_summary = _summarise_data_quality_rows(
+            rows=issue_rows,
+            key="severity_label",
+            label_key="severity_label",
+        )
+
+        issue_type_summary = _summarise_data_quality_rows(
+            rows=issue_rows,
+            key="issue_type_label",
+            label_key="issue_type_label",
+        )
+
+        status_summary = _summarise_data_quality_rows(
+            rows=issue_rows,
+            key="status_label",
+            label_key="status_label",
+        )
+
+        top_issue = open_issue_rows[0] if open_issue_rows else None
+
+    context = {
+        "latest_metric": latest_metric,
+        "workspace": workspace,
+        "snapshot_date": snapshot_date,
+        "issue_rows": issue_rows,
+        "open_issue_rows": open_issue_rows,
+        "top_issue": top_issue,
+        "severity_summary": severity_summary,
+        "issue_type_summary": issue_type_summary,
+        "status_summary": status_summary,
+        "total_issue_count": total_issue_count,
+        "open_issue_count": open_issue_count,
+        "warning_issue_count": warning_issue_count,
+        "info_issue_count": info_issue_count,
+        "high_priority_issue_count": high_priority_issue_count,
+    }
+
+    return render(request, "bakeops/data_quality_review.html", context)
+
+
+def _build_data_quality_issue_rows(issues):
+    rows = []
+
+    for issue in issues:
+        severity_label = issue.get_severity_display()
+        issue_type_label = issue.get_issue_type_display()
+        status_label = issue.get_status_display()
+
+        rows.append(
+            {
+                "issue": issue,
+                "severity_label": severity_label,
+                "issue_type_label": issue_type_label,
+                "status_label": status_label,
+                "is_open": issue.status == DataQualityIssue.STATUS_OPEN,
+                "is_high_priority": _is_high_priority_data_quality_issue(issue),
+                "trust_impact": _get_data_quality_trust_impact(issue),
+                "review_action": _get_data_quality_review_action(issue),
+            }
+        )
+
+    return sorted(
+        rows,
+        key=lambda row: (
+            0 if row["is_high_priority"] else 1,
+            0 if row["is_open"] else 1,
+            row["severity_label"],
+            row["issue_type_label"],
+            row["issue"].title,
+        ),
+    )
+
+
+def _is_high_priority_data_quality_issue(issue):
+    severity_label = issue.get_severity_display()
+
+    return (
+        issue.status == DataQualityIssue.STATUS_OPEN
+        and severity_label in {"Critical", "Warning"}
+    )
+
+
+def _get_data_quality_trust_impact(issue):
+    issue_type_label = issue.get_issue_type_display()
+
+    if issue_type_label == "Ingredient below reorder level":
+        return (
+            "Ingredient risk can affect production continuity and stock planning."
+        )
+
+    if issue_type_label == "Ingredient lot close to expiry":
+        return (
+            "Near-expiry lots can increase waste risk if not reviewed before production."
+        )
+
+    if issue_type_label == "Production batch under-produced vs demand":
+        return (
+            "Under-production can make demand, allocation, and fulfilment metrics less reliable."
+        )
+
+    if issue_type_label == "Production output not allocated to orders":
+        return (
+            "Unallocated output can make production yield and sales fulfilment harder to explain."
+        )
+
+    return (
+        "This issue should be reviewed before relying on the affected metric area."
+    )
+
+
+def _get_data_quality_review_action(issue):
+    if issue.suggested_action:
+        return issue.suggested_action
+
+    issue_type_label = issue.get_issue_type_display()
+
+    if issue_type_label == "Ingredient below reorder level":
+        return "Review supplier lead time and reorder this ingredient."
+
+    if issue_type_label == "Ingredient lot close to expiry":
+        return "Use this lot in planned production or reduce future purchasing."
+
+    if issue_type_label == "Production batch under-produced vs demand":
+        return "Review failed quantity, production planning, and recipe execution."
+
+    if issue_type_label == "Production output not allocated to orders":
+        return "Review whether remaining output was sold, stored, or wasted."
+
+    return "Review the issue and record a resolution note when fixed."
+
+
+def _summarise_data_quality_rows(rows, key, label_key):
+    grouped = {}
+
+    for row in rows:
+        group_key = row[key]
+
+        if group_key not in grouped:
+            grouped[group_key] = {
+                "label": row[label_key],
+                "count": 0,
+            }
+
+        grouped[group_key]["count"] += 1
+
+    return sorted(
+        grouped.values(),
+        key=lambda item: (
+            -item["count"],
+            item["label"],
+        ),
+    )
 def _find_signature_product(product_snapshots):
     for product in product_snapshots:
         if (
