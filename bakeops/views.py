@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import render
 
 from .models import (
@@ -285,6 +287,220 @@ def _get_product_flag_legend():
                 "Reduce production pressure or investigate cost and waste issues "
                 "before pushing additional sales."
             ),
+        },
+    ]
+
+def ingredient_risk(request):
+    latest_metric = (
+        DailyBakeryMetric.objects.select_related("workspace")
+        .order_by("-metric_date")
+        .first()
+    )
+
+    workspace = latest_metric.workspace if latest_metric else None
+    snapshot_date = latest_metric.metric_date if latest_metric else None
+
+    ingredient_snapshots = []
+    ingredient_rows = []
+    risk_rows = []
+    top_risk_ingredient = None
+    total_ingredient_cost = Decimal("0.00")
+    total_waste_cost = Decimal("0.00")
+    near_expiry_lot_count = 0
+
+    if workspace and snapshot_date:
+        ingredient_snapshots = list(
+            IngredientUsageSnapshot.objects.filter(
+                workspace=workspace,
+                snapshot_date=snapshot_date,
+            )
+            .select_related("ingredient", "ingredient__supplier")
+            .order_by("ingredient__name")
+        )
+
+        ingredient_rows = _build_ingredient_risk_rows(ingredient_snapshots)
+        risk_rows = [
+            row
+            for row in ingredient_rows
+            if row["snapshot"].stock_risk_level != IngredientUsageSnapshot.RISK_LOW
+        ]
+
+        top_risk_ingredient = risk_rows[0] if risk_rows else None
+
+        total_ingredient_cost = sum(
+            (snapshot.ingredient_cost for snapshot in ingredient_snapshots),
+            Decimal("0.00"),
+        )
+
+        total_waste_cost = sum(
+            (snapshot.waste_cost for snapshot in ingredient_snapshots),
+            Decimal("0.00"),
+        )
+
+        near_expiry_lot_count = sum(
+            snapshot.near_expiry_lot_count
+            for snapshot in ingredient_snapshots
+        )
+
+    context = {
+        "latest_metric": latest_metric,
+        "workspace": workspace,
+        "snapshot_date": snapshot_date,
+        "ingredient_rows": ingredient_rows,
+        "risk_rows": risk_rows,
+        "top_risk_ingredient": top_risk_ingredient,
+        "ingredient_count": len(ingredient_snapshots),
+        "risk_count": len(risk_rows),
+        "total_ingredient_cost": total_ingredient_cost,
+        "total_waste_cost": total_waste_cost,
+        "near_expiry_lot_count": near_expiry_lot_count,
+        "risk_legend": _get_ingredient_risk_legend(),
+    }
+
+    return render(request, "bakeops/ingredient_risk.html", context)
+
+
+def _build_ingredient_risk_rows(ingredient_snapshots):
+    risk_priority = {
+        IngredientUsageSnapshot.RISK_CRITICAL: 1,
+        IngredientUsageSnapshot.RISK_HIGH: 2,
+        IngredientUsageSnapshot.RISK_MEDIUM: 3,
+        IngredientUsageSnapshot.RISK_LOW: 4,
+    }
+
+    rows = []
+
+    for snapshot in ingredient_snapshots:
+        current_stock = snapshot.current_stock_quantity or Decimal("0.000")
+        reorder_level = snapshot.reorder_level_quantity or Decimal("0.000")
+        stock_gap = current_stock - reorder_level
+
+        shortage_quantity = Decimal("0.000")
+        if current_stock < reorder_level:
+            shortage_quantity = reorder_level - current_stock
+
+        waste_rate_percent = _calculate_ingredient_waste_rate(snapshot)
+
+        rows.append(
+            {
+                "snapshot": snapshot,
+                "ingredient": snapshot.ingredient,
+                "risk_priority": risk_priority.get(
+                    snapshot.stock_risk_level,
+                    risk_priority[IngredientUsageSnapshot.RISK_LOW],
+                ),
+                "risk_label": snapshot.get_stock_risk_level_display(),
+                "risk_explanation": _get_ingredient_risk_explanation(snapshot),
+                "recommended_action": _get_ingredient_recommended_action(snapshot),
+                "current_stock": current_stock,
+                "reorder_level": reorder_level,
+                "stock_gap": stock_gap,
+                "shortage_quantity": shortage_quantity,
+                "waste_rate_percent": waste_rate_percent,
+                "is_stock_below_reorder": current_stock < reorder_level,
+                "has_near_expiry_risk": snapshot.near_expiry_lot_count > 0,
+            }
+        )
+
+    return sorted(
+        rows,
+        key=lambda row: (
+            row["risk_priority"],
+            -row["shortage_quantity"],
+            row["ingredient"].name,
+        ),
+    )
+
+
+def _calculate_ingredient_waste_rate(snapshot):
+    quantity_used = snapshot.quantity_used or Decimal("0.000")
+    quantity_wasted = snapshot.quantity_wasted or Decimal("0.000")
+
+    if quantity_used <= 0 and quantity_wasted > 0:
+        return Decimal("100.00")
+
+    if quantity_used <= 0:
+        return Decimal("0.00")
+
+    return (
+        (quantity_wasted / quantity_used) * Decimal("100")
+    ).quantize(Decimal("0.01"))
+
+
+def _get_ingredient_risk_explanation(snapshot):
+    if snapshot.stock_risk_level == IngredientUsageSnapshot.RISK_CRITICAL:
+        return (
+            "This ingredient is at critical stock risk and may block upcoming "
+            "production if not reviewed immediately."
+        )
+
+    if snapshot.stock_risk_level == IngredientUsageSnapshot.RISK_HIGH:
+        return (
+            "Current stock is below the reorder level, so this ingredient needs "
+            "reorder or supplier review before production pressure increases."
+        )
+
+    if snapshot.stock_risk_level == IngredientUsageSnapshot.RISK_MEDIUM:
+        return (
+            "This ingredient is approaching operational risk and should be "
+            "monitored before the next production cycle."
+        )
+
+    return (
+        "Current stock is above the reorder level. No urgent stock action is "
+        "required from this signal alone."
+    )
+
+
+def _get_ingredient_recommended_action(snapshot):
+    if snapshot.stock_risk_level in {
+        IngredientUsageSnapshot.RISK_CRITICAL,
+        IngredientUsageSnapshot.RISK_HIGH,
+    }:
+        return (
+            "Check supplier lead time, reorder quantity, upcoming batch demand, "
+            "and any avoidable waste before the next production run."
+        )
+
+    if snapshot.near_expiry_lot_count > 0:
+        return (
+            "Review near-expiry lots and prioritise usage before expiry-driven "
+            "waste increases."
+        )
+
+    if snapshot.quantity_wasted > 0:
+        return (
+            "Review waste records and batch allocation to understand whether "
+            "waste is avoidable."
+        )
+
+    return (
+        "Continue monitoring after the next metric build. No immediate action "
+        "is required."
+    )
+
+
+def _get_ingredient_risk_legend():
+    return [
+        {
+            "level": "Critical",
+            "code": IngredientUsageSnapshot.RISK_CRITICAL,
+            "meaning": "Immediate production or stock continuity risk.",
+        },
+        {
+            "level": "High",
+            "code": IngredientUsageSnapshot.RISK_HIGH,
+            "meaning": "Current stock is below reorder level and needs review.",
+        },
+        {
+            "level": "Medium",
+            "code": IngredientUsageSnapshot.RISK_MEDIUM,
+            "meaning": "Approaching risk threshold; monitor before next production cycle.",
+        },
+        {
+            "level": "Low",
+            "code": IngredientUsageSnapshot.RISK_LOW,
+            "meaning": "Stock is currently above reorder level.",
         },
     ]
 

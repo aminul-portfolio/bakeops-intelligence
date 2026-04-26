@@ -128,3 +128,62 @@ class BakeOpsDashboardViewTests(TestCase):
 
         self.assertEqual(url, "/analytics/products/")
         self.assertEqual(match.func, views.product_profitability)
+
+    def test_ingredient_risk_view_builds_context(self):
+        request = self.factory.get("/analytics/ingredients/")
+        captured = {}
+
+        def fake_render(request, template_name, context):
+            captured["template_name"] = template_name
+            captured["context"] = context
+
+            return HttpResponse(
+                "Ingredient Risk IngredientUsageSnapshot Butter Stock Position",
+                status=200,
+            )
+
+        with patch("bakeops.views.render", side_effect=fake_render):
+            response = views.ingredient_risk(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            captured["template_name"],
+            "bakeops/ingredient_risk.html",
+        )
+
+        context = captured["context"]
+
+        self.assertIsNotNone(context["latest_metric"])
+        self.assertIsNotNone(context["workspace"])
+        self.assertIsNotNone(context["snapshot_date"])
+        self.assertEqual(context["ingredient_count"], 8)
+        self.assertEqual(context["risk_count"], 5)
+        self.assertGreater(len(context["ingredient_rows"]), 0)
+        self.assertGreater(len(context["risk_rows"]), 0)
+
+        top_risk_ingredient = context["top_risk_ingredient"]
+
+        self.assertIsNotNone(top_risk_ingredient)
+        self.assertEqual(top_risk_ingredient["ingredient"].name, "Butter")
+        self.assertEqual(top_risk_ingredient["snapshot"].stock_risk_level, "high")
+        self.assertTrue(top_risk_ingredient["is_stock_below_reorder"])
+        self.assertEqual(top_risk_ingredient["current_stock"], top_risk_ingredient["snapshot"].current_stock_quantity)
+        self.assertEqual(top_risk_ingredient["reorder_level"], top_risk_ingredient["snapshot"].reorder_level_quantity)
+
+    @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
+    def test_ingredient_risk_page_loads(self):
+        response = self.client.get(reverse("bakeops:ingredient-risk"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Ingredient risk before production problems appear.")
+        self.assertContains(response, "IngredientUsageSnapshot")
+        self.assertContains(response, "Butter")
+        self.assertContains(response, "high-risk ingredient rows")
+        self.assertContains(response, "Stock Position")
+
+    def test_ingredient_risk_route_is_correct(self):
+        url = reverse("bakeops:ingredient-risk")
+        match = resolve(url)
+
+        self.assertEqual(url, "/analytics/ingredients/")
+        self.assertEqual(match.func, views.ingredient_risk)
