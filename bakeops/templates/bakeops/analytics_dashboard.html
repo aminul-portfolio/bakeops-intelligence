@@ -661,19 +661,42 @@
                 </div>
             </section>
 
-            <section class="card section">
-                <span class="badge">BI Export Status</span>
-                <h2>BI-ready CSV exports are available.</h2>
-                <p class="hero-copy">
-                    This dashboard reads from the same stable gold-layer snapshot tables used by the CSV export command.
-                    Generate the V1 BI export pack with:
+            <section class="panel bi-card">
+    <span class="badge">BI Export Status</span>
+    <h2>BI-ready CSV exports are available.</h2>
+    <p>
+        This dashboard reads from the same stable gold-layer snapshot tables used by the CSV export command.
+        Generate the BI export pack with:
+    </p>
+    <p>
+        <span class="code">python manage.py export_bi_csv</span>
+    </p>
+    <p>
+        Export files are generated into the project <span class="code">exports/</span> folder,
+        and include fact tables, dimension tables, daily metrics, and product performance snapshots.
+    </p>
+    <p>
+        Export contract page:
+        <a href="{% url 'bakeops:export-centre' %}">/analytics/exports/</a>
+    </p>
+</section>
+
+            <section class="panel bi-card">
+                <span class="badge">Metric Governance</span>
+                <h2>Metric lineage and reviewer evidence are documented.</h2>
+                <p>
+                    V2 documents how seeded operational records flow through the metric build command,
+                    gold-layer snapshots, trusted analytics pages, and BI-ready exports.
                 </p>
                 <p>
-                    <span class="code">python manage.py export_bi_csv</span>
+                    Reviewer documentation:
+                    <span class="code">docs/METRIC_GOVERNANCE.md</span>,
+                    <span class="code">docs/LINEAGE.md</span>,
+                    and <span class="code">docs/REVIEWER_WALKTHROUGH.md</span>.
                 </p>
-                <p class="hero-copy">
-                    Export files are generated into the project <span class="code">exports/</span> folder,
-                    including fact tables, dimension tables, daily metrics, and product performance snapshots.
+                <p>
+                    Verification command:
+                    <span class="code">python manage.py build_bakery_metrics</span>
                 </p>
             </section>
         {% else %}

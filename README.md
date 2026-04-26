@@ -2,7 +2,7 @@
 
 BakeOps Intelligence is a bakery operations analytics platform built with Django.
 
-It transforms bakery catalogue, customer, order, ingredient, recipe, production, waste, loyalty, and review data into dashboard-ready metrics and BI-ready CSV exports.
+It transforms bakery catalogue, customer, order, ingredient, recipe, production, waste, loyalty, and review data into dashboard-ready metrics, trusted analytics pages, data quality checks, metric lineage evidence, and BI-ready CSV exports.
 
 ---
 
@@ -10,9 +10,13 @@ It transforms bakery catalogue, customer, order, ingredient, recipe, production,
 
 ```text
 V1 = Works
+V2 = Trusted - in progress
+V3 = Commercial - planned
 ```
 
-V1 is focused on one working analytics dashboard powered by seeded operational data and a metric build command.
+V1 delivered a working analytics dashboard powered by seeded operational data and a repeatable metric build command.
+
+V2 adds deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, and data lineage documentation.
 
 ---
 
@@ -27,37 +31,64 @@ The project separates the application into two layers:
 | `cakes` | Existing customer-facing cake catalogue |
 | `bakeops` | Analytics, operations, metrics, data quality, exports, and decision intelligence |
 
+The core business idea is:
+
+> A best-selling bakery product can become weak after ingredient cost and waste are included.
+
+BakeOps is designed to prove this using stored operational records, repeatable metric builds, gold-layer snapshots, analytics pages, tests, and exports.
+
 ---
 
-## V1 Workflow
+## Metric Workflow
 
 ```text
 seed_demo_data
-→ operational bakery data
-→ build_bakery_metrics
-→ gold-layer snapshots
-→ /analytics/ dashboard
-→ export_bi_csv
-→ BI-ready CSV files
+-> operational bakery data
+-> build_bakery_metrics
+-> gold-layer snapshots
+-> trusted analytics pages
+-> export_bi_csv
+-> BI-ready CSV files
 ```
+
+The dashboard is not treated as the source of truth. The platform stores operational records and gold-layer snapshots, then uses those records to power analytics pages and exports.
 
 ---
 
-## Key V1 Features
+## Key Platform Features
 
 - Realistic seeded bakery operations dataset
 - Workspace, customers, loyalty, occasions, orders, ingredients, recipes, production, allocation, and waste records
 - Gold-layer analytics models
-- Metric build command
-- Data quality issue generation
+- Repeatable metric build command
 - Bakery metric run logging
-- `/analytics/` dashboard
-- Product profitability table
-- Revenue rank vs waste-adjusted margin rank
-- Weekly action cards
-- Ingredient risk panel
-- Data quality panel
+- Data quality issue generation
+- Main `/analytics/` dashboard
+- Product profitability analysis
+- Ingredient risk analysis
+- Waste analysis
+- Occasion demand analysis
+- Customer loyalty analysis
+- Data quality review page
+- Export centre and export contract page
 - BI-ready CSV exports
+- Metric governance and lineage documentation
+- Test coverage for key commands, services, views, and export parity
+
+---
+
+## V2 Trusted Analytics Pages
+
+| Page | URL | Purpose |
+|---|---|---|
+| Main dashboard | `/analytics/` | Executive overview of bakery metrics and signature insight |
+| Product profitability | `/analytics/products/` | Product ranking, waste-adjusted margin, margin-rank inversion, and action flags |
+| Ingredient risk | `/analytics/ingredients/` | Stock risk, reorder pressure, near-expiry lots, and ingredient recommendations |
+| Waste analysis | `/analytics/waste/` | Waste cost, waste reasons, product waste impact, and margin reduction |
+| Occasion analytics | `/analytics/occasions/` | Occasion demand, revenue, upcoming orders, and delivery pressure |
+| Customer analytics | `/analytics/customers/` | Customer revenue, repeat behaviour, average order value, and loyalty visibility |
+| Data quality review | `/analytics/data-quality/` | Open data quality issues, severity, status, trust impact, and suggested action |
+| Export centre | `/analytics/exports/` | BI export contract, file names, source models, and export usage guidance |
 
 ---
 
@@ -67,13 +98,36 @@ BakeOps proves the following business idea:
 
 > A best-selling product can become weak after ingredient cost and waste are included.
 
-In the seeded V1 demo:
+In the seeded demo:
 
 | Product | Revenue Rank | Waste-adjusted Margin Rank | Action |
 |---|---:|---:|---|
 | Birthday Classic | #1 | #4 | Review |
 
 This shows that the highest-revenue product is not necessarily the strongest product after waste-adjusted profitability is calculated.
+
+The signature insight can be verified directly from the database:
+
+```powershell
+python manage.py shell -c "from bakeops.models import ProductPerformanceSnapshot; p=ProductPerformanceSnapshot.objects.get(cake__name='Birthday Classic'); print(p.cake.name, p.revenue_rank, p.waste_adjusted_margin_rank, p.action_flag)"
+```
+
+Expected output:
+
+```text
+Birthday Classic 1 4 review
+```
+
+---
+
+## Reviewer Documentation
+
+| Document | Purpose |
+|---|---|
+| `docs/REVIEWER_WALKTHROUGH.md` | Reviewer path for running the demo and validating the project |
+| `docs/METRIC_GOVERNANCE.md` | Explains the metric build process, gold-layer snapshots, run logging, and verification commands |
+| `docs/LINEAGE.md` | Explains the data lineage from seeded operational records to analytics pages and BI exports |
+| `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
 
@@ -123,25 +177,73 @@ http://127.0.0.1:8000/analytics/
 
 ---
 
+## Recommended Reviewer Verification Flow
+
+Run the following sequence from a clean local setup:
+
+```powershell
+python manage.py check
+python manage.py test bakeops
+python manage.py seed_demo_data --reset
+python manage.py build_bakery_metrics
+python manage.py export_bi_csv
+python manage.py runserver
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000/analytics/
+http://127.0.0.1:8000/analytics/products/
+http://127.0.0.1:8000/analytics/ingredients/
+http://127.0.0.1:8000/analytics/waste/
+http://127.0.0.1:8000/analytics/occasions/
+http://127.0.0.1:8000/analytics/customers/
+http://127.0.0.1:8000/analytics/data-quality/
+http://127.0.0.1:8000/analytics/exports/
+```
+
+---
+
 ## BI Export Files
 
 The export command generates files into the `exports/` folder:
 
-| File | Purpose |
-|---|---|
-| `fact_orders.csv` | Order-level fact table |
-| `fact_order_items.csv` | Order item fact table |
-| `fact_waste.csv` | Waste fact table |
-| `fact_production_batches.csv` | Production batch line fact table |
-| `dim_cake.csv` | Cake and variant dimension |
-| `dim_ingredient.csv` | Ingredient dimension |
-| `dim_customer.csv` | Customer and loyalty dimension |
-| `dim_occasion.csv` | Occasion dimension |
-| `dim_collection.csv` | Cake collection dimension |
-| `daily_bakery_metrics.csv` | Daily KPI gold-layer export |
-| `product_performance_snapshot.csv` | Product profitability gold-layer export |
+| File | Layer | Purpose |
+|---|---|---|
+| `fact_orders.csv` | Fact | Order-level fact table |
+| `fact_order_items.csv` | Fact | Order item fact table |
+| `fact_waste.csv` | Fact | Waste fact table |
+| `fact_production_batches.csv` | Fact | Production batch fact table |
+| `dim_cake.csv` | Dimension | Cake and variant dimension |
+| `dim_ingredient.csv` | Dimension | Ingredient dimension |
+| `dim_customer.csv` | Dimension | Customer and loyalty dimension |
+| `dim_occasion.csv` | Dimension | Occasion dimension |
+| `dim_collection.csv` | Dimension | Cake collection dimension |
+| `daily_bakery_metrics.csv` | Gold | Daily KPI gold-layer export |
+| `product_performance_snapshot.csv` | Gold | Product profitability gold-layer export |
 
-Generated CSV files are intentionally ignored by Git.
+Generated CSV files are intentionally ignored by Git because they are reproducible from the seeded data and metric build.
+
+---
+
+## Export Verification
+
+Run:
+
+```powershell
+python manage.py export_bi_csv
+```
+
+Expected output pattern:
+
+```text
+BakeOps BI CSV exports generated successfully.
+Files generated: 11
+Total rows exported: 52
+```
+
+The exact output directory depends on your local project path.
 
 ---
 
@@ -180,6 +282,75 @@ Generated CSV files are intentionally ignored by Git.
 
 ---
 
+## Metric Governance Summary
+
+BakeOps V2 is designed to be inspectable.
+
+The metric build command creates:
+
+| Output | Purpose |
+|---|---|
+| `DailyBakeryMetric` | Daily KPI summary |
+| `ProductPerformanceSnapshot` | Product revenue, margin, waste-adjusted margin, ranking, and action flag |
+| `IngredientUsageSnapshot` | Ingredient usage, waste, stock risk, and expiry pressure |
+| `OccasionDemandSnapshot` | Occasion demand, revenue, upcoming orders, and delivery pressure |
+| `CustomerLoyaltySnapshot` | Customer revenue, order count, AOV, loyalty points, and repeat status |
+| `DataQualityIssue` | Data quality and operational trust issues |
+| `BakeryMetricRunLog` | Metric build audit trail |
+
+The build command records:
+
+- rows processed
+- metrics created
+- snapshots created
+- issues created
+- start time
+- finish time
+- duration
+- status
+- error message if failed
+
+For full details, see:
+
+```text
+docs/METRIC_GOVERNANCE.md
+docs/LINEAGE.md
+```
+
+---
+
+## Data Quality Visibility
+
+BakeOps does not hide trust issues.
+
+The metric build creates `DataQualityIssue` records when operational data needs review.
+
+The data quality review page shows:
+
+```text
+/analytics/data-quality/
+```
+
+It surfaces:
+
+- issue severity
+- issue type
+- status
+- affected area
+- trust impact
+- suggested review action
+
+Current seeded demo pattern:
+
+```text
+Total data quality issues: 12
+Open issues: 12
+Warning issues: 11
+Info issues: 1
+```
+
+---
+
 ## Local Setup
 
 ```powershell
@@ -214,7 +385,7 @@ Then set your local `SECRET_KEY`.
 
 ---
 
-## V1 Verification Checklist
+## Verification Checklist
 
 ```markdown
 - [x] `python manage.py check` passes
@@ -223,10 +394,16 @@ Then set your local `SECRET_KEY`.
 - [x] `python manage.py build_bakery_metrics` works
 - [x] `python manage.py export_bi_csv` works
 - [x] `/analytics/` dashboard loads
-- [x] Waste-adjusted profitability is visible
+- [x] `/analytics/products/` product profitability page loads
+- [x] `/analytics/ingredients/` ingredient risk page loads
+- [x] `/analytics/waste/` waste analysis page loads
+- [x] `/analytics/occasions/` occasion analytics page loads
+- [x] `/analytics/customers/` customer analytics page loads
+- [x] `/analytics/data-quality/` data quality review page loads
+- [x] `/analytics/exports/` export centre page loads
 - [x] Birthday Classic signature insight is visible
 - [x] Data quality issues are visible
-- [x] BakeryMetricRunLog is visible in admin
+- [x] BakeryMetricRunLog is created by metric builds
 - [x] BI exports work
 - [x] Dashboard metrics match export metrics
 - [x] BakeOps tests pass
@@ -236,15 +413,19 @@ Then set your local `SECRET_KEY`.
 
 ## Current Limitations
 
-- V1 uses seeded demo data.
-- V1 does not yet include file imports.
-- V1 does not yet include external POS, Shopify, Square, or payment integrations.
-- V1 does not yet include a full export centre UI.
-- V1 does not yet include multi-tenant SaaS permissions.
+- V2 currently uses seeded demo data.
+- V2 does not yet include file imports.
+- V2 does not yet include external POS, Shopify, Square, Stripe, or payment integrations.
+- V2 does not yet include live production scheduling feeds.
+- V2 does not yet include multi-tenant SaaS permissions.
+- V2 does not yet include billing, subscriptions, or commercial onboarding.
+- V2 does not yet include customer-facing commercial workspace onboarding.
+
+These are V3 concerns.
 
 ---
 
-## Next Versions
+## Version Strategy
 
 ```text
 V1 = Works
@@ -252,6 +433,26 @@ V2 = Trusted
 V3 = Commercial
 ```
 
-V2 will focus on deeper analytics pages, metric governance, data lineage, export contracts, and stronger documentation.
+V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, and reviewer evidence.
 
 V3 will focus on SaaS readiness, imports, onboarding, workspace management, billing foundation, and commercial beta preparation.
+
+---
+
+## Project Positioning
+
+BakeOps Intelligence is best understood as a portfolio-grade bakery operations intelligence platform.
+
+It demonstrates:
+
+- Django application structure
+- operational data modelling
+- metric build pipelines
+- gold-layer analytics modelling
+- decision-support dashboards
+- data quality checks
+- export contracts
+- reviewer verification workflow
+- analytics engineering thinking
+
+The platform is intentionally scoped as a trusted analytics demo in V2, not a commercial SaaS product yet.
