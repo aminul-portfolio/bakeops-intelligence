@@ -11,4 +11,6 @@ urlpatterns = [
     path("products/", views.product_profitability, name="product-profitability"),
     path("ingredients/", views.ingredient_risk, name="ingredient-risk"),
     path("waste/", views.waste_analysis, name="waste-analysis"),
+    path("occasions/", views.occasion_analytics, name="occasion-analytics"),
+    path("customers/", views.customer_analytics, name="customer-analytics"),
 ]

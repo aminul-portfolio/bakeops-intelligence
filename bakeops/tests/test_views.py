@@ -247,3 +247,130 @@ class BakeOpsDashboardViewTests(TestCase):
 
         self.assertEqual(url, "/analytics/waste/")
         self.assertEqual(match.func, views.waste_analysis)
+
+    def test_occasion_analytics_view_builds_context(self):
+        request = self.factory.get("/analytics/occasions/")
+        captured = {}
+
+        def fake_render(request, template_name, context):
+            captured["template_name"] = template_name
+            captured["context"] = context
+
+            return HttpResponse(
+                "Occasion Analytics OccasionDemandSnapshot Birthday",
+                status=200,
+            )
+
+        with patch("bakeops.views.render", side_effect=fake_render):
+            response = views.occasion_analytics(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            captured["template_name"],
+            "bakeops/occasion_analytics.html",
+        )
+
+        context = captured["context"]
+
+        self.assertIsNotNone(context["latest_metric"])
+        self.assertIsNotNone(context["workspace"])
+        self.assertIsNotNone(context["snapshot_date"])
+        self.assertEqual(context["occasion_count"], 4)
+        self.assertEqual(context["total_occasion_orders"], 6)
+        self.assertEqual(context["total_quantity_sold"], 15)
+        self.assertEqual(context["total_upcoming_orders"], 6)
+        self.assertEqual(context["total_delivery_pressure"], 3)
+        self.assertGreater(context["total_occasion_revenue"], 0)
+        self.assertGreater(len(context["occasion_rows"]), 0)
+
+        top_occasion = context["top_occasion"]
+
+        self.assertIsNotNone(top_occasion)
+        self.assertEqual(top_occasion["occasion"].name, "Birthday")
+        self.assertEqual(top_occasion["snapshot"].order_count, 3)
+        self.assertEqual(top_occasion["snapshot"].quantity_sold, 9)
+
+    @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
+    def test_occasion_analytics_page_loads(self):
+        response = self.client.get(reverse("bakeops:occasion-analytics"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Occasion demand shows where bakery planning pressure comes from.",
+        )
+        self.assertContains(response, "OccasionDemandSnapshot")
+        self.assertContains(response, "Birthday")
+        self.assertContains(response, "Occasion Demand Deep Dive")
+        self.assertContains(response, "Delivery Pressure")
+
+    def test_occasion_analytics_route_is_correct(self):
+        url = reverse("bakeops:occasion-analytics")
+        match = resolve(url)
+
+        self.assertEqual(url, "/analytics/occasions/")
+        self.assertEqual(match.func, views.occasion_analytics)
+
+    def test_customer_analytics_view_builds_context(self):
+        request = self.factory.get("/analytics/customers/")
+        captured = {}
+
+        def fake_render(request, template_name, context):
+            captured["template_name"] = template_name
+            captured["context"] = context
+
+            return HttpResponse(
+                "Customer Analytics CustomerLoyaltySnapshot Maya Patel",
+                status=200,
+            )
+
+        with patch("bakeops.views.render", side_effect=fake_render):
+            response = views.customer_analytics(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            captured["template_name"],
+            "bakeops/customer_analytics.html",
+        )
+
+        context = captured["context"]
+
+        self.assertIsNotNone(context["latest_metric"])
+        self.assertIsNotNone(context["workspace"])
+        self.assertIsNotNone(context["snapshot_date"])
+        self.assertEqual(context["customer_count"], 5)
+        self.assertEqual(context["repeat_customer_count"], 3)
+        self.assertEqual(context["new_customer_count"], 2)
+        self.assertEqual(context["total_customer_orders"], 6)
+        self.assertEqual(context["total_loyalty_points_earned"], 32)
+        self.assertEqual(context["total_current_points_balance"], 475)
+        self.assertGreater(context["total_customer_revenue"], 0)
+        self.assertGreater(len(context["customer_rows"]), 0)
+
+        top_customer = context["top_customer"]
+
+        self.assertIsNotNone(top_customer)
+        self.assertEqual(top_customer["customer"].full_name, "Maya Patel")
+        self.assertEqual(top_customer["snapshot"].total_orders, 2)
+        self.assertTrue(top_customer["snapshot"].is_repeat_customer)
+
+    @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
+    def test_customer_analytics_page_loads(self):
+        response = self.client.get(reverse("bakeops:customer-analytics"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Customer loyalty shows where bakery revenue is concentrated.",
+        )
+        self.assertContains(response, "CustomerLoyaltySnapshot")
+        self.assertContains(response, "Maya Patel")
+        self.assertContains(response, "Customer Loyalty Deep Dive")
+        self.assertContains(response, "Repeat Customers")
+
+    def test_customer_analytics_route_is_correct(self):
+        url = reverse("bakeops:customer-analytics")
+        match = resolve(url)
+
+        self.assertEqual(url, "/analytics/customers/")
+        self.assertEqual(match.func, views.customer_analytics)

@@ -751,6 +751,347 @@ def _get_waste_reason_recommended_action(reason):
         reason,
         "Review the waste record and decide whether process controls need improvement.",
     )
+def occasion_analytics(request):
+    latest_metric = (
+        DailyBakeryMetric.objects.select_related("workspace")
+        .order_by("-metric_date")
+        .first()
+    )
+
+    workspace = latest_metric.workspace if latest_metric else None
+    snapshot_date = latest_metric.metric_date if latest_metric else None
+
+    occasion_snapshots = []
+    occasion_rows = []
+    top_occasion = None
+
+    total_occasion_revenue = Decimal("0.00")
+    total_occasion_orders = 0
+    total_quantity_sold = 0
+    total_upcoming_orders = 0
+    total_delivery_pressure = 0
+
+    if workspace and snapshot_date:
+        occasion_snapshots = list(
+            OccasionDemandSnapshot.objects.filter(
+                workspace=workspace,
+                snapshot_date=snapshot_date,
+            )
+            .select_related("occasion")
+            .order_by("-revenue", "occasion__name")
+        )
+
+        total_occasion_revenue = sum(
+            (snapshot.revenue for snapshot in occasion_snapshots),
+            Decimal("0.00"),
+        )
+        total_occasion_orders = sum(
+            snapshot.order_count for snapshot in occasion_snapshots
+        )
+        total_quantity_sold = sum(
+            snapshot.quantity_sold for snapshot in occasion_snapshots
+        )
+        total_upcoming_orders = sum(
+            snapshot.upcoming_order_count for snapshot in occasion_snapshots
+        )
+        total_delivery_pressure = sum(
+            snapshot.delivery_slot_pressure_count for snapshot in occasion_snapshots
+        )
+
+        occasion_rows = _build_occasion_analytics_rows(
+            occasion_snapshots=occasion_snapshots,
+            total_revenue=total_occasion_revenue,
+        )
+
+        top_occasion = occasion_rows[0] if occasion_rows else None
+
+    context = {
+        "latest_metric": latest_metric,
+        "workspace": workspace,
+        "snapshot_date": snapshot_date,
+        "occasion_rows": occasion_rows,
+        "top_occasion": top_occasion,
+        "occasion_count": len(occasion_snapshots),
+        "total_occasion_revenue": total_occasion_revenue,
+        "total_occasion_orders": total_occasion_orders,
+        "total_quantity_sold": total_quantity_sold,
+        "total_upcoming_orders": total_upcoming_orders,
+        "total_delivery_pressure": total_delivery_pressure,
+    }
+
+    return render(request, "bakeops/occasion_analytics.html", context)
+
+
+def customer_analytics(request):
+    latest_metric = (
+        DailyBakeryMetric.objects.select_related("workspace")
+        .order_by("-metric_date")
+        .first()
+    )
+
+    workspace = latest_metric.workspace if latest_metric else None
+    snapshot_date = latest_metric.metric_date if latest_metric else None
+
+    customer_snapshots = []
+    customer_rows = []
+    top_customer = None
+
+    total_customer_revenue = Decimal("0.00")
+    total_customer_orders = 0
+    repeat_customer_count = 0
+    total_loyalty_points_earned = 0
+    total_current_points_balance = 0
+
+    if workspace and snapshot_date:
+        customer_snapshots = list(
+            CustomerLoyaltySnapshot.objects.filter(
+                workspace=workspace,
+                snapshot_date=snapshot_date,
+            )
+            .select_related("customer")
+            .order_by("-total_revenue", "customer__full_name")
+        )
+
+        total_customer_revenue = sum(
+            (snapshot.total_revenue for snapshot in customer_snapshots),
+            Decimal("0.00"),
+        )
+        total_customer_orders = sum(
+            snapshot.total_orders for snapshot in customer_snapshots
+        )
+        repeat_customer_count = sum(
+            1 for snapshot in customer_snapshots if snapshot.is_repeat_customer
+        )
+        total_loyalty_points_earned = sum(
+            snapshot.loyalty_points_earned for snapshot in customer_snapshots
+        )
+        total_current_points_balance = sum(
+            snapshot.current_points_balance for snapshot in customer_snapshots
+        )
+
+        customer_rows = _build_customer_analytics_rows(
+            customer_snapshots=customer_snapshots,
+            total_revenue=total_customer_revenue,
+        )
+
+        top_customer = customer_rows[0] if customer_rows else None
+
+    context = {
+        "latest_metric": latest_metric,
+        "workspace": workspace,
+        "snapshot_date": snapshot_date,
+        "customer_rows": customer_rows,
+        "top_customer": top_customer,
+        "customer_count": len(customer_snapshots),
+        "repeat_customer_count": repeat_customer_count,
+        "new_customer_count": len(customer_snapshots) - repeat_customer_count,
+        "total_customer_revenue": total_customer_revenue,
+        "total_customer_orders": total_customer_orders,
+        "total_loyalty_points_earned": total_loyalty_points_earned,
+        "total_current_points_balance": total_current_points_balance,
+    }
+
+    return render(request, "bakeops/customer_analytics.html", context)
+
+
+def _build_occasion_analytics_rows(occasion_snapshots, total_revenue):
+    rows = []
+
+    for snapshot in occasion_snapshots:
+        revenue_share_percent = _calculate_share_percent(
+            part=snapshot.revenue,
+            total=total_revenue,
+        )
+
+        gross_margin_percent = _calculate_share_percent(
+            part=snapshot.gross_margin,
+            total=snapshot.revenue,
+        )
+
+        rows.append(
+            {
+                "snapshot": snapshot,
+                "occasion": snapshot.occasion,
+                "revenue_share_percent": revenue_share_percent,
+                "gross_margin_percent": gross_margin_percent,
+                "demand_label": _get_occasion_demand_label(snapshot),
+                "demand_explanation": _get_occasion_demand_explanation(snapshot),
+                "recommended_action": _get_occasion_recommended_action(snapshot),
+                "has_delivery_pressure": snapshot.delivery_slot_pressure_count > 0,
+                "has_upcoming_demand": snapshot.upcoming_order_count > 0,
+            }
+        )
+
+    return sorted(
+        rows,
+        key=lambda row: (
+            -row["snapshot"].revenue,
+            -row["snapshot"].order_count,
+            row["occasion"].name,
+        ),
+    )
+
+
+def _build_customer_analytics_rows(customer_snapshots, total_revenue):
+    rows = []
+
+    for snapshot in customer_snapshots:
+        revenue_share_percent = _calculate_share_percent(
+            part=snapshot.total_revenue,
+            total=total_revenue,
+        )
+
+        rows.append(
+            {
+                "snapshot": snapshot,
+                "customer": snapshot.customer,
+                "revenue_share_percent": revenue_share_percent,
+                "customer_label": _get_customer_loyalty_label(snapshot),
+                "customer_explanation": _get_customer_loyalty_explanation(snapshot),
+                "recommended_action": _get_customer_recommended_action(snapshot),
+            }
+        )
+
+    return sorted(
+        rows,
+        key=lambda row: (
+            -row["snapshot"].total_revenue,
+            -row["snapshot"].total_orders,
+            row["customer"].full_name,
+        ),
+    )
+
+
+def _calculate_share_percent(part, total):
+    part = part or Decimal("0.00")
+    total = total or Decimal("0.00")
+
+    if total <= 0:
+        return Decimal("0.00")
+
+    return ((part / total) * Decimal("100")).quantize(Decimal("0.01"))
+
+
+def _get_occasion_demand_label(snapshot):
+    if snapshot.delivery_slot_pressure_count > 0:
+        return "Capacity pressure"
+
+    if snapshot.upcoming_order_count > 0 and snapshot.revenue > 0:
+        return "Active demand"
+
+    if snapshot.upcoming_order_count > 0:
+        return "Upcoming demand"
+
+    if snapshot.revenue > 0:
+        return "Historical demand"
+
+    return "Monitor"
+
+
+def _get_occasion_demand_explanation(snapshot):
+    if snapshot.delivery_slot_pressure_count > 0:
+        return (
+            "This occasion has delivery-slot pressure, so planning capacity and "
+            "production timing need review."
+        )
+
+    if snapshot.upcoming_order_count > 0 and snapshot.revenue > 0:
+        return (
+            "This occasion has both existing revenue and upcoming demand, making it "
+            "important for near-term planning."
+        )
+
+    if snapshot.upcoming_order_count > 0:
+        return (
+            "This occasion has upcoming demand even though recent revenue is low or zero."
+        )
+
+    if snapshot.revenue > 0:
+        return (
+            "This occasion generated revenue in the latest snapshot period."
+        )
+
+    return (
+        "This occasion currently has low activity but should remain visible for future demand."
+    )
+
+
+def _get_occasion_recommended_action(snapshot):
+    if snapshot.delivery_slot_pressure_count > 0:
+        return (
+            "Review production slots, delivery planning, and staffing before accepting "
+            "additional orders for this occasion."
+        )
+
+    if snapshot.upcoming_order_count > 0:
+        return (
+            "Check ingredient availability and batch planning for upcoming orders."
+        )
+
+    if snapshot.revenue > 0:
+        return (
+            "Monitor product mix and margin performance for this occasion."
+        )
+
+    return (
+        "Keep this occasion available for tracking, but no immediate action is required."
+    )
+
+
+def _get_customer_loyalty_label(snapshot):
+    if snapshot.is_repeat_customer and snapshot.total_revenue >= Decimal("250.00"):
+        return "High-value repeat"
+
+    if snapshot.is_repeat_customer:
+        return "Repeat customer"
+
+    if snapshot.total_orders == 1:
+        return "New / one-time customer"
+
+    return "Monitor"
+
+
+def _get_customer_loyalty_explanation(snapshot):
+    if snapshot.is_repeat_customer and snapshot.total_revenue >= Decimal("250.00"):
+        return (
+            "This customer has repeat behaviour and high revenue contribution."
+        )
+
+    if snapshot.is_repeat_customer:
+        return (
+            "This customer has repeat behaviour and should be tracked for loyalty value."
+        )
+
+    if snapshot.total_orders == 1:
+        return (
+            "This customer has one recorded order in the current snapshot."
+        )
+
+    return (
+        "This customer should remain visible for future order and loyalty tracking."
+    )
+
+
+def _get_customer_recommended_action(snapshot):
+    if snapshot.is_repeat_customer and snapshot.current_points_balance >= 100:
+        return (
+            "Review loyalty balance and consider whether the customer may be close to "
+            "a future reward or retention opportunity."
+        )
+
+    if snapshot.is_repeat_customer:
+        return (
+            "Monitor repeat purchase behaviour and average order value."
+        )
+
+    if snapshot.total_orders == 1:
+        return (
+            "Track whether this customer places another order before treating them as loyal."
+        )
+
+    return (
+        "Continue monitoring customer value after the next metric build."
+    )
 
 def _find_signature_product(product_snapshots):
     for product in product_snapshots:
