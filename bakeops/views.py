@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.db.models import Sum
 from django.shortcuts import render
 
 from .models import (
@@ -10,6 +11,7 @@ from .models import (
     IngredientUsageSnapshot,
     OccasionDemandSnapshot,
     ProductPerformanceSnapshot,
+    WasteRecord,
 )
 
 
@@ -503,6 +505,252 @@ def _get_ingredient_risk_legend():
             "meaning": "Stock is currently above reorder level.",
         },
     ]
+def waste_analysis(request):
+    latest_metric = (
+        DailyBakeryMetric.objects.select_related("workspace")
+        .order_by("-metric_date")
+        .first()
+    )
+
+    workspace = latest_metric.workspace if latest_metric else None
+    snapshot_date = latest_metric.metric_date if latest_metric else None
+
+    waste_records = []
+    product_waste_rows = []
+    ingredient_waste_rows = []
+    waste_reason_rows = []
+    top_waste_product = None
+
+    total_waste_cost = Decimal("0.00")
+    total_waste_records = 0
+    gross_margin = Decimal("0.00")
+    waste_adjusted_margin = Decimal("0.00")
+    waste_margin_impact_percent = Decimal("0.00")
+
+    if workspace and snapshot_date:
+        waste_records = list(
+            WasteRecord.objects.filter(workspace=workspace)
+            .select_related("cake", "variant", "ingredient")
+            .order_by("-estimated_cost", "reason")
+        )
+
+        product_snapshots = list(
+            ProductPerformanceSnapshot.objects.filter(
+                workspace=workspace,
+                snapshot_date=snapshot_date,
+            )
+            .select_related("cake", "variant")
+            .order_by("-waste_cost", "cake__name")
+        )
+
+        ingredient_snapshots = list(
+            IngredientUsageSnapshot.objects.filter(
+                workspace=workspace,
+                snapshot_date=snapshot_date,
+                waste_cost__gt=0,
+            )
+            .select_related("ingredient")
+            .order_by("-waste_cost", "ingredient__name")
+        )
+
+        total_waste_cost = (
+            WasteRecord.objects.filter(workspace=workspace)
+            .aggregate(total=Sum("estimated_cost"))
+            .get("total")
+            or Decimal("0.00")
+        )
+
+        total_waste_records = len(waste_records)
+        gross_margin = latest_metric.gross_margin or Decimal("0.00")
+        waste_adjusted_margin = latest_metric.waste_adjusted_margin or Decimal("0.00")
+        waste_margin_impact_percent = _calculate_waste_margin_impact_percent(
+            total_waste_cost=total_waste_cost,
+            gross_margin=gross_margin,
+        )
+
+        product_waste_rows = _build_product_waste_rows(product_snapshots)
+        ingredient_waste_rows = _build_ingredient_waste_rows(ingredient_snapshots)
+        waste_reason_rows = _build_waste_reason_rows(waste_records)
+
+        top_waste_product = product_waste_rows[0] if product_waste_rows else None
+
+    context = {
+        "latest_metric": latest_metric,
+        "workspace": workspace,
+        "snapshot_date": snapshot_date,
+        "waste_records": waste_records,
+        "total_waste_records": total_waste_records,
+        "total_waste_cost": total_waste_cost,
+        "gross_margin": gross_margin,
+        "waste_adjusted_margin": waste_adjusted_margin,
+        "waste_margin_impact_percent": waste_margin_impact_percent,
+        "product_waste_rows": product_waste_rows,
+        "ingredient_waste_rows": ingredient_waste_rows,
+        "waste_reason_rows": waste_reason_rows,
+        "top_waste_product": top_waste_product,
+    }
+
+    return render(request, "bakeops/waste_analysis.html", context)
+
+
+def _calculate_waste_margin_impact_percent(total_waste_cost, gross_margin):
+    if not gross_margin or gross_margin <= 0:
+        return Decimal("0.00")
+
+    return (
+        (total_waste_cost / gross_margin) * Decimal("100")
+    ).quantize(Decimal("0.01"))
+
+
+def _build_product_waste_rows(product_snapshots):
+    rows = []
+
+    for snapshot in product_snapshots:
+        waste_cost = snapshot.waste_cost or Decimal("0.00")
+        gross_margin = snapshot.gross_margin or Decimal("0.00")
+        waste_adjusted_margin = snapshot.waste_adjusted_margin or Decimal("0.00")
+
+        waste_share_percent = Decimal("0.00")
+        if gross_margin > 0:
+            waste_share_percent = (
+                (waste_cost / gross_margin) * Decimal("100")
+            ).quantize(Decimal("0.01"))
+
+        rows.append(
+            {
+                "snapshot": snapshot,
+                "cake": snapshot.cake,
+                "variant": snapshot.variant,
+                "waste_cost": waste_cost,
+                "gross_margin": gross_margin,
+                "waste_adjusted_margin": waste_adjusted_margin,
+                "waste_share_percent": waste_share_percent,
+                "action_flag": snapshot.action_flag,
+                "action_label": snapshot.get_action_flag_display(),
+                "recommended_action": _get_waste_product_recommended_action(snapshot),
+                "is_top_waste_product": False,
+            }
+        )
+
+    rows = sorted(
+        rows,
+        key=lambda row: (
+            -row["waste_cost"],
+            row["cake"].name,
+        ),
+    )
+
+    if rows:
+        rows[0]["is_top_waste_product"] = True
+
+    return rows
+
+
+def _build_ingredient_waste_rows(ingredient_snapshots):
+    rows = []
+
+    for snapshot in ingredient_snapshots:
+        waste_rate_percent = _calculate_ingredient_waste_rate(snapshot)
+
+        rows.append(
+            {
+                "snapshot": snapshot,
+                "ingredient": snapshot.ingredient,
+                "quantity_wasted": snapshot.quantity_wasted,
+                "waste_cost": snapshot.waste_cost,
+                "waste_rate_percent": waste_rate_percent,
+                "recommended_action": _get_waste_ingredient_recommended_action(snapshot),
+            }
+        )
+
+    return rows
+
+
+def _build_waste_reason_rows(waste_records):
+    grouped = {}
+
+    for record in waste_records:
+        reason = record.reason
+        reason_label = record.get_reason_display()
+
+        if reason not in grouped:
+            grouped[reason] = {
+                "reason": reason,
+                "reason_label": reason_label,
+                "record_count": 0,
+                "total_cost": Decimal("0.00"),
+                "recommended_action": _get_waste_reason_recommended_action(reason),
+            }
+
+        grouped[reason]["record_count"] += 1
+        grouped[reason]["total_cost"] += record.estimated_cost or Decimal("0.00")
+
+    return sorted(
+        grouped.values(),
+        key=lambda row: (
+            -row["total_cost"],
+            row["reason_label"],
+        ),
+    )
+
+
+def _get_waste_product_recommended_action(snapshot):
+    if snapshot.waste_cost > 0 and snapshot.action_flag == ProductPerformanceSnapshot.ACTION_REVIEW:
+        return (
+            "Review production quantity, recipe execution, pricing, and waste causes "
+            "before promoting this product further."
+        )
+
+    if snapshot.waste_cost > 0:
+        return (
+            "Investigate waste records linked to this product and confirm whether "
+            "batch planning or recipe control needs adjustment."
+        )
+
+    return (
+        "No product-linked waste cost is currently recorded for this snapshot."
+    )
+
+
+def _get_waste_ingredient_recommended_action(snapshot):
+    if snapshot.quantity_wasted > 0:
+        return (
+            "Review ingredient handling, expiry timing, and recipe execution to reduce "
+            "avoidable waste."
+        )
+
+    return "No ingredient-linked waste action is required from this snapshot."
+
+
+def _get_waste_reason_recommended_action(reason):
+    action_map = {
+        WasteRecord.REASON_OVERPRODUCTION: (
+            "Review production planning and demand forecasting before the next batch."
+        ),
+        WasteRecord.REASON_QUALITY_ISSUE: (
+            "Review recipe execution, preparation checks, and quality control steps."
+        ),
+        WasteRecord.REASON_EXPIRY: (
+            "Review ingredient rotation, lot expiry visibility, and stock ordering rhythm."
+        ),
+        WasteRecord.REASON_RECIPE_ERROR: (
+            "Review recipe instructions, staff process, and batch preparation controls."
+        ),
+        WasteRecord.REASON_DAMAGE: (
+            "Review handling, storage, and transport steps to reduce damaged stock."
+        ),
+        WasteRecord.REASON_CANCELLATION: (
+            "Review order confirmation timing and cancellation handling before production begins."
+        ),
+        WasteRecord.REASON_OTHER: (
+            "Review the waste record notes and decide whether process controls need improvement."
+        ),
+    }
+
+    return action_map.get(
+        reason,
+        "Review the waste record and decide whether process controls need improvement.",
+    )
 
 def _find_signature_product(product_snapshots):
     for product in product_snapshots:

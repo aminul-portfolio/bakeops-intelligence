@@ -187,3 +187,63 @@ class BakeOpsDashboardViewTests(TestCase):
 
         self.assertEqual(url, "/analytics/ingredients/")
         self.assertEqual(match.func, views.ingredient_risk)
+
+    def test_waste_analysis_view_builds_context(self):
+        request = self.factory.get("/analytics/waste/")
+        captured = {}
+
+        def fake_render(request, template_name, context):
+            captured["template_name"] = template_name
+            captured["context"] = context
+
+            return HttpResponse(
+                "Waste Analysis WasteRecord Birthday Classic Product Waste Impact",
+                status=200,
+            )
+
+        with patch("bakeops.views.render", side_effect=fake_render):
+            response = views.waste_analysis(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            captured["template_name"],
+            "bakeops/waste_analysis.html",
+        )
+
+        context = captured["context"]
+
+        self.assertIsNotNone(context["latest_metric"])
+        self.assertIsNotNone(context["workspace"])
+        self.assertIsNotNone(context["snapshot_date"])
+        self.assertEqual(context["total_waste_records"], 4)
+        self.assertGreater(context["total_waste_cost"], 0)
+        self.assertGreater(context["gross_margin"], 0)
+        self.assertGreater(context["waste_adjusted_margin"], 0)
+        self.assertGreater(len(context["waste_records"]), 0)
+        self.assertGreater(len(context["product_waste_rows"]), 0)
+        self.assertGreater(len(context["waste_reason_rows"]), 0)
+
+        top_waste_product = context["top_waste_product"]
+
+        self.assertIsNotNone(top_waste_product)
+        self.assertEqual(top_waste_product["cake"].name, "Birthday Classic")
+        self.assertGreater(top_waste_product["waste_cost"], 0)
+        self.assertEqual(top_waste_product["action_flag"], "review")
+
+    @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
+    def test_waste_analysis_page_loads(self):
+        response = self.client.get(reverse("bakeops:waste-analysis"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Waste explains why revenue alone is not enough.")
+        self.assertContains(response, "WasteRecord")
+        self.assertContains(response, "Birthday Classic")
+        self.assertContains(response, "Waste-adjusted Margin")
+        self.assertContains(response, "Product Waste Impact")
+
+    def test_waste_analysis_route_is_correct(self):
+        url = reverse("bakeops:waste-analysis")
+        match = resolve(url)
+
+        self.assertEqual(url, "/analytics/waste/")
+        self.assertEqual(match.func, views.waste_analysis)
