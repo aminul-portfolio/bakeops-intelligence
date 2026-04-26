@@ -654,10 +654,17 @@
 
             <section class="card section">
                 <span class="badge">BI Export Status</span>
-                <h2>CSV export action is planned for Sprint 9.</h2>
+                <h2>BI-ready CSV exports are available.</h2>
                 <p class="hero-copy">
-                    This dashboard is already reading from stable gold-layer snapshot tables.
-                    In Sprint 9, these same records will power BI-ready CSV exports.
+                    This dashboard reads from the same stable gold-layer snapshot tables used by the CSV export command.
+                    Generate the V1 BI export pack with:
+                </p>
+                <p>
+                    <span class="code">python manage.py export_bi_csv</span>
+                </p>
+                <p class="hero-copy">
+                    Export files are generated into the project <span class="code">exports/</span> folder,
+                    including fact tables, dimension tables, daily metrics, and product performance snapshots.
                 </p>
             </section>
         {% else %}
