@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+## V3 Sprint 7 - Final Hardening and Release Checklist
+
+### Added
+
+- Added `docs/V3_FINAL_HARDENING.md` to define final V3 hardening checks, protected V2 evidence, technical verification commands, route verification, and commercial honesty rules.
+- Added `docs/V3_RELEASE_CHECKLIST.md` to define the final V3 release checklist, documentation coverage, implemented/not-implemented status, safe release wording, and Git evidence.
+
+### Changed
+
+- Updated `README.md` with Sprint 7 final hardening and release checklist documentation references.
+- Updated `README.md` with a final hardening and release checklist section.
+- Updated README commercial truth and limitations sections to make V3 final release boundaries clear.
+- Updated project status from V3 commercial-readiness in progress to V3 commercial foundation.
+
+### Guardrails
+
+- No model changes.
+- No migration changes.
+- No new feature code added.
+- No deployment configuration changed.
+- No production deployment claim added.
+- No import, onboarding, billing, subscription, POS, Shopify, Square, or live customer claims added.
+
+---
+
 ## V3 Sprint 6 - Packaging Strategy and Commercial README Polish
 
 ### Added
