@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+## V3 Sprint 3 - Demo and Customer Setup Workflow Foundation
+
+### Added
+
+- Added `docs/V3_DEMO_SETUP_WORKFLOW.md` to define the repeatable demo setup, verification flow, safe demo claims, and demo-to-customer bridge.
+- Added `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` to define the first-customer setup foundation, manual setup model, validation expectations, and setup boundaries.
+
+### Changed
+
+- Updated `README.md` with V3 demo and customer setup documentation references.
+- Updated `README.md` with a demo/customer setup section that clearly separates seeded demo usage from future customer onboarding.
+- Updated README commercial truth table to mark demo setup workflow and customer setup foundation as V3 Sprint 3 outputs.
+
+### Guardrails
+
+- No model changes.
+- No migration changes.
+- No onboarding UI added.
+- No customer signup flow added.
+- No billing or subscription logic added.
+- No fake live customer or production onboarding claims.
+
+---
+
 ## V3 Sprint 2 - Import Readiness Assessment and Safe Import Design
 
 ### Added

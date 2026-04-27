@@ -53,6 +53,8 @@ Current commercial truth:
 | Commercial product positioning | V3 Sprint 1 |
 | Import readiness assessment | V3 Sprint 2 |
 | Draft import contract | V3 Sprint 2 |
+| Demo setup workflow | V3 Sprint 3 |
+| Customer setup foundation | V3 Sprint 3 |
 | Import workflow implementation | Planned / not implemented yet |
 | Customer onboarding workflow | Planned / not implemented yet |
 | External POS integration | Not implemented yet |
@@ -68,6 +70,8 @@ V3 documentation:
 | `docs/V3_COMMERCIAL_SCOPE.md` | Defines what can be claimed, what is planned, what is out of scope, and how to avoid commercial overclaiming |
 | `docs/V3_IMPORT_READINESS.md` | Assesses safe import candidates, validation categories, import risks, and future workflow design |
 | `docs/V3_IMPORT_CONTRACT.md` | Defines draft file contracts for future customer, ingredient, order, order item, and waste record imports |
+| `docs/V3_DEMO_SETUP_WORKFLOW.md` | Defines the repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
+| `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | Defines the first-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
 
 ---
 
@@ -100,6 +104,30 @@ waste_records.csv
 ```
 
 This protects the V2 trust model by ensuring future imports feed operational records first, then rebuild analytics through the existing metric pipeline.
+
+---
+
+## V3 Demo and Customer Setup Foundation
+
+V3 Sprint 3 defines how BakeOps should be demonstrated and how a first customer setup could work later.
+
+The current demo remains seeded and controlled.
+
+Safe demo setup flow:
+
+```text
+seed_demo_data
+-> build_bakery_metrics
+-> review trusted analytics pages
+-> export_bi_csv
+-> verify Birthday Classic signature insight
+```
+
+The first-customer setup foundation is intentionally manual and evidence-based.
+
+It describes how a bakery could eventually move from customer-provided records into operational models, metric builds, data quality checks, analytics pages, and BI-ready exports.
+
+V3 Sprint 3 does not implement automated onboarding, workspace provisioning, billing, subscriptions, live customer imports, or multi-tenant SaaS account management.
 
 ---
 
@@ -159,6 +187,7 @@ The dashboard is not treated as the source of truth. The platform stores operati
 - Test coverage for key commands, services, views, and export parity
 - Commercial product-boundary documentation
 - Import readiness and draft import-contract documentation
+- Demo setup and first-customer setup foundation documentation
 
 ---
 
@@ -217,6 +246,8 @@ Birthday Classic 1 4 review
 | `docs/V3_COMMERCIAL_SCOPE.md` | V3 commercial scope boundary, implemented/planned status, and overclaim prevention |
 | `docs/V3_IMPORT_READINESS.md` | V3 import readiness assessment, first import candidates, validation categories, and safe workflow design |
 | `docs/V3_IMPORT_CONTRACT.md` | Draft contract for future customer, ingredient, order, order item, and waste record imports |
+| `docs/V3_DEMO_SETUP_WORKFLOW.md` | Repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
+| `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | First-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
@@ -511,6 +542,7 @@ Then set your local `SECRET_KEY`.
 - V2 does not yet include billing, subscriptions, or commercial onboarding.
 - V2 does not yet include customer-facing commercial workspace onboarding.
 - V3 Sprint 2 defines import readiness and draft import contracts, but does not implement import code yet.
+- V3 Sprint 3 defines demo and customer setup workflows, but does not implement automated onboarding yet.
 
 These are V3/V4 concerns.
 
@@ -549,5 +581,6 @@ It demonstrates:
 - analytics engineering thinking
 - commercial product-boundary discipline
 - cautious import-readiness planning
+- demo and first-customer setup workflow planning
 
 The platform is intentionally scoped as a trusted analytics foundation moving into V3 commercial readiness, not a fake fully launched commercial SaaS product.
