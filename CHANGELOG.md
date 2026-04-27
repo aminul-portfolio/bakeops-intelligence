@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+## V3 Sprint 5 - Beta Readiness and Deployment Checklist
+
+### Added
+
+- Added `docs/V3_BETA_READINESS.md` to define beta-readiness evidence, remaining gaps, safe beta claims, beta feedback questions, and acceptance criteria.
+- Added `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` to define deployment-readiness checks for environment configuration, database setup, static files, security, route verification, exports, and operations.
+
+### Changed
+
+- Updated `README.md` with Sprint 5 beta-readiness and deployment-readiness documentation references.
+- Updated `README.md` with a beta and deployment readiness section.
+- Updated README commercial truth and limitations sections to make production deployment status clear.
+
+### Guardrails
+
+- No model changes.
+- No migration changes.
+- No deployment configuration changed.
+- No production deployment claim added.
+- No import, onboarding, billing, subscription, POS, Shopify, Square, or live customer claims added.
+
+---
+
 ## V3 Sprint 4 - Commercial Operations Dashboard Polish
 
 ### Added

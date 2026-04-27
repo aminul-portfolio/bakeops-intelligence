@@ -56,12 +56,14 @@ Current commercial truth:
 | Demo setup workflow | V3 Sprint 3 |
 | Customer setup foundation | V3 Sprint 3 |
 | Commercial operations dashboard polish | V3 Sprint 4 |
+| Beta-readiness documentation | V3 Sprint 5 |
+| Deployment-readiness checklist | V3 Sprint 5 |
 | Import workflow implementation | Planned / not implemented yet |
 | Customer onboarding workflow | Planned / not implemented yet |
 | External POS integration | Not implemented yet |
 | Shopify/Square integration | Not implemented yet |
 | Billing/subscriptions | Not implemented yet |
-| Production deployment | Unknown unless verified |
+| Production deployment | Not claimed yet |
 
 V3 documentation:
 
@@ -74,6 +76,8 @@ V3 documentation:
 | `docs/V3_DEMO_SETUP_WORKFLOW.md` | Defines the repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
 | `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | Defines the first-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
 | `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Defines Sprint 4 dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria |
+| `docs/V3_BETA_READINESS.md` | Defines Sprint 5 beta-readiness evidence, remaining gaps, safe claims, feedback questions, and review checklist |
+| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Defines Sprint 5 deployment-readiness checks for environment, database, static files, security, routes, exports, and operations |
 
 ---
 
@@ -153,6 +157,25 @@ V3 Sprint 4 does not add or claim live POS integration, Shopify/Square integrati
 
 ---
 
+## V3 Beta and Deployment Readiness
+
+V3 Sprint 5 defines what BakeOps needs before it can be described as beta-ready or deployment-ready.
+
+Beta readiness means the project has enough verified workflow, documentation, known limitations, and operating clarity for controlled review.
+
+Deployment readiness means the project has a checklist for environment configuration, database setup, static files, security checks, route verification, export behaviour, and operational recovery before any production claim.
+
+Current status:
+
+```text
+Beta readiness: documented for review
+Production deployment: not claimed yet
+```
+
+V3 Sprint 5 does not deploy the app, change deployment settings, add production hosting, add billing, add onboarding automation, or claim live customer usage.
+
+---
+
 ## Core Purpose
 
 BakeOps Intelligence is not just a bakery catalogue website.
@@ -211,6 +234,7 @@ The dashboard is not treated as the source of truth. The platform stores operati
 - Import readiness and draft import-contract documentation
 - Demo setup and first-customer setup foundation documentation
 - Premium commercial operations dashboard communication
+- Beta-readiness and deployment-readiness documentation
 
 ---
 
@@ -272,6 +296,8 @@ Birthday Classic 1 4 review
 | `docs/V3_DEMO_SETUP_WORKFLOW.md` | Repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
 | `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | First-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
 | `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Sprint 4 dashboard polish scope, commercial workflow messaging, and dashboard honesty rules |
+| `docs/V3_BETA_READINESS.md` | Sprint 5 beta-readiness definition, evidence, gaps, safe claims, and review checklist |
+| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Sprint 5 deployment-readiness checklist covering environment, database, static files, security, routes, exports, and operations |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
@@ -568,6 +594,7 @@ Then set your local `SECRET_KEY`.
 - V3 Sprint 2 defines import readiness and draft import contracts, but does not implement import code yet.
 - V3 Sprint 3 defines demo and customer setup workflows, but does not implement automated onboarding yet.
 - V3 Sprint 4 improves the commercial operations dashboard communication, but does not implement live imports, onboarding, billing, subscriptions, or external integrations.
+- V3 Sprint 5 documents beta readiness and deployment readiness, but does not deploy the app or claim production readiness.
 
 These are V3/V4 concerns.
 
@@ -608,5 +635,6 @@ It demonstrates:
 - cautious import-readiness planning
 - demo and first-customer setup workflow planning
 - premium commercial operations dashboard communication
+- beta-readiness and deployment-readiness discipline
 
 The platform is intentionally scoped as a trusted analytics foundation moving into V3 commercial readiness, not a fake fully launched commercial SaaS product.
