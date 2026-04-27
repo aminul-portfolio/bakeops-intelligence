@@ -18,7 +18,7 @@ V1 delivered a working analytics dashboard powered by seeded operational data an
 
 V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, and final release verification.
 
-V3 focuses on commercial readiness: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, commercial operations dashboard polish, beta-readiness documentation, deployment-readiness review, and commercial packaging strategy.
+V3 focuses on commercial readiness: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, commercial operations dashboard polish, beta-readiness documentation, deployment-readiness review, packaging/pricing strategy, and commercial README polish.
 
 V3 should not claim fake integrations, fake customers, fake billing, fake subscriptions, fake production deployment, or fake live SaaS usage.
 
@@ -58,6 +58,8 @@ Current commercial truth:
 | Commercial operations dashboard polish | V3 Sprint 4 |
 | Beta-readiness documentation | V3 Sprint 5 |
 | Deployment-readiness checklist | V3 Sprint 5 |
+| Packaging/pricing strategy | V3 Sprint 6 |
+| Commercial README polish | V3 Sprint 6 |
 | Import workflow implementation | Planned / not implemented yet |
 | Customer onboarding workflow | Planned / not implemented yet |
 | External POS integration | Not implemented yet |
@@ -78,6 +80,8 @@ V3 documentation:
 | `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Defines Sprint 4 dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria |
 | `docs/V3_BETA_READINESS.md` | Defines Sprint 5 beta-readiness evidence, remaining gaps, safe claims, feedback questions, and review checklist |
 | `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Defines Sprint 5 deployment-readiness checks for environment, database, static files, security, routes, exports, and operations |
+| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Defines Sprint 6 packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
+| `docs/V3_COMMERCIAL_README_POLISH.md` | Defines Sprint 6 README polish strategy, commercial messaging, reviewer expectations, and acceptance criteria |
 
 ---
 
@@ -176,6 +180,29 @@ V3 Sprint 5 does not deploy the app, change deployment settings, add production 
 
 ---
 
+## V3 Packaging, Pricing Strategy, and README Polish
+
+V3 Sprint 6 defines how BakeOps can be packaged and explained commercially without pretending billing or subscriptions are implemented.
+
+Current packaging position:
+
+```text
+Commercial-ready bakery operations intelligence foundation
+```
+
+Pricing status:
+
+```text
+Pricing strategy documented only
+Billing/subscriptions not implemented
+```
+
+Sprint 6 also polishes the commercial README direction so reviewers can quickly understand the platform's business value, technical evidence, current limitations, and future commercial path.
+
+V3 Sprint 6 does not add pricing pages, Stripe billing, subscription plans, customer invoices, payment checkout, or live customer plans.
+
+---
+
 ## Core Purpose
 
 BakeOps Intelligence is not just a bakery catalogue website.
@@ -235,6 +262,7 @@ The dashboard is not treated as the source of truth. The platform stores operati
 - Demo setup and first-customer setup foundation documentation
 - Premium commercial operations dashboard communication
 - Beta-readiness and deployment-readiness documentation
+- Packaging/pricing strategy and commercial README polish documentation
 
 ---
 
@@ -298,6 +326,8 @@ Birthday Classic 1 4 review
 | `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Sprint 4 dashboard polish scope, commercial workflow messaging, and dashboard honesty rules |
 | `docs/V3_BETA_READINESS.md` | Sprint 5 beta-readiness definition, evidence, gaps, safe claims, and review checklist |
 | `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Sprint 5 deployment-readiness checklist covering environment, database, static files, security, routes, exports, and operations |
+| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Sprint 6 packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
+| `docs/V3_COMMERCIAL_README_POLISH.md` | Sprint 6 commercial README polish strategy, reviewer expectations, messaging structure, and acceptance criteria |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
@@ -595,6 +625,7 @@ Then set your local `SECRET_KEY`.
 - V3 Sprint 3 defines demo and customer setup workflows, but does not implement automated onboarding yet.
 - V3 Sprint 4 improves the commercial operations dashboard communication, but does not implement live imports, onboarding, billing, subscriptions, or external integrations.
 - V3 Sprint 5 documents beta readiness and deployment readiness, but does not deploy the app or claim production readiness.
+- V3 Sprint 6 documents packaging/pricing strategy and README polish, but does not implement billing, subscriptions, pricing pages, or customer plans.
 
 These are V3/V4 concerns.
 
@@ -610,7 +641,7 @@ V3 = Commercial
 
 V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, and reviewer evidence.
 
-V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, commercial dashboard polish, and commercial packaging strategy.
+V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, commercial dashboard polish, packaging/pricing strategy, and commercial README clarity.
 
 V3 does not currently claim live SaaS billing, real customer usage, external POS integration, Shopify/Square integration, or production multi-tenant operations.
 
@@ -636,5 +667,7 @@ It demonstrates:
 - demo and first-customer setup workflow planning
 - premium commercial operations dashboard communication
 - beta-readiness and deployment-readiness discipline
+- packaging/pricing strategy discipline
+- commercial README communication clarity
 
 The platform is intentionally scoped as a trusted analytics foundation moving into V3 commercial readiness, not a fake fully launched commercial SaaS product.

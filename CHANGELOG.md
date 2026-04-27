@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+## V3 Sprint 6 - Packaging Strategy and Commercial README Polish
+
+### Added
+
+- Added `docs/V3_PACKAGING_PRICING_STRATEGY.md` to define realistic packaging strategy, pricing caution, future package candidates, commercial value evidence, and safe pricing language.
+- Added `docs/V3_COMMERCIAL_README_POLISH.md` to define the commercial README polish direction, reviewer expectations, messaging structure, and acceptance criteria.
+
+### Changed
+
+- Updated `README.md` with Sprint 6 packaging/pricing and README polish documentation references.
+- Updated `README.md` with a packaging, pricing strategy, and commercial README polish section.
+- Updated README commercial truth and limitations sections to make billing/subscription status clear.
+- Updated project positioning to include packaging/pricing strategy discipline and commercial README communication clarity.
+
+### Guardrails
+
+- No model changes.
+- No migration changes.
+- No billing code added.
+- No pricing page added.
+- No subscription logic added.
+- No payment integration added.
+- No fake customer plans, revenue, POS, Shopify, Square, or live SaaS claims added.
+
+---
+
 ## V3 Sprint 5 - Beta Readiness and Deployment Checklist
 
 ### Added
