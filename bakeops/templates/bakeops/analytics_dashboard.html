@@ -2,22 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Analytics Dashboard</title>
+    <title>BakeOps Intelligence — Commercial Operations Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         :root {
-            --bg: #111827;
-            --panel: #1f2937;
-            --panel-soft: #273449;
-            --text: #f9fafb;
-            --muted: #9ca3af;
-            --line: rgba(255, 255, 255, 0.1);
+            --bg: #070b14;
+            --bg-soft: #0f172a;
+            --panel: rgba(15, 23, 42, 0.82);
+            --panel-solid: #111827;
+            --panel-soft: rgba(30, 41, 59, 0.72);
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-strong: rgba(255, 255, 255, 0.1);
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-strong: #cbd5e1;
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.18);
             --good: #22c55e;
             --warn: #f59e0b;
             --danger: #ef4444;
             --info: #38bdf8;
             --accent: #f97316;
+            --accent-soft: rgba(249, 115, 22, 0.14);
+            --accent-line: rgba(249, 115, 22, 0.38);
+            --blue-soft: rgba(56, 189, 248, 0.13);
+            --green-soft: rgba(34, 197, 94, 0.12);
+            --danger-soft: rgba(239, 68, 68, 0.12);
+            --shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+            --radius-xl: 30px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
         }
 
         * {
@@ -26,12 +41,26 @@
 
         body {
             margin: 0;
-            font-family: Inter, Arial, sans-serif;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 34rem),
-                radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 30rem),
-                var(--bg);
+                radial-gradient(circle at 10% -10%, rgba(249, 115, 22, 0.28), transparent 32rem),
+                radial-gradient(circle at 90% 0%, rgba(56, 189, 248, 0.18), transparent 34rem),
+                radial-gradient(circle at 50% 18%, rgba(34, 197, 94, 0.08), transparent 28rem),
+                linear-gradient(180deg, #070b14 0%, #0b1120 46%, #070b14 100%);
             color: var(--text);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.78), transparent 78%);
         }
 
         a {
@@ -40,98 +69,290 @@
         }
 
         .shell {
-            width: min(1180px, calc(100% - 32px));
+            width: min(1280px, calc(100% - 34px));
             margin: 0 auto;
-            padding: 32px 0 56px;
+            padding: 28px 0 58px;
+            position: relative;
+            z-index: 1;
         }
 
         .topbar {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
-            align-items: center;
-            padding: 16px 0 28px;
+            gap: 18px;
+            align-items: flex-start;
+            padding: 12px 0 26px;
         }
 
         .brand {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
+            min-width: 260px;
         }
 
-        .brand small {
-            color: var(--muted);
-            letter-spacing: 0.12em;
+        .brand small,
+        .eyebrow {
+            color: var(--accent);
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 900;
+            font-size: 0.74rem;
         }
 
         .brand strong {
-            font-size: 1.25rem;
+            font-size: 1.18rem;
+            letter-spacing: -0.02em;
         }
 
-        .nav-pill {
-            border: 1px solid var(--line);
-            background: rgba(31, 41, 55, 0.8);
-            padding: 10px 14px;
-            border-radius: 999px;
+        .brand span {
             color: var(--muted);
             font-size: 0.9rem;
         }
 
-        .hero {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 20px;
-            margin-bottom: 22px;
-        }
-
-        .card {
-            border: 1px solid var(--line);
-            background: rgba(31, 41, 55, 0.86);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            line-height: 1;
-            margin: 12px 0;
-            letter-spacing: -0.05em;
-        }
-
-        .hero-copy {
-            color: var(--muted);
-            font-size: 1rem;
-            max-width: 720px;
-            line-height: 1.65;
-        }
-
-        .badge-row {
+        .nav-group {
             display: flex;
+            justify-content: flex-end;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 20px;
+            gap: 9px;
         }
 
-        .badge {
+        .nav-pill,
+        .badge,
+        .button-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 7px 10px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.07);
             border: 1px solid var(--line);
-            color: var(--muted);
-            font-size: 0.82rem;
-            font-weight: 700;
+            background: rgba(15, 23, 42, 0.72);
+            color: var(--muted-strong);
+            font-size: 0.84rem;
+            font-weight: 800;
+            border-radius: 999px;
+            transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+        }
+
+        .nav-pill {
+            padding: 10px 13px;
+        }
+
+        .nav-pill:hover,
+        .button-link:hover {
+            border-color: var(--accent-line);
+            background: rgba(249, 115, 22, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .badge {
+            padding: 7px 10px;
+            font-size: 0.78rem;
+            letter-spacing: 0.01em;
         }
 
         .badge.orange {
             color: #fed7aa;
-            border-color: rgba(249, 115, 22, 0.35);
-            background: rgba(249, 115, 22, 0.12);
+            border-color: var(--accent-line);
+            background: var(--accent-soft);
+        }
+
+        .badge.blue {
+            color: #bae6fd;
+            border-color: rgba(56, 189, 248, 0.34);
+            background: var(--blue-soft);
+        }
+
+        .badge.green {
+            color: #bbf7d0;
+            border-color: rgba(34, 197, 94, 0.34);
+            background: var(--green-soft);
+        }
+
+        .button-row,
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button-link {
+            padding: 11px 14px;
+        }
+
+        .button-link.primary {
+            color: #fed7aa;
+            border-color: var(--accent-line);
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.22), rgba(249, 115, 22, 0.08));
+        }
+
+        .card,
+        .panel {
+            border: 1px solid var(--line);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
+                var(--panel);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.85fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .hero-main {
+            padding: 30px;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-main::after {
+            content: "";
+            position: absolute;
+            right: -120px;
+            top: -120px;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.22), transparent 64%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            position: relative;
+            font-size: clamp(2.25rem, 5.4vw, 5.25rem);
+            line-height: 0.92;
+            margin: 14px 0 18px;
+            letter-spacing: -0.075em;
+            max-width: 920px;
+        }
+
+        .hero-copy {
+            color: var(--muted-strong);
+            font-size: 1rem;
+            max-width: 760px;
+            line-height: 1.72;
+        }
+
+        .hero-copy strong {
+            color: var(--text);
+        }
+
+        .status-panel {
+            display: grid;
+            gap: 14px;
+        }
+
+        .status-card {
+            background: var(--glass);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .status-card small,
+        .kpi-label {
+            display: block;
+            color: var(--muted);
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            font-weight: 900;
+        }
+
+        .status-card strong {
+            display: block;
+            margin-top: 7px;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .status-card span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .commercial-strip {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .trust-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .trust-row {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.045);
+            border-radius: 18px;
+            padding: 13px 14px;
+        }
+
+        .trust-row strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .trust-row span {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.52;
+        }
+
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .workflow-step {
+            position: relative;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.045);
+            border-radius: 18px;
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        .workflow-step::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent), transparent);
+            opacity: 0.7;
+        }
+
+        .workflow-step small {
+            display: block;
+            color: var(--accent);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .workflow-step strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .workflow-step span {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
         }
 
         .grid-4 {
@@ -141,25 +362,35 @@
             margin-bottom: 20px;
         }
 
-        .kpi-label {
-            color: var(--muted);
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 800;
+        .kpi-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 150px;
+        }
+
+        .kpi-card::after {
+            content: "";
+            position: absolute;
+            right: -60px;
+            bottom: -70px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09), transparent 66%);
+            pointer-events: none;
         }
 
         .kpi-value {
-            font-size: 2rem;
-            margin-top: 8px;
-            font-weight: 900;
-            letter-spacing: -0.04em;
+            font-size: clamp(1.75rem, 3vw, 2.45rem);
+            margin-top: 9px;
+            font-weight: 950;
+            letter-spacing: -0.055em;
         }
 
         .kpi-foot {
             color: var(--muted);
             font-size: 0.9rem;
             margin-top: 8px;
+            line-height: 1.48;
         }
 
         .section {
@@ -171,22 +402,27 @@
             justify-content: space-between;
             gap: 16px;
             align-items: end;
-            margin: 28px 0 14px;
+            margin: 30px 0 14px;
         }
 
-        .section-head h2 {
+        .section-head h2,
+        .card h2,
+        .panel h2 {
             margin: 0;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
+            letter-spacing: -0.035em;
         }
 
-        .section-head p {
-            margin: 5px 0 0;
+        .section-head p,
+        .panel p,
+        .card p {
             color: var(--muted);
+            line-height: 1.62;
         }
 
         .table-wrap {
             overflow-x: auto;
-            border-radius: 20px;
+            border-radius: 22px;
             border: 1px solid var(--line);
         }
 
@@ -194,7 +430,7 @@
             width: 100%;
             border-collapse: collapse;
             min-width: 900px;
-            background: rgba(31, 41, 55, 0.72);
+            background: rgba(15, 23, 42, 0.7);
         }
 
         th, td {
@@ -206,14 +442,14 @@
 
         th {
             color: var(--muted);
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.045);
         }
 
         td {
-            font-size: 0.95rem;
+            font-size: 0.94rem;
         }
 
         tr:last-child td {
@@ -221,21 +457,22 @@
         }
 
         tr.signature {
-            background: rgba(249, 115, 22, 0.13);
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.16), rgba(249, 115, 22, 0.035));
         }
 
         .rank {
-            font-weight: 900;
+            font-weight: 950;
             font-size: 1rem;
         }
 
         .pill {
             display: inline-flex;
+            align-items: center;
             padding: 5px 9px;
             border-radius: 999px;
             border: 1px solid var(--line);
-            font-size: 0.78rem;
-            font-weight: 800;
+            font-size: 0.76rem;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -244,29 +481,29 @@
         .pill.warning,
         .pill.high {
             color: #fed7aa;
-            background: rgba(249, 115, 22, 0.13);
-            border-color: rgba(249, 115, 22, 0.38);
+            background: var(--accent-soft);
+            border-color: var(--accent-line);
         }
 
         .pill.promote,
         .pill.success,
         .pill.low {
             color: #bbf7d0;
-            background: rgba(34, 197, 94, 0.12);
+            background: var(--green-soft);
             border-color: rgba(34, 197, 94, 0.34);
         }
 
         .pill.critical,
         .pill.error {
             color: #fecaca;
-            background: rgba(239, 68, 68, 0.12);
+            background: var(--danger-soft);
             border-color: rgba(239, 68, 68, 0.34);
         }
 
         .pill.info,
         .pill.medium {
             color: #bae6fd;
-            background: rgba(56, 189, 248, 0.12);
+            background: var(--blue-soft);
             border-color: rgba(56, 189, 248, 0.34);
         }
 
@@ -285,26 +522,65 @@
         .action-card {
             background: rgba(255, 255, 255, 0.045);
             border: 1px solid var(--line);
-            border-radius: 18px;
-            padding: 16px;
+            border-radius: 20px;
+            padding: 17px;
+            min-height: 190px;
         }
 
         .action-card h3 {
-            margin: 10px 0 8px;
-            font-size: 1rem;
+            margin: 12px 0 8px;
+            font-size: 1.02rem;
+            letter-spacing: -0.02em;
         }
 
         .action-card p {
             margin: 0 0 8px;
             color: var(--muted);
-            line-height: 1.5;
+            line-height: 1.52;
             font-size: 0.92rem;
+        }
+
+        .signature-card {
+            border-color: rgba(249, 115, 22, 0.32);
+            background:
+                linear-gradient(135deg, rgba(249, 115, 22, 0.16), rgba(15, 23, 42, 0.75) 42%),
+                var(--panel);
+        }
+
+        .signature-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .mini-metric {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.045);
+            padding: 14px;
+        }
+
+        .mini-metric small {
+            color: var(--muted);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 900;
+            font-size: 0.72rem;
+            margin-bottom: 7px;
+        }
+
+        .mini-metric strong {
+            display: block;
+            font-size: 1.25rem;
+            letter-spacing: -0.04em;
         }
 
         .empty {
             border: 1px dashed var(--line);
             color: var(--muted);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 28px;
             text-align: center;
             background: rgba(255, 255, 255, 0.03);
@@ -312,9 +588,9 @@
 
         .code {
             display: inline-block;
-            font-family: Consolas, Monaco, monospace;
+            font-family: Consolas, Monaco, "Courier New", monospace;
             color: #fed7aa;
-            background: rgba(249, 115, 22, 0.12);
+            background: var(--accent-soft);
             border: 1px solid rgba(249, 115, 22, 0.25);
             border-radius: 8px;
             padding: 2px 6px;
@@ -327,17 +603,46 @@
             text-align: center;
         }
 
-        @media (max-width: 960px) {
+        .footer-note strong {
+            color: var(--muted-strong);
+        }
+
+        @media (max-width: 1100px) {
             .hero,
-            .two-col,
-            .three-col,
-            .grid-4 {
+            .commercial-strip,
+            .two-col {
                 grid-template-columns: 1fr;
             }
 
+            .workflow-grid,
+            .grid-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .shell {
+                width: min(100% - 22px, 1280px);
+                padding-top: 18px;
+            }
+
             .topbar {
-                align-items: flex-start;
                 flex-direction: column;
+            }
+
+            .nav-group {
+                justify-content: flex-start;
+            }
+
+            .workflow-grid,
+            .grid-4,
+            .three-col,
+            .signature-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main {
+                padding: 22px;
             }
         }
     </style>
@@ -348,74 +653,175 @@
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
-                <strong>Bakery Operations Analytics</strong>
+                <strong>Commercial Operations Dashboard</strong>
+                <span>V3 commercial-readiness foundation · trusted seeded demo data</span>
             </div>
-            <div class="badge-row" style="margin-top: 0;">
-                <a class="nav-pill" href="{% url 'bakeops:product-profitability' %}">Product profitability →</a>
-                <a class="nav-pill" href="{% url 'bakeops:ingredient-risk' %}">Ingredient risk →</a>
-                <a class="nav-pill" href="{% url 'bakeops:waste-analysis' %}">Waste analysis →</a>
-                <a class="nav-pill" href="{% url 'bakeops:occasion-analytics' %}">Occasion analytics →</a>
-                <a class="nav-pill" href="{% url 'bakeops:customer-analytics' %}">Customer analytics →</a>
-                <a class="nav-pill" href="{% url 'bakeops:data-quality-review' %}">Data quality →</a>
-                <a class="nav-pill" href="{% url 'bakeops:export-centre' %}">Export centre →</a>
-                <a class="nav-pill" href="/">← Back to catalogue</a>
-            </div>
+            <nav class="nav-group" aria-label="BakeOps analytics navigation">
+                <a class="nav-pill" href="{% url 'bakeops:product-profitability' %}">Products</a>
+                <a class="nav-pill" href="{% url 'bakeops:ingredient-risk' %}">Ingredients</a>
+                <a class="nav-pill" href="{% url 'bakeops:waste-analysis' %}">Waste</a>
+                <a class="nav-pill" href="{% url 'bakeops:occasion-analytics' %}">Occasions</a>
+                <a class="nav-pill" href="{% url 'bakeops:customer-analytics' %}">Customers</a>
+                <a class="nav-pill" href="{% url 'bakeops:data-quality-review' %}">Data quality</a>
+                <a class="nav-pill" href="{% url 'bakeops:export-centre' %}">Exports</a>
+                <a class="nav-pill" href="/">Catalogue</a>
+            </nav>
         </header>
 
         {% if latest_metric %}
             <section class="hero">
-                <div class="card">
-                    <span class="badge orange">V1 Analytics Dashboard</span>
-                    <h1 class="hero-title">Waste-adjusted profitability for bakery decisions.</h1>
+                <div class="card hero-main">
+                    <span class="badge orange">V3 Commercial Readiness</span>
+                    <h1 class="hero-title">Bakery operations intelligence from records to action.</h1>
                     <p class="hero-copy">
-                        This dashboard is powered by real seeded operational data and gold-layer metric snapshots.
-                        It connects orders, recipes, ingredient costs, production output, waste, customer loyalty,
-                        and data quality into decision-ready bakery intelligence.
+                        BakeOps converts bakery orders, products, ingredients, waste, customers, occasions,
+                        and data quality signals into trusted operating decisions. This dashboard is powered by
+                        <strong>seeded operational demo data</strong> and gold-layer snapshots; it does not claim
+                        live customer data, POS integration, billing, or production SaaS usage.
                     </p>
+
+                    <div class="button-row">
+                        <a class="button-link primary" href="{% url 'bakeops:product-profitability' %}">Review product profitability →</a>
+                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Check data quality →</a>
+                        <a class="button-link" href="{% url 'bakeops:export-centre' %}">Open BI exports →</a>
+                    </div>
 
                     <div class="badge-row">
                         <span class="badge">Workspace: {{ workspace.name }}</span>
                         <span class="badge">Snapshot: {{ snapshot_date }}</span>
-                        <span class="badge">Source: Gold-layer snapshots</span>
+                        <span class="badge green">Source: Gold-layer snapshots</span>
+                    </div>
+                </div>
+
+                <aside class="card status-panel">
+                    <div class="status-card">
+                        <small>Last Metric Build</small>
+                        {% if last_run_log %}
+                            <strong>{{ last_run_log.get_status_display }}</strong>
+                            <span>
+                                Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
+                                Rows processed: {{ last_run_log.rows_processed }}<br>
+                                Snapshots: {{ last_run_log.snapshots_created }} · Issues: {{ last_run_log.issues_created }}
+                            </span>
+                        {% else %}
+                            <strong>No run log</strong>
+                            <span>Run <span class="code">python manage.py build_bakery_metrics</span></span>
+                        {% endif %}
+                    </div>
+                    <div class="status-card">
+                        <small>Commercial Status</small>
+                        <strong>Foundation, not fake SaaS</strong>
+                        <span>Imports, onboarding, billing, and integrations are documented or planned only unless separately implemented.</span>
+                    </div>
+                    <div class="status-card">
+                        <small>Primary Proof Point</small>
+                        <strong>Revenue can mislead</strong>
+                        <span>Birthday Classic ranks #1 by revenue but falls after waste-adjusted margin analysis.</span>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="commercial-strip">
+                <div class="card">
+                    <span class="badge orange">Commercial Readiness Layer</span>
+                    <h2>Premium operating workflow, evidence-based claims.</h2>
+                    <p>
+                        Sprint 4 positions the dashboard as a command entry point for bakery operations review.
+                        It keeps the commercial story clear while separating implemented analytics from planned
+                        import, onboarding, integration, and billing capabilities.
+                    </p>
+
+                    <div class="trust-list">
+                        <div class="trust-row">
+                            <strong>Implemented now</strong>
+                            <span>Metric builds, trusted analytics pages, data quality checks, action review, and BI-ready CSV exports.</span>
+                        </div>
+                        <div class="trust-row">
+                            <strong>Documented for V3</strong>
+                            <span>Commercial scope, import readiness, import contracts, demo setup, customer setup foundation, and dashboard polish.</span>
+                        </div>
+                        <div class="trust-row">
+                            <strong>Not claimed yet</strong>
+                            <span>Live POS/Shopify/Square integrations, automated onboarding, paid subscriptions, real customer usage, and production deployment.</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <div class="kpi-label">Last Metric Build</div>
-                    {% if last_run_log %}
-                        <div class="kpi-value">{{ last_run_log.get_status_display }}</div>
-                        <div class="kpi-foot">
-                            Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
-                            Rows processed: {{ last_run_log.rows_processed }}<br>
-                            Snapshots: {{ last_run_log.snapshots_created }} · Issues: {{ last_run_log.issues_created }}
-                        </div>
-                    {% else %}
-                        <div class="kpi-value">No run log</div>
-                        <div class="kpi-foot">Run <span class="code">python manage.py build_bakery_metrics</span></div>
-                    {% endif %}
+                    <span class="badge blue">Operating Path</span>
+                    <h2>Start with KPIs, then investigate pressure points.</h2>
+                    <p>
+                        Use the dashboard as a weekly review workflow: read the commercial note, inspect KPIs,
+                        investigate margin pressure, check ingredient and waste risks, review data quality, then export.
+                    </p>
+
+                    <div class="button-row">
+                        <a class="button-link primary" href="{% url 'bakeops:product-profitability' %}">Products →</a>
+                        <a class="button-link" href="{% url 'bakeops:ingredient-risk' %}">Ingredients →</a>
+                        <a class="button-link" href="{% url 'bakeops:waste-analysis' %}">Waste →</a>
+                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Trust issues →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Commercial Operating Workflow</span>
+                        <h2>From bakery records to trusted action review.</h2>
+                        <p>The dashboard is an operating review path, not a fake live integration claim.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-grid">
+                    <div class="workflow-step">
+                        <small>Step 1</small>
+                        <strong>Operational records</strong>
+                        <span>Seeded bakery records model orders, products, customers, ingredients, waste, and occasions.</span>
+                    </div>
+                    <div class="workflow-step">
+                        <small>Step 2</small>
+                        <strong>Metric build</strong>
+                        <span>Repeatable build command creates trusted gold-layer analytics snapshots.</span>
+                    </div>
+                    <div class="workflow-step">
+                        <small>Step 3</small>
+                        <strong>Decision pages</strong>
+                        <span>Pages expose product profit, ingredient risk, waste, customers, occasions, and data quality.</span>
+                    </div>
+                    <div class="workflow-step">
+                        <small>Step 4</small>
+                        <strong>Action review</strong>
+                        <span>Review flags highlight where revenue, margin, waste, or trust issues require attention.</span>
+                    </div>
+                    <div class="workflow-step">
+                        <small>Step 5</small>
+                        <strong>BI exports</strong>
+                        <span>Exported CSV files support reporting, audit, and future business intelligence workflows.</span>
+                    </div>
                 </div>
             </section>
 
             <section class="grid-4">
-                <div class="card">
+                <div class="card kpi-card">
                     <div class="kpi-label">Revenue</div>
                     <div class="kpi-value">£{{ latest_metric.revenue }}</div>
                     <div class="kpi-foot">{{ latest_metric.paid_orders }} paid / fulfilled orders</div>
                 </div>
 
-                <div class="card">
+                <div class="card kpi-card">
                     <div class="kpi-label">Average Order Value</div>
                     <div class="kpi-value">£{{ latest_metric.average_order_value }}</div>
                     <div class="kpi-foot">{{ latest_metric.total_items_sold }} items sold</div>
                 </div>
 
-                <div class="card">
+                <div class="card kpi-card">
                     <div class="kpi-label">Gross Margin</div>
                     <div class="kpi-value">£{{ latest_metric.gross_margin }}</div>
                     <div class="kpi-foot">{{ latest_metric.gross_margin_percent }}% before waste</div>
                 </div>
 
-                <div class="card">
+                <div class="card kpi-card">
                     <div class="kpi-label">Waste-adjusted Margin</div>
                     <div class="kpi-value">£{{ latest_metric.waste_adjusted_margin }}</div>
                     <div class="kpi-foot">{{ latest_metric.waste_adjusted_margin_percent }}% after waste</div>
@@ -423,7 +829,7 @@
             </section>
 
             {% if signature_product %}
-                <section class="card section">
+                <section class="card section signature-card">
                     <span class="badge orange">Signature Insight</span>
                     <h2>{{ signature_product.cake.name }} is the best seller, but not the strongest margin product.</h2>
                     <p class="hero-copy">
@@ -431,17 +837,35 @@
                         <strong>#{{ signature_product.revenue_rank }}</strong>, but drops to
                         waste-adjusted margin rank
                         <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
-                        after ingredient cost and waste are included.
+                        after ingredient cost and waste are included. This is the core commercial proof that revenue alone
+                        can mislead bakery decisions.
                     </p>
+
+                    <div class="signature-metrics">
+                        <div class="mini-metric">
+                            <small>Product</small>
+                            <strong>{{ signature_product.cake.name }}</strong>
+                        </div>
+                        <div class="mini-metric">
+                            <small>Revenue Rank</small>
+                            <strong>#{{ signature_product.revenue_rank }}</strong>
+                        </div>
+                        <div class="mini-metric">
+                            <small>Margin Rank</small>
+                            <strong>#{{ signature_product.waste_adjusted_margin_rank }} · {{ signature_product.get_action_flag_display }}</strong>
+                        </div>
+                    </div>
                 </section>
             {% endif %}
 
             <section class="section">
                 <div class="section-head">
                     <div>
+                        <span class="eyebrow">Decision Surface</span>
                         <h2>Product Profitability</h2>
                         <p>Revenue rank vs waste-adjusted margin rank.</p>
                     </div>
+                    <a class="button-link" href="{% url 'bakeops:product-profitability' %}">Open product page →</a>
                 </div>
 
                 <div class="table-wrap">
@@ -492,7 +916,8 @@
             <section class="section">
                 <div class="section-head">
                     <div>
-                        <h2>Weekly Action Cards</h2>
+                        <span class="eyebrow">Weekly Review</span>
+                        <h2>Action Cards</h2>
                         <p>Actions generated from product margin, ingredient risk, and data quality signals.</p>
                     </div>
                 </div>
@@ -506,6 +931,8 @@
                             <p><strong>Reason:</strong> {{ action.reason }}</p>
                             <p><strong>Suggested action:</strong> {{ action.action }}</p>
                         </div>
+                    {% empty %}
+                        <div class="empty">No weekly actions found.</div>
                     {% endfor %}
                 </div>
             </section>
@@ -514,9 +941,11 @@
                 <div class="card">
                     <div class="section-head" style="margin-top: 0;">
                         <div>
+                            <span class="eyebrow">Operational Risk</span>
                             <h2>Ingredient Risk</h2>
                             <p>Low stock and near-expiry signals.</p>
                         </div>
+                        <a class="button-link" href="{% url 'bakeops:ingredient-risk' %}">Open →</a>
                     </div>
 
                     <div class="table-wrap">
@@ -552,9 +981,11 @@
                 <div class="card">
                     <div class="section-head" style="margin-top: 0;">
                         <div>
+                            <span class="eyebrow">Trust Layer</span>
                             <h2>Data Quality Issues</h2>
                             <p>Open trust issues from the latest build.</p>
                         </div>
+                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Open →</a>
                     </div>
 
                     <div class="table-wrap">
@@ -591,9 +1022,11 @@
                 <div class="card">
                     <div class="section-head" style="margin-top: 0;">
                         <div>
+                            <span class="eyebrow">Demand View</span>
                             <h2>Occasion Demand</h2>
                             <p>Demand and revenue by occasion.</p>
                         </div>
+                        <a class="button-link" href="{% url 'bakeops:occasion-analytics' %}">Open →</a>
                     </div>
 
                     <div class="table-wrap">
@@ -627,9 +1060,11 @@
                 <div class="card">
                     <div class="section-head" style="margin-top: 0;">
                         <div>
+                            <span class="eyebrow">Customer Value</span>
                             <h2>Customer Loyalty</h2>
                             <p>Top customer value and loyalty context.</p>
                         </div>
+                        <a class="button-link" href="{% url 'bakeops:customer-analytics' %}">Open →</a>
                     </div>
 
                     <div class="table-wrap">
@@ -661,50 +1096,52 @@
                 </div>
             </section>
 
-            <section class="panel bi-card">
-    <span class="badge">BI Export Status</span>
-    <h2>BI-ready CSV exports are available.</h2>
-    <p>
-        This dashboard reads from the same stable gold-layer snapshot tables used by the CSV export command.
-        Generate the BI export pack with:
-    </p>
-    <p>
-        <span class="code">python manage.py export_bi_csv</span>
-    </p>
-    <p>
-        Export files are generated into the project <span class="code">exports/</span> folder,
-        and include fact tables, dimension tables, daily metrics, and product performance snapshots.
-    </p>
-    <p>
-        Export contract page:
-        <a href="{% url 'bakeops:export-centre' %}">/analytics/exports/</a>
-    </p>
-</section>
+            <section class="section two-col">
+                <div class="panel">
+                    <span class="badge blue">BI Export Status</span>
+                    <h2>BI-ready CSV exports are available.</h2>
+                    <p>
+                        This dashboard reads from the same stable gold-layer snapshot tables used by the CSV export command.
+                        Generate the BI export pack with:
+                    </p>
+                    <p>
+                        <span class="code">python manage.py export_bi_csv</span>
+                    </p>
+                    <p>
+                        Export files are generated into the project <span class="code">exports/</span> folder,
+                        and include fact tables, dimension tables, daily metrics, and product performance snapshots.
+                    </p>
+                    <p>
+                        Export contract page:
+                        <a class="button-link" href="{% url 'bakeops:export-centre' %}">/analytics/exports/ →</a>
+                    </p>
+                </div>
 
-            <section class="panel bi-card">
-                <span class="badge">Metric Governance</span>
-                <h2>Metric lineage and reviewer evidence are documented.</h2>
-                <p>
-                    V2 documents how seeded operational records flow through the metric build command,
-                    gold-layer snapshots, trusted analytics pages, and BI-ready exports.
-                </p>
-                <p>
-                    Reviewer documentation:
-                    <span class="code">docs/METRIC_GOVERNANCE.md</span>,
-                    <span class="code">docs/LINEAGE.md</span>,
-                    and <span class="code">docs/REVIEWER_WALKTHROUGH.md</span>.
-                </p>
-                <p>
-                    Verification command:
-                    <span class="code">python manage.py build_bakery_metrics</span>
-                </p>
+                <div class="panel">
+                    <span class="badge green">Metric Governance</span>
+                    <h2>Metric lineage and reviewer evidence are documented.</h2>
+                    <p>
+                        V2 documents how seeded operational records flow through the metric build command,
+                        gold-layer snapshots, trusted analytics pages, and BI-ready exports.
+                    </p>
+                    <p>
+                        Reviewer documentation:
+                        <span class="code">docs/METRIC_GOVERNANCE.md</span>,
+                        <span class="code">docs/LINEAGE.md</span>,
+                        and <span class="code">docs/REVIEWER_WALKTHROUGH.md</span>.
+                    </p>
+                    <p>
+                        Verification command:
+                        <span class="code">python manage.py build_bakery_metrics</span>
+                    </p>
+                </div>
             </section>
         {% else %}
-            <section class="card">
+            <section class="card hero-main">
                 <span class="badge orange">No Metrics Yet</span>
                 <h1 class="hero-title">Build metrics to activate the dashboard.</h1>
                 <p class="hero-copy">
-                    No `DailyBakeryMetric` record was found. Run these commands first:
+                    No <span class="code">DailyBakeryMetric</span> record was found. Run these commands first:
                 </p>
 
                 <p>
@@ -717,7 +1154,8 @@
         {% endif %}
 
         <p class="footer-note">
-            BakeOps Intelligence V1 · Analytics dashboard powered by seeded operational data and gold-layer metrics.
+            <strong>BakeOps Intelligence V3</strong> · Commercial-readiness dashboard powered by seeded operational data,
+            gold-layer metrics, and evidence-based product boundaries.
         </p>
     </main>
 </body>

@@ -18,7 +18,7 @@ V1 delivered a working analytics dashboard powered by seeded operational data an
 
 V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, and final release verification.
 
-V3 focuses on commercial readiness: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, beta-readiness documentation, deployment-readiness review, and commercial packaging strategy.
+V3 focuses on commercial readiness: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, commercial operations dashboard polish, beta-readiness documentation, deployment-readiness review, and commercial packaging strategy.
 
 V3 should not claim fake integrations, fake customers, fake billing, fake subscriptions, fake production deployment, or fake live SaaS usage.
 
@@ -55,6 +55,7 @@ Current commercial truth:
 | Draft import contract | V3 Sprint 2 |
 | Demo setup workflow | V3 Sprint 3 |
 | Customer setup foundation | V3 Sprint 3 |
+| Commercial operations dashboard polish | V3 Sprint 4 |
 | Import workflow implementation | Planned / not implemented yet |
 | Customer onboarding workflow | Planned / not implemented yet |
 | External POS integration | Not implemented yet |
@@ -72,6 +73,7 @@ V3 documentation:
 | `docs/V3_IMPORT_CONTRACT.md` | Defines draft file contracts for future customer, ingredient, order, order item, and waste record imports |
 | `docs/V3_DEMO_SETUP_WORKFLOW.md` | Defines the repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
 | `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | Defines the first-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
+| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Defines Sprint 4 dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria |
 
 ---
 
@@ -128,6 +130,26 @@ The first-customer setup foundation is intentionally manual and evidence-based.
 It describes how a bakery could eventually move from customer-provided records into operational models, metric builds, data quality checks, analytics pages, and BI-ready exports.
 
 V3 Sprint 3 does not implement automated onboarding, workspace provisioning, billing, subscriptions, live customer imports, or multi-tenant SaaS account management.
+
+---
+
+## V3 Commercial Operations Dashboard Polish
+
+V3 Sprint 4 improves the main analytics dashboard so it communicates BakeOps as a premium commercial operations intelligence workflow.
+
+The dashboard now explains:
+
+```text
+operational records
+-> trusted metric build
+-> analytics pages
+-> action review
+-> BI-ready exports
+```
+
+Sprint 4 adds a clearer commercial-readiness narrative, a seeded-demo honesty layer, an operating workflow path, and stronger reviewer-facing dashboard communication.
+
+V3 Sprint 4 does not add or claim live POS integration, Shopify/Square integration, customer onboarding automation, billing, subscriptions, production deployment, or live SaaS usage.
 
 ---
 
@@ -188,6 +210,7 @@ The dashboard is not treated as the source of truth. The platform stores operati
 - Commercial product-boundary documentation
 - Import readiness and draft import-contract documentation
 - Demo setup and first-customer setup foundation documentation
+- Premium commercial operations dashboard communication
 
 ---
 
@@ -248,6 +271,7 @@ Birthday Classic 1 4 review
 | `docs/V3_IMPORT_CONTRACT.md` | Draft contract for future customer, ingredient, order, order item, and waste record imports |
 | `docs/V3_DEMO_SETUP_WORKFLOW.md` | Repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
 | `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | First-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
+| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Sprint 4 dashboard polish scope, commercial workflow messaging, and dashboard honesty rules |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
@@ -543,6 +567,7 @@ Then set your local `SECRET_KEY`.
 - V2 does not yet include customer-facing commercial workspace onboarding.
 - V3 Sprint 2 defines import readiness and draft import contracts, but does not implement import code yet.
 - V3 Sprint 3 defines demo and customer setup workflows, but does not implement automated onboarding yet.
+- V3 Sprint 4 improves the commercial operations dashboard communication, but does not implement live imports, onboarding, billing, subscriptions, or external integrations.
 
 These are V3/V4 concerns.
 
@@ -558,7 +583,7 @@ V3 = Commercial
 
 V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, and reviewer evidence.
 
-V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, and commercial packaging strategy.
+V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, commercial dashboard polish, and commercial packaging strategy.
 
 V3 does not currently claim live SaaS billing, real customer usage, external POS integration, Shopify/Square integration, or production multi-tenant operations.
 
@@ -582,5 +607,6 @@ It demonstrates:
 - commercial product-boundary discipline
 - cautious import-readiness planning
 - demo and first-customer setup workflow planning
+- premium commercial operations dashboard communication
 
 The platform is intentionally scoped as a trusted analytics foundation moving into V3 commercial readiness, not a fake fully launched commercial SaaS product.

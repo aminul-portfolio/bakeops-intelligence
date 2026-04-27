@@ -2,6 +2,35 @@
 
 ## Unreleased
 
+## V3 Sprint 4 - Commercial Operations Dashboard Polish
+
+### Added
+
+- Added `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` to define Sprint 4 dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria.
+- Added a premium commercial-readiness section to the main analytics dashboard.
+- Added a commercial operating workflow section to the main analytics dashboard.
+- Added an evidence rail that explains implemented capabilities, documented V3 foundations, and features not claimed yet.
+- Added a clearer operating-path section for product, ingredient, waste, data quality, and BI export review.
+
+### Changed
+
+- Updated `README.md` with the Sprint 4 dashboard polish documentation reference.
+- Updated `README.md` with a commercial operations dashboard polish section.
+- Updated the main analytics dashboard to feel more premium/SaaS-like while remaining honest about seeded demo data.
+- Updated the main analytics dashboard to explain the operating path from bakery records to metric builds, decision pages, action review, and BI exports.
+- Updated the dashboard footer from V1 wording to V3 commercial-readiness wording.
+
+### Guardrails
+
+- No model changes.
+- No migration changes.
+- No import code added.
+- No onboarding UI added.
+- No billing or subscription logic added.
+- No fake POS, Shopify, Square, live customer, or production SaaS claims.
+
+---
+
 ## V3 Sprint 3 - Demo and Customer Setup Workflow Foundation
 
 ### Added
