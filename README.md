@@ -11,12 +11,59 @@ It transforms bakery catalogue, customer, order, ingredient, recipe, production,
 ```text
 V1 = Works
 V2 = Trusted
-V3 = Commercial - planned
+V3 = Commercial - in progress
 ```
 
 V1 delivered a working analytics dashboard powered by seeded operational data and a repeatable metric build command.
 
 V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, and final release verification.
+
+V3 focuses on commercial readiness: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, beta-readiness documentation, deployment-readiness review, and commercial packaging strategy.
+
+V3 should not claim fake integrations, fake customers, fake billing, fake subscriptions, fake production deployment, or fake live SaaS usage.
+
+---
+
+## V3 Commercial Readiness
+
+BakeOps Intelligence V3 turns the trusted V2 analytics foundation into a commercially credible product foundation.
+
+The commercial positioning is:
+
+```text
+A bakery operations intelligence platform for small and growing bakeries that need clearer visibility into product profitability, waste impact, ingredient risk, customer value, occasion demand, data quality issues, and BI-ready reporting outputs.
+```
+
+The realistic first user is:
+
+```text
+A bakery owner, bakery manager, or operations lead who wants better operational visibility before making pricing, production, waste, stock, and product decisions.
+```
+
+V3 is not allowed to overclaim features that are not implemented.
+
+Current commercial truth:
+
+| Area | Status |
+|---|---|
+| Trusted analytics pages | Implemented |
+| Gold-layer metric build | Implemented |
+| Data quality visibility | Implemented |
+| BI-ready exports | Implemented |
+| Commercial product positioning | V3 Sprint 1 |
+| Import workflow | Planned / not implemented yet |
+| Customer onboarding workflow | Planned / not implemented yet |
+| External POS integration | Not implemented yet |
+| Shopify/Square integration | Not implemented yet |
+| Billing/subscriptions | Not implemented yet |
+| Production deployment | Unknown unless verified |
+
+V3 documentation:
+
+| Document | Purpose |
+|---|---|
+| `docs/V3_PRODUCT_STRATEGY.md` | Defines the commercial product strategy, first user, business problem, existing evidence, and V3 direction |
+| `docs/V3_COMMERCIAL_SCOPE.md` | Defines what can be claimed, what is planned, what is out of scope, and how to avoid commercial overclaiming |
 
 ---
 
@@ -128,6 +175,8 @@ Birthday Classic 1 4 review
 | `docs/METRIC_GOVERNANCE.md` | Explains the metric build process, gold-layer snapshots, run logging, and verification commands |
 | `docs/LINEAGE.md` | Explains the data lineage from seeded operational records to analytics pages and BI exports |
 | `docs/V2_RELEASE_CHECKLIST.md` | Final V2 release checklist covering tests, routes, metrics, exports, documentation, and Git hygiene |
+| `docs/V3_PRODUCT_STRATEGY.md` | V3 commercial product strategy, first user, business problem, evidence, and direction |
+| `docs/V3_COMMERCIAL_SCOPE.md` | V3 commercial scope boundary, implemented/planned status, and overclaim prevention |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
@@ -436,7 +485,9 @@ V3 = Commercial
 
 V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, and reviewer evidence.
 
-V3 will focus on SaaS readiness, imports, onboarding, workspace management, billing foundation, and commercial beta preparation.
+V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, and commercial packaging strategy.
+
+V3 does not currently claim live SaaS billing, real customer usage, external POS integration, Shopify/Square integration, or production multi-tenant operations.
 
 ---
 
@@ -455,5 +506,6 @@ It demonstrates:
 - export contracts
 - reviewer verification workflow
 - analytics engineering thinking
+- commercial product-boundary discipline
 
-The platform is intentionally scoped as a trusted analytics demo in V2, not a commercial SaaS product yet.
+The platform is intentionally scoped as a trusted analytics foundation moving into V3 commercial readiness, not a fake fully launched commercial SaaS product.
