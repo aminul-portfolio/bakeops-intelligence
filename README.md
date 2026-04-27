@@ -51,7 +51,9 @@ Current commercial truth:
 | Data quality visibility | Implemented |
 | BI-ready exports | Implemented |
 | Commercial product positioning | V3 Sprint 1 |
-| Import workflow | Planned / not implemented yet |
+| Import readiness assessment | V3 Sprint 2 |
+| Draft import contract | V3 Sprint 2 |
+| Import workflow implementation | Planned / not implemented yet |
 | Customer onboarding workflow | Planned / not implemented yet |
 | External POS integration | Not implemented yet |
 | Shopify/Square integration | Not implemented yet |
@@ -64,6 +66,40 @@ V3 documentation:
 |---|---|
 | `docs/V3_PRODUCT_STRATEGY.md` | Defines the commercial product strategy, first user, business problem, existing evidence, and V3 direction |
 | `docs/V3_COMMERCIAL_SCOPE.md` | Defines what can be claimed, what is planned, what is out of scope, and how to avoid commercial overclaiming |
+| `docs/V3_IMPORT_READINESS.md` | Assesses safe import candidates, validation categories, import risks, and future workflow design |
+| `docs/V3_IMPORT_CONTRACT.md` | Defines draft file contracts for future customer, ingredient, order, order item, and waste record imports |
+
+---
+
+## V3 Import Readiness
+
+V3 Sprint 2 defines how BakeOps can safely move from seeded demo data toward realistic customer-provided bakery records.
+
+The import strategy is intentionally cautious:
+
+```text
+source files
+-> staging validation
+-> operational records
+-> metric build command
+-> gold-layer snapshots
+-> trusted analytics pages
+-> BI-ready exports
+```
+
+V3 Sprint 2 does not implement import code yet.
+
+It defines the import readiness assessment and draft import contract for future files such as:
+
+```text
+customers.csv
+ingredients.csv
+orders.csv
+order_items.csv
+waste_records.csv
+```
+
+This protects the V2 trust model by ensuring future imports feed operational records first, then rebuild analytics through the existing metric pipeline.
 
 ---
 
@@ -121,6 +157,8 @@ The dashboard is not treated as the source of truth. The platform stores operati
 - BI-ready CSV exports
 - Metric governance and lineage documentation
 - Test coverage for key commands, services, views, and export parity
+- Commercial product-boundary documentation
+- Import readiness and draft import-contract documentation
 
 ---
 
@@ -177,6 +215,8 @@ Birthday Classic 1 4 review
 | `docs/V2_RELEASE_CHECKLIST.md` | Final V2 release checklist covering tests, routes, metrics, exports, documentation, and Git hygiene |
 | `docs/V3_PRODUCT_STRATEGY.md` | V3 commercial product strategy, first user, business problem, evidence, and direction |
 | `docs/V3_COMMERCIAL_SCOPE.md` | V3 commercial scope boundary, implemented/planned status, and overclaim prevention |
+| `docs/V3_IMPORT_READINESS.md` | V3 import readiness assessment, first import candidates, validation categories, and safe workflow design |
+| `docs/V3_IMPORT_CONTRACT.md` | Draft contract for future customer, ingredient, order, order item, and waste record imports |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
@@ -470,8 +510,9 @@ Then set your local `SECRET_KEY`.
 - V2 does not yet include multi-tenant SaaS permissions.
 - V2 does not yet include billing, subscriptions, or commercial onboarding.
 - V2 does not yet include customer-facing commercial workspace onboarding.
+- V3 Sprint 2 defines import readiness and draft import contracts, but does not implement import code yet.
 
-These are V3 concerns.
+These are V3/V4 concerns.
 
 ---
 
@@ -507,5 +548,6 @@ It demonstrates:
 - reviewer verification workflow
 - analytics engineering thinking
 - commercial product-boundary discipline
+- cautious import-readiness planning
 
 The platform is intentionally scoped as a trusted analytics foundation moving into V3 commercial readiness, not a fake fully launched commercial SaaS product.

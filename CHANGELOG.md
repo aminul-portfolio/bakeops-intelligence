@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+## V3 Sprint 2 - Import Readiness Assessment and Safe Import Design
+
+### Added
+
+- Added `docs/V3_IMPORT_READINESS.md` to assess safe import candidates, validation categories, import risks, and future workflow design.
+- Added `docs/V3_IMPORT_CONTRACT.md` to define draft file contracts for customers, ingredients, orders, order items, and waste records.
+
+### Changed
+
+- Updated `README.md` with V3 import readiness documentation references.
+- Updated `README.md` with a cautious import-readiness section that preserves the V2 trusted metric workflow.
+- Updated README commercial truth table to mark import readiness assessment and draft import contract as V3 Sprint 2 outputs.
+
+### Guardrails
+
+- No model changes.
+- No migration changes.
+- No import parser added.
+- No upload UI added.
+- No fake POS, Shopify, Square, or live customer data integration claims.
+
+---
+
 ## V3 Sprint 1 - Commercial Positioning and Product Boundary
 
 ### Added
