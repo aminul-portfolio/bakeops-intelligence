@@ -421,7 +421,7 @@
 
                 <div class="card">
                     <div class="kpi-label">Reviewer Proof Point</div>
-                    <div class="kpi-value">£{{ total_waste_cost }}</div>
+                    <div class="kpi-value">£{{ total_waste_cost|floatformat:2 }}</div>
                     <div class="kpi-foot">
                         total waste cost from the latest seeded operational records.<br>
                         This page explains how waste reduces margin instead of rebuilding metrics.
@@ -438,19 +438,19 @@
 
                 <div class="card">
                     <div class="kpi-label">Gross Margin</div>
-                    <div class="kpi-value">£{{ gross_margin }}</div>
+                    <div class="kpi-value">£{{ gross_margin|floatformat:2 }}</div>
                     <div class="kpi-foot">Margin before subtracting waste pressure.</div>
                 </div>
 
                 <div class="card">
                     <div class="kpi-label">Waste-adjusted Margin</div>
-                    <div class="kpi-value">£{{ waste_adjusted_margin }}</div>
+                    <div class="kpi-value">£{{ waste_adjusted_margin|floatformat:2 }}</div>
                     <div class="kpi-foot">Margin after waste cost is included.</div>
                 </div>
 
                 <div class="card">
                     <div class="kpi-label">Waste Impact</div>
-                    <div class="kpi-value">{{ waste_margin_impact_percent }}%</div>
+                    <div class="kpi-value">£{{ top_waste_product.waste_adjusted_margin|floatformat:2 }}</div>
                     <div class="kpi-foot">Waste cost as a share of gross margin.</div>
                 </div>
             </section>
@@ -462,32 +462,33 @@
 
                     <p class="hero-copy">
                         {{ top_waste_product.cake.name }} has
-                        <strong>£{{ top_waste_product.waste_cost }}</strong>
+                        <strong>£{{ top_waste_product.waste_cost|floatformat:2 }}</strong>
                         waste cost. Its gross margin is
-                        <strong>£{{ top_waste_product.gross_margin }}</strong>,
+                        <strong>£{{ top_waste_product.gross_margin|floatformat:2 }}</strong>,
                         but its waste-adjusted margin is
                         <strong>£{{ top_waste_product.waste_adjusted_margin }}</strong>.
                     </p>
 
                     <div class="focus-grid">
                         <div class="mini-panel">
-                            <strong>£{{ top_waste_product.waste_cost }}</strong>
+                            <strong>£{{ top_waste_product.waste_cost|floatformat:2 }}</strong>
                             <span>Waste cost</span>
                         </div>
 
                         <div class="mini-panel">
-                            <strong>£{{ top_waste_product.gross_margin }}</strong>
+                            <strong>£{{ top_waste_product.gross_margin|floatformat:2 }}</strong>
                             <span>Gross margin</span>
                         </div>
 
                         <div class="mini-panel">
-                            <strong>£{{ top_waste_product.waste_adjusted_margin }}</strong>
+                            <strong>£{{ top_waste_product.waste_adjusted_margin|floatformat:2 }}</strong>
                             <span>Waste-adjusted margin</span>
                         </div>
                     </div>
 
                     <p class="hero-copy" style="margin-top: 18px;">
-                        Why this matters: Birthday Classic can lead revenue, but waste pressure reduces its true profitability.
+                        Why this matters: {{ top_waste_product.cake.name }} can lead on revenue,
+                        but waste pressure reduces its true profitability.
                         This is the operational explanation behind the V1 review flag.
                     </p>
                 </section>
@@ -527,20 +528,20 @@
                                     </td>
 
                                     <td>
-                                        <span class="metric">£{{ row.waste_cost }}</span>
+                                        <span class="metric">£{{ row.waste_cost|floatformat:2 }}</span>
                                     </td>
 
                                     <td>
-                                        £{{ row.gross_margin }}
+                                        £{{ row.gross_margin|floatformat:2 }}
                                     </td>
 
                                     <td>
-                                        £{{ row.waste_adjusted_margin }}
+                                        £{{ row.waste_adjusted_margin|floatformat:2 }}
                                     </td>
 
                                     <td>
                                         {% if row.waste_cost > 0 %}
-                                            <span class="negative">{{ row.waste_share_percent }}%</span>
+                                            <span class="negative">{{ row.waste_share_percent|floatformat:2 }}%</span>
                                         {% else %}
                                             <span class="positive">0.00%</span>
                                         {% endif %}
@@ -600,8 +601,8 @@
                                     </td>
 
                                     <td>{{ row.quantity_wasted }}</td>
-                                    <td>£{{ row.waste_cost }}</td>
-                                    <td>{{ row.waste_rate_percent }}%</td>
+                                    <td>£{{ row.waste_cost|floatformat:2 }}</td>
+                                    <td>{{ row.waste_rate_percent|floatformat:2 }}%</td>
                                     <td>
                                         <p class="muted" style="margin: 0;">
                                             {{ row.recommended_action }}
@@ -634,7 +635,7 @@
                     {% for row in waste_reason_rows %}
                         <div class="reason-card">
                             <span class="pill waste">{{ row.reason_label }}</span>
-                            <h3 style="margin-top: 14px;">£{{ row.total_cost }}</h3>
+                            <h3 style="margin-top: 14px;">£{{ row.total_cost|floatformat:2 }}</h3>
                             <p>{{ row.record_count }} waste record{{ row.record_count|pluralize }} linked to this reason.</p>
                             <p><strong>Recommended action:</strong> {{ row.recommended_action }}</p>
                         </div>
@@ -688,7 +689,7 @@
                                         {% endif %}
                                     </td>
                                     <td>{{ record.quantity }}</td>
-                                    <td>£{{ record.estimated_cost }}</td>
+                                    <td>£{{ record.estimated_cost|floatformat:2 }}</td>
                                     <td>
                                         <span class="muted">{{ record.notes|default:"No notes recorded" }}</span>
                                     </td>
