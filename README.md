@@ -1,6 +1,8 @@
 # BakeOps Intelligence
 
-BakeOps Intelligence is a bakery operations analytics platform built with Django.
+![BakeOps Django CI](https://github.com/aminul-portfolio/bakeops-intelligence/actions/workflows/django-ci.yml/badge.svg)
+
+Django bakery operations intelligence platform with KPI dashboards, product performance analytics, waste tracking, ingredient risk, and BI-ready CSV exports.
 
 It transforms bakery catalogue, customer, order, ingredient, recipe, production, waste, loyalty, and review data into dashboard-ready metrics, trusted analytics pages, data quality checks, metric lineage evidence, and BI-ready CSV exports.
 
