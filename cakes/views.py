@@ -2,7 +2,7 @@ from decimal import Decimal
 from types import SimpleNamespace
 
 from django.db.models import Avg
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ReviewForm
 from .models import Cake, CakeCollection

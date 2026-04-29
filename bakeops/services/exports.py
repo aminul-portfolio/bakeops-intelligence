@@ -9,14 +9,12 @@ from bakeops.models import (
     DailyBakeryMetric,
     Ingredient,
     OccasionType,
-    ProductPerformanceSnapshot,
-    ProductionBatch,
     ProductionBatchLine,
+    ProductPerformanceSnapshot,
     WasteRecord,
     Workspace,
 )
-from cakes.models import Cake, CakeCollection, CakeVariant
-
+from cakes.models import CakeCollection, CakeVariant
 
 EXPORT_FILE_NAMES = {
     "fact_orders": "fact_orders.csv",

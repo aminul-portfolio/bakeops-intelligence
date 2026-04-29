@@ -1,5 +1,4 @@
-from decimal import Decimal, ROUND_HALF_UP
-
+from decimal import ROUND_HALF_UP, Decimal
 
 ZERO = Decimal("0.00")
 MONEY_PLACES = Decimal("0.01")

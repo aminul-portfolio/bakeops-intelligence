@@ -1,7 +1,6 @@
 from decimal import Decimal
 
-from .models import CakeCollection, Cake, CakeVariant
-
+from .models import Cake, CakeCollection, CakeVariant
 
 # ---------------------------
 # 1) Collections

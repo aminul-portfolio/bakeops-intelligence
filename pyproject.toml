@@ -1,0 +1,18 @@
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-exclude = [
+    ".venv",
+    "migrations",
+    "__pycache__",
+    "staticfiles",
+    "media",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

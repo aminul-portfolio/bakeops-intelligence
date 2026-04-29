@@ -1,13 +1,13 @@
 from django.contrib import admin
 
 from .models import (
-    CakeCollection,
     Cake,
+    CakeCollection,
     CakeVariant,
-    Review,
     LoyaltyAccount,
     Order,
     OrderItem,
+    Review,
 )
 
 
@@ -54,7 +54,9 @@ class CakeAdmin(admin.ModelAdmin):
 
 
 from django.contrib import admin
-from .models import Cake, Review, CakeCollection, CakeVariant
+
+from .models import Cake, CakeCollection, CakeVariant
+
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):

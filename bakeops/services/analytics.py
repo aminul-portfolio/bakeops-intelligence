@@ -30,7 +30,6 @@ from .costing import (
 )
 from .quality import rebuild_data_quality_issues
 
-
 PAID_STATUSES = [
     BakeryOrder.STATUS_PAID,
     BakeryOrder.STATUS_FULFILLED,

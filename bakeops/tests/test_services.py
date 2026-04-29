@@ -2,11 +2,11 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from bakeops.models import (
+    BakeryOrderItem,
     DataQualityIssue,
     ProductPerformanceSnapshot,
 )
 from bakeops.services.costing import calculate_order_item_ingredient_cost
-from bakeops.models import BakeryOrderItem
 
 
 class BakeOpsServiceTests(TestCase):
