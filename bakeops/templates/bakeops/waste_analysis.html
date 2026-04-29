@@ -450,7 +450,7 @@
 
                 <div class="card">
                     <div class="kpi-label">Waste Impact</div>
-                    <div class="kpi-value">£{{ top_waste_product.waste_adjusted_margin|floatformat:2 }}</div>
+                    <div class="kpi-value">{{ waste_margin_impact_percent|floatformat:2 }}%</div>
                     <div class="kpi-foot">Waste cost as a share of gross margin.</div>
                 </div>
             </section>
@@ -466,7 +466,7 @@
                         waste cost. Its gross margin is
                         <strong>£{{ top_waste_product.gross_margin|floatformat:2 }}</strong>,
                         but its waste-adjusted margin is
-                        <strong>£{{ top_waste_product.waste_adjusted_margin }}</strong>.
+                        <strong>£{{ top_waste_product.waste_adjusted_margin|floatformat:2 }}</strong>.
                     </p>
 
                     <div class="focus-grid">
