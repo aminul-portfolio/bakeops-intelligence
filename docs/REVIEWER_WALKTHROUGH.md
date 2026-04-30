@@ -8,10 +8,6 @@ BakeOps Intelligence is a bakery operations analytics platform built with Django
 
 ---
 
-
-## With this block
-
-````markdown id="p2gcqs"
 ## Version Status
 
 ```text
@@ -20,7 +16,9 @@ V2 = Trusted
 V3 = Commercial foundation
 ```
 
-V2 is now focused on trust and reviewer evidence. It does not claim to be a commercial SaaS product yet.
+V2 proves the platform is reliable, testable, explainable, and reviewer-ready.
+
+V3 adds commercial-readiness documentation and product-positioning evidence, but it does not claim live SaaS usage, production deployment, billing, subscriptions, external POS integration, Shopify/Square integration, or real customer usage.
 
 ---
 
@@ -368,19 +366,22 @@ BakeOps Intelligence V2 proves:
 
 ## Current Limitations
 
-V2 does not yet include:
+BakeOps Intelligence currently uses seeded demo data and documented commercial-readiness workflows.
+
+It does not yet include:
 
 ```markdown
 - [ ] external POS imports
 - [ ] Shopify, Square, Stripe, or payment integrations
 - [ ] live production scheduling integrations
-- [ ] user onboarding flows
-- [ ] multi-tenant SaaS permissions
+- [ ] automated customer onboarding flows
+- [ ] multi-tenant SaaS account management
 - [ ] billing or subscriptions
-- [ ] commercial workspace setup
+- [ ] production SaaS deployment
+- [ ] real customer usage
 ```
 
-These are V3 concerns.
+These are future concerns and should not be claimed as implemented.
 
 ---
 

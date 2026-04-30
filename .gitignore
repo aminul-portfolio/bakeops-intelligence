@@ -1,4 +1,3 @@
-@"
 # Python
 __pycache__/
 *.py[cod]
@@ -24,6 +23,9 @@ staticfiles/
 exports/*
 !exports/.gitkeep
 
+# User-uploaded media files
+media/
+
 # Logs
 *.log
 logs/
@@ -36,16 +38,14 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Test / coverage
+# Test / coverage / lint caches
 .coverage
 htmlcov/
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
 
 # Build artifacts
 dist/
 build/
 *.egg-info/
-"@ | Set-Content .\.gitignore
-# User-uploaded media files
-media/
