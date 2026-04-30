@@ -2,19 +2,19 @@
 
 ## Purpose
 
-BakeOps Intelligence V2 adds a trusted decision-support layer on top of the working V1 platform.
+This document explains how BakeOps Intelligence builds, stores, verifies, and protects its analytics metrics.
 
-This document explains how the metric layer is built, what it depends on, which gold-layer tables it creates, how the build is logged, and how a reviewer can verify that the analytics pages are based on stored metric snapshots rather than hard-coded dashboard values.
+The goal is to show reviewers that the analytics pages are not hard-coded screenshots or presentation-only values. They are based on operational records, a repeatable metric build command, stored gold-layer snapshots, data quality checks, and exportable BI files.
 
 ---
 
 ## Governance Principle
 
-BakeOps separates operational records from reporting metrics.
+BakeOps separates operational data from reporting metrics.
 
 ```text
-Operational bakery data
-→ metric build command
-→ gold-layer metric snapshots
-→ analytics pages
-→ BI export files
+operational bakery records
+-> metric build command
+-> gold-layer metric snapshots
+-> analytics pages
+-> BI export files

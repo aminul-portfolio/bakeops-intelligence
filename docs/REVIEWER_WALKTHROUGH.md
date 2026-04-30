@@ -8,12 +8,16 @@ BakeOps Intelligence is a bakery operations analytics platform built with Django
 
 ---
 
+
+## With this block
+
+````markdown id="p2gcqs"
 ## Version Status
 
 ```text
 V1 = Works
 V2 = Trusted
-V3 = Commercial - planned
+V3 = Commercial foundation
 ```
 
 V2 is now focused on trust and reviewer evidence. It does not claim to be a commercial SaaS product yet.
@@ -382,7 +386,7 @@ These are V3 concerns.
 
 ## Final Reviewer Summary
 
-BakeOps Intelligence V2 is a trusted analytics demo, not a commercial SaaS product yet.
+BakeOps Intelligence is a trusted bakery operations analytics platform with a V3 commercial foundation, not a live paid SaaS product.
 
 It is reviewer-ready because the core insight can be verified through:
 
