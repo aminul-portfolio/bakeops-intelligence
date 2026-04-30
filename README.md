@@ -2,9 +2,9 @@
 
 ![BakeOps Django CI](https://github.com/aminul-portfolio/bakeops-intelligence/actions/workflows/django-ci.yml/badge.svg)
 
-Django bakery operations intelligence platform with KPI dashboards, product performance analytics, waste tracking, ingredient risk, and BI-ready CSV exports.
+Django bakery operations intelligence platform with KPI dashboards, product performance analytics, waste tracking, ingredient risk, data quality review, and BI-ready CSV exports.
 
-It transforms bakery catalogue, customer, order, ingredient, recipe, production, waste, loyalty, and review data into dashboard-ready metrics, trusted analytics pages, data quality checks, metric lineage evidence, and BI-ready CSV exports.
+It transforms bakery catalogue, customer, order, ingredient, recipe, production, waste, loyalty, and review data into dashboard-ready metrics, trusted analytics pages, metric lineage evidence, governance documentation, and exportable BI files.
 
 ---
 
@@ -18,11 +18,46 @@ V3 = Commercial foundation
 
 V1 delivered a working analytics dashboard powered by seeded operational data and a repeatable metric build command.
 
-V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, and final release verification.
+V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, tests, CI, and final release verification.
 
 V3 delivers a commercial-readiness foundation: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, commercial operations dashboard polish, beta-readiness documentation, deployment-readiness review, packaging/pricing strategy, commercial README polish, final hardening evidence, and release checklist documentation.
 
 V3 should not claim fake integrations, fake customers, fake billing, fake subscriptions, fake production deployment, or fake live SaaS usage.
+
+---
+
+## Reviewer Evidence Snapshot
+
+Latest verified local and CI evidence:
+
+```text
+Git status: clean
+Ruff: passed
+Django system check: passed
+Migration dry-run: no changes detected
+Tests: 37 passed
+Seed command: passed
+Metric build command: passed
+BI export command: 11 files, 52 rows
+Signature insight: Birthday Classic 1 4 review
+GitHub Actions: green
+```
+
+This evidence shows that BakeOps Intelligence is not only a visual dashboard. It is a repeatable analytics workflow with seeded operational data, metric build logic, stored gold-layer snapshots, data quality visibility, exportable BI files, tests, and CI verification.
+
+The protected reviewer proof is:
+
+```text
+Birthday Classic 1 4 review
+```
+
+Meaning:
+
+| Product | Revenue Rank | Waste-adjusted Margin Rank | Action |
+|---|---:|---:|---|
+| Birthday Classic | 1 | 4 | review |
+
+This proves the platform's core business idea: the highest-revenue product is not necessarily the strongest product after ingredient cost and waste impact are included.
 
 ---
 
@@ -52,23 +87,23 @@ Current commercial truth:
 | Gold-layer metric build | Implemented |
 | Data quality visibility | Implemented |
 | BI-ready exports | Implemented |
-| Commercial product positioning | V3 Sprint 1 |
-| Import readiness assessment | V3 Sprint 2 |
-| Draft import contract | V3 Sprint 2 |
-| Demo setup workflow | V3 Sprint 3 |
-| Customer setup foundation | V3 Sprint 3 |
-| Commercial operations dashboard polish | V3 Sprint 4 |
-| Beta-readiness documentation | V3 Sprint 5 |
-| Deployment-readiness checklist | V3 Sprint 5 |
-| Packaging/pricing strategy | V3 Sprint 6 |
-| Commercial README polish | V3 Sprint 6 |
-| Final hardening and release checklist | V3 Sprint 7 |
+| Commercial product positioning | Documented |
+| Import readiness assessment | Documented |
+| Draft import contract | Documented |
+| Demo setup workflow | Documented |
+| Customer setup foundation | Documented |
+| Commercial operations dashboard polish | Documented |
+| Beta-readiness documentation | Documented |
+| Deployment-readiness checklist | Documented |
+| Packaging/pricing strategy | Documented |
+| Final hardening and release checklist | Documented |
 | Import workflow implementation | Planned / not implemented yet |
 | Customer onboarding workflow | Planned / not implemented yet |
 | External POS integration | Not implemented yet |
 | Shopify/Square integration | Not implemented yet |
 | Billing/subscriptions | Not implemented yet |
 | Production deployment | Not claimed yet |
+| Real customer usage | Not claimed yet |
 
 V3 documentation:
 
@@ -80,19 +115,19 @@ V3 documentation:
 | `docs/V3_IMPORT_CONTRACT.md` | Defines draft file contracts for future customer, ingredient, order, order item, and waste record imports |
 | `docs/V3_DEMO_SETUP_WORKFLOW.md` | Defines the repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
 | `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | Defines the first-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
-| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Defines Sprint 4 dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria |
-| `docs/V3_BETA_READINESS.md` | Defines Sprint 5 beta-readiness evidence, remaining gaps, safe claims, feedback questions, and review checklist |
-| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Defines Sprint 5 deployment-readiness checks for environment, database, static files, security, routes, exports, and operations |
-| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Defines Sprint 6 packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
-| `docs/V3_COMMERCIAL_README_POLISH.md` | Defines Sprint 6 README polish strategy, commercial messaging, reviewer expectations, and acceptance criteria |
-| `docs/V3_FINAL_HARDENING.md` | Defines Sprint 7 final hardening evidence, verification commands, protected metrics, and commercial honesty checks |
-| `docs/V3_RELEASE_CHECKLIST.md` | Defines Sprint 7 final V3 release checklist covering verification, documentation, implemented status, and release wording |
+| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Defines dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria |
+| `docs/V3_BETA_READINESS.md` | Defines beta-readiness evidence, remaining gaps, safe claims, feedback questions, and review checklist |
+| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Defines deployment-readiness checks for environment, database, static files, security, routes, exports, and operations |
+| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Defines packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
+| `docs/V3_COMMERCIAL_README_POLISH.md` | Defines commercial README polish strategy, commercial messaging, reviewer expectations, and acceptance criteria |
+| `docs/V3_FINAL_HARDENING.md` | Defines final hardening evidence, verification commands, protected metrics, and commercial honesty checks |
+| `docs/V3_RELEASE_CHECKLIST.md` | Defines final V3 release checklist covering verification, documentation, implemented status, and release wording |
 
 ---
 
 ## V3 Import Readiness
 
-V3 Sprint 2 defines how BakeOps can safely move from seeded demo data toward realistic customer-provided bakery records.
+V3 defines how BakeOps can safely move from seeded demo data toward realistic customer-provided bakery records.
 
 The import strategy is intentionally cautious:
 
@@ -106,7 +141,7 @@ source files
 -> BI-ready exports
 ```
 
-V3 Sprint 2 does not implement import code yet.
+V3 does not implement import code yet.
 
 It defines the import readiness assessment and draft import contract for future files such as:
 
@@ -124,7 +159,7 @@ This protects the V2 trust model by ensuring future imports feed operational rec
 
 ## V3 Demo and Customer Setup Foundation
 
-V3 Sprint 3 defines how BakeOps should be demonstrated and how a first customer setup could work later.
+V3 defines how BakeOps should be demonstrated and how a first customer setup could work later.
 
 The current demo remains seeded and controlled.
 
@@ -142,15 +177,15 @@ The first-customer setup foundation is intentionally manual and evidence-based.
 
 It describes how a bakery could eventually move from customer-provided records into operational models, metric builds, data quality checks, analytics pages, and BI-ready exports.
 
-V3 Sprint 3 does not implement automated onboarding, workspace provisioning, billing, subscriptions, live customer imports, or multi-tenant SaaS account management.
+V3 does not implement automated onboarding, workspace provisioning, billing, subscriptions, live customer imports, or multi-tenant SaaS account management.
 
 ---
 
 ## V3 Commercial Operations Dashboard Polish
 
-V3 Sprint 4 improves the main analytics dashboard so it communicates BakeOps as a premium commercial operations intelligence workflow.
+V3 improves the main analytics dashboard so it communicates BakeOps as a premium commercial operations intelligence workflow.
 
-The dashboard now explains:
+The dashboard explains:
 
 ```text
 operational records
@@ -160,15 +195,15 @@ operational records
 -> BI-ready exports
 ```
 
-Sprint 4 adds a clearer commercial-readiness narrative, a seeded-demo honesty layer, an operating workflow path, and stronger reviewer-facing dashboard communication.
+V3 adds a clearer commercial-readiness narrative, a seeded-demo honesty layer, an operating workflow path, and stronger reviewer-facing dashboard communication.
 
-V3 Sprint 4 does not add or claim live POS integration, Shopify/Square integration, customer onboarding automation, billing, subscriptions, production deployment, or live SaaS usage.
+V3 does not add or claim live POS integration, Shopify/Square integration, customer onboarding automation, billing, subscriptions, production deployment, or live SaaS usage.
 
 ---
 
 ## V3 Beta and Deployment Readiness
 
-V3 Sprint 5 defines what BakeOps needs before it can be described as beta-ready or deployment-ready.
+V3 defines what BakeOps needs before it can be described as beta-ready or deployment-ready.
 
 Beta readiness means the project has enough verified workflow, documentation, known limitations, and operating clarity for controlled review.
 
@@ -181,13 +216,13 @@ Beta readiness: documented for review
 Production deployment: not claimed yet
 ```
 
-V3 Sprint 5 does not deploy the app, change deployment settings, add production hosting, add billing, add onboarding automation, or claim live customer usage.
+V3 does not deploy the app, change deployment settings, add production hosting, add billing, add onboarding automation, or claim live customer usage.
 
 ---
 
 ## V3 Packaging, Pricing Strategy, and README Polish
 
-V3 Sprint 6 defines how BakeOps can be packaged and explained commercially without pretending billing or subscriptions are implemented.
+V3 defines how BakeOps can be packaged and explained commercially without pretending billing or subscriptions are implemented.
 
 Current packaging position:
 
@@ -202,15 +237,15 @@ Pricing strategy documented only
 Billing/subscriptions not implemented
 ```
 
-Sprint 6 also polishes the commercial README direction so reviewers can quickly understand the platform's business value, technical evidence, current limitations, and future commercial path.
+V3 also polishes the commercial README direction so reviewers can quickly understand the platform's business value, technical evidence, current limitations, and future commercial path.
 
-V3 Sprint 6 does not add pricing pages, Stripe billing, subscription plans, customer invoices, payment checkout, or live customer plans.
+V3 does not add pricing pages, Stripe billing, subscription plans, customer invoices, payment checkout, or live customer plans.
 
 ---
 
 ## V3 Final Hardening and Release Checklist
 
-V3 Sprint 7 finalizes the commercial foundation by documenting release evidence, hardening checks, route verification, protected V2 metrics, and final commercial honesty rules.
+V3 finalizes the commercial foundation by documenting release evidence, hardening checks, route verification, protected V2 metrics, and final commercial honesty rules.
 
 Final V3 release status:
 
@@ -218,9 +253,9 @@ Final V3 release status:
 V3 = Commercial foundation
 ```
 
-Sprint 7 confirms that BakeOps remains test-verified, commercially clear, and honest about what is implemented versus planned.
+V3 confirms that BakeOps remains test-verified, commercially clear, and honest about what is implemented versus planned.
 
-V3 Sprint 7 does not add new product features, import workflows, billing, subscriptions, external integrations, or production deployment claims.
+V3 does not add new product features, import workflows, billing, subscriptions, external integrations, or production deployment claims.
 
 ---
 
@@ -345,50 +380,62 @@ Birthday Classic 1 4 review
 | `docs/V3_IMPORT_CONTRACT.md` | Draft contract for future customer, ingredient, order, order item, and waste record imports |
 | `docs/V3_DEMO_SETUP_WORKFLOW.md` | Repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
 | `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | First-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
-| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Sprint 4 dashboard polish scope, commercial workflow messaging, and dashboard honesty rules |
-| `docs/V3_BETA_READINESS.md` | Sprint 5 beta-readiness definition, evidence, gaps, safe claims, and review checklist |
-| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Sprint 5 deployment-readiness checklist covering environment, database, static files, security, routes, exports, and operations |
-| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Sprint 6 packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
-| `docs/V3_COMMERCIAL_README_POLISH.md` | Sprint 6 commercial README polish strategy, reviewer expectations, messaging structure, and acceptance criteria |
-| `docs/V3_FINAL_HARDENING.md` | Sprint 7 final hardening evidence, verification commands, protected metrics, and commercial honesty checks |
-| `docs/V3_RELEASE_CHECKLIST.md` | Sprint 7 final V3 release checklist covering verification, documentation, implemented status, and release wording |
+| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Dashboard polish scope, commercial workflow messaging, and dashboard honesty rules |
+| `docs/V3_BETA_READINESS.md` | Beta-readiness definition, evidence, gaps, safe claims, and review checklist |
+| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Deployment-readiness checklist covering environment, database, static files, security, routes, exports, and operations |
+| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
+| `docs/V3_COMMERCIAL_README_POLISH.md` | Commercial README polish strategy, reviewer expectations, messaging structure, and acceptance criteria |
+| `docs/V3_FINAL_HARDENING.md` | Final hardening evidence, verification commands, protected metrics, and commercial honesty checks |
+| `docs/V3_RELEASE_CHECKLIST.md` | Final V3 release checklist covering verification, documentation, implemented status, and release wording |
 | `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
 
 ---
 
 ## Main Commands
 
-### 1. Run Django checks
+### 1. Run Ruff checks
+
+```powershell
+python -m ruff check .
+```
+
+### 2. Run Django checks
 
 ```powershell
 python manage.py check
 ```
 
-### 2. Seed demo data
+### 3. Check migration drift
+
+```powershell
+python manage.py makemigrations --check --dry-run
+```
+
+### 4. Run tests
+
+```powershell
+python manage.py test
+```
+
+### 5. Seed demo data
 
 ```powershell
 python manage.py seed_demo_data --reset
 ```
 
-### 3. Build gold-layer metrics
+### 6. Build gold-layer metrics
 
 ```powershell
 python manage.py build_bakery_metrics
 ```
 
-### 4. Export BI-ready CSV files
+### 7. Export BI-ready CSV files
 
 ```powershell
 python manage.py export_bi_csv
 ```
 
-### 5. Run tests
-
-```powershell
-python manage.py test bakeops
-```
-
-### 6. Run local server
+### 8. Run local server
 
 ```powershell
 python manage.py runserver
@@ -407,13 +454,30 @@ http://127.0.0.1:8000/analytics/
 Run the following sequence from a clean local setup:
 
 ```powershell
+git status
+python -m ruff check .
 python manage.py check
-python manage.py test bakeops
+python manage.py makemigrations --check --dry-run
+python manage.py test
 python manage.py seed_demo_data --reset
 python manage.py build_bakery_metrics
 python manage.py export_bi_csv
 python manage.py shell -c "from bakeops.models import ProductPerformanceSnapshot; p=ProductPerformanceSnapshot.objects.get(cake__name='Birthday Classic'); print(p.cake.name, p.revenue_rank, p.waste_adjusted_margin_rank, p.action_flag)"
 python manage.py runserver
+```
+
+Expected key evidence:
+
+```text
+All checks passed!
+System check identified no issues (0 silenced).
+No changes detected
+Ran 37 tests
+OK
+BakeOps demo data seeded successfully.
+BakeOps bakery metrics built successfully.
+BakeOps BI CSV exports generated successfully.
+Birthday Classic 1 4 review
 ```
 
 Then open:
@@ -428,6 +492,8 @@ http://127.0.0.1:8000/analytics/customers/
 http://127.0.0.1:8000/analytics/data-quality/
 http://127.0.0.1:8000/analytics/exports/
 ```
+
+This is the fastest reviewer path for checking that the project works end to end.
 
 ---
 
@@ -533,7 +599,7 @@ The exact output directory depends on your local project path.
 
 ## Metric Governance Summary
 
-BakeOps V2 is designed to be inspectable.
+BakeOps Intelligence is designed to be inspectable.
 
 The metric build command creates:
 
@@ -637,8 +703,11 @@ Then set your local `SECRET_KEY`.
 ## Final V3 Verification Checklist
 
 ```markdown
+- [x] `git status` is clean
+- [x] `python -m ruff check .` passes
 - [x] `python manage.py check` passes
-- [x] `python manage.py migrate` works
+- [x] `python manage.py makemigrations --check --dry-run` shows no changes detected
+- [x] `python manage.py test` passes with 37 tests
 - [x] `python manage.py seed_demo_data --reset` works
 - [x] `python manage.py build_bakery_metrics` works
 - [x] `python manage.py export_bi_csv` works
@@ -655,28 +724,31 @@ Then set your local `SECRET_KEY`.
 - [x] BakeryMetricRunLog is created by metric builds
 - [x] BI exports work
 - [x] Dashboard metrics match export metrics
-- [x] BakeOps tests pass
+- [x] GitHub Actions is green
 ```
 
 ---
 
 ## Current Limitations
 
-- V2/V3 currently use seeded demo data.
-- V3 does not yet include file imports.
-- V3 does not yet include external POS, Shopify, Square, Stripe, or payment integrations.
-- V3 does not yet include live production scheduling feeds.
-- V3 does not yet include multi-tenant SaaS permissions.
-- V3 does not yet include billing, subscriptions, or commercial onboarding.
-- V3 does not yet include customer-facing commercial workspace onboarding.
-- V3 Sprint 2 defines import readiness and draft import contracts, but does not implement import code yet.
-- V3 Sprint 3 defines demo and customer setup workflows, but does not implement automated onboarding yet.
-- V3 Sprint 4 improves the commercial operations dashboard communication, but does not implement live imports, onboarding, billing, subscriptions, or external integrations.
-- V3 Sprint 5 documents beta readiness and deployment readiness, but does not deploy the app or claim production readiness.
-- V3 Sprint 6 documents packaging/pricing strategy and README polish, but does not implement billing, subscriptions, pricing pages, or customer plans.
-- V3 Sprint 7 finalizes release hardening and the V3 release checklist, but does not add new features or production claims.
+BakeOps Intelligence currently uses seeded demo data and documented commercial-readiness workflows.
 
-These are V4/future concerns.
+It does not yet include:
+
+```markdown
+- [ ] external POS imports
+- [ ] Shopify, Square, Stripe, or payment integrations
+- [ ] live production scheduling integrations
+- [ ] automated customer onboarding flows
+- [ ] multi-tenant SaaS account management
+- [ ] billing or subscriptions
+- [ ] production SaaS deployment
+- [ ] real customer usage
+```
+
+V3 documents commercial-readiness foundations such as import readiness, customer setup planning, beta readiness, deployment-readiness review, and pricing/packaging strategy.
+
+These are future concerns and should not be claimed as implemented.
 
 ---
 
@@ -688,7 +760,7 @@ V2 = Trusted
 V3 = Commercial foundation
 ```
 
-V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, and reviewer evidence.
+V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, tests, CI, and reviewer evidence.
 
 V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, commercial dashboard polish, packaging/pricing strategy, commercial README clarity, final hardening, and release evidence.
 
