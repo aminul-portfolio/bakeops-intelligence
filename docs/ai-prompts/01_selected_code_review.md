@@ -1,68 +1,91 @@
-\# Selected Code Review Prompt
+# 01 — Enhanced Selected Code Review Prompt
 
+## When to Use
 
+Use this when selecting a function, class, Django view, service method, model block, template block, or test in PyCharm and asking Claude or ChatGPT to review it.
 
-\## Context
+## Enhanced Prompt
 
+```markdown
+# Selected Code Review Prompt
 
+## Role
 
-Project: BakeOps Intelligence
+Act as my senior Python/Django/data-product code reviewer.
 
+Review the selected code only. Do not rewrite the whole file.
 
+## Project Context
 
-BakeOps Intelligence is a Django bakery operations intelligence platform for KPI dashboards, product performance analytics, waste tracking, ingredient risk, data quality checks, and BI-ready CSV exports.
+Project: [PROJECT NAME]
 
+This project is part of my DA/DE/AE portfolio direction.
 
+DA = Data Analyst  
+DE = Data Engineer  
+AE = Analytics Engineer  
 
-\## Task
+Project purpose:
+[BRIEFLY DESCRIBE THE PROJECT PURPOSE]
 
+File:
+`[FILE PATH]`
 
+Selected block purpose:
+[EXPLAIN WHAT THIS BLOCK DOES]
 
-Review the selected code only.
+## Review Scope
 
+Please check the selected code for:
 
+- correctness
+- readability
+- maintainability
+- Django/Python best practice
+- query efficiency
+- data/analytics reliability
+- KPI/reporting accuracy
+- test coverage risk
+- edge cases
+- DA/DE/AE portfolio credibility
 
-\## Review Scope
+## Rules
 
+- Review the selected code only.
+- Do not rewrite the whole file.
+- Do not invent features.
+- Do not change commercial scope.
+- Do not claim fake integrations.
+- Do not suggest fake SaaS, fake customers, fake billing, fake deployment, or fake production usage.
+- Keep current behaviour unless a clear bug is found.
+- Suggest small, safe improvements only.
+- Explain the reasoning before suggesting code.
+- If a change is recommended, give an exact replacement packet.
+- Mention which checks I should run after applying any change.
 
+## Required Output
 
-Please check:
+Please return:
 
+1. Summary of what the selected code does
+2. Main strengths
+3. Main risks or issues
+4. Whether the issue is critical, important, low priority, or optional polish
+5. Exact file path
+6. Exact search anchor
+7. Old block to find
+8. New replacement block
+9. Why the replacement is safe
+10. Tests or checks to run after the change
+11. Stop/go decision
 
+## Stop/Go Format
 
-\- correctness
+End with one of:
 
-\- readability
+GO — safe to apply this small change
 
-\- maintainability
+or:
 
-\- Django best practice
-
-\- query efficiency
-
-\- test coverage risk
-
-\- DA/DE/AE portfolio credibility
-
-
-
-\## Rules
-
-
-
-\- Do not rewrite the whole file.
-
-\- Do not invent features.
-
-\- Do not change commercial scope.
-
-\- Do not claim fake integrations.
-
-\- Do not suggest fake SaaS, fake customers, fake billing, or fake deployment.
-
-\- Suggest small, safe improvements only.
-
-\- Explain the reasoning before suggesting code.
-
-\- Mention which checks I should run after applying any change.
-
+STOP — do not apply yet; clarify or inspect first
+```
