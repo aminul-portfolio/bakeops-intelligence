@@ -659,7 +659,7 @@
             <div class="brand">
                 <small>BakeOps Intelligence</small>
                 <strong>Commercial Operations Dashboard</strong>
-                <span>V3 commercial-readiness foundation · trusted seeded demo data</span>
+                <span>V3 commercial-readiness foundation &middot; trusted seeded demo data</span>
             </div>
             <nav class="nav-group" aria-label="BakeOps analytics navigation">
                 <a class="nav-pill" href="{% url 'bakeops:product-profitability' %}">Products</a>
@@ -686,9 +686,9 @@
                     </p>
 
                     <div class="button-row">
-                        <a class="button-link primary" href="{% url 'bakeops:product-profitability' %}">Review product profitability →</a>
-                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Check data quality →</a>
-                        <a class="button-link" href="{% url 'bakeops:export-centre' %}">Open BI exports →</a>
+                        <a class="button-link primary" href="{% url 'bakeops:product-profitability' %}">Review product profitability &rarr;</a>
+                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Check data quality &rarr;</a>
+                        <a class="button-link" href="{% url 'bakeops:export-centre' %}">Open BI exports &rarr;</a>
                     </div>
 
                     <div class="badge-row">
@@ -706,7 +706,7 @@
                         <span>
                             Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
                             Rows processed: {{ last_run_log.rows_processed }}<br>
-                            Snapshots: {{ last_run_log.snapshots_created }} · Issues: {{ last_run_log.issues_created }}
+                            Snapshots: {{ last_run_log.snapshots_created }} &middot; Issues: {{ last_run_log.issues_created }}
                         </span>
                         {% else %}
                         <strong>No run log</strong>
@@ -769,10 +769,10 @@
                     </p>
 
                     <div class="button-row">
-                        <a class="button-link primary" href="{% url 'bakeops:product-profitability' %}">Products →</a>
-                        <a class="button-link" href="{% url 'bakeops:ingredient-risk' %}">Ingredients →</a>
-                        <a class="button-link" href="{% url 'bakeops:waste-analysis' %}">Waste →</a>
-                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Trust issues →</a>
+                        <a class="button-link primary" href="{% url 'bakeops:product-profitability' %}">Products &rarr;</a>
+                        <a class="button-link" href="{% url 'bakeops:ingredient-risk' %}">Ingredients &rarr;</a>
+                        <a class="button-link" href="{% url 'bakeops:waste-analysis' %}">Waste &rarr;</a>
+                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Trust issues &rarr;</a>
                     </div>
                 </div>
             </section>
@@ -865,7 +865,7 @@
                         </div>
                         <div class="mini-metric">
                             <small>Margin Rank</small>
-                            <strong>#{{ signature_product.waste_adjusted_margin_rank }} · {{ signature_product.get_action_flag_display }}</strong>
+                            <strong>#{{ signature_product.waste_adjusted_margin_rank }} &middot; {{ signature_product.get_action_flag_display }}</strong>
                         </div>
                     </div>
                 </section>
@@ -878,7 +878,7 @@
                         <h2>Product Profitability</h2>
                         <p>Revenue rank vs waste-adjusted margin rank.</p>
                     </div>
-                    <a class="button-link" href="{% url 'bakeops:product-profitability' %}">Open product page →</a>
+                    <a class="button-link" href="{% url 'bakeops:product-profitability' %}">Open product page &rarr;</a>
                 </div>
 
                 <div class="table-wrap">
@@ -958,7 +958,7 @@
                             <h2>Ingredient Risk</h2>
                             <p>Low stock and near-expiry signals.</p>
                         </div>
-                        <a class="button-link" href="{% url 'bakeops:ingredient-risk' %}">Open →</a>
+                        <a class="button-link" href="{% url 'bakeops:ingredient-risk' %}">Open &rarr;</a>
                     </div>
 
                     <div class="table-wrap">
@@ -998,7 +998,7 @@
                             <h2>Data Quality Issues</h2>
                             <p>Open trust issues from the latest build.</p>
                         </div>
-                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Open →</a>
+                        <a class="button-link" href="{% url 'bakeops:data-quality-review' %}">Open &rarr;</a>
                     </div>
 
                     <div class="table-wrap">
@@ -1039,7 +1039,7 @@
                             <h2>Occasion Demand</h2>
                             <p>Demand and revenue by occasion.</p>
                         </div>
-                        <a class="button-link" href="{% url 'bakeops:occasion-analytics' %}">Open →</a>
+                        <a class="button-link" href="{% url 'bakeops:occasion-analytics' %}">Open &rarr;</a>
                     </div>
 
                     <div class="table-wrap">
@@ -1077,7 +1077,7 @@
                             <h2>Customer Loyalty</h2>
                             <p>Top customer value and loyalty context.</p>
                         </div>
-                        <a class="button-link" href="{% url 'bakeops:customer-analytics' %}">Open →</a>
+                        <a class="button-link" href="{% url 'bakeops:customer-analytics' %}">Open &rarr;</a>
                     </div>
 
                     <div class="table-wrap">
@@ -1126,7 +1126,7 @@
                     </p>
                     <p>
                         Export contract page:
-                        <a class="button-link" href="{% url 'bakeops:export-centre' %}">/analytics/exports/ →</a>
+                        <a class="button-link" href="{% url 'bakeops:export-centre' %}">/analytics/exports/ &rarr;</a>
                     </p>
                 </div>
 
@@ -1167,7 +1167,7 @@
         {% endif %}
 
         <p class="footer-note">
-            <strong>BakeOps Intelligence V3</strong> · Commercial-readiness dashboard powered by seeded operational data,
+            <strong>BakeOps Intelligence V3</strong> &middot; Commercial-readiness dashboard powered by seeded operational data,
             gold-layer metrics, and evidence-based product boundaries.
         </p>
     </main>
