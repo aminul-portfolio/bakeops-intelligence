@@ -676,13 +676,14 @@
         {% if latest_metric %}
             <section class="hero">
                 <div class="card hero-main">
-                    <span class="badge orange">V3 Commercial Readiness</span>
-                    <h1 class="hero-title">Bakery operations intelligence from records to action.</h1>
+                    <span class="badge orange">Command Centre</span>
+                    <h1 class="hero-title">Turn bakery records into trusted operating decisions.</h1>
                     <p class="hero-copy">
-                        BakeOps converts bakery orders, products, ingredients, waste, customers, occasions,
-                        and data quality signals into trusted operating decisions. This dashboard is powered by
-                        <strong>seeded operational demo data</strong> and gold-layer snapshots; it does not claim
-                        live customer data, POS integration, billing, or production SaaS usage.
+                        BakeOps turns seeded bakery operations data into repeatable KPI outputs,
+                        product profitability signals, ingredient and waste risk views,
+                        data-quality evidence, and BI-ready exports. It demonstrates an analytics
+                        workflow from source records to decision-ready review without claiming
+                        live POS integration, paid subscriptions, or production SaaS usage.
                     </p>
 
                     <div class="button-row">
@@ -700,7 +701,7 @@
 
                 <aside class="card status-panel">
                     <div class="status-card">
-                        <small>Last Metric Build</small>
+                        <small>Build Evidence</small>
                         {% if last_run_log %}
                         <strong>{{ last_run_log.get_status_display }}</strong>
                         <span>
@@ -714,13 +715,13 @@
                         {% endif %}
                     </div>
                     <div class="status-card">
-                        <small>Commercial Status</small>
-                        <strong>Foundation, not fake SaaS</strong>
-                        <span>Imports, onboarding, billing, and integrations are documented or planned only unless separately implemented.</span>
+                        <small>Boundary Check</small>
+                        <strong>Evidence-based portfolio build</strong>
+                        <span>Commercial framing is documented, but live integrations, billing, subscriptions, and production deployment are not claimed.</span>
                     </div>
                     <div class="status-card">
-                        <small>Primary Proof Point</small>
-                        <strong>Revenue can mislead</strong>
+                        <small>Signature Insight</small>
+                        <strong>Revenue rank is not margin strength</strong>
                         {% if signature_product %}
                         <span>
                             {{ signature_product.cake.name }} ranks #{{ signature_product.revenue_rank }} by revenue but falls to #{{ signature_product.waste_adjusted_margin_rank }} after waste-adjusted margin analysis.
