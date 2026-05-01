@@ -132,6 +132,10 @@
     font-variant-numeric: tabular-nums;
 }
 
+.bo-data-table-compact {
+    min-width: 620px;
+}
+
 .bo-data-table th,
 .bo-data-table td {
     padding: 0.95rem 1rem;
