@@ -74,6 +74,13 @@
     font-size: var(--bo-text-sm);
     line-height: 1.6;
 }
+.bo-text-muted {
+    color: var(--bo-text-muted);
+}
+
+.bo-text-sm {
+    font-size: var(--bo-text-sm);
+}
 
 .bo-badge {
     display: inline-flex;

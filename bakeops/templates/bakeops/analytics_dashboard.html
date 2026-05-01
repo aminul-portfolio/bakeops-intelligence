@@ -900,7 +900,7 @@
                                 <tr class="{% if signature_product and product.id == signature_product.id %}signature{% endif %}">
                                     <td>
                                         <strong>{{ product.cake.name }}</strong><br>
-                                        <span style="color: var(--muted);">{{ product.variant|default:"Default variant" }}</span>
+                                        <span class="bo-text-muted">{{ product.variant|default:"Default variant" }}</span>
                                     </td>
                                     <td>£{{ product.revenue }}</td>
                                     <td><span class="rank">#{{ product.revenue_rank }}</span></td>
@@ -908,12 +908,12 @@
                                     <td>£{{ product.waste_cost }}</td>
                                     <td>
                                         £{{ product.waste_adjusted_margin }}<br>
-                                        <span style="color: var(--muted);">{{ product.waste_adjusted_margin_percent }}%</span>
+                                        <span class="bo-text-muted">{{ product.waste_adjusted_margin_percent }}%</span>
                                     </td>
                                     <td><span class="rank">#{{ product.waste_adjusted_margin_rank }}</span></td>
                                     <td>
                                         <span class="pill {{ product.action_flag }}">{{ product.get_action_flag_display }}</span><br>
-                                        <span style="color: var(--muted); font-size: 0.84rem;">{{ product.action_reason }}</span>
+                                        <span class="bo-text-muted bo-text-sm">{{ product.action_reason }}</span>
                                     </td>
                                 </tr>
                             {% empty %}
@@ -1015,7 +1015,7 @@
                                     <tr>
                                         <td>
                                             <strong>{{ issue.title }}</strong><br>
-                                            <span style="color: var(--muted);">{{ issue.get_issue_type_display }}</span>
+                                            <span class="bo-text-muted">{{ issue.get_issue_type_display }}</span>
                                         </td>
                                         <td><span class="pill {{ issue.severity }}">{{ issue.get_severity_display }}</span></td>
                                         <td>{{ issue.get_status_display }}</td>
