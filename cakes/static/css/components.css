@@ -82,6 +82,18 @@
     margin-top: 0;
 }
 
+.bo-mt-2 {
+    margin-top: 0.5rem;
+}
+
+.bo-mt-3 {
+    margin-top: 0.75rem;
+}
+
+.bo-mt-4 {
+    margin-top: 1.125rem;
+}
+
 .bo-badge {
     display: inline-flex;
     align-items: center;

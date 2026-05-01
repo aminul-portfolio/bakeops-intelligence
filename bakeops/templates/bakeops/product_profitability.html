@@ -482,7 +482,7 @@
                         </div>
                     </div>
 
-                    <p class="hero-copy" style="margin-top: 18px;">
+                    <p class="hero-copy bo-mt-4">
                         Why this matters: revenue alone can make a product look commercially strong.
                         BakeOps adds ingredient cost and waste pressure so the reviewer can see when
                         a best-seller is not the strongest profit contributor.
@@ -523,7 +523,7 @@
                                         <strong>{{ row.product.cake.name }}</strong><br>
                                         <span class="muted">{{ row.product.variant|default:"Default variant" }}</span>
                                         {% if row.is_signature %}
-                                            <br><span class="badge orange" style="margin-top: 8px;">Signature proof point</span>
+                                            <br><span class="badge orange bo-mt-2">Signature proof point</span>
                                         {% endif %}
                                     </td>
 
@@ -571,10 +571,10 @@
 
                                     <td>
                                         <span class="pill {{ row.product.action_flag }}">{{ row.flag_label }}</span>
-                                        <p class="muted" style="margin: 10px 0 0;">
+                                        <p class="muted bo-mt-3">
                                             {{ row.flag_explanation }}
                                         </p>
-                                        <p class="muted" style="margin: 8px 0 0;">
+                                        <p class="muted bo-mt-2">
                                             <strong>Action:</strong> {{ row.recommended_review }}
                                         </p>
                                     </td>
