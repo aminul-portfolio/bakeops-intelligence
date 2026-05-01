@@ -491,7 +491,7 @@ class BakeOpsDashboardViewTests(TestCase):
         response = self.client.get(reverse("bakeops:export-centre"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "BI-ready exports with a visible contract.")
+        self.assertContains(response, "Make BI exports reviewable with a visible file contract.")
         self.assertContains(response, "python manage.py export_bi_csv")
         self.assertContains(response, "fact_orders.csv")
         self.assertContains(response, "product_performance_snapshot.csv")
