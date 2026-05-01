@@ -697,15 +697,15 @@
                     <div class="status-card">
                         <small>Last Metric Build</small>
                         {% if last_run_log %}
-                            <strong>{{ last_run_log.get_status_display }}</strong>
-                            <span>
-                                Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
-                                Rows processed: {{ last_run_log.rows_processed }}<br>
-                                Snapshots: {{ last_run_log.snapshots_created }} · Issues: {{ last_run_log.issues_created }}
-                            </span>
+                        <strong>{{ last_run_log.get_status_display }}</strong>
+                        <span>
+                            Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
+                            Rows processed: {{ last_run_log.rows_processed }}<br>
+                            Snapshots: {{ last_run_log.snapshots_created }} · Issues: {{ last_run_log.issues_created }}
+                        </span>
                         {% else %}
-                            <strong>No run log</strong>
-                            <span>Run <span class="code">python manage.py build_bakery_metrics</span></span>
+                        <strong>No run log</strong>
+                        <span>Run <span class="code">python manage.py build_bakery_metrics</span></span>
                         {% endif %}
                     </div>
                     <div class="status-card">
@@ -716,7 +716,15 @@
                     <div class="status-card">
                         <small>Primary Proof Point</small>
                         <strong>Revenue can mislead</strong>
-                        <span>Birthday Classic ranks #1 by revenue but falls after waste-adjusted margin analysis.</span>
+                        {% if signature_product %}
+                        <span>
+                            {{ signature_product.cake.name }} ranks #{{ signature_product.revenue_rank }} by revenue but falls to #{{ signature_product.waste_adjusted_margin_rank }} after waste-adjusted margin analysis.
+                        </span>
+                        {% else %}
+                        <span>
+                            The dashboard highlights products where revenue rank and waste-adjusted margin rank diverge.
+                        </span>
+                        {% endif %}
                     </div>
                 </aside>
             </section>
