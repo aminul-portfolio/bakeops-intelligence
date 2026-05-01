@@ -705,26 +705,26 @@
                         {% if last_run_log %}
                         <strong>{{ last_run_log.get_status_display }}</strong>
                         <span>
-                            Started: {{ last_run_log.started_at|date:"d M Y, H:i" }}<br>
+                            Repeatable metric build completed from seeded operational records.<br>
                             Rows processed: {{ last_run_log.rows_processed }}<br>
                             Snapshots: {{ last_run_log.snapshots_created }} &middot; Issues: {{ last_run_log.issues_created }}
                         </span>
                         {% else %}
                         <strong>No run log</strong>
-                        <span>Run <span class="code">python manage.py build_bakery_metrics</span></span>
+                        <span>Run <span class="code">python manage.py build_bakery_metrics</span> to create the latest evidence layer.</span>
                         {% endif %}
                     </div>
                     <div class="status-card">
                         <small>Boundary Check</small>
-                        <strong>Evidence-based portfolio build</strong>
-                        <span>Commercial framing is documented, but live integrations, billing, subscriptions, and production deployment are not claimed.</span>
+                        <strong>Portfolio evidence, not fake SaaS</strong>
+                        <span>Commercial readiness is documented, but live integrations, billing, subscriptions, and production deployment are not claimed.</span>
                     </div>
                     <div class="status-card">
                         <small>Signature Insight</small>
                         <strong>Revenue rank is not margin strength</strong>
                         {% if signature_product %}
                         <span>
-                            {{ signature_product.cake.name }} ranks #{{ signature_product.revenue_rank }} by revenue but falls to #{{ signature_product.waste_adjusted_margin_rank }} after waste-adjusted margin analysis.
+                            {{ signature_product.cake.name }} ranks #{{ signature_product.revenue_rank }} by revenue and #{{ signature_product.waste_adjusted_margin_rank }} by waste-adjusted margin.
                         </span>
                         {% else %}
                         <span>
