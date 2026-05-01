@@ -117,10 +117,11 @@ class BakeOpsDashboardViewTests(TestCase):
         response = self.client.get(reverse("bakeops:product-profitability"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Product profitability beyond revenue ranking.")
+        self.assertContains(response, "Revenue rank is not the same as margin strength.")
         self.assertContains(response, "Birthday Classic")
         self.assertContains(response, "ProductPerformanceSnapshot")
         self.assertContains(response, "margin-rank inversion")
+        self.assertContains(response, "Deep-Dive Profitability Review")
 
     def test_product_profitability_route_is_correct(self):
         url = reverse("bakeops:product-profitability")

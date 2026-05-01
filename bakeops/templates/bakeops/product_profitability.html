@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Product Profitability</title>
+    <title>BakeOps Intelligence &mdash; Product Profitability</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
@@ -388,7 +388,7 @@
             </div>
 
             <div class="nav-actions">
-                <a class="nav-pill" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
+                <a class="nav-pill" href="{% url 'bakeops:analytics-dashboard' %}">&larr; Back to analytics dashboard</a>
                 <a class="nav-pill" href="/">Back to catalogue</a>
             </div>
         </header>
@@ -396,15 +396,15 @@
         {% if latest_metric %}
             <section class="hero">
                 <div class="card">
-                    <span class="badge orange">V2 Sprint 1 &middot; Trusted Product Analysis</span>
-                    <h1 class="hero-title">Product profitability beyond revenue ranking.</h1>
+                    <span class="badge orange">Deep-Dive Profitability Review</span>
+                    <h1 class="hero-title">Revenue rank is not the same as margin strength.</h1>
                     <p class="hero-copy">
-                        This page uses the existing V1 gold-layer
+                        This page uses the existing gold-layer
                         <span class="code">ProductPerformanceSnapshot</span>
                         records to compare revenue rank, quantity rank, gross margin rank,
-                        and waste-adjusted margin rank. It helps a reviewer understand why
-                        a best-selling product may still need action after ingredient cost
-                        and waste are included.
+                        and waste-adjusted margin rank. It shows where a high-selling product
+                        becomes a review candidate once ingredient cost and waste pressure
+                        are included.
                     </p>
 
                     <div class="badge-row">
@@ -415,11 +415,11 @@
                 </div>
 
                 <div class="card">
-                    <div class="kpi-label">Reviewer Proof Point</div>
+                    <div class="kpi-label">Snapshot Evidence</div>
                     <div class="kpi-value">{{ product_count }}</div>
                     <div class="kpi-foot">
-                        product snapshots analysed from the latest metric build.<br>
-                        This page does not rebuild metrics. It explains the existing trusted snapshot layer.
+                        product performance snapshots analysed from the latest metric build.<br>
+                        This page explains trusted snapshot outputs; it does not rebuild metrics.
                     </div>
                 </div>
             </section>
@@ -453,37 +453,38 @@
             {% if signature_product %}
                 <section class="card section signature">
                     <span class="badge orange">Signature Insight</span>
-                    <h2>{{ signature_product.cake.name }} sells the most, but waste-adjusted profitability reveals it needs review.</h2>
+                    <h2>{{ signature_product.cake.name }} proves why revenue alone can mislead.</h2>
 
                     <p class="hero-copy">
-                        {{ signature_product.cake.name }} is revenue rank
-                        <strong>#{{ signature_product.revenue_rank }}</strong>,
-                        but drops to waste-adjusted margin rank
-                        <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>.
-                        The action flag is
+                        {{ signature_product.cake.name }} ranks
+                        <strong>#{{ signature_product.revenue_rank }}</strong> by revenue,
+                        but moves to
+                        <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
+                        by waste-adjusted margin after ingredient cost and waste are included.
+                        The evidence-based action flag is
                         <strong>{{ signature_product.get_action_flag_display }}</strong>.
                     </p>
 
                     <div class="signature-grid">
                         <div class="mini-panel">
                             <strong>#{{ signature_product.revenue_rank }}</strong>
-                            <span>Revenue ranking</span>
+                            <span>Revenue rank</span>
                         </div>
 
                         <div class="mini-panel">
                             <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
-                            <span>Waste-adjusted margin ranking</span>
+                            <span>Waste-adjusted margin rank</span>
                         </div>
 
                         <div class="mini-panel">
                             <strong>{{ signature_product.get_action_flag_display }}</strong>
-                            <span>Recommended action flag</span>
+                            <span>Evidence-based action flag</span>
                         </div>
                     </div>
 
                     <p class="hero-copy" style="margin-top: 18px;">
-                        Why this matters: revenue alone can make a bakery product look successful.
-                        BakeOps adds ingredient cost and waste pressure, so the owner can see when
+                        Why this matters: revenue alone can make a product look commercially strong.
+                        BakeOps adds ingredient cost and waste pressure so the reviewer can see when
                         a best-seller is not the strongest profit contributor.
                     </p>
                 </section>
@@ -495,7 +496,7 @@
                         <h2>Product Profitability Deep Dive</h2>
                         <p>
                             Revenue rank, quantity rank, gross margin rank, and waste-adjusted margin rank
-                            shown side by side.
+                            shown side by side for reviewer-friendly comparison.
                         </p>
                     </div>
                 </div>
@@ -625,7 +626,7 @@
         {% endif %}
 
         <p class="footer-note">
-            BakeOps Intelligence V2 Sprint 1 — trusted product profitability review powered by V1 gold-layer snapshots.
+            BakeOps Intelligence V3 &mdash; trusted product profitability review powered by gold-layer snapshots.
         </p>
     </main>
 </body>
