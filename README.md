@@ -2,33 +2,90 @@
 
 ![BakeOps Django CI](https://github.com/aminul-portfolio/bakeops-intelligence/actions/workflows/django-ci.yml/badge.svg)
 
-Django bakery operations intelligence platform with KPI dashboards, product performance analytics, waste tracking, ingredient risk, data quality review, and BI-ready CSV exports.
+**BakeOps Intelligence** is a Django-based bakery operations intelligence platform that turns seeded bakery operations data into trusted KPI dashboards, profitability analysis, ingredient-risk visibility, waste analysis, data-quality review, and BI-ready CSV exports.
 
-It transforms bakery catalogue, customer, order, ingredient, recipe, production, waste, loyalty, and review data into dashboard-ready metrics, trusted analytics pages, metric lineage evidence, governance documentation, and exportable BI files.
+It demonstrates a complete analytics workflow:
+
+```text
+operational records
+-> repeatable metric build
+-> gold-layer snapshots
+-> trusted analytics pages
+-> data-quality review
+-> BI-ready CSV exports
+-> reviewer verification evidence
+```
+
+BakeOps is intentionally positioned as a **portfolio-grade commercial foundation**, not a falsely launched production SaaS product.
 
 ---
 
-## Project Status
+## Status
 
 ```text
 V1 = Works
 V2 = Trusted
 V3 = Commercial foundation
+Milestone 3 = Final UI / trust polish and reviewer-ready QA
 ```
 
-V1 delivered a working analytics dashboard powered by seeded operational data and a repeatable metric build command.
+| Stage | Meaning | Status |
+|---|---|---|
+| V1 | Working analytics dashboard from seeded operational data | Complete |
+| V2 | Trusted analytics pages, metric governance, lineage, data quality, exports, tests, CI | Complete |
+| V3 | Commercial-readiness foundation with honest product boundaries | Complete |
+| Milestone 3 | Final UI polish, trust-surface polish, screenshot evidence, QA, merge readiness | In final QA |
 
-V2 delivers deeper trusted decision-support pages, data quality review, export contract visibility, metric governance documentation, data lineage documentation, tests, CI, and final release verification.
+---
 
-V3 delivers a commercial-readiness foundation: product positioning, commercial scope, realistic import planning, demo/customer setup workflows, commercial operations dashboard polish, beta-readiness documentation, deployment-readiness review, packaging/pricing strategy, commercial README polish, final hardening evidence, and release checklist documentation.
+## Core Product Positioning
 
-V3 should not claim fake integrations, fake customers, fake billing, fake subscriptions, fake production deployment, or fake live SaaS usage.
+BakeOps Intelligence is designed for small and growing bakeries that need clearer operational visibility before making pricing, production, waste, stock, customer, and product decisions.
+
+It helps answer business questions such as:
+
+- Which products look successful by revenue but weaken after waste-adjusted margin?
+- Which ingredients create stock, reorder, or expiry risk?
+- Which waste patterns reduce profitability?
+- Which occasions drive demand and operational pressure?
+- Which customers contribute repeat value?
+- Which data-quality issues must be visible before trusting dashboard outputs?
+- Which CSV files are available for BI/reporting workflows?
+
+---
+
+## Commercial Truth Boundary
+
+BakeOps Intelligence is a credible commercial foundation, but it does **not** claim fake SaaS capabilities.
+
+| Area | Current Status |
+|---|---|
+| Trusted analytics pages | Implemented |
+| Gold-layer metric build | Implemented |
+| Data quality visibility | Implemented |
+| BI-ready CSV exports | Implemented |
+| Tests and CI | Implemented |
+| Screenshot evidence | Implemented |
+| Commercial product positioning | Documented |
+| Import readiness | Documented |
+| Demo/customer setup workflow | Documented |
+| Deployment-readiness checklist | Documented |
+| Packaging/pricing strategy | Documented |
+| External POS integration | Not implemented |
+| Shopify/Square integration | Not implemented |
+| Billing/subscriptions | Not implemented |
+| Automated onboarding | Not implemented |
+| Multi-tenant SaaS account management | Not implemented |
+| Production SaaS deployment | Not claimed |
+| Real customer usage | Not claimed |
+
+This boundary is deliberate. The project prioritises evidence, verification, and honest portfolio positioning over exaggerated claims.
 
 ---
 
 ## Reviewer Evidence Snapshot
 
-Latest verified local and CI evidence:
+Latest verified evidence:
 
 ```text
 Git status: clean
@@ -43,9 +100,7 @@ Signature insight: Birthday Classic 1 4 review
 GitHub Actions: green
 ```
 
-This evidence shows that BakeOps Intelligence is not only a visual dashboard. It is a repeatable analytics workflow with seeded operational data, metric build logic, stored gold-layer snapshots, data quality visibility, exportable BI files, tests, and CI verification.
-
-The protected reviewer proof is:
+Protected reviewer proof:
 
 ```text
 Birthday Classic 1 4 review
@@ -57,284 +112,145 @@ Meaning:
 |---|---:|---:|---|
 | Birthday Classic | 1 | 4 | review |
 
-This proves the platform's core business idea: the highest-revenue product is not necessarily the strongest product after ingredient cost and waste impact are included.
+This proves the core business idea:
+
+> The highest-revenue product is not necessarily the strongest product after ingredient cost and waste impact are included.
 
 ---
 
-## V3 Commercial Readiness
+## Milestone 3 Final UI and Trust Polish
 
-BakeOps Intelligence V3 turns the trusted V2 analytics foundation into a commercially credible product foundation.
+Milestone 3 finalizes the reviewer-facing analytics experience without changing the underlying analytics logic.
 
-The commercial positioning is:
+The milestone focused on UI consistency, clearer trust surfaces, safer template symbols, shared spacing utilities, screenshot evidence, and final reviewer QA.
 
-```text
-A bakery operations intelligence platform for small and growing bakeries that need clearer visibility into product profitability, waste impact, ingredient risk, customer value, occasion demand, data quality issues, and BI-ready reporting outputs.
-```
-
-The realistic first user is:
-
-```text
-A bakery owner, bakery manager, or operations lead who wants better operational visibility before making pricing, production, waste, stock, and product decisions.
-```
-
-V3 is not allowed to overclaim features that are not implemented.
-
-Current commercial truth:
-
-| Area | Status |
+| Area | Outcome |
 |---|---|
-| Trusted analytics pages | Implemented |
-| Gold-layer metric build | Implemented |
-| Data quality visibility | Implemented |
-| BI-ready exports | Implemented |
-| Commercial product positioning | Documented |
-| Import readiness assessment | Documented |
-| Draft import contract | Documented |
-| Demo setup workflow | Documented |
-| Customer setup foundation | Documented |
-| Commercial operations dashboard polish | Documented |
-| Beta-readiness documentation | Documented |
-| Deployment-readiness checklist | Documented |
-| Packaging/pricing strategy | Documented |
-| Final hardening and release checklist | Documented |
-| Import workflow implementation | Planned / not implemented yet |
-| Customer onboarding workflow | Planned / not implemented yet |
-| External POS integration | Not implemented yet |
-| Shopify/Square integration | Not implemented yet |
-| Billing/subscriptions | Not implemented yet |
-| Production deployment | Not claimed yet |
-| Real customer usage | Not claimed yet |
+| Dashboard command centre | Main analytics dashboard now communicates the source-records-to-decision workflow more clearly |
+| Product profitability | Signature insight is clearer: revenue rank is not the same as margin strength |
+| Data quality review | Data-quality issues are presented as visible trust evidence before relying on dashboard outputs |
+| Export centre | BI exports are explained as a reviewable file contract rather than an undocumented export list |
+| Shared UI foundation | Common CSS tokens, shell styles, components, and spacing utilities are loaded across analytics pages |
+| Screenshot evidence | Final screenshots captured for all 8 analytics pages |
+| Safety checks | Ruff, Django checks, migration dry-run, tests, seed/build/export commands, and protected proof were verified |
 
-V3 documentation:
+Final Milestone 3 screenshot set:
 
-| Document | Purpose |
+| Page | Screenshot |
 |---|---|
-| `docs/V3_PRODUCT_STRATEGY.md` | Defines the commercial product strategy, first user, business problem, existing evidence, and V3 direction |
-| `docs/V3_COMMERCIAL_SCOPE.md` | Defines what can be claimed, what is planned, what is out of scope, and how to avoid commercial overclaiming |
-| `docs/V3_IMPORT_READINESS.md` | Assesses safe import candidates, validation categories, import risks, and future workflow design |
-| `docs/V3_IMPORT_CONTRACT.md` | Defines draft file contracts for future customer, ingredient, order, order item, and waste record imports |
-| `docs/V3_DEMO_SETUP_WORKFLOW.md` | Defines the repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
-| `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | Defines the first-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
-| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Defines dashboard polish scope, commercial workflow messaging, dashboard honesty rules, and acceptance criteria |
-| `docs/V3_BETA_READINESS.md` | Defines beta-readiness evidence, remaining gaps, safe claims, feedback questions, and review checklist |
-| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Defines deployment-readiness checks for environment, database, static files, security, routes, exports, and operations |
-| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Defines packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
-| `docs/V3_COMMERCIAL_README_POLISH.md` | Defines commercial README polish strategy, commercial messaging, reviewer expectations, and acceptance criteria |
-| `docs/V3_FINAL_HARDENING.md` | Defines final hardening evidence, verification commands, protected metrics, and commercial honesty checks |
-| `docs/V3_RELEASE_CHECKLIST.md` | Defines final V3 release checklist covering verification, documentation, implemented status, and release wording |
+| Dashboard | `docs/3e/final-screenshots/01-dashboard.png` |
+| Product Profitability | `docs/3e/final-screenshots/02-product-profitability.png` |
+| Ingredient Risk | `docs/3e/final-screenshots/03-ingredient-risk.png` |
+| Waste Analysis | `docs/3e/final-screenshots/04-waste-analysis.png` |
+| Occasion Analytics | `docs/3e/final-screenshots/05-occasion-analytics.png` |
+| Customer Analytics | `docs/3e/final-screenshots/06-customer-analytics.png` |
+| Data Quality Review | `docs/3e/final-screenshots/07-data-quality-review.png` |
+| Export Centre | `docs/3e/final-screenshots/08-export-centre.png` |
+
+Milestone 3 does not claim live POS integration, live customer data, billing, subscriptions, production SaaS deployment, or automated BI sync.
 
 ---
 
-## V3 Import Readiness
+## Platform Architecture
 
-V3 defines how BakeOps can safely move from seeded demo data toward realistic customer-provided bakery records.
-
-The import strategy is intentionally cautious:
-
-```text
-source files
--> staging validation
--> operational records
--> metric build command
--> gold-layer snapshots
--> trusted analytics pages
--> BI-ready exports
-```
-
-V3 does not implement import code yet.
-
-It defines the import readiness assessment and draft import contract for future files such as:
-
-```text
-customers.csv
-ingredients.csv
-orders.csv
-order_items.csv
-waste_records.csv
-```
-
-This protects the V2 trust model by ensuring future imports feed operational records first, then rebuild analytics through the existing metric pipeline.
-
----
-
-## V3 Demo and Customer Setup Foundation
-
-V3 defines how BakeOps should be demonstrated and how a first customer setup could work later.
-
-The current demo remains seeded and controlled.
-
-Safe demo setup flow:
-
-```text
-seed_demo_data
--> build_bakery_metrics
--> review trusted analytics pages
--> export_bi_csv
--> verify Birthday Classic signature insight
-```
-
-The first-customer setup foundation is intentionally manual and evidence-based.
-
-It describes how a bakery could eventually move from customer-provided records into operational models, metric builds, data quality checks, analytics pages, and BI-ready exports.
-
-V3 does not implement automated onboarding, workspace provisioning, billing, subscriptions, live customer imports, or multi-tenant SaaS account management.
-
----
-
-## V3 Commercial Operations Dashboard Polish
-
-V3 improves the main analytics dashboard so it communicates BakeOps as a premium commercial operations intelligence workflow.
-
-The dashboard explains:
-
-```text
-operational records
--> trusted metric build
--> analytics pages
--> action review
--> BI-ready exports
-```
-
-V3 adds a clearer commercial-readiness narrative, a seeded-demo honesty layer, an operating workflow path, and stronger reviewer-facing dashboard communication.
-
-V3 does not add or claim live POS integration, Shopify/Square integration, customer onboarding automation, billing, subscriptions, production deployment, or live SaaS usage.
-
----
-
-## V3 Beta and Deployment Readiness
-
-V3 defines what BakeOps needs before it can be described as beta-ready or deployment-ready.
-
-Beta readiness means the project has enough verified workflow, documentation, known limitations, and operating clarity for controlled review.
-
-Deployment readiness means the project has a checklist for environment configuration, database setup, static files, security checks, route verification, export behaviour, and operational recovery before any production claim.
-
-Current status:
-
-```text
-Beta readiness: documented for review
-Production deployment: not claimed yet
-```
-
-V3 does not deploy the app, change deployment settings, add production hosting, add billing, add onboarding automation, or claim live customer usage.
-
----
-
-## V3 Packaging, Pricing Strategy, and README Polish
-
-V3 defines how BakeOps can be packaged and explained commercially without pretending billing or subscriptions are implemented.
-
-Current packaging position:
-
-```text
-Commercial-ready bakery operations intelligence foundation
-```
-
-Pricing status:
-
-```text
-Pricing strategy documented only
-Billing/subscriptions not implemented
-```
-
-V3 also polishes the commercial README direction so reviewers can quickly understand the platform's business value, technical evidence, current limitations, and future commercial path.
-
-V3 does not add pricing pages, Stripe billing, subscription plans, customer invoices, payment checkout, or live customer plans.
-
----
-
-## V3 Final Hardening and Release Checklist
-
-V3 finalizes the commercial foundation by documenting release evidence, hardening checks, route verification, protected V2 metrics, and final commercial honesty rules.
-
-Final V3 release status:
-
-```text
-V3 = Commercial foundation
-```
-
-V3 confirms that BakeOps remains test-verified, commercially clear, and honest about what is implemented versus planned.
-
-V3 does not add new product features, import workflows, billing, subscriptions, external integrations, or production deployment claims.
-
----
-
-## Core Purpose
-
-BakeOps Intelligence is not just a bakery catalogue website.
-
-The project separates the application into two layers:
+BakeOps separates the customer-facing catalogue from the analytics and operations intelligence layer.
 
 | App | Purpose |
 |---|---|
-| `cakes` | Existing customer-facing cake catalogue |
+| `cakes` | Customer-facing cake catalogue and related static assets |
 | `bakeops` | Analytics, operations, metrics, data quality, exports, and decision intelligence |
 
-The core business idea is:
-
-> A best-selling bakery product can become weak after ingredient cost and waste are included.
-
-BakeOps is designed to prove this using stored operational records, repeatable metric builds, gold-layer snapshots, analytics pages, tests, and exports.
-
----
-
-## Metric Workflow
+High-level architecture:
 
 ```text
-seed_demo_data
--> operational bakery data
--> build_bakery_metrics
--> gold-layer snapshots
--> trusted analytics pages
--> export_bi_csv
--> BI-ready CSV files
+Seeded demo records
+-> operational models
+-> metric build command
+-> gold-layer analytics models
+-> analytics views
+-> HTML dashboards
+-> CSV export service
+-> reviewer documentation and screenshots
 ```
-
-The dashboard is not treated as the source of truth. The platform stores operational records and gold-layer snapshots, then uses those records to power analytics pages and exports.
 
 ---
 
-## Key Platform Features
+## Analytics Workflow
 
-- Realistic seeded bakery operations dataset
+```text
+python manage.py seed_demo_data --reset
+-> creates seeded bakery operations records
+
+python manage.py build_bakery_metrics
+-> creates gold-layer snapshots and data-quality issues
+
+python manage.py export_bi_csv
+-> generates BI-ready CSV export pack
+
+analytics pages
+-> read existing stored operational and gold-layer data
+```
+
+The dashboard is not treated as the source of truth. The source of truth is the stored operational records and gold-layer metric snapshots.
+
+---
+
+## Key Features
+
+### Operations and Analytics
+
+- Seeded bakery operations dataset
 - Workspace, customers, loyalty, occasions, orders, ingredients, recipes, production, allocation, and waste records
 - Gold-layer analytics models
 - Repeatable metric build command
-- Bakery metric run logging
-- Data quality issue generation
-- Main `/analytics/` dashboard
+- Metric build run logging
 - Product profitability analysis
 - Ingredient risk analysis
 - Waste analysis
 - Occasion demand analysis
-- Customer loyalty analysis
-- Data quality review page
-- Export centre and export contract page
+- Customer loyalty analytics
+- Data-quality issue generation and review
 - BI-ready CSV exports
-- Metric governance and lineage documentation
-- Test coverage for key commands, services, views, and export parity
-- Commercial product-boundary documentation
-- Import readiness and draft import-contract documentation
-- Demo setup and first-customer setup foundation documentation
-- Premium commercial operations dashboard communication
-- Beta-readiness and deployment-readiness documentation
-- Packaging/pricing strategy and commercial README polish documentation
-- Final V3 hardening and release checklist documentation
+- Export contract page
+
+### Trust and Reviewability
+
+- Metric governance documentation
+- Data lineage documentation
+- Data-quality visibility
+- Export contract documentation
+- Reviewer walkthrough
+- Final screenshot evidence
+- Tests for commands, services, views, and export parity
+- GitHub Actions CI
+
+### Commercial Readiness
+
+- Product strategy
+- Commercial scope
+- Import readiness assessment
+- Draft import contract
+- Demo setup workflow
+- Customer setup foundation
+- Beta-readiness documentation
+- Deployment-readiness checklist
+- Packaging/pricing strategy
+- Final hardening and release checklist
 
 ---
 
-## V2 Trusted Analytics Pages
+## Analytics Pages
 
 | Page | URL | Purpose |
 |---|---|---|
-| Main dashboard | `/analytics/` | Executive overview of bakery metrics and signature insight |
-| Product profitability | `/analytics/products/` | Product ranking, waste-adjusted margin, margin-rank inversion, and action flags |
-| Ingredient risk | `/analytics/ingredients/` | Stock risk, reorder pressure, near-expiry lots, and ingredient recommendations |
-| Waste analysis | `/analytics/waste/` | Waste cost, waste reasons, product waste impact, and margin reduction |
-| Occasion analytics | `/analytics/occasions/` | Occasion demand, revenue, upcoming orders, and delivery pressure |
-| Customer analytics | `/analytics/customers/` | Customer revenue, repeat behaviour, average order value, and loyalty visibility |
-| Data quality review | `/analytics/data-quality/` | Open data quality issues, severity, status, trust impact, and suggested action |
-| Export centre | `/analytics/exports/` | BI export contract, file names, source models, and export usage guidance |
+| Main dashboard | `/analytics/` | Executive overview, command centre, workflow summary, signature insight |
+| Product profitability | `/analytics/products/` | Product ranking, waste-adjusted margin, margin-rank inversion, action flags |
+| Ingredient risk | `/analytics/ingredients/` | Stock risk, reorder pressure, near-expiry lots, ingredient recommendations |
+| Waste analysis | `/analytics/waste/` | Waste cost, waste reasons, product waste impact, margin reduction |
+| Occasion analytics | `/analytics/occasions/` | Occasion demand, revenue, upcoming orders, delivery pressure |
+| Customer analytics | `/analytics/customers/` | Customer revenue, repeat behaviour, average order value, loyalty visibility |
+| Data quality review | `/analytics/data-quality/` | Open data-quality issues, severity, status, trust impact, suggested action |
+| Export centre | `/analytics/exports/` | BI export contract, file names, source models, usage guidance |
 
 ---
 
@@ -350,9 +266,7 @@ In the seeded demo:
 |---|---:|---:|---|
 | Birthday Classic | #1 | #4 | Review |
 
-This shows that the highest-revenue product is not necessarily the strongest product after waste-adjusted profitability is calculated.
-
-The signature insight can be verified directly from the database:
+Verify directly:
 
 ```powershell
 python manage.py shell -c "from bakeops.models import ProductPerformanceSnapshot; p=ProductPerformanceSnapshot.objects.get(cake__name='Birthday Classic'); print(p.cake.name, p.revenue_rank, p.waste_adjusted_margin_rank, p.action_flag)"
@@ -366,78 +280,139 @@ Birthday Classic 1 4 review
 
 ---
 
-## Reviewer Documentation
+## BI Export Contract
 
-| Document | Purpose |
-|---|---|
-| `docs/REVIEWER_WALKTHROUGH.md` | Reviewer path for running the demo and validating the project |
-| `docs/METRIC_GOVERNANCE.md` | Explains the metric build process, gold-layer snapshots, run logging, and verification commands |
-| `docs/LINEAGE.md` | Explains the data lineage from seeded operational records to analytics pages and BI exports |
-| `docs/V2_RELEASE_CHECKLIST.md` | Final V2 release checklist covering tests, routes, metrics, exports, documentation, and Git hygiene |
-| `docs/V3_PRODUCT_STRATEGY.md` | V3 commercial product strategy, first user, business problem, evidence, and direction |
-| `docs/V3_COMMERCIAL_SCOPE.md` | V3 commercial scope boundary, implemented/planned status, and overclaim prevention |
-| `docs/V3_IMPORT_READINESS.md` | V3 import readiness assessment, first import candidates, validation categories, and safe workflow design |
-| `docs/V3_IMPORT_CONTRACT.md` | Draft contract for future customer, ingredient, order, order item, and waste record imports |
-| `docs/V3_DEMO_SETUP_WORKFLOW.md` | Repeatable demo setup, verification path, safe demo claims, and demo-to-customer bridge |
-| `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | First-customer setup foundation, manual setup model, validation expectations, and customer setup boundaries |
-| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Dashboard polish scope, commercial workflow messaging, and dashboard honesty rules |
-| `docs/V3_BETA_READINESS.md` | Beta-readiness definition, evidence, gaps, safe claims, and review checklist |
-| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Deployment-readiness checklist covering environment, database, static files, security, routes, exports, and operations |
-| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Packaging and pricing strategy, commercial value evidence, safe pricing language, and current boundaries |
-| `docs/V3_COMMERCIAL_README_POLISH.md` | Commercial README polish strategy, reviewer expectations, messaging structure, and acceptance criteria |
-| `docs/V3_FINAL_HARDENING.md` | Final hardening evidence, verification commands, protected metrics, and commercial honesty checks |
-| `docs/V3_RELEASE_CHECKLIST.md` | Final V3 release checklist covering verification, documentation, implemented status, and release wording |
-| `docs/DATA_MODEL_DRAFT.md` | Draft view of the operational and analytics data model |
-
----
-
-## Main Commands
-
-### 1. Run Ruff checks
-
-```powershell
-python -m ruff check .
-```
-
-### 2. Run Django checks
-
-```powershell
-python manage.py check
-```
-
-### 3. Check migration drift
-
-```powershell
-python manage.py makemigrations --check --dry-run
-```
-
-### 4. Run tests
-
-```powershell
-python manage.py test
-```
-
-### 5. Seed demo data
-
-```powershell
-python manage.py seed_demo_data --reset
-```
-
-### 6. Build gold-layer metrics
-
-```powershell
-python manage.py build_bakery_metrics
-```
-
-### 7. Export BI-ready CSV files
+The export command generates 11 CSV files into the `exports/` folder.
 
 ```powershell
 python manage.py export_bi_csv
 ```
 
-### 8. Run local server
+Expected output pattern:
+
+```text
+BakeOps BI CSV exports generated successfully.
+Files generated: 11
+Total rows exported: 52
+```
+
+| File | Layer | Purpose |
+|---|---|---|
+| `fact_orders.csv` | Fact | Order-level fact table |
+| `fact_order_items.csv` | Fact | Order item fact table |
+| `fact_waste.csv` | Fact | Waste fact table |
+| `fact_production_batches.csv` | Fact | Production batch fact table |
+| `dim_cake.csv` | Dimension | Cake and product dimension |
+| `dim_ingredient.csv` | Dimension | Ingredient dimension |
+| `dim_customer.csv` | Dimension | Customer and loyalty dimension |
+| `dim_occasion.csv` | Dimension | Occasion dimension |
+| `dim_collection.csv` | Dimension | Cake collection dimension |
+| `daily_bakery_metrics.csv` | Gold | Daily KPI gold-layer export |
+| `product_performance_snapshot.csv` | Gold | Product profitability gold-layer export |
+
+Generated CSV files are intentionally ignored by Git because they are reproducible from seeded data and the metric build pipeline.
+
+---
+
+## Data Quality Visibility
+
+BakeOps does not hide trust issues.
+
+The metric build creates `DataQualityIssue` records when operational data needs review.
+
+The data quality page surfaces:
+
+- issue severity
+- issue type
+- status
+- affected area
+- trust impact
+- suggested review action
+
+Current seeded demo evidence:
+
+```text
+Total data quality issues: 12
+Open issues: 12
+Warning issues: 11
+Info issues: 1
+```
+
+---
+
+## Metric Governance Summary
+
+The metric build command creates:
+
+| Output | Purpose |
+|---|---|
+| `DailyBakeryMetric` | Daily KPI summary |
+| `ProductPerformanceSnapshot` | Product revenue, margin, waste-adjusted margin, ranking, and action flag |
+| `IngredientUsageSnapshot` | Ingredient usage, waste, stock risk, expiry pressure |
+| `OccasionDemandSnapshot` | Occasion demand, revenue, upcoming orders, delivery pressure |
+| `CustomerLoyaltySnapshot` | Customer revenue, order count, AOV, loyalty points, repeat status |
+| `DataQualityIssue` | Data quality and operational trust issues |
+| `BakeryMetricRunLog` | Metric build audit trail |
+
+The build command records:
+
+- rows processed
+- metrics created
+- snapshots created
+- issues created
+- start time
+- finish time
+- duration
+- status
+- error message if failed
+
+For detail:
+
+```text
+docs/METRIC_GOVERNANCE.md
+docs/LINEAGE.md
+```
+
+---
+
+## Documentation Map
+
+| Document | Purpose |
+|---|---|
+| `docs/REVIEWER_WALKTHROUGH.md` | Reviewer path for running and validating the project |
+| `docs/METRIC_GOVERNANCE.md` | Metric build process, gold-layer snapshots, run logging, verification commands |
+| `docs/LINEAGE.md` | Data lineage from seeded records to analytics pages and BI exports |
+| `docs/MILESTONE_3_PATTERN_INVENTORY.md` | UI pattern inventory and audit evidence |
+| `docs/MILESTONE_3_GO_NO_GO.md` | Milestone 3 go/no-go decision record |
+| `docs/V2_RELEASE_CHECKLIST.md` | V2 release checklist |
+| `docs/V3_PRODUCT_STRATEGY.md` | Commercial product strategy and first-user framing |
+| `docs/V3_COMMERCIAL_SCOPE.md` | Safe commercial claims and scope boundaries |
+| `docs/V3_IMPORT_READINESS.md` | Import readiness assessment |
+| `docs/V3_IMPORT_CONTRACT.md` | Draft import file contract |
+| `docs/V3_DEMO_SETUP_WORKFLOW.md` | Repeatable demo setup workflow |
+| `docs/V3_CUSTOMER_SETUP_FOUNDATION.md` | First-customer setup planning boundary |
+| `docs/V3_OPERATIONS_DASHBOARD_POLISH.md` | Commercial dashboard polish scope |
+| `docs/V3_BETA_READINESS.md` | Beta-readiness evidence and remaining gaps |
+| `docs/V3_DEPLOYMENT_READINESS_CHECKLIST.md` | Deployment-readiness checklist |
+| `docs/V3_PACKAGING_PRICING_STRATEGY.md` | Packaging and pricing strategy |
+| `docs/V3_COMMERCIAL_README_POLISH.md` | README polish strategy |
+| `docs/V3_FINAL_HARDENING.md` | Final hardening evidence |
+| `docs/V3_RELEASE_CHECKLIST.md` | V3 final release checklist |
+| `docs/DATA_MODEL_DRAFT.md` | Operational and analytics data model draft |
+
+---
+
+## Local Setup
 
 ```powershell
+python -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+copy .env.example .env
+python manage.py migrate
+python manage.py seed_demo_data --reset
+python manage.py build_bakery_metrics
 python manage.py runserver
 ```
 
@@ -449,9 +424,61 @@ http://127.0.0.1:8000/analytics/
 
 ---
 
+## Main Commands
+
+### Ruff
+
+```powershell
+python -m ruff check .
+```
+
+### Django system check
+
+```powershell
+python manage.py check
+```
+
+### Migration drift check
+
+```powershell
+python manage.py makemigrations --check --dry-run
+```
+
+### Tests
+
+```powershell
+python manage.py test
+```
+
+### Seed demo data
+
+```powershell
+python manage.py seed_demo_data --reset
+```
+
+### Build metrics
+
+```powershell
+python manage.py build_bakery_metrics
+```
+
+### Export BI CSV files
+
+```powershell
+python manage.py export_bi_csv
+```
+
+### Run server
+
+```powershell
+python manage.py runserver
+```
+
+---
+
 ## Recommended Reviewer Verification Flow
 
-Run the following sequence from a clean local setup:
+Run this sequence from a clean local setup:
 
 ```powershell
 git status
@@ -493,13 +520,9 @@ http://127.0.0.1:8000/analytics/data-quality/
 http://127.0.0.1:8000/analytics/exports/
 ```
 
-This is the fastest reviewer path for checking that the project works end to end.
-
 ---
 
-## Final V3 Route Verification
-
-Run:
+## Route Verification
 
 ```powershell
 python manage.py shell -c "from django.test import Client; c=Client(); routes=['/analytics/','/analytics/products/','/analytics/ingredients/','/analytics/waste/','/analytics/occasions/','/analytics/customers/','/analytics/data-quality/','/analytics/exports/']; [print(r, c.get(r).status_code) for r in routes]"
@@ -517,48 +540,6 @@ Expected output:
 /analytics/data-quality/ 200
 /analytics/exports/ 200
 ```
-
----
-
-## BI Export Files
-
-The export command generates files into the `exports/` folder:
-
-| File | Layer | Purpose |
-|---|---|---|
-| `fact_orders.csv` | Fact | Order-level fact table |
-| `fact_order_items.csv` | Fact | Order item fact table |
-| `fact_waste.csv` | Fact | Waste fact table |
-| `fact_production_batches.csv` | Fact | Production batch fact table |
-| `dim_cake.csv` | Dimension | Cake and variant dimension |
-| `dim_ingredient.csv` | Dimension | Ingredient dimension |
-| `dim_customer.csv` | Dimension | Customer and loyalty dimension |
-| `dim_occasion.csv` | Dimension | Occasion dimension |
-| `dim_collection.csv` | Dimension | Cake collection dimension |
-| `daily_bakery_metrics.csv` | Gold | Daily KPI gold-layer export |
-| `product_performance_snapshot.csv` | Gold | Product profitability gold-layer export |
-
-Generated CSV files are intentionally ignored by Git because they are reproducible from the seeded data and metric build.
-
----
-
-## Export Verification
-
-Run:
-
-```powershell
-python manage.py export_bi_csv
-```
-
-Expected output pattern:
-
-```text
-BakeOps BI CSV exports generated successfully.
-Files generated: 11
-Total rows exported: 52
-```
-
-The exact output directory depends on your local project path.
 
 ---
 
@@ -597,110 +578,7 @@ The exact output directory depends on your local project path.
 
 ---
 
-## Metric Governance Summary
-
-BakeOps Intelligence is designed to be inspectable.
-
-The metric build command creates:
-
-| Output | Purpose |
-|---|---|
-| `DailyBakeryMetric` | Daily KPI summary |
-| `ProductPerformanceSnapshot` | Product revenue, margin, waste-adjusted margin, ranking, and action flag |
-| `IngredientUsageSnapshot` | Ingredient usage, waste, stock risk, and expiry pressure |
-| `OccasionDemandSnapshot` | Occasion demand, revenue, upcoming orders, and delivery pressure |
-| `CustomerLoyaltySnapshot` | Customer revenue, order count, AOV, loyalty points, and repeat status |
-| `DataQualityIssue` | Data quality and operational trust issues |
-| `BakeryMetricRunLog` | Metric build audit trail |
-
-The build command records:
-
-- rows processed
-- metrics created
-- snapshots created
-- issues created
-- start time
-- finish time
-- duration
-- status
-- error message if failed
-
-For full details, see:
-
-```text
-docs/METRIC_GOVERNANCE.md
-docs/LINEAGE.md
-```
-
----
-
-## Data Quality Visibility
-
-BakeOps does not hide trust issues.
-
-The metric build creates `DataQualityIssue` records when operational data needs review.
-
-The data quality review page shows:
-
-```text
-/analytics/data-quality/
-```
-
-It surfaces:
-
-- issue severity
-- issue type
-- status
-- affected area
-- trust impact
-- suggested review action
-
-Current seeded demo pattern:
-
-```text
-Total data quality issues: 12
-Open issues: 12
-Warning issues: 11
-Info issues: 1
-```
-
----
-
-## Local Setup
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-copy .env.example .env
-python manage.py migrate
-python manage.py seed_demo_data --reset
-python manage.py build_bakery_metrics
-python manage.py runserver
-```
-
----
-
-## Environment Variables
-
-Copy:
-
-```text
-.env.example
-```
-
-to:
-
-```text
-.env
-```
-
-Then set your local `SECRET_KEY`.
-
----
-
-## Final V3 Verification Checklist
+## Final Verification Checklist
 
 ```markdown
 - [x] `git status` is clean
@@ -720,7 +598,7 @@ Then set your local `SECRET_KEY`.
 - [x] `/analytics/data-quality/` data quality review page loads
 - [x] `/analytics/exports/` export centre page loads
 - [x] Birthday Classic signature insight is visible
-- [x] Data quality issues are visible
+- [x] Data-quality issues are visible
 - [x] BakeryMetricRunLog is created by metric builds
 - [x] BI exports work
 - [x] Dashboard metrics match export metrics
@@ -746,8 +624,6 @@ It does not yet include:
 - [ ] real customer usage
 ```
 
-V3 documents commercial-readiness foundations such as import readiness, customer setup planning, beta readiness, deployment-readiness review, and pricing/packaging strategy.
-
 These are future concerns and should not be claimed as implemented.
 
 ---
@@ -758,38 +634,34 @@ These are future concerns and should not be claimed as implemented.
 V1 = Works
 V2 = Trusted
 V3 = Commercial foundation
+Milestone 4 = Future SaaS-style layout transformation
 ```
 
-V2 focuses on deeper analytics pages, metric governance, data lineage, export contracts, data quality visibility, tests, CI, and reviewer evidence.
+Milestone 4 is planned as a future product-interface upgrade, including unified SaaS app shell, richer visual analytics, responsive hardening, and enterprise-style page layouts.
 
-V3 focuses on commercial readiness, import planning, onboarding/setup workflow, beta-readiness documentation, deployment-readiness review, commercial dashboard polish, packaging/pricing strategy, commercial README clarity, final hardening, and release evidence.
-
-V3 does not currently claim live SaaS billing, real customer usage, external POS integration, Shopify/Square integration, or production multi-tenant operations.
+Milestone 4 should only begin after Milestone 3E final QA and merge readiness are complete.
 
 ---
 
-## Project Positioning
+## Project Value
 
-BakeOps Intelligence is best understood as a portfolio-grade bakery operations intelligence platform.
-
-It demonstrates:
+BakeOps Intelligence demonstrates:
 
 - Django application structure
 - operational data modelling
 - metric build pipelines
 - gold-layer analytics modelling
 - decision-support dashboards
-- data quality checks
-- export contracts
+- data-quality checks
+- BI export contracts
 - reviewer verification workflow
 - analytics engineering thinking
+- data engineering discipline
 - commercial product-boundary discipline
 - cautious import-readiness planning
 - demo and first-customer setup workflow planning
-- premium commercial operations dashboard communication
 - beta-readiness and deployment-readiness discipline
 - packaging/pricing strategy discipline
-- commercial README communication clarity
 - final release hardening discipline
 
 The platform is intentionally scoped as a trusted analytics foundation and V3 commercial foundation, not a fake fully launched commercial SaaS product.
