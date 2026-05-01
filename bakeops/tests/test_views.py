@@ -428,11 +428,12 @@ class BakeOpsDashboardViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            "Trusted metrics need visible data quality evidence.",
+            "Trust the analytics layer by making quality issues visible.",
         )
         self.assertContains(response, "DataQualityIssue")
         self.assertContains(response, "Ingredient below reorder level: Butter")
         self.assertContains(response, "Data Quality Issue Register")
+        self.assertContains(response, "Trust Evidence")
 
     def test_data_quality_review_route_is_correct(self):
         url = reverse("bakeops:data-quality-review")
