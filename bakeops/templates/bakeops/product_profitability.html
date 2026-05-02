@@ -357,6 +357,210 @@
             text-align: center;
         }
 
+
+        .profit-visual-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .proof-card {
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 18rem),
+                linear-gradient(135deg, rgba(249, 115, 22, 0.13), rgba(31, 41, 55, 0.88));
+        }
+
+        .proof-route {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .proof-rank-tile {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .proof-rank-tile strong {
+            display: block;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+        }
+
+        .proof-rank-tile span {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+        }
+
+        .proof-arrow {
+            width: 56px;
+            height: 56px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            color: #fed7aa;
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.13);
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
+
+        .proof-action-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .proof-action-strip .mini-panel {
+            min-height: 96px;
+        }
+
+        .rank-movement-card {
+            overflow: hidden;
+        }
+
+        .rank-movement-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            align-items: flex-end;
+            margin-bottom: 16px;
+        }
+
+        .rank-movement-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .rank-flow-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .rank-flow-row {
+            display: grid;
+            grid-template-columns: minmax(140px, 1.1fr) 86px minmax(90px, 1fr) 86px 110px;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .rank-flow-row.is-signature {
+            border-color: rgba(249, 115, 22, 0.48);
+            background: rgba(249, 115, 22, 0.1);
+        }
+
+        .rank-product strong {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .rank-product span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        .rank-node {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 56px;
+            min-height: 42px;
+            border-radius: 999px;
+            font-weight: 900;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid var(--line);
+        }
+
+        .rank-node.revenue {
+            color: #bfdbfe;
+            border-color: rgba(96, 165, 250, 0.32);
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .rank-node.margin {
+            color: #fed7aa;
+            border-color: rgba(249, 115, 22, 0.32);
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .rank-connector {
+            position: relative;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(96, 165, 250, 0.8), rgba(249, 115, 22, 0.8));
+        }
+
+        .rank-connector::after {
+            content: "";
+            position: absolute;
+            right: -2px;
+            top: 50%;
+            width: 9px;
+            height: 9px;
+            border-top: 2px solid rgba(249, 115, 22, 0.95);
+            border-right: 2px solid rgba(249, 115, 22, 0.95);
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .rank-move-label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.35;
+        }
+
+        .rank-move-label.is-drop {
+            color: #fed7aa;
+            font-weight: 900;
+        }
+
+        .rank-move-label.is-gain {
+            color: #bbf7d0;
+            font-weight: 900;
+        }
+
+        .visual-note {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1100px) {
+            .profit-visual-grid,
+            .proof-action-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .rank-flow-row {
+                grid-template-columns: 1fr;
+                align-items: start;
+            }
+
+            .rank-connector {
+                width: 80px;
+            }
+        }
+
         @media (max-width: 980px) {
             .hero,
             .grid-4,
@@ -447,6 +651,110 @@
                     <div class="kpi-foot">Products with stronger margin than revenue visibility.</div>
                 </div>
             </section>
+
+
+            {% if signature_product %}
+                <section class="profit-visual-grid">
+                    <div class="card proof-card">
+                        <span class="badge orange">Visual Proof</span>
+                        <h2>{{ signature_product.cake.name }} moves from bestseller to review candidate.</h2>
+                        <p class="hero-copy">
+                            This visual keeps the protected evidence visible:
+                            revenue rank, waste-adjusted margin rank, and action flag are shown together
+                            before the detailed evidence table.
+                        </p>
+
+                        <div class="proof-route">
+                            <div class="proof-rank-tile">
+                                <strong>#{{ signature_product.revenue_rank }}</strong>
+                                <span>Revenue rank</span>
+                            </div>
+
+                            <div class="proof-arrow">→</div>
+
+                            <div class="proof-rank-tile">
+                                <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
+                                <span>Waste-adjusted margin rank</span>
+                            </div>
+                        </div>
+
+                        <div class="proof-action-strip">
+                            <div class="mini-panel">
+                                <strong>{{ signature_product.cake.name }}</strong>
+                                <span>Protected product</span>
+                            </div>
+                            <div class="mini-panel">
+                                <strong>{{ signature_product.get_action_flag_display }}</strong>
+                                <span>Evidence-based action</span>
+                            </div>
+                            <div class="mini-panel">
+                                <strong>Rank drop</strong>
+                                <span>Revenue alone is not enough</span>
+                            </div>
+                        </div>
+
+                        <p class="visual-note">
+                            No metric logic is changed here. This section only makes the existing
+                            gold-layer snapshot easier for reviewers to understand.
+                        </p>
+                    </div>
+
+                    <div class="card rank-movement-card">
+                        <div class="rank-movement-head">
+                            <div>
+                                <span class="badge orange">Rank Movement</span>
+                                <h2>Revenue rank vs waste-adjusted margin rank</h2>
+                                <p>
+                                    Each product keeps its revenue rank visible beside its waste-adjusted
+                                    margin rank, so rank inversion is easy to inspect.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="rank-flow-list">
+                            {% for row in product_rows %}
+                                <div class="rank-flow-row {% if row.is_signature %}is-signature{% endif %}">
+                                    <div class="rank-product">
+                                        <strong>{{ row.product.cake.name }}</strong>
+                                        <span>{{ row.product.variant|default:"Default variant" }}</span>
+                                    </div>
+
+                                    <div>
+                                        <span class="rank-node revenue">#{{ row.revenue_rank }}</span>
+                                        <div class="muted bo-mt-2">Revenue</div>
+                                    </div>
+
+                                    <div class="rank-connector"></div>
+
+                                    <div>
+                                        <span class="rank-node margin">#{{ row.waste_adjusted_margin_rank }}</span>
+                                        <div class="muted bo-mt-2">Waste-adjusted</div>
+                                    </div>
+
+                                    <div>
+                                        {% if row.has_margin_rank_inversion %}
+                                            <span class="rank-move-label is-drop">
+                                                Drops {{ row.margin_rank_gap }}
+                                            </span>
+                                        {% elif row.product.waste_adjusted_margin_rank < row.revenue_rank %}
+                                            <span class="rank-move-label is-gain">Improves</span>
+                                        {% else %}
+                                            <span class="rank-move-label">Aligned</span>
+                                        {% endif %}
+                                        <br>
+                                        <span class="pill {{ row.product.action_flag }}">{{ row.flag_label }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <p class="visual-note">
+                            The protected proof should remain visible as:
+                            <strong>Birthday Classic → revenue rank #1 → waste-adjusted margin rank #4 → Review</strong>.
+                        </p>
+                    </div>
+                </section>
+            {% endif %}
 
             {% if signature_product %}
                 <section class="card section signature">
