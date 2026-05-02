@@ -460,3 +460,240 @@
 .analytics-state-guidance.is-compact .analytics-state-guidance__grid {
     display: none;
 }
+
+/* 4I — Responsive and Density Hardening */
+
+.analytics-page-frame {
+    min-width: 0;
+}
+
+.analytics-page-frame *,
+.analytics-page-frame *::before,
+.analytics-page-frame *::after {
+    box-sizing: border-box;
+}
+
+.analytics-page-frame table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.analytics-page-frame .table-wrap,
+.analytics-page-frame .table-shell,
+.analytics-page-frame .table-card,
+.analytics-page-frame .data-table-wrap,
+.analytics-page-frame .evidence-table-wrap,
+.analytics-page-frame section:has(table) {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.analytics-page-frame th,
+.analytics-page-frame td {
+    vertical-align: top;
+}
+
+.analytics-page-frame td,
+.analytics-page-frame th,
+.analytics-page-frame .metric-value,
+.analytics-page-frame .kpi-value,
+.analytics-page-frame .rank-node,
+.analytics-page-frame .proof-rank-tile strong,
+.analytics-page-frame .waste-impact-tile strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.analytics-page-frame .card,
+.analytics-page-frame .mini-panel,
+.analytics-page-frame .command-deep-dive-card,
+.analytics-page-frame .trust-review-step,
+.analytics-page-frame .export-workflow-step,
+.analytics-page-frame .risk-summary-card,
+.analytics-page-frame .occasion-demand-card,
+.analytics-page-frame .customer-behaviour-card {
+    min-width: 0;
+}
+
+.analytics-page-frame .card p,
+.analytics-page-frame .mini-panel span,
+.analytics-page-frame td,
+.analytics-page-frame th {
+    overflow-wrap: anywhere;
+}
+
+.analytics-page-frame a,
+.analytics-page-frame button,
+.analytics-page-frame .btn,
+.analytics-page-frame .pill,
+.analytics-page-frame .badge {
+    white-space: normal;
+}
+
+/* Desktop/laptop density */
+@media (max-width: 1280px) {
+    .analytics-page-frame {
+        padding-left: clamp(0.9rem, 2vw, 1.25rem);
+        padding-right: clamp(0.9rem, 2vw, 1.25rem);
+    }
+
+    .analytics-page-frame h1 {
+        font-size: clamp(2.3rem, 5.2vw, 4.7rem);
+        line-height: 0.98;
+    }
+
+    .analytics-page-frame h2 {
+        font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+    }
+
+    .analytics-page-frame .card,
+    .analytics-page-frame .section {
+        border-radius: 1.15rem;
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .analytics-shell,
+    .analytics-layout,
+    .analytics-app-shell {
+        display: block;
+    }
+
+    .analytics-sidebar,
+    aside.analytics-sidebar {
+        position: relative;
+        width: auto;
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .analytics-sidebar nav,
+    aside.analytics-sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+    }
+
+    .analytics-topbar,
+    .analytics-topbar__inner {
+        position: relative;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .analytics-page-frame {
+        padding: 1rem;
+    }
+
+    .analytics-page-frame h1 {
+        font-size: clamp(2rem, 9vw, 3.5rem);
+    }
+
+    .analytics-page-frame .hero-grid,
+    .analytics-page-frame .summary-grid,
+    .analytics-page-frame .kpi-grid,
+    .analytics-page-frame .metric-grid,
+    .analytics-page-frame .stats-grid,
+    .analytics-page-frame .proof-action-strip,
+    .analytics-page-frame .command-centre-grid,
+    .analytics-page-frame .command-deep-dive-grid,
+    .analytics-page-frame .profit-visual-grid,
+    .analytics-page-frame .waste-visual-grid,
+    .analytics-page-frame .ingredient-visual-grid,
+    .analytics-page-frame .occasion-visual-grid,
+    .analytics-page-frame .customer-visual-grid,
+    .analytics-page-frame .trust-surface-grid,
+    .analytics-page-frame .export-trust-grid,
+    .analytics-page-frame .export-contract-grid,
+    .analytics-page-frame .export-proof-strip,
+    .analytics-page-frame .trust-mini-grid,
+    .analytics-page-frame .stock-bridge,
+    .analytics-page-frame .occasion-mini-proof,
+    .analytics-page-frame .customer-mini-proof,
+    .analytics-page-frame .top-waste-mini-proof {
+        grid-template-columns: 1fr !important;
+    }
+
+    .analytics-page-frame table {
+        min-width: 760px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .analytics-page-frame {
+        padding: 0.85rem;
+    }
+
+    .analytics-page-frame h1 {
+        font-size: clamp(1.85rem, 11vw, 2.85rem);
+        letter-spacing: -0.06em;
+    }
+
+    .analytics-page-frame h2 {
+        font-size: 1.2rem;
+    }
+
+    .analytics-page-frame .card,
+    .analytics-page-frame .section,
+    .analytics-page-frame .mini-panel {
+        padding: 0.95rem;
+        border-radius: 1rem;
+    }
+
+    .analytics-sidebar nav,
+    aside.analytics-sidebar nav {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-page-frame .proof-route,
+    .analytics-page-frame .waste-impact-grid,
+    .analytics-page-frame .rank-flow-row,
+    .analytics-page-frame .command-proof-row,
+    .analytics-page-frame .trust-flow-row,
+    .analytics-page-frame .customer-behaviour-card,
+    .analytics-page-frame .occasion-demand-card,
+    .analytics-page-frame .risk-summary-card {
+        grid-template-columns: 1fr !important;
+    }
+
+    .analytics-page-frame .proof-arrow,
+    .analytics-page-frame .waste-impact-operator {
+        margin: 0 auto;
+        transform: rotate(90deg);
+    }
+
+    .analytics-page-frame .analytics-state-guidance {
+        margin-left: 0.85rem;
+        margin-right: 0.85rem;
+    }
+
+    .analytics-page-frame table {
+        min-width: 680px;
+        font-size: 0.82rem;
+    }
+
+    .analytics-page-frame th,
+    .analytics-page-frame td {
+        padding: 0.7rem;
+    }
+}
+
+/* Very small mobile */
+@media (max-width: 390px) {
+    .analytics-page-frame {
+        padding: 0.7rem;
+    }
+
+    .analytics-page-frame .card,
+    .analytics-page-frame .section,
+    .analytics-page-frame .mini-panel {
+        padding: 0.8rem;
+    }
+
+    .analytics-page-frame h1 {
+        font-size: clamp(1.65rem, 12vw, 2.35rem);
+    }
+}
