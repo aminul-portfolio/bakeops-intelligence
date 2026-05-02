@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Customer Analytics</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence — Customer Analytics{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="customers" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #111827;
             --panel: #1f2937;
             --text: #f9fafb;
@@ -338,11 +336,184 @@
                 justify-content: flex-start;
             }
         }
-    </style>
-</head>
 
-<body>
-    <main class="shell">
+        .customer-visual-layer {
+            margin-top: 24px;
+        }
+
+        .customer-visual-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 16px;
+        }
+
+        .customer-chart-card {
+            overflow: hidden;
+        }
+
+        .customer-chart-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .customer-chart-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .customer-chart-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .customer-bar-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .customer-bar-row {
+            display: grid;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .customer-bar-row.is-top {
+            border-color: rgba(249, 115, 22, 0.48);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
+                rgba(249, 115, 22, 0.09);
+        }
+
+        .customer-bar-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+        }
+
+        .customer-bar-meta strong {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .customer-bar-meta span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-align: right;
+        }
+
+        .customer-bar-track {
+            height: 13px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .customer-bar-fill {
+            height: 100%;
+            min-width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.68), rgba(34, 197, 94, 0.9));
+            box-shadow: 0 0 22px rgba(34, 197, 94, 0.18);
+        }
+
+        .customer-behaviour-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .customer-behaviour-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .customer-behaviour-card.is-repeat {
+            border-color: rgba(34, 197, 94, 0.38);
+            background: rgba(34, 197, 94, 0.08);
+        }
+
+        .customer-behaviour-card.is-top {
+            border-color: rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.09);
+        }
+
+        .customer-behaviour-card strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .customer-behaviour-card span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .customer-behaviour-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 92px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            color: #bbf7d0;
+            font-weight: 900;
+            border: 1px solid rgba(34, 197, 94, 0.38);
+            background: rgba(34, 197, 94, 0.1);
+            white-space: nowrap;
+        }
+
+        .customer-behaviour-card.is-top .customer-behaviour-badge {
+            color: #fed7aa;
+            border-color: rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .customer-mini-proof {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .customer-mini-proof .mini-panel {
+            min-height: 92px;
+        }
+
+        .customer-proof-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .customer-visual-grid,
+            .customer-mini-proof {
+                grid-template-columns: 1fr;
+            }
+        }
+
+</style>
+{% endblock %}
+
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -451,7 +622,109 @@
                 </section>
             {% endif %}
 
-            <section class="section">
+            
+            <section class="customer-visual-layer">
+                <div class="customer-visual-grid">
+                    <div class="card customer-chart-card">
+                        <div class="customer-chart-head">
+                            <div>
+                                <span class="badge orange">Customer Value</span>
+                                <h2>Revenue concentration by customer</h2>
+                                <p>
+                                    Shows whether revenue is concentrated in a small set of customers or spread
+                                    across the current seeded snapshot.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="customer-bar-list">
+                            {% if total_customer_revenue %}
+                                {% for row in customer_rows %}
+                                    <div class="customer-bar-row {% if forloop.first %}is-top{% endif %}">
+                                        <div class="customer-bar-meta">
+                                            <strong>{{ row.customer.full_name }}</strong>
+                                            <span>
+                                                £{{ row.snapshot.total_revenue }}
+                                                · {{ row.revenue_share_percent }}%
+                                            </span>
+                                        </div>
+                                        <div class="customer-bar-track" aria-hidden="true">
+                                            <div class="customer-bar-fill" style="width: {% widthratio row.snapshot.total_revenue total_customer_revenue 100 %}%;"></div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="empty-state">No customer loyalty rows found.</div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-state">No customer revenue found for this snapshot.</div>
+                            {% endif %}
+                        </div>
+
+                        <p class="customer-proof-note">
+                            This visual uses seeded customer analytics data only. It does not claim CRM usage
+                            or real customer behaviour.
+                        </p>
+                    </div>
+
+                    <div class="card customer-chart-card">
+                        <div class="customer-chart-head">
+                            <div>
+                                <span class="badge teal">Loyalty Behaviour</span>
+                                <h2>Repeat and one-time customer signals</h2>
+                                <p>
+                                    Surfaces customer behaviour categories before the full evidence table.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="customer-behaviour-grid">
+                            {% for row in customer_rows %}
+                                <div class="customer-behaviour-card {% if forloop.first %}is-top{% elif row.customer_label != 'New / one-time customer' %}is-repeat{% endif %}">
+                                    <div>
+                                        <strong>{{ row.customer.full_name }}</strong>
+                                        <span>
+                                            {{ row.snapshot.total_orders }} order{{ row.snapshot.total_orders|pluralize }}
+                                            · {{ row.snapshot.current_points_balance }} current loyalty points
+                                        </span>
+                                    </div>
+                                    <div class="customer-behaviour-badge">
+                                        {{ row.customer_label }}
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="empty-state">No customer behaviour rows found.</div>
+                            {% endfor %}
+                        </div>
+
+                        {% if top_customer %}
+                            <div class="customer-mini-proof">
+                                <div class="mini-panel">
+                                    <strong>{{ top_customer.customer.full_name }}</strong>
+                                    <span>Top customer signal</span>
+                                </div>
+
+                                <div class="mini-panel">
+                                    <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
+                                    <span>Customer revenue</span>
+                                </div>
+
+                                <div class="mini-panel">
+                                    <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
+                                    <span>Current loyalty points</span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <p class="customer-proof-note">
+                            The table below remains the evidence layer for revenue, orders, average order value,
+                            loyalty points, customer signal, and recommended action.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+<section class="section">
                 <div class="section-head">
                     <div>
                         <h2>Customer Loyalty Deep Dive</h2>
@@ -550,5 +823,4 @@
             BakeOps Intelligence V2 Sprint 4 — trusted customer analytics powered by V1 gold-layer snapshots.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}

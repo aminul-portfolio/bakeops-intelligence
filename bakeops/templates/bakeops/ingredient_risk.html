@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Ingredient Risk</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence — Ingredient Risk{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="ingredients" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #111827;
             --panel: #1f2937;
             --text: #f9fafb;
@@ -368,6 +366,182 @@
             text-align: center;
         }
 
+
+        .ingredient-visual-layer {
+            margin-top: 24px;
+        }
+
+        .ingredient-visual-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 16px;
+        }
+
+        .ingredient-chart-card {
+            overflow: hidden;
+        }
+
+        .ingredient-chart-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .ingredient-chart-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .ingredient-chart-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .stock-bar-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .stock-bar-row {
+            display: grid;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .stock-bar-row.is-risk {
+            border-color: rgba(249, 115, 22, 0.48);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
+                rgba(249, 115, 22, 0.09);
+        }
+
+        .stock-bar-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+        }
+
+        .stock-bar-meta strong {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .stock-bar-meta span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-align: right;
+        }
+
+        .stock-bar-track {
+            position: relative;
+            height: 14px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stock-bar-fill {
+            height: 100%;
+            max-width: 100%;
+            min-width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.68), rgba(34, 197, 94, 0.9));
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.18);
+        }
+
+        .stock-bar-row.is-risk .stock-bar-fill {
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.72), rgba(239, 68, 68, 0.88));
+            box-shadow: 0 0 22px rgba(249, 115, 22, 0.22);
+        }
+
+        .stock-bar-scale {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 0.76rem;
+            line-height: 1.4;
+        }
+
+        .risk-summary-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .risk-summary-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .risk-summary-card.is-risk {
+            border-color: rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.09);
+        }
+
+        .risk-summary-card strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .risk-summary-card span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .shortage-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 7px 10px;
+            font-weight: 900;
+            color: #fed7aa;
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            background: rgba(249, 115, 22, 0.12);
+            white-space: nowrap;
+        }
+
+        .stock-bridge {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .stock-bridge .mini-panel {
+            min-height: 92px;
+        }
+
+        .ingredient-proof-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .ingredient-visual-grid,
+            .stock-bridge {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 980px) {
             .hero,
             .grid-4,
@@ -385,11 +559,11 @@
                 justify-content: flex-start;
             }
         }
-    </style>
-</head>
+</style>
+{% endblock %}
 
-<body>
-    <main class="shell">
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -496,6 +670,117 @@
                     </p>
                 </section>
             {% endif %}
+
+
+            <section class="ingredient-visual-layer">
+                <div class="ingredient-visual-grid">
+                    <div class="card ingredient-chart-card">
+                        <div class="ingredient-chart-head">
+                            <div>
+                                <span class="badge orange">Stock Visual</span>
+                                <h2>Current stock vs reorder level</h2>
+                                <p>
+                                    Shows whether each ingredient is above or below its reorder threshold using
+                                    the existing trusted ingredient usage snapshot.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="stock-bar-list">
+                            {% for row in ingredient_rows %}
+                                <div class="stock-bar-row {% if row.is_stock_below_reorder %}is-risk{% endif %}">
+                                    <div class="stock-bar-meta">
+                                        <strong>{{ row.ingredient.name }}</strong>
+                                        <span>
+                                            Current {{ row.current_stock }} · Reorder {{ row.reorder_level }}
+                                        </span>
+                                    </div>
+
+                                    <div class="stock-bar-track" aria-hidden="true">
+                                        <div class="stock-bar-fill" style="width: {% widthratio row.current_stock row.reorder_level 100 %}%;"></div>
+                                    </div>
+
+                                    <div class="stock-bar-scale">
+                                        {% if row.is_stock_below_reorder %}
+                                            <span class="negative">Short by {{ row.shortage_quantity }}</span>
+                                            <span>{{ row.risk_label }}</span>
+                                        {% else %}
+                                            <span class="positive">Above reorder by {{ row.stock_gap }}</span>
+                                            <span>{{ row.risk_label }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="empty-state">No ingredient risk rows found.</div>
+                            {% endfor %}
+                        </div>
+
+                        <p class="ingredient-proof-note">
+                            This visual does not change stock logic. It only makes the existing reorder-level
+                            evidence easier for reviewers to inspect.
+                        </p>
+                    </div>
+
+                    <div class="card ingredient-chart-card">
+                        <div class="ingredient-chart-head">
+                            <div>
+                                <span class="badge orange">Risk Focus</span>
+                                <h2>Ingredients needing stock review</h2>
+                                <p>
+                                    Low-stock ingredients are surfaced before the full evidence table so the
+                                    reviewer can see the operational pressure quickly.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="risk-summary-grid">
+                            {% for row in ingredient_rows %}
+                                {% if row.is_stock_below_reorder %}
+                                    <div class="risk-summary-card is-risk">
+                                        <div>
+                                            <strong>{{ row.ingredient.name }}</strong>
+                                            <span>
+                                                Current stock {{ row.current_stock }} is below reorder level
+                                                {{ row.reorder_level }}.
+                                            </span>
+                                        </div>
+                                        <div class="shortage-badge">
+                                            Short {{ row.shortage_quantity }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% empty %}
+                                <div class="empty-state">No stock review rows found.</div>
+                            {% endfor %}
+                        </div>
+
+                        {% if top_risk_ingredient %}
+                            <div class="stock-bridge">
+                                <div class="mini-panel">
+                                    <strong>{{ top_risk_ingredient.ingredient.name }}</strong>
+                                    <span>Top ingredient risk</span>
+                                </div>
+
+                                <div class="mini-panel">
+                                    <strong>{{ top_risk_ingredient.current_stock }}</strong>
+                                    <span>Current stock</span>
+                                </div>
+
+                                <div class="mini-panel">
+                                    <strong>{{ top_risk_ingredient.shortage_quantity }}</strong>
+                                    <span>Shortage quantity</span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <p class="ingredient-proof-note">
+                            The deep-dive table below remains the evidence layer for usage, waste, expiry,
+                            supplier, and recommended action.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
 
             <section class="section">
                 <div class="section-head">
@@ -639,5 +924,4 @@
             BakeOps Intelligence V2 Sprint 2 — trusted ingredient risk review powered by V1 gold-layer snapshots.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}

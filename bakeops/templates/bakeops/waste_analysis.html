@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Waste Analysis</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence — Waste Analysis{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="waste" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #111827;
             --panel: #1f2937;
             --text: #f9fafb;
@@ -367,6 +365,177 @@
             text-align: center;
         }
 
+
+        .waste-visual-layer {
+            margin-top: 24px;
+        }
+
+        .waste-visual-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .waste-chart-card {
+            overflow: hidden;
+        }
+
+        .waste-chart-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .waste-chart-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .waste-chart-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .waste-bar-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .waste-bar-row {
+            display: grid;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .waste-bar-row.is-top {
+            border-color: rgba(249, 115, 22, 0.48);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
+                rgba(249, 115, 22, 0.09);
+        }
+
+        .waste-bar-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+        }
+
+        .waste-bar-meta strong {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .waste-bar-meta span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-align: right;
+        }
+
+        .waste-bar-track {
+            height: 12px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .waste-bar-fill {
+            height: 100%;
+            min-width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.72), rgba(251, 191, 36, 0.95));
+            box-shadow: 0 0 22px rgba(249, 115, 22, 0.22);
+        }
+
+        .waste-bar-fill.product {
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.68), rgba(249, 115, 22, 0.9));
+        }
+
+        .waste-impact-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 14px;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .waste-impact-tile {
+            min-height: 124px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.045);
+        }
+
+        .waste-impact-tile strong {
+            display: block;
+            font-size: clamp(1.7rem, 3vw, 2.65rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+
+        .waste-impact-tile span {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+        }
+
+        .waste-impact-operator {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            color: #fed7aa;
+            font-weight: 900;
+            border: 1px solid rgba(249, 115, 22, 0.35);
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .waste-proof-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .top-waste-mini-proof {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .top-waste-mini-proof .mini-panel {
+            min-height: 92px;
+        }
+
+        @media (max-width: 1100px) {
+            .waste-visual-grid,
+            .top-waste-mini-proof {
+                grid-template-columns: 1fr;
+            }
+
+            .waste-impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .waste-impact-operator {
+                transform: rotate(90deg);
+                margin: 0 auto;
+            }
+        }
+
         @media (max-width: 980px) {
             .hero,
             .grid-4,
@@ -384,11 +553,11 @@
                 justify-content: flex-start;
             }
         }
-    </style>
-</head>
+</style>
+{% endblock %}
 
-<body>
-    <main class="shell">
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -459,6 +628,148 @@
                     <div class="kpi-foot">Waste cost as a share of gross margin.</div>
                 </div>
             </section>
+
+
+            <section class="waste-visual-layer">
+                <div class="waste-visual-grid">
+                    <div class="card waste-chart-card">
+                        <div class="waste-chart-head">
+                            <div>
+                                <span class="badge orange">Waste Visual</span>
+                                <h2>Waste cost by reason</h2>
+                                <p>
+                                    Shows which operational reason explains the largest share of recorded waste cost.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="waste-bar-list">
+                            {% if total_waste_cost %}
+                                {% for row in waste_reason_rows %}
+                                    <div class="waste-bar-row">
+                                        <div class="waste-bar-meta">
+                                            <strong>{{ row.reason_label }}</strong>
+                                            <span>
+                                                £{{ row.total_cost|floatformat:2 }}
+                                                · {{ row.record_count }} record{{ row.record_count|pluralize }}
+                                            </span>
+                                        </div>
+                                        <div class="waste-bar-track" aria-hidden="true">
+                                            <div class="waste-bar-fill" style="width: {% widthratio row.total_cost total_waste_cost 100 %}%;"></div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="empty-state">No waste reason rows found.</div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-state">No waste cost found for this snapshot.</div>
+                            {% endif %}
+                        </div>
+
+                        <p class="waste-proof-note">
+                            This is a visual summary of existing waste records only. It does not forecast waste
+                            or imply automated live monitoring.
+                        </p>
+                    </div>
+
+                    <div class="card waste-chart-card">
+                        <div class="waste-chart-head">
+                            <div>
+                                <span class="badge orange">Product Impact</span>
+                                <h2>Waste cost by product</h2>
+                                <p>
+                                    Highlights which products lose margin after waste cost is included.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="waste-bar-list">
+                            {% if total_waste_cost %}
+                                {% for row in product_waste_rows %}
+                                    <div class="waste-bar-row {% if row.is_top_waste_product %}is-top{% endif %}">
+                                        <div class="waste-bar-meta">
+                                            <strong>{{ row.cake.name }}</strong>
+                                            <span>
+                                                £{{ row.waste_cost|floatformat:2 }}
+                                                · {{ row.action_label }}
+                                            </span>
+                                        </div>
+                                        <div class="waste-bar-track" aria-hidden="true">
+                                            <div class="waste-bar-fill product" style="width: {% widthratio row.waste_cost total_waste_cost 100 %}%;"></div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="empty-state">No product waste rows found.</div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-state">No product-linked waste cost found for this snapshot.</div>
+                            {% endif %}
+                        </div>
+
+                        <p class="waste-proof-note">
+                            The evidence table below remains the source of truth for product-level review actions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card section waste-chart-card" style="margin-top: 16px;">
+                    <div class="waste-chart-head">
+                        <div>
+                            <span class="badge orange">Margin Bridge</span>
+                            <h2>How waste reduces margin</h2>
+                            <p>
+                                This bridge turns the existing KPI values into a reviewer-friendly visual story.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="waste-impact-grid">
+                        <div class="waste-impact-tile">
+                            <strong>£{{ gross_margin|floatformat:2 }}</strong>
+                            <span>Gross margin</span>
+                        </div>
+
+                        <div class="waste-impact-operator">−</div>
+
+                        <div class="waste-impact-tile">
+                            <strong>£{{ total_waste_cost|floatformat:2 }}</strong>
+                            <span>Waste cost</span>
+                        </div>
+
+                        <div class="waste-impact-operator">=</div>
+
+                        <div class="waste-impact-tile">
+                            <strong>£{{ waste_adjusted_margin|floatformat:2 }}</strong>
+                            <span>Waste-adjusted margin</span>
+                        </div>
+                    </div>
+
+                    {% if top_waste_product %}
+                        <div class="top-waste-mini-proof">
+                            <div class="mini-panel">
+                                <strong>{{ top_waste_product.cake.name }}</strong>
+                                <span>Top waste impact product</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>£{{ top_waste_product.waste_cost|floatformat:2 }}</strong>
+                                <span>Product-linked waste cost</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>{{ waste_margin_impact_percent|floatformat:2 }}%</strong>
+                                <span>Waste impact on margin</span>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <p class="waste-proof-note">
+                        No metric logic is changed here. This section only makes the existing waste evidence
+                        easier to inspect before the supporting tables.
+                    </p>
+                </div>
+            </section>
+
 
             {% if top_waste_product %}
                 <section class="card section waste-focus">
@@ -729,5 +1040,4 @@
             BakeOps Intelligence V2 Sprint 3 — trusted waste analysis powered by operational waste records and V1 gold-layer snapshots.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}

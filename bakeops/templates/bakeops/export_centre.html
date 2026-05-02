@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence &mdash; Export Centre</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence &mdash; Export Centre{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="exports" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #111827;
             --panel: #1f2937;
             --text: #f9fafb;
@@ -323,11 +321,144 @@
                 justify-content: flex-start;
             }
         }
-    </style>
-</head>
 
-<body>
-    <main class="shell">
+        .export-trust-layer {
+            margin-top: 24px;
+        }
+
+        .export-trust-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 16px;
+        }
+
+        .export-trust-card {
+            overflow: hidden;
+        }
+
+        .export-trust-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .export-trust-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .export-trust-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .export-contract-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .export-contract-card {
+            min-height: 138px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .export-contract-card.is-gold {
+            border-color: rgba(34, 197, 94, 0.38);
+            background: rgba(34, 197, 94, 0.08);
+        }
+
+        .export-contract-card strong {
+            display: block;
+            color: var(--text);
+            font-size: 1.35rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .export-contract-card span {
+            display: block;
+            color: var(--muted);
+            line-height: 1.45;
+            font-size: 0.84rem;
+        }
+
+        .export-workflow-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .export-workflow-step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px;
+            align-items: start;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .export-step-number {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            color: #fed7aa;
+            font-weight: 900;
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .export-workflow-step strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .export-workflow-step span {
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 0.86rem;
+        }
+
+        .export-proof-strip {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .export-proof-strip .mini-panel {
+            min-height: 92px;
+        }
+
+        .export-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .export-trust-grid,
+            .export-contract-grid,
+            .export-proof-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+
+</style>
+{% endblock %}
+
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -450,7 +581,127 @@
             </div>
         </section>
 
-        <section class="section">
+        
+            <section class="export-trust-layer">
+                <div class="export-trust-grid">
+                    <div class="card export-trust-card">
+                        <div class="export-trust-head">
+                            <div>
+                                <span class="badge teal">BI Contract</span>
+                                <h2>Export structure is grouped by analytical purpose.</h2>
+                                <p>
+                                    The export centre makes the local CSV contract reviewable for BI tools and
+                                    portfolio reviewers without claiming live sync or production pipelines.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="export-contract-grid">
+                            <div class="export-contract-card">
+                                <strong>4</strong>
+                                <span>
+                                    Fact exports for orders, order items, waste, and production batches.
+                                </span>
+                            </div>
+
+                            <div class="export-contract-card">
+                                <strong>5</strong>
+                                <span>
+                                    Dimension exports for product, ingredient, customer, occasion, and collection context.
+                                </span>
+                            </div>
+
+                            <div class="export-contract-card is-gold">
+                                <strong>2</strong>
+                                <span>
+                                    Gold-layer outputs for trusted daily metrics and product performance snapshots.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="export-proof-strip">
+                            <div class="mini-panel">
+                                <strong>11</strong>
+                                <span>CSV files generated</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>52</strong>
+                                <span>Total exported rows</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>exports/</strong>
+                                <span>Local output folder</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>Seeded</strong>
+                                <span>Demo data source</span>
+                            </div>
+                        </div>
+
+                        <p class="export-note">
+                            This section explains the export contract. It does not claim automated BI refresh,
+                            live warehouse sync, or production deployment.
+                        </p>
+                    </div>
+
+                    <div class="card export-trust-card">
+                        <div class="export-trust-head">
+                            <div>
+                                <span class="badge orange">Review Workflow</span>
+                                <h2>From seeded records to BI-ready files.</h2>
+                                <p>
+                                    The export workflow is deliberately local and repeatable so reviewers can
+                                    understand how records become analytics outputs.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="export-workflow-list">
+                            <div class="export-workflow-step">
+                                <div class="export-step-number">1</div>
+                                <div>
+                                    <strong>Seed demo data</strong>
+                                    <span>Creates repeatable bakery records for review.</span>
+                                </div>
+                            </div>
+
+                            <div class="export-workflow-step">
+                                <div class="export-step-number">2</div>
+                                <div>
+                                    <strong>Build metrics</strong>
+                                    <span>Generates trusted metric snapshots and issue records.</span>
+                                </div>
+                            </div>
+
+                            <div class="export-workflow-step">
+                                <div class="export-step-number">3</div>
+                                <div>
+                                    <strong>Export CSV contract</strong>
+                                    <span>Writes fact, dimension, and gold-layer CSV files to the local exports folder.</span>
+                                </div>
+                            </div>
+
+                            <div class="export-workflow-step">
+                                <div class="export-step-number">4</div>
+                                <div>
+                                    <strong>Review files</strong>
+                                    <span>Connect the exported files to BI tools or inspect them manually.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="export-note">
+                            The file contract below remains the source of truth for each export file and its purpose.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+<section class="section">
             <div class="section-head">
                 <div>
                     <h2>BI Export File Contract</h2>
@@ -506,5 +757,4 @@
             BakeOps Intelligence V3 &mdash; export centre powered by the existing BI CSV export service.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}

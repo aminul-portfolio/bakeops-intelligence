@@ -68,6 +68,12 @@ The analysis also assumes ingredient cost is fixed per recipe at snapshot time. 
 
 There is no time-decay either. A waste event on day 1 of the snapshot is weighted identically to one on day 30. For a longer snapshot window this is wrong — recent waste is more actionable than old waste, and an acceleration in waste rate is itself a signal worth surfacing.
 
+## Signature Analytical Proof
+
+Birthday Classic is the highest-revenue product in the seeded demo data, ranking #1 by revenue. However, after waste-adjusted margin is considered, it falls to rank #4 and receives a `Review` action flag.
+
+This proves that BakeOps Intelligence does more than report sales — it helps reveal when a best-selling product may require operational review because of waste and margin pressure.
+
 ## What I'd build next
 
 1. **Ingredient price drift.** Slowly-changing-dimension on `IngredientLot.unit_cost` (type-2 SCD), with `OrderItem` margin computed against the ingredient price effective on the order date.

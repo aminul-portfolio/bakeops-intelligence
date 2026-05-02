@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Commercial Operations Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence — Commercial Operations Dashboard{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="dashboard" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #070b14;
             --bg-soft: #0f172a;
             --panel: rgba(15, 23, 42, 0.82);
@@ -650,11 +648,162 @@
                 padding: 22px;
             }
         }
-    </style>
-</head>
 
-<body>
-    <main class="shell">
+        .command-centre-layer {
+            margin-top: 24px;
+        }
+
+        .command-centre-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 16px;
+        }
+
+        .command-centre-card {
+            overflow: hidden;
+        }
+
+        .command-centre-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .command-centre-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .command-centre-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .command-proof-map {
+            display: grid;
+            gap: 12px;
+        }
+
+        .command-proof-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 14px;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .command-proof-row.is-primary {
+            border-color: rgba(249, 115, 22, 0.46);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 14rem),
+                rgba(249, 115, 22, 0.09);
+        }
+
+        .command-proof-row strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.98rem;
+        }
+
+        .command-proof-row span {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            line-height: 1.45;
+            font-size: 0.84rem;
+        }
+
+        .command-proof-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 92px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            color: #fed7aa;
+            font-weight: 900;
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.12);
+            white-space: nowrap;
+        }
+
+        .command-proof-badge.success {
+            color: #bbf7d0;
+            border-color: rgba(34, 197, 94, 0.38);
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .command-proof-badge.info {
+            color: #bfdbfe;
+            border-color: rgba(96, 165, 250, 0.34);
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .command-deep-dive-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .command-deep-dive-card {
+            min-height: 158px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .command-deep-dive-card strong {
+            display: block;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .command-deep-dive-card p {
+            margin: 8px 0 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 0.88rem;
+        }
+
+        .command-deep-dive-card a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 10px;
+            border-radius: 999px;
+            color: #f8fafc;
+            font-size: 0.78rem;
+            font-weight: 900;
+            text-decoration: none;
+            border: 1px solid rgba(148, 163, 184, 0.24);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .command-centre-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .command-centre-grid,
+            .command-deep-dive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+</style>
+{% endblock %}
+
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -778,7 +927,120 @@
                 </div>
             </section>
 
-            <section class="section">
+            
+            <section class="command-centre-layer">
+                <div class="command-centre-grid">
+                    <div class="card command-centre-card">
+                        <div class="command-centre-head">
+                            <div>
+                                <span class="badge orange">Command Centre</span>
+                                <h2>Review the strongest evidence first.</h2>
+                                <p>
+                                    The dashboard now acts as the operating review hub, linking each trusted
+                                    insight to the deep-dive page that explains the evidence.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="command-proof-map">
+                            <div class="command-proof-row is-primary">
+                                <div>
+                                    <strong>Product profitability proof</strong>
+                                    <span>
+                                        Birthday Classic is the bestseller, but drops to #4 by waste-adjusted
+                                        margin and is flagged for review.
+                                    </span>
+                                </div>
+                                <div class="command-proof-badge">Review</div>
+                            </div>
+
+                            <div class="command-proof-row">
+                                <div>
+                                    <strong>Waste explains margin pressure</strong>
+                                    <span>
+                                        Waste analysis shows where recorded waste cost reduces gross margin
+                                        into waste-adjusted margin.
+                                    </span>
+                                </div>
+                                <div class="command-proof-badge info">Waste</div>
+                            </div>
+
+                            <div class="command-proof-row">
+                                <div>
+                                    <strong>Ingredient risk before production pressure</strong>
+                                    <span>
+                                        Stock below reorder level is surfaced before it becomes a fulfilment
+                                        or production planning issue.
+                                    </span>
+                                </div>
+                                <div class="command-proof-badge info">Risk</div>
+                            </div>
+
+                            <div class="command-proof-row">
+                                <div>
+                                    <strong>Trust and export evidence remain visible</strong>
+                                    <span>
+                                        Data quality issues and BI-ready export files remain reviewable, not
+                                        hidden behind the dashboard.
+                                    </span>
+                                </div>
+                                <div class="command-proof-badge success">Evidence</div>
+                            </div>
+                        </div>
+
+                        <p class="command-centre-note">
+                            This section does not add live monitoring or new metric logic. It organizes the
+                            existing seeded/demo evidence into a clearer review path.
+                        </p>
+                    </div>
+
+                    <div class="card command-centre-card">
+                        <div class="command-centre-head">
+                            <div>
+                                <span class="badge teal">Deep-Dive Path</span>
+                                <h2>Move from KPI to investigation.</h2>
+                                <p>
+                                    Each route keeps the reviewer inside the same analytics product experience.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="command-deep-dive-grid">
+                            <div class="command-deep-dive-card">
+                                <strong>Product Profitability</strong>
+                                <p>Review revenue rank, waste-adjusted margin rank, and action flags.</p>
+                                <a href="{% url 'bakeops:product-profitability' %}">Open product proof →</a>
+                            </div>
+
+                            <div class="command-deep-dive-card">
+                                <strong>Waste Analysis</strong>
+                                <p>Inspect waste reason, product waste impact, and margin bridge evidence.</p>
+                                <a href="{% url 'bakeops:waste-analysis' %}">Open waste layer →</a>
+                            </div>
+
+                            <div class="command-deep-dive-card">
+                                <strong>Ingredient Risk</strong>
+                                <p>Check stock vs reorder level and ingredient shortage pressure.</p>
+                                <a href="{% url 'bakeops:ingredient-risk' %}">Open ingredient risk →</a>
+                            </div>
+
+                            <div class="command-deep-dive-card">
+                                <strong>Trust & Exports</strong>
+                                <p>Review data quality issues and the local BI export contract.</p>
+                                <a href="{% url 'bakeops:data-quality-review' %}">Open trust review →</a>
+                            </div>
+                        </div>
+
+                        <p class="command-centre-note">
+                            Keep this dashboard honest: it is a seeded-demo command centre, not a live SaaS
+                            monitoring system.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+<section class="section">
                 <div class="section-head">
                     <div>
                         <span class="eyebrow">Commercial Operating Workflow</span>
@@ -1172,5 +1434,4 @@
             gold-layer metrics, and evidence-based product boundaries.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}
