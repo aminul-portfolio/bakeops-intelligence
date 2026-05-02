@@ -9,731 +9,1010 @@
 
 {% block page_styles %}
 <style>
-    .profit-ref {
-        --profit-panel: rgba(15, 23, 42, 0.78);
-        --profit-panel-strong: rgba(15, 23, 42, 0.92);
-        --profit-soft: rgba(30, 41, 59, 0.56);
-        --profit-line: rgba(148, 163, 184, 0.14);
-        --profit-line-strong: rgba(148, 163, 184, 0.24);
-        --profit-text: #f8fafc;
-        --profit-muted: #94a3b8;
-        --profit-muted-strong: #cbd5e1;
-        --profit-orange: #f97316;
-        --profit-amber: #f59e0b;
-        --profit-blue: #38bdf8;
-        --profit-purple: #8b5cf6;
-        --profit-green: #22c55e;
-        --profit-red: #ef4444;
+    /* 5B.2 — Product Profitability Exact-Match Correction */
 
-        width: 100%;
+    .profit-exact {
+        --bg: #06111d;
+        --panel: rgba(8, 22, 35, 0.84);
+        --panel-2: rgba(10, 28, 45, 0.78);
+        --panel-3: rgba(15, 33, 52, 0.74);
+        --line: rgba(125, 158, 190, 0.16);
+        --line-strong: rgba(125, 158, 190, 0.26);
+        --text: #f8fafc;
+        --muted: #8fa5ba;
+        --muted-2: #cbd5e1;
+        --orange: #f59e0b;
+        --orange-2: #f97316;
+        --purple: #7c3aed;
+        --blue: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+
         display: grid;
-        gap: 0.95rem;
-        color: var(--profit-text);
+        gap: 1rem;
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: -0.01em;
     }
 
-    .profit-ref * {
+    .profit-exact * {
         box-sizing: border-box;
     }
 
-    .profit-ref a {
+    .profit-exact a {
         color: inherit;
         text-decoration: none;
     }
 
-    .profit-ref-page-head {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
+    .profit-exact-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
         gap: 1rem;
-        margin-bottom: 0.2rem;
+        margin-top: 0.15rem;
     }
 
-    .profit-ref-eyebrow {
-        display: block;
-        color: var(--profit-muted);
-        font-size: 0.7rem;
-        font-weight: 950;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-    }
-
-    .profit-ref-page-head h1 {
-        margin: 0.18rem 0 0;
-        font-size: clamp(1.45rem, 2vw, 2.15rem);
+    .profit-exact-title h1 {
+        margin: 0;
+        font-size: clamp(1.85rem, 2.3vw, 2.45rem);
         line-height: 1.05;
         letter-spacing: -0.04em;
     }
 
-    .profit-ref-actions {
+    .profit-exact-title-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem;
+    }
+
+    .profit-exact-subtitle {
+        margin: 0.35rem 0 0;
+        color: var(--muted-2);
+        font-size: 0.92rem;
+    }
+
+    .profit-exact-actions {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: 0.55rem;
     }
 
-    .profit-ref-button {
+    .profit-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 2.15rem;
-        padding: 0.42rem 0.78rem;
-        border: 1px solid rgba(148, 163, 184, 0.16);
-        border-radius: 999px;
-        color: var(--profit-muted-strong);
-        background: rgba(15, 23, 42, 0.72);
-        font-size: 0.76rem;
-        font-weight: 900;
-        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+        min-height: 2.35rem;
+        padding: 0.48rem 0.85rem;
+        border: 1px solid var(--line);
+        border-radius: 0.75rem;
+        color: var(--muted-2);
+        background: rgba(15, 33, 52, 0.62);
+        font-size: 0.82rem;
+        font-weight: 750;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
     }
 
-    .profit-ref-button:hover {
-        transform: translateY(-1px);
-        border-color: rgba(249, 115, 22, 0.34);
-        background: rgba(124, 45, 18, 0.18);
+    .profit-btn:hover {
+        border-color: rgba(245, 158, 11, 0.38);
+        background: rgba(120, 53, 15, 0.18);
     }
 
-    .profit-ref-panel {
-        border: 1px solid var(--profit-line);
-        border-radius: 1.15rem;
-        background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.058), rgba(255, 255, 255, 0.026)),
-            var(--profit-panel);
-        box-shadow:
-            0 20px 52px rgba(0, 0, 0, 0.24),
-            inset 0 1px 0 rgba(255, 255, 255, 0.035);
-        overflow: hidden;
-    }
-
-    .profit-ref-pad {
-        padding: 1rem;
-    }
-
-    .profit-ref-kicker,
-    .profit-ref-pill,
-    .profit-ref-status {
+    .profit-badge,
+    .profit-pill,
+    .profit-status {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        width: fit-content;
         min-height: 1.55rem;
         padding: 0.24rem 0.58rem;
-        border: 1px solid rgba(148, 163, 184, 0.16);
         border-radius: 999px;
-        color: var(--profit-muted-strong);
-        background: rgba(15, 23, 42, 0.64);
         font-size: 0.68rem;
-        font-weight: 950;
-        letter-spacing: 0.06em;
+        font-weight: 850;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
         white-space: nowrap;
     }
 
-    .profit-ref-kicker {
+    .profit-badge {
         color: #fed7aa;
-        border-color: rgba(249, 115, 22, 0.34);
-        background: rgba(124, 45, 18, 0.22);
+        border: 1px solid rgba(245, 158, 11, 0.38);
+        background: rgba(120, 53, 15, 0.26);
     }
 
-    .profit-ref-kicker.is-blue {
-        color: #bae6fd;
-        border-color: rgba(56, 189, 248, 0.32);
-        background: rgba(12, 74, 110, 0.22);
+    .profit-pill {
+        color: var(--muted-2);
+        border: 1px solid var(--line);
+        background: rgba(15, 33, 52, 0.58);
     }
 
-    .profit-ref-kicker.is-green {
-        color: #bbf7d0;
-        border-color: rgba(34, 197, 94, 0.32);
-        background: rgba(22, 101, 52, 0.20);
-    }
-
-    .profit-ref-hero {
-        display: grid;
-        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
-        gap: 0.9rem;
-    }
-
-    .profit-ref-hero-main {
-        min-height: 20rem;
-        padding: clamp(1rem, 2vw, 1.45rem);
+    .profit-card {
+        border: 1px solid var(--line);
+        border-radius: 1rem;
         background:
-            radial-gradient(circle at 78% 12%, rgba(249, 115, 22, 0.16), transparent 15rem),
-            linear-gradient(180deg, rgba(30, 41, 59, 0.84), rgba(15, 23, 42, 0.68));
+            linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)),
+            var(--panel);
+        box-shadow:
+            0 16px 42px rgba(0, 0, 0, 0.22),
+            inset 0 1px 0 rgba(255,255,255,0.035);
+        overflow: hidden;
     }
 
-    .profit-ref-hero-main h2 {
-        max-width: 780px;
-        margin: 0.85rem 0 0;
-        font-size: clamp(2.35rem, 4.8vw, 5.25rem);
-        line-height: 0.94;
-        letter-spacing: -0.065em;
+    .profit-hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.55fr) minmax(330px, 0.75fr);
+        gap: 1rem;
     }
 
-    .profit-ref-copy {
+    .profit-hero-copy {
+        padding: 0.3rem 0 0;
+    }
+
+    .profit-hero-copy h2 {
         max-width: 760px;
         margin: 1rem 0 0;
-        color: var(--profit-muted-strong);
-        font-size: 0.95rem;
-        line-height: 1.6;
+        font-size: clamp(2.55rem, 4.2vw, 4.35rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+        font-weight: 780;
     }
 
-    .profit-ref-code {
+    .profit-hero-copy p {
+        max-width: 740px;
+        margin: 1rem 0 0;
+        color: var(--muted-2);
+        font-size: 1rem;
+        line-height: 1.58;
+    }
+
+    .profit-code {
         display: inline-flex;
         padding: 0.08rem 0.42rem;
-        border: 1px solid rgba(249, 115, 22, 0.22);
-        border-radius: 999px;
+        border-radius: 0.45rem;
         color: #fed7aa;
-        background: rgba(124, 45, 18, 0.24);
+        background: rgba(120, 53, 15, 0.34);
         font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 0.82em;
+        font-size: 0.86em;
     }
 
-    .profit-ref-meta-row {
+    .profit-meta-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.45rem;
-        margin-top: 1rem;
+        gap: 0.5rem;
+        margin-top: 1.1rem;
     }
 
-    .profit-ref-evidence {
-        min-height: 20rem;
-        padding: 1rem;
+    .profit-evidence {
+        min-height: 17rem;
+        padding: 1.1rem;
         background:
-            radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 12rem),
-            linear-gradient(180deg, rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.62));
+            radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 12rem),
+            rgba(8, 22, 35, 0.86);
     }
 
-    .profit-ref-evidence-top {
+    .profit-evidence-head {
         display: flex;
         justify-content: space-between;
         gap: 1rem;
         align-items: flex-start;
     }
 
-    .profit-ref-evidence strong {
+    .profit-eyebrow {
         display: block;
-        margin-top: 0.8rem;
-        font-size: clamp(2.4rem, 4vw, 4rem);
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .profit-evidence strong {
+        display: block;
+        margin-top: 0.65rem;
+        font-size: clamp(3rem, 5vw, 4.8rem);
         line-height: 1;
         letter-spacing: -0.06em;
     }
 
-    .profit-ref-shield {
-        width: 2.45rem;
-        height: 2.45rem;
+    .profit-shield {
+        width: 2.65rem;
+        height: 2.65rem;
         display: grid;
         place-items: center;
         border-radius: 999px;
         color: #bbf7d0;
-        background: rgba(22, 101, 52, 0.26);
-        border: 1px solid rgba(34, 197, 94, 0.34);
-        box-shadow: 0 12px 30px rgba(34, 197, 94, 0.10);
-        font-weight: 950;
+        border: 1px solid rgba(34, 197, 94, 0.35);
+        background: rgba(22, 101, 52, 0.24);
+        font-weight: 900;
     }
 
-    .profit-ref-kpi-grid {
+    .profit-evidence p {
+        margin: 1.25rem 0 0;
+        color: var(--muted-2);
+        line-height: 1.62;
+    }
+
+    .profit-kpi-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.72rem;
+        gap: 0.8rem;
     }
 
-    .profit-ref-kpi {
-        min-height: 7.2rem;
-        padding: 0.9rem;
-        border: 1px solid var(--profit-line);
-        border-radius: 1rem;
+    .profit-kpi {
+        min-height: 8rem;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 0.95rem;
         background:
-            radial-gradient(circle at top right, rgba(56, 189, 248, 0.09), transparent 9rem),
-            rgba(15, 23, 42, 0.72);
+            radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 9rem),
+            rgba(10, 28, 45, 0.78);
     }
 
-    .profit-ref-kpi span {
+    .profit-kpi-icon {
+        width: 2.45rem;
+        height: 2.45rem;
+        display: grid;
+        place-items: center;
+        margin-bottom: 0.75rem;
+        border-radius: 999px;
+        color: #bfdbfe;
+        background: rgba(30, 64, 175, 0.28);
+        border: 1px solid rgba(59, 130, 246, 0.28);
+        font-weight: 900;
+    }
+
+    .profit-kpi-icon.is-orange {
+        color: #fed7aa;
+        background: rgba(120, 53, 15, 0.32);
+        border-color: rgba(245, 158, 11, 0.32);
+    }
+
+    .profit-kpi-icon.is-red {
+        color: #fecaca;
+        background: rgba(127, 29, 29, 0.25);
+        border-color: rgba(239, 68, 68, 0.28);
+    }
+
+    .profit-kpi-icon.is-green {
+        color: #bbf7d0;
+        background: rgba(22, 101, 52, 0.24);
+        border-color: rgba(34, 197, 94, 0.30);
+    }
+
+    .profit-kpi span {
         display: block;
-        color: var(--profit-muted);
-        font-size: 0.68rem;
-        font-weight: 950;
-        letter-spacing: 0.08em;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
     }
 
-    .profit-ref-kpi strong {
+    .profit-kpi strong {
         display: block;
-        margin-top: 0.46rem;
-        color: var(--profit-text);
-        font-size: clamp(1.8rem, 3vw, 2.75rem);
+        margin-top: 0.45rem;
+        font-size: 2.35rem;
         line-height: 1;
         letter-spacing: -0.055em;
     }
 
-    .profit-ref-kpi small {
+    .profit-kpi small {
         display: block;
         margin-top: 0.42rem;
-        color: var(--profit-muted);
-        font-size: 0.78rem;
+        color: var(--muted-2);
         line-height: 1.42;
     }
 
-    .profit-ref-visual-grid {
+    .profit-rank-signature-grid {
         display: grid;
-        grid-template-columns: minmax(330px, 0.86fr) minmax(0, 1.14fr);
-        gap: 0.9rem;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+        gap: 1rem;
     }
 
-    .profit-ref-proof {
+    .profit-rank-card,
+    .profit-signature-card {
         padding: 1rem;
-        border-color: rgba(249, 115, 22, 0.36);
-        background:
-            radial-gradient(circle at top left, rgba(249, 115, 22, 0.20), transparent 13rem),
-            linear-gradient(180deg, rgba(39, 39, 42, 0.90), rgba(15, 23, 42, 0.70));
     }
 
-    .profit-ref-proof h2,
-    .profit-ref-rank-card h2,
-    .profit-ref-signature h2,
-    .profit-ref-section-head h2 {
+    .profit-section-title {
         margin: 0.65rem 0 0;
-        font-size: clamp(1.25rem, 2vw, 1.95rem);
-        line-height: 1.08;
-        letter-spacing: -0.045em;
+        font-size: clamp(1.35rem, 2vw, 1.9rem);
+        line-height: 1.12;
+        letter-spacing: -0.04em;
     }
 
-    .profit-ref-route {
+    .profit-section-copy {
+        margin: 0.6rem 0 0;
+        color: var(--muted-2);
+        line-height: 1.55;
+    }
+
+    .profit-rank-legend {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.8rem;
+        color: var(--muted-2);
+        font-size: 0.82rem;
+    }
+
+    .profit-dot {
+        width: 0.65rem;
+        height: 0.65rem;
+        display: inline-block;
+        margin-right: 0.35rem;
+        border-radius: 999px;
+        background: var(--blue);
+    }
+
+    .profit-dot.is-orange {
+        background: var(--orange);
+    }
+
+    .profit-rank-visual {
         display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        gap: 0.85rem;
+        margin-top: 1.1rem;
+        padding: 0.8rem;
+        border: 1px solid rgba(125, 158, 190, 0.11);
+        border-radius: 0.9rem;
+        background: rgba(2, 6, 23, 0.18);
+    }
+
+    .profit-rank-row {
+        display: grid;
+        grid-template-columns: 120px 3.2rem minmax(90px, 1fr) 3.2rem 125px;
+        gap: 0.65rem;
         align-items: center;
-        gap: 0.75rem;
-        margin-top: 1.15rem;
     }
 
-    .profit-ref-rank-tile {
-        min-height: 7rem;
-        padding: 0.85rem;
-        border: 1px solid rgba(148, 163, 184, 0.16);
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.045);
-    }
-
-    .profit-ref-rank-tile strong {
+    .profit-product-name strong {
         display: block;
-        font-size: clamp(2.2rem, 4vw, 3.8rem);
-        line-height: 0.95;
-        letter-spacing: -0.07em;
+        font-size: 0.9rem;
     }
 
-    .profit-ref-rank-tile span {
+    .profit-product-name small {
         display: block;
-        margin-top: 0.42rem;
-        color: var(--profit-muted);
-        font-size: 0.68rem;
-        font-weight: 950;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.72rem;
     }
 
-    .profit-ref-arrow {
+    .profit-rank-node {
+        width: 2.55rem;
+        height: 2.55rem;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        color: #dbeafe;
+        background: rgba(30, 64, 175, 0.42);
+        border: 1px solid rgba(59, 130, 246, 0.32);
+        font-weight: 900;
+    }
+
+    .profit-rank-node.is-margin {
+        color: #fed7aa;
+        background: rgba(120, 53, 15, 0.42);
+        border-color: rgba(245, 158, 11, 0.34);
+    }
+
+    .profit-rank-line {
+        position: relative;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(59, 130, 246, 0.86), rgba(245, 158, 11, 0.86));
+        border-radius: 999px;
+    }
+
+    .profit-rank-line::after {
+        content: "";
+        position: absolute;
+        right: -1px;
+        top: 50%;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-right: 2px solid rgba(245, 158, 11, 0.95);
+        border-top: 2px solid rgba(245, 158, 11, 0.95);
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    .profit-rank-note {
+        color: var(--muted-2);
+        font-size: 0.76rem;
+        line-height: 1.35;
+    }
+
+    .profit-rank-note strong {
+        color: #fed7aa;
+    }
+
+    .profit-signature-card {
+        border-color: rgba(245, 158, 11, 0.42);
+        background:
+            radial-gradient(circle at top right, rgba(245, 158, 11, 0.13), transparent 12rem),
+            linear-gradient(180deg, rgba(25, 35, 50, 0.9), rgba(8, 22, 35, 0.76));
+        position: relative;
+    }
+
+    .profit-star {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
         width: 3rem;
         height: 3rem;
         display: grid;
         place-items: center;
         border-radius: 999px;
-        color: #fed7aa;
-        border: 1px solid rgba(249, 115, 22, 0.38);
-        background: rgba(124, 45, 18, 0.24);
-        font-size: 1.35rem;
-        font-weight: 950;
+        color: #fff7ed;
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        font-size: 1.4rem;
+        box-shadow: 0 16px 34px rgba(245, 158, 11, 0.22);
     }
 
-    .profit-ref-proof-mini {
+    .profit-signature-card h2 {
+        max-width: 490px;
+        margin-right: 3.4rem;
+    }
+
+    .profit-proof-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.6rem;
-        margin-top: 0.85rem;
+        gap: 0.75rem;
+        margin-top: 1rem;
     }
 
-    .profit-ref-mini {
+    .profit-proof-tile {
         min-height: 5.4rem;
-        padding: 0.75rem;
-        border: 1px solid rgba(148, 163, 184, 0.14);
-        border-radius: 0.9rem;
-        background: rgba(255, 255, 255, 0.04);
-    }
-
-    .profit-ref-mini strong {
-        display: block;
-        color: var(--profit-text);
-        font-size: 1rem;
-        line-height: 1.12;
-    }
-
-    .profit-ref-mini span {
-        display: block;
-        margin-top: 0.3rem;
-        color: var(--profit-muted);
-        font-size: 0.72rem;
-        line-height: 1.35;
-    }
-
-    .profit-ref-rank-card {
-        padding: 1rem;
-    }
-
-    .profit-ref-rank-list {
-        display: grid;
-        gap: 0.62rem;
-        margin-top: 0.95rem;
-    }
-
-    .profit-ref-rank-row {
-        display: grid;
-        grid-template-columns: minmax(120px, 1fr) 4.4rem minmax(70px, 1fr) 4.4rem 6.4rem;
-        align-items: center;
-        gap: 0.62rem;
-        min-height: 4.9rem;
-        padding: 0.72rem;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-        border-radius: 0.95rem;
+        padding: 0.85rem;
+        border: 1px solid var(--line);
+        border-radius: 0.8rem;
         background: rgba(255, 255, 255, 0.035);
     }
 
-    .profit-ref-rank-row.is-signature {
-        border-color: rgba(249, 115, 22, 0.36);
-        background:
-            linear-gradient(90deg, rgba(124, 45, 18, 0.28), rgba(15, 23, 42, 0.52));
-    }
-
-    .profit-ref-product strong {
+    .profit-proof-tile strong {
         display: block;
-        font-size: 0.86rem;
-        line-height: 1.1;
+        font-size: 1.45rem;
+        line-height: 1;
+        letter-spacing: -0.04em;
     }
 
-    .profit-ref-product span {
+    .profit-proof-tile span {
         display: block;
-        margin-top: 0.25rem;
-        color: var(--profit-muted);
-        font-size: 0.68rem;
-        line-height: 1.3;
+        margin-top: 0.4rem;
+        color: var(--muted);
+        font-size: 0.78rem;
     }
 
-    .profit-ref-node {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.15rem;
-        min-width: 2.7rem;
-        padding: 0 0.55rem;
-        border-radius: 999px;
-        font-size: 0.8rem;
-        font-weight: 950;
-        border: 1px solid rgba(148, 163, 184, 0.16);
-        background: rgba(255, 255, 255, 0.05);
+    .profit-table-section h2,
+    .profit-definitions-section h2 {
+        margin: 0;
+        font-size: clamp(1.45rem, 2vw, 2rem);
+        letter-spacing: -0.04em;
     }
 
-    .profit-ref-node.is-revenue {
-        color: #bfdbfe;
-        border-color: rgba(59, 130, 246, 0.32);
-        background: rgba(30, 64, 175, 0.22);
+    .profit-table-section p,
+    .profit-definitions-section p {
+        margin: 0.25rem 0 0.9rem;
+        color: var(--muted-2);
+        font-size: 0.9rem;
     }
 
-    .profit-ref-node.is-margin {
-        color: #fed7aa;
-        border-color: rgba(249, 115, 22, 0.34);
-        background: rgba(124, 45, 18, 0.24);
-    }
-
-    .profit-ref-line {
-        position: relative;
-        height: 2px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgba(59, 130, 246, 0.75), rgba(249, 115, 22, 0.82));
-    }
-
-    .profit-ref-line::after {
-        content: "";
-        position: absolute;
-        right: -1px;
-        top: 50%;
-        width: 0.48rem;
-        height: 0.48rem;
-        border-top: 2px solid rgba(249, 115, 22, 0.95);
-        border-right: 2px solid rgba(249, 115, 22, 0.95);
-        transform: translateY(-50%) rotate(45deg);
-    }
-
-    .profit-ref-move {
-        color: var(--profit-muted);
-        font-size: 0.72rem;
-        line-height: 1.35;
-    }
-
-    .profit-ref-move.is-drop {
-        color: #fed7aa;
-        font-weight: 950;
-    }
-
-    .profit-ref-move.is-gain {
-        color: #bbf7d0;
-        font-weight: 950;
-    }
-
-    .profit-ref-signature {
-        padding: 1rem;
-        border-color: rgba(249, 115, 22, 0.34);
-        background:
-            radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), transparent 16rem),
-            linear-gradient(180deg, rgba(39, 39, 42, 0.86), rgba(15, 23, 42, 0.70));
-    }
-
-    .profit-ref-signature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.72rem;
-        margin-top: 0.9rem;
-    }
-
-    .profit-ref-section-head {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 0.72rem;
-    }
-
-    .profit-ref-section-head p {
-        margin: 0.28rem 0 0;
-        color: var(--profit-muted);
-        font-size: 0.84rem;
-        line-height: 1.48;
-    }
-
-    .profit-ref-table-wrap {
+    .profit-table-wrap {
         overflow-x: auto;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-        border-radius: 1.05rem;
-        background: rgba(15, 23, 42, 0.70);
+        border: 1px solid var(--line);
+        border-radius: 0.95rem;
+        background: rgba(8, 22, 35, 0.78);
     }
 
-    .profit-ref-table {
+    .profit-table {
         width: 100%;
         min-width: 1120px;
         border-collapse: collapse;
     }
 
-    .profit-ref-table th,
-    .profit-ref-table td {
-        padding: 0.76rem 0.78rem;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+    .profit-table th,
+    .profit-table td {
+        padding: 0.9rem 0.85rem;
+        border-right: 1px solid rgba(125, 158, 190, 0.09);
+        border-bottom: 1px solid rgba(125, 158, 190, 0.10);
         text-align: left;
         vertical-align: top;
-        font-size: 0.78rem;
+        font-size: 0.82rem;
+        line-height: 1.42;
     }
 
-    .profit-ref-table th {
-        color: var(--profit-muted);
-        background: rgba(15, 23, 42, 0.86);
-        font-size: 0.64rem;
-        font-weight: 950;
-        letter-spacing: 0.08em;
+    .profit-table th {
+        color: var(--muted);
+        background: rgba(10, 28, 45, 0.92);
+        font-size: 0.67rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
         text-transform: uppercase;
     }
 
-    .profit-ref-table tr:last-child td {
+    .profit-table td:last-child,
+    .profit-table th:last-child {
+        border-right: 0;
+    }
+
+    .profit-table tr:last-child td {
         border-bottom: 0;
     }
 
-    .profit-ref-table tr.is-signature {
-        background: linear-gradient(90deg, rgba(124, 45, 18, 0.22), rgba(15, 23, 42, 0.48));
+    .profit-table tr.is-signature {
+        background: linear-gradient(90deg, rgba(120, 53, 15, 0.20), rgba(8, 22, 35, 0.5));
     }
 
-    .profit-ref-table strong {
-        color: var(--profit-text);
+    .profit-table strong {
+        color: var(--text);
     }
 
-    .profit-ref-table small,
-    .profit-ref-muted {
-        color: var(--profit-muted);
-        font-size: 0.72rem;
-        line-height: 1.35;
+    .profit-table small,
+    .profit-muted {
+        color: var(--muted);
+        font-size: 0.76rem;
     }
 
-    .profit-ref-rank-pill {
+    .profit-rank-pill {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         min-width: 2rem;
-        min-height: 1.55rem;
-        margin-top: 0.2rem;
+        min-height: 1.45rem;
+        margin-top: 0.32rem;
         padding: 0.18rem 0.46rem;
         border-radius: 999px;
-        color: var(--profit-text);
+        color: var(--text);
         background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(148, 163, 184, 0.14);
-        font-size: 0.68rem;
-        font-weight: 950;
+        font-size: 0.72rem;
+        font-weight: 850;
     }
 
-    .profit-ref-rank-gap {
-        color: #fed7aa;
-        font-weight: 950;
-    }
-
-    .profit-ref-status.promote {
+    .profit-status.promote {
         color: #bbf7d0;
-        border-color: rgba(34, 197, 94, 0.34);
-        background: rgba(22, 101, 52, 0.20);
+        border: 1px solid rgba(34, 197, 94, 0.34);
+        background: rgba(22, 101, 52, 0.22);
     }
 
-    .profit-ref-status.stable {
-        color: #bae6fd;
-        border-color: rgba(56, 189, 248, 0.32);
-        background: rgba(12, 74, 110, 0.22);
+    .profit-status.stable {
+        color: #bfdbfe;
+        border: 1px solid rgba(59, 130, 246, 0.34);
+        background: rgba(30, 64, 175, 0.22);
     }
 
-    .profit-ref-status.review {
+    .profit-status.review {
         color: #fed7aa;
-        border-color: rgba(249, 115, 22, 0.34);
-        background: rgba(124, 45, 18, 0.24);
+        border: 1px solid rgba(245, 158, 11, 0.38);
+        background: rgba(120, 53, 15, 0.26);
     }
 
-    .profit-ref-status.reduce {
+    .profit-status.reduce {
         color: #fecaca;
-        border-color: rgba(239, 68, 68, 0.34);
-        background: rgba(127, 29, 29, 0.22);
+        border: 1px solid rgba(239, 68, 68, 0.34);
+        background: rgba(127, 29, 29, 0.23);
     }
 
-    .profit-ref-legend-grid {
+    .profit-def-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.75rem;
+        gap: 0.8rem;
     }
 
-    .profit-ref-legend {
-        min-height: 11rem;
-        padding: 0.95rem;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-        border-radius: 1rem;
-        background:
-            radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 8rem),
-            rgba(15, 23, 42, 0.68);
-    }
-
-    .profit-ref-legend p {
-        margin: 0.7rem 0 0;
-        color: var(--profit-muted-strong);
-        font-size: 0.78rem;
-        line-height: 1.55;
-    }
-
-    .profit-ref-empty {
+    .profit-def-card {
+        min-height: 10.5rem;
         padding: 1rem;
-        border: 1px dashed rgba(148, 163, 184, 0.28);
-        border-radius: 1rem;
-        color: var(--profit-muted);
-        background: rgba(15, 23, 42, 0.44);
+        border: 1px solid var(--line);
+        border-radius: 0.9rem;
+        background:
+            radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 9rem),
+            rgba(10, 28, 45, 0.68);
     }
 
-    .profit-ref-footer {
-        padding: 0.75rem 0 1rem;
+    .profit-def-card p {
+        margin-top: 0.7rem;
+        color: var(--muted-2);
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+
+    .profit-footer {
+        padding: 0.8rem 0 1rem;
         text-align: center;
-        color: var(--profit-muted);
-        font-size: 0.78rem;
+        color: var(--muted);
+        font-size: 0.82rem;
     }
 
-    @media (max-width: 1380px) {
-        .profit-ref-hero,
-        .profit-ref-visual-grid {
+    @media (max-width: 1200px) {
+        .profit-hero-grid,
+        .profit-rank-signature-grid {
             grid-template-columns: 1fr;
         }
 
-        .profit-ref-legend-grid {
+        .profit-kpi-grid,
+        .profit-def-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
-    @media (max-width: 980px) {
-        .profit-ref-page-head,
-        .profit-ref-section-head {
-            flex-direction: column;
-            align-items: flex-start;
+    @media (max-width: 900px) {
+        .profit-exact-header {
+            grid-template-columns: 1fr;
         }
 
-        .profit-ref-actions {
+        .profit-exact-actions {
             justify-content: flex-start;
         }
 
-        .profit-ref-kpi-grid,
-        .profit-ref-signature-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .profit-ref-rank-row {
+        .profit-rank-row {
             grid-template-columns: 1fr;
         }
 
-        .profit-ref-line {
+        .profit-rank-line {
             width: 5rem;
         }
     }
 
     @media (max-width: 640px) {
-        .profit-ref-kpi-grid,
-        .profit-ref-route,
-        .profit-ref-proof-mini,
-        .profit-ref-signature-grid,
-        .profit-ref-legend-grid {
+        .profit-kpi-grid,
+        .profit-proof-grid,
+        .profit-def-grid {
             grid-template-columns: 1fr;
         }
 
-        .profit-ref-arrow {
-            margin: 0 auto;
-            transform: rotate(90deg);
-        }
-
-        .profit-ref-hero-main h2 {
-            font-size: clamp(2rem, 11vw, 3.2rem);
+        .profit-hero-copy h2 {
+            font-size: clamp(2.1rem, 11vw, 3.1rem);
         }
     }
 
-/* 5B.1 — Product Profitability Desktop Density Fix */
+/* 5B.3 — Product Profitability True Reference Shell Fix */
 
 @media (min-width: 1101px) {
-    .profit-ref-hero {
-        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr) !important;
+    body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: block !important;
+        min-height: 100vh !important;
+        padding-left: 292px !important;
     }
 
-    .profit-ref-visual-grid {
-        grid-template-columns: minmax(330px, 0.86fr) minmax(0, 1.14fr) !important;
+    body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+        position: fixed !important;
+        inset: 0 auto 0 0 !important;
+        width: 292px !important;
+        height: 100vh !important;
+        z-index: 50 !important;
     }
 
-    .profit-ref-hero-main,
-    .profit-ref-evidence {
-        min-height: 18rem;
+    body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        width: 100% !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
     }
 
-    .profit-ref-evidence {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+    body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 1.15rem 1.55rem 2rem !important;
     }
 
-    .profit-ref-hero-main h2 {
-        max-width: 780px;
-        font-size: clamp(2.6rem, 4.2vw, 4.9rem);
-    }
-
-    .profit-ref-kpi-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    }
-
-    .profit-ref-legend-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.profit-exact {
+        width: 100% !important;
+        max-width: 1240px !important;
+        margin-inline: auto !important;
     }
 }
 
-@media (max-width: 1100px) {
-    .profit-ref-hero,
-    .profit-ref-visual-grid,
-    .profit-ref-kpi-grid,
-    .profit-ref-legend-grid {
+.profit-exact {
+    max-width: 1240px;
+    margin-inline: auto;
+    gap: 0.95rem;
+}
+
+.profit-exact-header {
+    margin-top: 0.35rem;
+    margin-bottom: 0.25rem;
+}
+
+.profit-exact-title-row h1 {
+    font-size: clamp(1.9rem, 2.25vw, 2.35rem) !important;
+    letter-spacing: -0.045em;
+}
+
+.profit-hero-grid {
+    grid-template-columns: minmax(0, 1.52fr) minmax(340px, 0.78fr) !important;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.profit-hero-copy {
+    padding: 0.35rem 0 0;
+}
+
+.profit-hero-copy h2 {
+    max-width: 740px;
+    font-size: clamp(3rem, 4.1vw, 4.4rem) !important;
+    line-height: 0.98;
+    font-weight: 760;
+}
+
+.profit-hero-copy p {
+    max-width: 760px;
+    font-size: 0.98rem;
+}
+
+.profit-evidence {
+    min-height: 15.5rem;
+}
+
+.profit-kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.75rem;
+}
+
+.profit-kpi {
+    min-height: 7.6rem;
+    padding: 0.95rem;
+}
+
+.profit-rank-signature-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr) !important;
+    gap: 1rem;
+}
+
+.profit-rank-card,
+.profit-signature-card {
+    min-height: 22rem;
+}
+
+.profit-rank-row {
+    grid-template-columns: 128px 3.1rem minmax(100px, 1fr) 3.1rem 126px;
+}
+
+.profit-rank-visual {
+    padding: 0.9rem;
+}
+
+.profit-signature-card .profit-section-title {
+    font-size: clamp(1.75rem, 2.15vw, 2.35rem);
+}
+
+.profit-table-section {
+    margin-top: 0.1rem;
+}
+
+.profit-table-wrap {
+    border-radius: 0.95rem;
+}
+
+.profit-table {
+    min-width: 1080px;
+}
+
+.profit-table th,
+.profit-table td {
+    padding: 0.82rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+.profit-table th:last-child,
+.profit-table td:last-child {
+    min-width: 240px;
+}
+
+.profit-def-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.profit-def-card {
+    min-height: 9.5rem;
+}
+
+@media (max-width: 1200px) {
+    .profit-hero-grid,
+    .profit-rank-signature-grid {
         grid-template-columns: 1fr !important;
+    }
+
+    .profit-kpi-grid,
+    .profit-def-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .profit-kpi-grid,
+    .profit-def-grid,
+    .profit-proof-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .profit-hero-copy h2 {
+        font-size: clamp(2.2rem, 11vw, 3.2rem) !important;
+    }
+}
+
+
+/* 5B.4 — Screenshot-Safe Product Shell Correction
+   Purpose: prevent fixed sidebar/topbar duplication in full-page screenshots.
+   This overrides the earlier fixed rail behaviour only for the product page.
+*/
+
+@media (min-width: 1101px) {
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-app-shell {
+        display: grid !important;
+        grid-template-columns: 292px minmax(0, 1fr) !important;
+        padding-left: 0 !important;
+        align-items: start !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-sidebar {
+        position: relative !important;
+        inset: auto !important;
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        width: 292px !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        z-index: 10 !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-main-frame {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-topbar {
+        position: relative !important;
+        top: auto !important;
+        z-index: 5 !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-page-frame {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 1.15rem 1.55rem 2rem !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-page-frame > main.profit-exact {
+        width: 100% !important;
+        max-width: 1240px !important;
+        margin-inline: auto !important;
+    }
+}
+
+/* Tighten product page to closer reference density after shell correction. */
+.profit-exact {
+    gap: 0.9rem !important;
+}
+
+.profit-exact-header {
+    margin-top: 0 !important;
+}
+
+.profit-hero-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(330px, 0.78fr) !important;
+    gap: 0.95rem !important;
+}
+
+.profit-hero-copy h2 {
+    max-width: 760px !important;
+    font-size: clamp(2.75rem, 4vw, 4.15rem) !important;
+    line-height: 0.98 !important;
+}
+
+.profit-kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.profit-rank-signature-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr) !important;
+}
+
+.profit-table {
+    min-width: 1080px !important;
+}
+
+@media (max-width: 1200px) {
+    .profit-hero-grid,
+    .profit-rank-signature-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .profit-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .profit-kpi-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* 5B.5 — Product Profitability Desktop Offset / Reference Position Fix
+   Purpose: keep the product page safely clear of the sidebar and closer to the original reference.
+*/
+
+@media (min-width: 1101px) {
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-app-shell {
+        display: grid !important;
+        grid-template-columns: 292px minmax(0, 1fr) !important;
+        padding-left: 0 !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-sidebar {
+        position: relative !important;
+        width: 292px !important;
+        min-width: 292px !important;
+        max-width: 292px !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+        z-index: 20 !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-main-frame {
+        grid-column: 2 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+        padding-left: 2.25rem !important;
+        padding-right: 1.5rem !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-topbar {
+        position: relative !important;
+        top: auto !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-page-frame {
+        padding: 1.15rem 0 2rem !important;
+        margin: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-page-frame > main.profit-exact {
+        width: 100% !important;
+        max-width: 1240px !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+}
+
+/* Product page visual tightening after desktop offset correction. */
+.profit-exact-header {
+    margin-top: 0.25rem !important;
+}
+
+.profit-hero-copy h2 {
+    max-width: 780px !important;
+}
+
+.profit-rank-signature-grid {
+    align-items: stretch !important;
+}
+
+.profit-table-wrap {
+    width: 100% !important;
+}
+
+@media (max-width: 1100px) {
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-main-frame {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    body.analytics-shell-body.reference-match-shell:has(.profit-exact) .analytics-page-frame {
+        padding: 1rem !important;
     }
 }
 
@@ -741,227 +1020,168 @@
 {% endblock %}
 
 {% block analytics_content %}
-<main class="profit-ref">
-    <section class="profit-ref-page-head">
-        <div>
-            <span class="profit-ref-eyebrow">BakeOps Intelligence</span>
-            <h1>Product Profitability</h1>
+<main class="profit-exact">
+    <section class="profit-exact-header">
+        <div class="profit-exact-title">
+            <div class="profit-exact-title-row">
+                <h1>Product Profitability</h1>
+                <span class="profit-badge">Deep-Dive Profitability Review</span>
+            </div>
         </div>
 
-        <nav class="profit-ref-actions" aria-label="Product profitability actions">
-            <a class="profit-ref-button" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
-            <a class="profit-ref-button" href="/">Back to catalogue</a>
+        <nav class="profit-exact-actions" aria-label="Product profitability actions">
+            <a class="profit-btn" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
+            <a class="profit-btn" href="/">Back to catalogue</a>
         </nav>
     </section>
 
     {% if latest_metric %}
-        <section class="profit-ref-hero">
-            <article class="profit-ref-panel profit-ref-hero-main">
-                <span class="profit-ref-kicker">Deep-Dive Profitability Review</span>
+        <section class="profit-hero-grid">
+            <article class="profit-hero-copy">
                 <h2>Revenue rank is not the same as margin strength.</h2>
-                <p class="profit-ref-copy">
-                    This page uses the existing gold-layer
-                    <span class="profit-ref-code">ProductPerformanceSnapshot</span>
+                <p>
+                    This page uses trusted gold-layer
+                    <span class="profit-code">ProductPerformanceSnapshot</span>
                     records to compare revenue rank, quantity rank, gross margin rank,
-                    and waste-adjusted margin rank. It shows where a high-selling product
-                    becomes a review candidate once ingredient cost and waste pressure are included.
+                    and waste-adjusted margin rank. It shows where a high-selling product becomes
+                    a review candidate once ingredient cost and waste pressure are included.
                 </p>
 
-                <div class="profit-ref-meta-row">
-                    <span class="profit-ref-pill">Workspace: {{ workspace.name }}</span>
-                    <span class="profit-ref-pill">Snapshot: {{ snapshot_date }}</span>
-                    <span class="profit-ref-pill">Source: ProductPerformanceSnapshot</span>
+                <div class="profit-meta-row">
+                    <span class="profit-pill">Workspace: {{ workspace.name }}</span>
+                    <span class="profit-pill">Snapshot: {{ snapshot_date }}</span>
+                    <span class="profit-pill">Source: ProductPerformanceSnapshot</span>
                 </div>
             </article>
 
-            <aside class="profit-ref-panel profit-ref-evidence">
-                <div class="profit-ref-evidence-top">
+            <aside class="profit-card profit-evidence">
+                <div class="profit-evidence-head">
                     <div>
-                        <span class="profit-ref-eyebrow">Snapshot Evidence</span>
+                        <span class="profit-eyebrow">Snapshot Evidence</span>
                         <strong>{{ product_count }}</strong>
                     </div>
-                    <div class="profit-ref-shield">✓</div>
+                    <div class="profit-shield">✓</div>
                 </div>
-                <p class="profit-ref-copy">
+                <p>
                     product performance snapshots analysed from the latest metric build.
                     This page explains trusted snapshot outputs; it does not rebuild metrics.
                 </p>
             </aside>
         </section>
 
-        <section class="profit-ref-kpi-grid">
-            <article class="profit-ref-kpi">
+        <section class="profit-kpi-grid">
+            <article class="profit-kpi">
+                <div class="profit-kpi-icon">◔</div>
                 <span>Products Analysed</span>
                 <strong>{{ product_count }}</strong>
                 <small>Latest product performance rows.</small>
             </article>
 
-            <article class="profit-ref-kpi">
+            <article class="profit-kpi">
+                <div class="profit-kpi-icon is-orange">↔</div>
                 <span>Rank Inversions</span>
                 <strong>{{ inversion_count }}</strong>
                 <small>Products where margin rank is weaker than revenue rank.</small>
             </article>
 
-            <article class="profit-ref-kpi">
+            <article class="profit-kpi">
+                <div class="profit-kpi-icon is-red">⚑</div>
                 <span>Review Flags</span>
                 <strong>{{ review_count }}</strong>
                 <small>Products needing profitability review.</small>
             </article>
 
-            <article class="profit-ref-kpi">
+            <article class="profit-kpi">
+                <div class="profit-kpi-icon is-green">↗</div>
                 <span>Promote Flags</span>
                 <strong>{{ promote_count }}</strong>
                 <small>Products with stronger margin than revenue visibility.</small>
             </article>
         </section>
 
-        {% if signature_product %}
-            <section class="profit-ref-visual-grid">
-                <article class="profit-ref-panel profit-ref-proof">
-                    <span class="profit-ref-kicker">Visual Proof</span>
-                    <h2>{{ signature_product.cake.name }} moves from bestseller to review candidate.</h2>
-                    <p class="profit-ref-copy">
-                        This visual keeps the protected evidence visible:
-                        revenue rank, waste-adjusted margin rank, and action flag are shown together
-                        before the detailed evidence table.
+        <section class="profit-rank-signature-grid">
+            <article class="profit-card profit-rank-card">
+                <span class="profit-eyebrow">Rank Movement: Revenue vs Waste-Adjusted Margin</span>
+                <div class="profit-rank-legend">
+                    <span><i class="profit-dot"></i>Revenue rank</span>
+                    <span><i class="profit-dot is-orange"></i>Waste-adjusted margin rank</span>
+                </div>
+
+                <div class="profit-rank-visual">
+                    {% for row in product_rows %}
+                        <div class="profit-rank-row">
+                            <div class="profit-product-name">
+                                <strong>{{ row.product.cake.name }}</strong>
+                                <small>{{ row.product.variant|default:"Default variant" }}</small>
+                            </div>
+
+                            <div class="profit-rank-node">#{{ row.revenue_rank }}</div>
+                            <div class="profit-rank-line"></div>
+                            <div class="profit-rank-node is-margin">#{{ row.waste_adjusted_margin_rank }}</div>
+
+                            <div class="profit-rank-note">
+                                {% if row.has_margin_rank_inversion %}
+                                    <strong>↓ {{ row.margin_rank_gap }}</strong><br>
+                                    Drops {{ row.margin_rank_gap }} rank position{{ row.margin_rank_gap|pluralize }}
+                                {% elif row.product.waste_adjusted_margin_rank < row.revenue_rank %}
+                                    <strong>↑ {{ row.margin_rank_gap|default:"" }}</strong><br>
+                                    Improves after waste
+                                {% else %}
+                                    Aligned
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <p class="profit-section-copy">
+                    Lines show movement between revenue rank and waste-adjusted margin rank.
+                    Downward movement indicates weaker profitability after waste is included.
+                </p>
+            </article>
+
+            {% if signature_product %}
+                <article class="profit-card profit-signature-card">
+                    <div class="profit-star">★</div>
+                    <span class="profit-eyebrow">Signature Insight</span>
+                    <h2 class="profit-section-title">{{ signature_product.cake.name }} proves why revenue alone can mislead.</h2>
+                    <p class="profit-section-copy">
+                        {{ signature_product.cake.name }} ranks #{{ signature_product.revenue_rank }} by revenue,
+                        but moves to #{{ signature_product.waste_adjusted_margin_rank }} by waste-adjusted margin after
+                        ingredient cost and waste are included. The evidence-based action flag is
+                        {{ signature_product.get_action_flag_display }}.
                     </p>
 
-                    <div class="profit-ref-route">
-                        <div class="profit-ref-rank-tile">
+                    <div class="profit-proof-grid">
+                        <div class="profit-proof-tile">
                             <strong>#{{ signature_product.revenue_rank }}</strong>
                             <span>Revenue rank</span>
                         </div>
-
-                        <div class="profit-ref-arrow">→</div>
-
-                        <div class="profit-ref-rank-tile">
+                        <div class="profit-proof-tile">
                             <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
                             <span>Waste-adjusted margin rank</span>
                         </div>
-                    </div>
-
-                    <div class="profit-ref-proof-mini">
-                        <div class="profit-ref-mini">
-                            <strong>{{ signature_product.cake.name }}</strong>
-                            <span>Protected product</span>
-                        </div>
-                        <div class="profit-ref-mini">
+                        <div class="profit-proof-tile">
                             <strong>{{ signature_product.get_action_flag_display }}</strong>
-                            <span>Evidence-based action</span>
-                        </div>
-                        <div class="profit-ref-mini">
-                            <strong>Rank drop</strong>
-                            <span>Revenue alone is not enough</span>
+                            <span>Evidence-based action flag</span>
                         </div>
                     </div>
 
-                    <p class="profit-ref-copy">
-                        No metric logic is changed here. This section only makes the existing gold-layer snapshot easier for reviewers to understand.
+                    <p class="profit-section-copy">
+                        Why this matters: revenue alone can make a product look commercially strong.
+                        BakeOps adds ingredient cost and waste pressure so the reviewer can see when
+                        a best-seller is not the strongest profit contributor.
                     </p>
                 </article>
+            {% endif %}
+        </section>
 
-                <article class="profit-ref-panel profit-ref-rank-card">
-                    <span class="profit-ref-kicker">Rank Movement</span>
-                    <h2>Revenue rank vs waste-adjusted margin rank</h2>
-                    <p class="profit-ref-copy">
-                        Each product keeps its revenue rank visible beside its waste-adjusted margin rank, so rank inversion is easy to inspect.
-                    </p>
+        <section class="profit-table-section">
+            <h2>Product Profitability Deep Dive</h2>
+            <p>Revenue rank, quantity rank, gross margin rank, and waste-adjusted margin rank shown side by side for reviewer-friendly comparison.</p>
 
-                    <div class="profit-ref-rank-list">
-                        {% for row in product_rows %}
-                            <div class="profit-ref-rank-row {% if row.is_signature %}is-signature{% endif %}">
-                                <div class="profit-ref-product">
-                                    <strong>{{ row.product.cake.name }}</strong>
-                                    <span>{{ row.product.variant|default:"Default variant" }}</span>
-                                </div>
-
-                                <div>
-                                    <span class="profit-ref-node is-revenue">#{{ row.revenue_rank }}</span>
-                                    <div class="profit-ref-muted">Revenue</div>
-                                </div>
-
-                                <div class="profit-ref-line"></div>
-
-                                <div>
-                                    <span class="profit-ref-node is-margin">#{{ row.waste_adjusted_margin_rank }}</span>
-                                    <div class="profit-ref-muted">Waste-adjusted</div>
-                                </div>
-
-                                <div>
-                                    {% if row.has_margin_rank_inversion %}
-                                        <span class="profit-ref-move is-drop">Drops {{ row.margin_rank_gap }}</span>
-                                    {% elif row.product.waste_adjusted_margin_rank < row.revenue_rank %}
-                                        <span class="profit-ref-move is-gain">Improves</span>
-                                    {% else %}
-                                        <span class="profit-ref-move">Aligned</span>
-                                    {% endif %}
-                                    <br>
-                                    <span class="profit-ref-status {{ row.product.action_flag }}">{{ row.flag_label }}</span>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <p class="profit-ref-copy">
-                        Protected proof: <strong>Birthday Classic → revenue rank #1 → waste-adjusted margin rank #4 → Review</strong>.
-                    </p>
-                </article>
-            </section>
-        {% endif %}
-
-        {% if signature_product %}
-            <section class="profit-ref-panel profit-ref-signature">
-                <span class="profit-ref-kicker">Signature Insight</span>
-                <h2>{{ signature_product.cake.name }} proves why revenue alone can mislead.</h2>
-
-                <p class="profit-ref-copy">
-                    {{ signature_product.cake.name }} ranks
-                    <strong>#{{ signature_product.revenue_rank }}</strong> by revenue,
-                    but moves to
-                    <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
-                    by waste-adjusted margin after ingredient cost and waste are included.
-                    The evidence-based action flag is
-                    <strong>{{ signature_product.get_action_flag_display }}</strong>.
-                </p>
-
-                <div class="profit-ref-signature-grid">
-                    <div class="profit-ref-mini">
-                        <strong>#{{ signature_product.revenue_rank }}</strong>
-                        <span>Revenue rank</span>
-                    </div>
-
-                    <div class="profit-ref-mini">
-                        <strong>#{{ signature_product.waste_adjusted_margin_rank }}</strong>
-                        <span>Waste-adjusted margin rank</span>
-                    </div>
-
-                    <div class="profit-ref-mini">
-                        <strong>{{ signature_product.get_action_flag_display }}</strong>
-                        <span>Evidence-based action flag</span>
-                    </div>
-                </div>
-
-                <p class="profit-ref-copy">
-                    Why this matters: revenue alone can make a product look commercially strong.
-                    BakeOps adds ingredient cost and waste pressure so the reviewer can see when
-                    a best-seller is not the strongest profit contributor.
-                </p>
-            </section>
-        {% endif %}
-
-        <section>
-            <div class="profit-ref-section-head">
-                <div>
-                    <span class="profit-ref-eyebrow">Evidence Surface</span>
-                    <h2>Product Profitability Deep Dive</h2>
-                    <p>
-                        Revenue rank, quantity rank, gross margin rank, and waste-adjusted margin rank shown side by side for reviewer-friendly comparison.
-                    </p>
-                </div>
-            </div>
-
-            <div class="profit-ref-table-wrap">
-                <table class="profit-ref-table">
+            <div class="profit-table-wrap">
+                <table class="profit-table">
                     <thead>
                         <tr>
                             <th>Product</th>
@@ -969,12 +1189,11 @@
                             <th>Qty Sold</th>
                             <th>Gross Margin</th>
                             <th>Waste Cost</th>
-                            <th>Waste-adjusted Margin</th>
+                            <th>Waste-Adjusted Margin</th>
                             <th>Rank Movement</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {% for row in product_rows %}
                             <tr class="{% if row.is_signature %}is-signature{% endif %}">
@@ -982,68 +1201,50 @@
                                     <strong>{{ row.product.cake.name }}</strong><br>
                                     <small>{{ row.product.variant|default:"Default variant" }}</small>
                                     {% if row.is_signature %}
-                                        <br><span class="profit-ref-kicker">Signature proof point</span>
+                                        <br><span class="profit-badge">Signature proof point</span>
                                     {% endif %}
                                 </td>
-
                                 <td>
                                     £{{ row.product.revenue }}<br>
                                     <small>Revenue rank</small><br>
-                                    <span class="profit-ref-rank-pill">#{{ row.revenue_rank }}</span>
+                                    <span class="profit-rank-pill">#{{ row.revenue_rank }}</span>
                                 </td>
-
                                 <td>
                                     {{ row.product.quantity_sold }}<br>
                                     <small>Quantity rank</small><br>
-                                    <span class="profit-ref-rank-pill">#{{ row.quantity_rank }}</span>
+                                    <span class="profit-rank-pill">#{{ row.quantity_rank }}</span>
                                 </td>
-
                                 <td>
                                     £{{ row.product.gross_margin }}<br>
                                     <small>{{ row.product.gross_margin_percent }}% gross margin</small><br>
-                                    <span class="profit-ref-rank-pill">#{{ row.gross_margin_rank }}</span>
+                                    <span class="profit-rank-pill">#{{ row.gross_margin_rank }}</span>
                                 </td>
-
                                 <td>
                                     £{{ row.product.waste_cost }}<br>
                                     <small>Waste pressure included before final ranking.</small>
                                 </td>
-
                                 <td>
                                     £{{ row.product.waste_adjusted_margin }}<br>
                                     <small>{{ row.product.waste_adjusted_margin_percent }}% adjusted margin</small><br>
-                                    <span class="profit-ref-rank-pill">#{{ row.waste_adjusted_margin_rank }}</span>
+                                    <span class="profit-rank-pill">#{{ row.waste_adjusted_margin_rank }}</span>
                                 </td>
-
                                 <td>
                                     {% if row.has_margin_rank_inversion %}
-                                        <span class="profit-ref-rank-gap">
-                                            Drops {{ row.margin_rank_gap }} rank position{{ row.margin_rank_gap|pluralize }}
-                                        </span><br>
-                                        <small>margin-rank inversion after waste.</small>
+                                        <strong style="color:#fed7aa;">↓ {{ row.margin_rank_gap }}</strong><br>
+                                        <small>Drops {{ row.margin_rank_gap }} rank position{{ row.margin_rank_gap|pluralize }} after waste.</small>
                                     {% else %}
                                         <small>No negative margin-rank inversion.</small>
                                     {% endif %}
                                 </td>
-
                                 <td>
-                                    <span class="profit-ref-status {{ row.product.action_flag }}">{{ row.flag_label }}</span>
-                                    <p class="profit-ref-muted">
-                                        {{ row.flag_explanation }}
-                                    </p>
-                                    <p class="profit-ref-muted">
-                                        <strong>Action:</strong> {{ row.recommended_review }}
-                                    </p>
+                                    <span class="profit-status {{ row.product.action_flag }}">{{ row.flag_label }}</span>
+                                    <p class="profit-muted">{{ row.flag_explanation }}</p>
+                                    <p class="profit-muted"><strong>Action:</strong> {{ row.recommended_review }}</p>
                                 </td>
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="8">
-                                    <div class="profit-ref-empty">
-                                        No product profitability snapshots found.
-                                        Run <span class="profit-ref-code">python manage.py build_bakery_metrics</span>.
-                                    </div>
-                                </td>
+                                <td colspan="8">No product profitability snapshots found. Run the metric build command.</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -1051,19 +1252,14 @@
             </div>
         </section>
 
-        <section>
-            <div class="profit-ref-section-head">
-                <div>
-                    <span class="profit-ref-eyebrow">Reviewer Guide</span>
-                    <h2>Action Flag Definitions</h2>
-                    <p>Plain-English interpretation for reviewers and bakery operators.</p>
-                </div>
-            </div>
+        <section class="profit-definitions-section">
+            <h2>Action Flag Definitions</h2>
+            <p>Plain-English interpretation for reviewers and bakery operators.</p>
 
-            <div class="profit-ref-legend-grid">
+            <div class="profit-def-grid">
                 {% for item in flag_legend %}
-                    <article class="profit-ref-legend">
-                        <span class="profit-ref-status {{ item.flag }}">{{ item.label }}</span>
+                    <article class="profit-def-card">
+                        <span class="profit-status {{ item.flag }}">{{ item.label }}</span>
                         <p>{{ item.explanation }}</p>
                         <p><strong>Recommended review:</strong> {{ item.recommended_review }}</p>
                     </article>
@@ -1071,20 +1267,17 @@
             </div>
         </section>
     {% else %}
-        <section class="profit-ref-panel profit-ref-pad">
-            <span class="profit-ref-kicker">No Product Profitability Data</span>
+        <section class="profit-card" style="padding:1rem;">
+            <span class="profit-badge">No Product Profitability Data</span>
             <h2>No product profitability snapshots found.</h2>
-            <p class="profit-ref-copy">
-                Run the seeded demo and metric build commands first:
-                <br>
-                <span class="profit-ref-code">python manage.py seed_demo_data --reset</span>
-                <br>
-                <span class="profit-ref-code">python manage.py build_bakery_metrics</span>
+            <p class="profit-section-copy">
+                Run <span class="profit-code">python manage.py seed_demo_data --reset</span>
+                and <span class="profit-code">python manage.py build_bakery_metrics</span>, then refresh this page.
             </p>
         </section>
     {% endif %}
 
-    <footer class="profit-ref-footer">
+    <footer class="profit-footer">
         BakeOps Intelligence V3 — trusted product profitability review powered by gold-layer snapshots.
     </footer>
 </main>
