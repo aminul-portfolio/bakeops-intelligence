@@ -347,6 +347,171 @@
                 justify-content: flex-start;
             }
         }
+
+        .occasion-visual-layer {
+            margin-top: 24px;
+        }
+
+        .occasion-visual-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 16px;
+        }
+
+        .occasion-chart-card {
+            overflow: hidden;
+        }
+
+        .occasion-chart-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .occasion-chart-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .occasion-chart-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .occasion-bar-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .occasion-bar-row {
+            display: grid;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .occasion-bar-row.is-top {
+            border-color: rgba(249, 115, 22, 0.48);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
+                rgba(249, 115, 22, 0.09);
+        }
+
+        .occasion-bar-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+        }
+
+        .occasion-bar-meta strong {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .occasion-bar-meta span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-align: right;
+        }
+
+        .occasion-bar-track {
+            height: 13px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .occasion-bar-fill {
+            height: 100%;
+            min-width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.68), rgba(249, 115, 22, 0.92));
+            box-shadow: 0 0 22px rgba(249, 115, 22, 0.18);
+        }
+
+        .occasion-bar-fill.demand {
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.65), rgba(34, 197, 94, 0.9));
+        }
+
+        .occasion-demand-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .occasion-demand-card + .occasion-demand-card {
+            margin-top: 12px;
+        }
+
+        .occasion-demand-card.is-pressure {
+            border-color: rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.09);
+        }
+
+        .occasion-demand-card strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .occasion-demand-card span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .occasion-demand-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 92px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            color: #fed7aa;
+            font-weight: 900;
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.12);
+            white-space: nowrap;
+        }
+
+        .occasion-mini-proof {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .occasion-mini-proof .mini-panel {
+            min-height: 92px;
+        }
+
+        .occasion-proof-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .occasion-visual-grid,
+            .occasion-mini-proof {
+                grid-template-columns: 1fr;
+            }
+        }
+
 </style>
 {% endblock %}
 
@@ -459,7 +624,107 @@
                 </section>
             {% endif %}
 
-            <section class="section">
+            
+            <section class="occasion-visual-layer">
+                <div class="occasion-visual-grid">
+                    <div class="card occasion-chart-card">
+                        <div class="occasion-chart-head">
+                            <div>
+                                <span class="badge orange">Demand Visual</span>
+                                <h2>Occasion revenue concentration</h2>
+                                <p>
+                                    Shows which occasion contributes the strongest revenue signal in the latest
+                                    trusted demand snapshot.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="occasion-bar-list">
+                            {% if total_occasion_revenue %}
+                                {% for row in occasion_rows %}
+                                    <div class="occasion-bar-row {% if forloop.first %}is-top{% endif %}">
+                                        <div class="occasion-bar-meta">
+                                            <strong>{{ row.occasion.name }}</strong>
+                                            <span>
+                                                £{{ row.snapshot.revenue }}
+                                                · {{ row.revenue_share_percent }}%
+                                            </span>
+                                        </div>
+                                        <div class="occasion-bar-track" aria-hidden="true">
+                                            <div class="occasion-bar-fill" style="width: {% widthratio row.snapshot.revenue total_occasion_revenue 100 %}%;"></div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="empty-state">No occasion demand rows found.</div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-state">No occasion revenue found for this snapshot.</div>
+                            {% endif %}
+                        </div>
+
+                        <p class="occasion-proof-note">
+                            This visual uses existing occasion snapshot data only. It does not forecast demand
+                            or imply live order monitoring.
+                        </p>
+                    </div>
+
+                    <div class="card occasion-chart-card">
+                        <div class="occasion-chart-head">
+                            <div>
+                                <span class="badge orange">Capacity Signal</span>
+                                <h2>Upcoming demand and delivery pressure</h2>
+                                <p>
+                                    Highlights upcoming occasion demand before the full evidence table.
+                                </p>
+                            </div>
+                        </div>
+
+                        {% for row in occasion_rows %}
+                            <div class="occasion-demand-card {% if row.has_delivery_pressure %}is-pressure{% endif %}">
+                                <div>
+                                    <strong>{{ row.occasion.name }}</strong>
+                                    <span>
+                                        {{ row.snapshot.upcoming_order_count }} upcoming order{{ row.snapshot.upcoming_order_count|pluralize }}
+                                        · {{ row.snapshot.delivery_slot_pressure_count }} delivery pressure signal{{ row.snapshot.delivery_slot_pressure_count|pluralize }}
+                                    </span>
+                                </div>
+                                <div class="occasion-demand-badge">
+                                    {{ row.demand_label }}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="empty-state">No upcoming occasion demand rows found.</div>
+                        {% endfor %}
+
+                        {% if top_occasion %}
+                            <div class="occasion-mini-proof">
+                                <div class="mini-panel">
+                                    <strong>{{ top_occasion.occasion.name }}</strong>
+                                    <span>Top occasion signal</span>
+                                </div>
+
+                                <div class="mini-panel">
+                                    <strong>£{{ top_occasion.snapshot.revenue }}</strong>
+                                    <span>Occasion revenue</span>
+                                </div>
+
+                                <div class="mini-panel">
+                                    <strong>{{ top_occasion.snapshot.upcoming_order_count }}</strong>
+                                    <span>Upcoming orders</span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <p class="occasion-proof-note">
+                            The table below remains the evidence layer for revenue, orders, quantity sold,
+                            upcoming demand, delivery pressure, and recommended action.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+<section class="section">
                 <div class="section-head">
                     <div>
                         <h2>Occasion Demand Deep Dive</h2>
