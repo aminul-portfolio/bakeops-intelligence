@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence — Commercial Operations Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence — Commercial Operations Dashboard{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="dashboard" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #070b14;
             --bg-soft: #0f172a;
             --panel: rgba(15, 23, 42, 0.82);
@@ -650,11 +648,11 @@
                 padding: 22px;
             }
         }
-    </style>
-</head>
+</style>
+{% endblock %}
 
-<body>
-    <main class="shell">
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -1172,5 +1170,4 @@
             gold-layer metrics, and evidence-based product boundaries.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}

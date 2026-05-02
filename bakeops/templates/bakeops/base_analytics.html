@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BakeOps Intelligence{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'bakeops/css/analytics-shell.css' %}">
+
+    {% block page_styles %}{% endblock %}
+</head>
+<body class="analytics-shell-body">
+    <div class="analytics-app-shell">
+        {% block analytics_sidebar %}
+            {% include "bakeops/partials/_analytics_sidebar.html" %}
+        {% endblock %}
+
+        <div class="analytics-main-frame">
+            {% include "bakeops/partials/_analytics_topbar.html" %}
+
+            <div class="analytics-page-frame">
+                {% block analytics_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

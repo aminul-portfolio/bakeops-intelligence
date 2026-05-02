@@ -1,17 +1,15 @@
+{% extends "bakeops/base_analytics.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BakeOps Intelligence &mdash; Data Quality Review</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% block title %}BakeOps Intelligence &mdash; Data Quality Review{% endblock %}
 
-    <style>
-        :root {
+{% block analytics_sidebar %}
+    {% include "bakeops/partials/_analytics_sidebar.html" with active_page="data_quality" %}
+{% endblock %}
+
+{% block page_styles %}
+<style>
+:root {
             --bg: #111827;
             --panel: #1f2937;
             --text: #f9fafb;
@@ -339,11 +337,11 @@
                 justify-content: flex-start;
             }
         }
-    </style>
-</head>
+</style>
+{% endblock %}
 
-<body>
-    <main class="shell">
+{% block analytics_content %}
+<main class="shell">
         <header class="topbar">
             <div class="brand">
                 <small>BakeOps Intelligence</small>
@@ -594,5 +592,4 @@
             BakeOps Intelligence V3 &mdash; trusted data quality review powered by metric-build issue records.
         </p>
     </main>
-</body>
-</html>
+{% endblock %}
