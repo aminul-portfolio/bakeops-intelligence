@@ -337,6 +337,156 @@
                 justify-content: flex-start;
             }
         }
+
+        .trust-surface-layer {
+            margin-top: 24px;
+        }
+
+        .trust-surface-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 16px;
+        }
+
+        .trust-surface-card {
+            overflow: hidden;
+        }
+
+        .trust-surface-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .trust-surface-head h2 {
+            margin-bottom: 6px;
+        }
+
+        .trust-surface-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .trust-flow-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .trust-flow-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 14px;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .trust-flow-row.is-warning {
+            border-color: rgba(249, 115, 22, 0.44);
+            background:
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
+                rgba(249, 115, 22, 0.09);
+        }
+
+        .trust-flow-row.is-info {
+            border-color: rgba(56, 189, 248, 0.34);
+            background: rgba(56, 189, 248, 0.08);
+        }
+
+        .trust-flow-row strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.96rem;
+        }
+
+        .trust-flow-row span {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            line-height: 1.45;
+            font-size: 0.84rem;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 92px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            font-weight: 900;
+            white-space: nowrap;
+            color: #fed7aa;
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .trust-badge.info {
+            color: #bfdbfe;
+            border-color: rgba(96, 165, 250, 0.34);
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .trust-badge.open {
+            color: #fef3c7;
+            border-color: rgba(234, 179, 8, 0.36);
+            background: rgba(234, 179, 8, 0.1);
+        }
+
+        .trust-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .trust-mini-grid .mini-panel {
+            min-height: 92px;
+        }
+
+        .trust-note {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .trust-review-path {
+            display: grid;
+            gap: 12px;
+        }
+
+        .trust-review-step {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .trust-review-step strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .trust-review-step span {
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 0.86rem;
+        }
+
+        @media (max-width: 1100px) {
+            .trust-surface-grid,
+            .trust-mini-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
 </style>
 {% endblock %}
 
@@ -455,7 +605,122 @@
                 </section>
             {% endif %}
 
-            <section class="section">
+            
+            <section class="trust-surface-layer">
+                <div class="trust-surface-grid">
+                    <div class="card trust-surface-card">
+                        <div class="trust-surface-head">
+                            <div>
+                                <span class="badge orange">Trust Surface</span>
+                                <h2>Quality issues stay visible before analysis is trusted.</h2>
+                                <p>
+                                    This page is the reviewer-facing quality register. It keeps known issues
+                                    visible so the dashboard is treated as evidence-based, not blindly trusted.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="trust-flow-list">
+                            <div class="trust-flow-row is-warning">
+                                <div>
+                                    <strong>Open warning issues require review</strong>
+                                    <span>
+                                        Reorder-level and near-expiry issues remain visible before operational
+                                        conclusions are treated as reliable.
+                                    </span>
+                                </div>
+                                <div class="trust-badge open">Open</div>
+                            </div>
+
+                            <div class="trust-flow-row is-warning">
+                                <div>
+                                    <strong>Ingredient risk affects production continuity</strong>
+                                    <span>
+                                        Low-stock ingredients are exposed as trust issues because they can affect
+                                        fulfilment and production planning.
+                                    </span>
+                                </div>
+                                <div class="trust-badge">Warning</div>
+                            </div>
+
+                            <div class="trust-flow-row is-info">
+                                <div>
+                                    <strong>Information issues support reviewer context</strong>
+                                    <span>
+                                        Lower-severity issues still remain visible so reviewers understand where
+                                        allocation or explanation gaps exist.
+                                    </span>
+                                </div>
+                                <div class="trust-badge info">Info</div>
+                            </div>
+                        </div>
+
+                        <div class="trust-mini-grid">
+                            <div class="mini-panel">
+                                <strong>12</strong>
+                                <span>Open quality issues</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>11</strong>
+                                <span>Warning-level issues</span>
+                            </div>
+
+                            <div class="mini-panel">
+                                <strong>1</strong>
+                                <span>Info-level issue</span>
+                            </div>
+                        </div>
+
+                        <p class="trust-note">
+                            This is not a fake monitoring layer. It documents the current metric-build issues
+                            generated from seeded demo records.
+                        </p>
+                    </div>
+
+                    <div class="card trust-surface-card">
+                        <div class="trust-surface-head">
+                            <div>
+                                <span class="badge teal">Reviewer Path</span>
+                                <h2>Trace issue → impact → action.</h2>
+                                <p>
+                                    The trust surface is designed so a reviewer can inspect why an issue matters
+                                    before accepting the dashboard output.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="trust-review-path">
+                            <div class="trust-review-step">
+                                <strong>1. Identify severity</strong>
+                                <span>Warning and info labels make the review priority visible.</span>
+                            </div>
+
+                            <div class="trust-review-step">
+                                <strong>2. Check issue type</strong>
+                                <span>Issue type explains whether the problem is stock, expiry, production, or allocation-related.</span>
+                            </div>
+
+                            <div class="trust-review-step">
+                                <strong>3. Read trust impact</strong>
+                                <span>Trust impact explains how the issue affects analytical confidence.</span>
+                            </div>
+
+                            <div class="trust-review-step">
+                                <strong>4. Review action</strong>
+                                <span>Suggested action keeps the page operational, not just technical.</span>
+                            </div>
+                        </div>
+
+                        <p class="trust-note">
+                            The issue register below remains the source of truth for full issue-level evidence.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+<section class="section">
                 <div class="section-head">
                     <div>
                         <h2>Data Quality Issue Register</h2>
