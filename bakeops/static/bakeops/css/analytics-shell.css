@@ -697,3 +697,757 @@
         font-size: clamp(1.65rem, 12vw, 2.35rem);
     }
 }
+
+/* 5A.1 — Reference-Match Shared Visual Foundation */
+
+body.analytics-shell-body.reference-match-shell {
+    background:
+        radial-gradient(circle at 18% 0%, rgba(79, 70, 229, 0.16), transparent 22rem),
+        radial-gradient(circle at 92% 12%, rgba(14, 165, 233, 0.14), transparent 26rem),
+        radial-gradient(circle at 65% 100%, rgba(245, 158, 11, 0.06), transparent 24rem),
+        #020617;
+    color: #f8fafc;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+}
+
+body.analytics-shell-body.reference-match-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.72), transparent 78%);
+    z-index: 0;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98)),
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.18), transparent 16rem);
+    border-right: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 24px 0 60px rgba(0, 0, 0, 0.28);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-sidebar a {
+    border-radius: 0.85rem;
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease,
+        color 180ms ease;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-sidebar a:hover {
+    transform: translateX(2px);
+    background: rgba(148, 163, 184, 0.09);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-sidebar a.is-active,
+body.analytics-shell-body.reference-match-shell .analytics-sidebar .is-active {
+    background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.45), rgba(88, 28, 135, 0.36));
+    border-color: rgba(168, 85, 247, 0.42);
+    box-shadow:
+        inset 3px 0 0 rgba(245, 158, 11, 0.9),
+        0 12px 28px rgba(88, 28, 135, 0.26);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-sidebar-card {
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 1rem;
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.54));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-topbar {
+    min-height: 3.4rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    background:
+        linear-gradient(90deg, rgba(2, 6, 23, 0.92), rgba(15, 23, 42, 0.82)),
+        radial-gradient(circle at 75% 0%, rgba(14, 165, 233, 0.12), transparent 18rem);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-topbar-left,
+body.analytics-shell-body.reference-match-shell .analytics-topbar-meta,
+body.analytics-shell-body.reference-match-shell .analytics-topbar-actions {
+    gap: 0.6rem;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-topbar-meta,
+body.analytics-shell-body.reference-match-shell .analytics-topbar-button,
+body.analytics-shell-body.reference-match-shell .analytics-evidence-pill,
+body.analytics-shell-body.reference-match-shell .analytics-state-pill {
+    min-height: 2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(15, 23, 42, 0.72);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-evidence-pill {
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.35);
+    background: rgba(22, 101, 52, 0.22);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-state-pill.is-ready {
+    color: #bae6fd;
+    border-color: rgba(14, 165, 233, 0.35);
+    background: rgba(14, 165, 233, 0.14);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+    position: relative;
+    z-index: 1;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-top: 1rem;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-state-guidance.is-compact {
+    margin: 0.75rem 0 1rem;
+    border-color: rgba(56, 189, 248, 0.18);
+    background:
+        linear-gradient(90deg, rgba(14, 165, 233, 0.10), rgba(15, 23, 42, 0.52));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame h1 {
+    letter-spacing: -0.055em;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame h2,
+body.analytics-shell-body.reference-match-shell .analytics-page-frame h3 {
+    letter-spacing: -0.025em;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame th {
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(15, 23, 42, 0.82);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame td {
+    border-color: rgba(148, 163, 184, 0.10);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame a {
+    transition:
+        color 160ms ease,
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame a:hover {
+    transform: translateY(-1px);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame .pill,
+body.analytics-shell-body.reference-match-shell .analytics-page-frame .badge,
+body.analytics-shell-body.reference-match-shell .analytics-page-frame code {
+    border-radius: 999px;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame code {
+    border: 1px solid rgba(251, 146, 60, 0.18);
+    background: rgba(124, 45, 18, 0.28);
+    color: #fed7aa;
+}
+
+/* Shared reference-match utilities for 5A page rebuilds. */
+.ref-shell-section {
+    margin-top: 1rem;
+}
+
+.ref-card {
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 1.25rem;
+    background:
+        linear-gradient(180deg, rgba(30, 41, 59, 0.78), rgba(15, 23, 42, 0.72));
+    box-shadow:
+        0 18px 48px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.ref-card.is-accent {
+    border-color: rgba(249, 115, 22, 0.35);
+    background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), transparent 18rem),
+        linear-gradient(180deg, rgba(39, 39, 42, 0.88), rgba(15, 23, 42, 0.76));
+}
+
+.ref-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.ref-kpi-card {
+    min-height: 7rem;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 1.05rem;
+    background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.10), transparent 11rem),
+        rgba(15, 23, 42, 0.72);
+}
+
+.ref-kpi-card span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ref-kpi-card strong {
+    display: block;
+    margin-top: 0.45rem;
+    color: #f8fafc;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+}
+
+.ref-signal-good {
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.34);
+    background: rgba(22, 101, 52, 0.20);
+}
+
+.ref-signal-review {
+    color: #fed7aa;
+    border-color: rgba(249, 115, 22, 0.36);
+    background: rgba(124, 45, 18, 0.24);
+}
+
+.ref-signal-risk {
+    color: #fecaca;
+    border-color: rgba(248, 113, 113, 0.36);
+    background: rgba(127, 29, 29, 0.22);
+}
+
+.ref-signal-info {
+    color: #bae6fd;
+    border-color: rgba(14, 165, 233, 0.34);
+    background: rgba(12, 74, 110, 0.20);
+}
+
+@media (max-width: 1100px) {
+    .ref-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        padding-top: 0.75rem;
+    }
+
+    .ref-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 5A.1B — Reference-Match Shell Lock */
+
+body.analytics-shell-body.reference-match-shell {
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at 12% 0%, rgba(124, 58, 237, 0.20), transparent 26rem),
+        radial-gradient(circle at 82% 4%, rgba(14, 165, 233, 0.14), transparent 28rem),
+        radial-gradient(circle at 70% 90%, rgba(249, 115, 22, 0.07), transparent 26rem),
+        #050814;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+    grid-template-columns: 292px minmax(0, 1fr);
+    background:
+        linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(15, 23, 42, 0.96)),
+        radial-gradient(circle at 40% 0%, rgba(124, 58, 237, 0.16), transparent 24rem);
+}
+
+/* Sidebar */
+body.analytics-shell-body.reference-match-shell .ref-sidebar {
+    padding: 1rem 1rem 0.85rem;
+    gap: 0.9rem;
+    background:
+        linear-gradient(180deg, rgba(8, 13, 28, 0.98), rgba(3, 7, 18, 0.99)),
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.18), transparent 15rem);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-brand-block {
+    padding: 0.45rem 0.35rem 0.95rem;
+    gap: 0.7rem;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-brand-mark {
+    position: relative;
+    isolation: isolate;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 0.95rem;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(251, 191, 36, 0.95), transparent 32%),
+        linear-gradient(135deg, #2563eb 0%, #7c3aed 52%, #f97316 100%);
+    box-shadow:
+        0 18px 38px rgba(124, 58, 237, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-brand-mark::after {
+    content: "";
+    position: absolute;
+    inset: 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 0.65rem;
+    transform: rotate(12deg);
+    z-index: -1;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-brand-mark span {
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-brand-kicker {
+    color: #e2e8f0;
+    font-size: 0.86rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-brand-block h1 {
+    color: #94a3b8;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-nav-list {
+    gap: 0.34rem;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-nav-link {
+    min-height: 2.75rem;
+    padding: 0.62rem 0.68rem;
+    border-radius: 0.9rem;
+    color: #cbd5e1;
+    font-size: 0.84rem;
+    font-weight: 850;
+    background: transparent;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-nav-link:hover {
+    color: #ffffff;
+    background: rgba(148, 163, 184, 0.075);
+    transform: translateX(2px);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-nav-link.is-active {
+    color: #ffffff;
+    border-color: rgba(139, 92, 246, 0.48);
+    background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.48), rgba(30, 64, 175, 0.28)),
+        rgba(15, 23, 42, 0.86);
+    box-shadow:
+        inset 3px 0 0 rgba(251, 191, 36, 0.95),
+        0 16px 36px rgba(76, 29, 149, 0.28);
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-nav-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 0.66rem;
+    color: #dbeafe;
+    background:
+        linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(124, 58, 237, 0.14));
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-nav-link.is-active .analytics-nav-icon {
+    color: #fff7ed;
+    background:
+        linear-gradient(135deg, rgba(251, 191, 36, 0.24), rgba(249, 115, 22, 0.18));
+}
+
+body.analytics-shell-body.reference-match-shell .ref-workspace-card,
+body.analytics-shell-body.reference-match-shell .ref-reviewer-chip {
+    border-color: rgba(148, 163, 184, 0.13);
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.44));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-reviewer-chip {
+    padding: 0.75rem;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-reviewer-avatar {
+    background:
+        radial-gradient(circle at 30% 20%, rgba(96, 165, 250, 0.95), transparent 35%),
+        linear-gradient(135deg, #0ea5e9, #7c3aed);
+    box-shadow: 0 12px 28px rgba(14, 165, 233, 0.20);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-sidebar-tools {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-sidebar-tools span {
+    display: grid;
+    place-items: center;
+    min-height: 2.05rem;
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 0.75rem;
+    color: #94a3b8;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-sidebar-collapse {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+/* Topbar */
+body.analytics-shell-body.reference-match-shell .ref-topbar {
+    min-height: 4rem;
+    padding: 0.75rem 1.1rem;
+    background:
+        linear-gradient(90deg, rgba(3, 7, 18, 0.92), rgba(15, 23, 42, 0.82)),
+        radial-gradient(circle at 78% 0%, rgba(14, 165, 233, 0.12), transparent 18rem);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-topbar-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.58rem;
+    flex-wrap: wrap;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-topbar-pill,
+body.analytics-shell-body.reference-match-shell .ref-status-pill,
+body.analytics-shell-body.reference-match-shell .ref-export-button,
+body.analytics-shell-body.reference-match-shell .ref-kebab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.18rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    background: rgba(15, 23, 42, 0.72);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-topbar-pill {
+    gap: 0.4rem;
+    padding: 0.32rem 0.72rem;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-topbar-pill span {
+    color: #94a3b8;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-topbar-pill strong {
+    color: #f8fafc;
+    font-size: 0.78rem;
+    font-weight: 900;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-status-pill {
+    padding: 0.32rem 0.72rem;
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-status-pill.is-demo {
+    color: #bfdbfe;
+    border-color: rgba(59, 130, 246, 0.36);
+    background: rgba(30, 64, 175, 0.20);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-status-pill.is-evidence {
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.34);
+    background: rgba(22, 101, 52, 0.20);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-export-button {
+    padding: 0.34rem 0.85rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-color: rgba(168, 85, 247, 0.36);
+    background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.30), rgba(37, 99, 235, 0.20));
+}
+
+body.analytics-shell-body.reference-match-shell .ref-kebab {
+    width: 2.18rem;
+    color: #94a3b8;
+    letter-spacing: -0.1em;
+}
+
+/* Hide the old reviewer command banner in reference-match mode to match the 8-page target screenshots. */
+body.analytics-shell-body.reference-match-shell .analytics-state-guidance.is-compact {
+    display: none;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+    max-width: 1600px;
+    width: 100%;
+    padding: 1rem 1.2rem 2rem;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame > main {
+    width: 100%;
+    max-width: 1600px;
+}
+
+/* Shared target-page utilities for 5B onward */
+.ref-dashboard-grid {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.ref-panel {
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 1.1rem;
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.54));
+    box-shadow:
+        0 16px 42px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.ref-panel-soft {
+    background:
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 15rem),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.58));
+}
+
+.ref-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.65rem;
+    padding: 0.22rem 0.62rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.17);
+    color: #cbd5e1;
+    background: rgba(15, 23, 42, 0.72);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ref-action-link {
+    color: #fbbf24;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+    body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    body.analytics-shell-body.reference-match-shell .ref-sidebar-tools,
+    body.analytics-shell-body.reference-match-shell .ref-sidebar-collapse {
+        display: none;
+    }
+
+    body.analytics-shell-body.reference-match-shell .ref-topbar {
+        position: relative;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    body.analytics-shell-body.reference-match-shell .ref-topbar-cluster {
+        width: 100%;
+    }
+
+    body.analytics-shell-body.reference-match-shell .ref-topbar-pill,
+    body.analytics-shell-body.reference-match-shell .ref-status-pill,
+    body.analytics-shell-body.reference-match-shell .ref-export-button {
+        width: 100%;
+    }
+}
+
+/* 5A.1C — Shell Position Fix */
+
+body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+    align-items: start;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+    align-self: start;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+}
+
+body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+    margin-inline: 0;
+}
+
+/* Desktop reference mode: keep sidebar fixed in the left rail. */
+@media (min-width: 1101px) {
+    body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: grid;
+        grid-template-columns: 292px minmax(0, 1fr);
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        min-height: 100vh;
+    }
+}
+
+/* Tablet/mobile mode: sidebar must appear before content, never midway through the page. */
+@media (max-width: 1100px) {
+    body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+        order: 1;
+        position: relative;
+        height: auto;
+        width: 100%;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        order: 2;
+        width: 100%;
+    }
+}
+
+/* 5A.1D — Fixed Desktop Shell Rail */
+
+@media (min-width: 1101px) {
+    body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: block !important;
+        min-height: 100vh;
+        padding-left: 292px;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+        position: fixed !important;
+        inset: 0 auto 0 0;
+        width: 292px;
+        height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 50;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        width: 100%;
+        min-width: 0;
+        min-height: 100vh;
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        width: 100%;
+        max-width: none;
+        margin-inline: 0;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-page-frame > main {
+        width: 100%;
+        max-width: 1600px;
+        margin-inline: auto;
+    }
+}
+
+/* Keep mobile/tablet simple and avoid sticky/fixed full-page screenshot issues. */
+@media (max-width: 1100px) {
+    body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: flex !important;
+        flex-direction: column;
+        padding-left: 0;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-sidebar {
+        position: relative !important;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        order: 1;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        order: 2;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    body.analytics-shell-body.reference-match-shell .analytics-topbar {
+        position: relative;
+        top: auto;
+    }
+}

@@ -1,19 +1,20 @@
-<header class="analytics-topbar">
-    <div class="analytics-topbar-left">
-        <span class="analytics-context-label">Workspace</span>
-        <strong>SweetCakes Bakery</strong>
+<header class="analytics-topbar ref-topbar">
+    <div class="ref-topbar-cluster">
+        <div class="ref-topbar-pill">
+            <span>Workspace</span>
+            <strong>SweetCakes Bakery</strong>
+        </div>
+
+        <div class="ref-topbar-pill">
+            <span>Snapshot</span>
+            <strong>30 Apr 2026</strong>
+        </div>
     </div>
 
-    <div class="analytics-topbar-meta">
-        <span>Snapshot evidence</span>
-        <strong>Seeded demo data</strong>
-    </div>
-
-    <div class="analytics-topbar-actions">
-        <span class="analytics-evidence-pill">Demo / Evidence</span>
-
-        <span class="analytics-state-pill is-ready">Local reviewer mode</span>
-
-        <a class="analytics-topbar-button" href="{% url 'bakeops:export-centre' %}">Export Centre</a>
+    <div class="ref-topbar-cluster ref-topbar-actions">
+        <span class="ref-status-pill is-demo">Demo Data</span>
+        <span class="ref-status-pill is-evidence">Evidence On</span>
+        <a class="ref-export-button" href="{% url 'bakeops:export-centre' %}">Export Centre</a>
+        <span class="ref-kebab" aria-hidden="true">•••</span>
     </div>
 </header>

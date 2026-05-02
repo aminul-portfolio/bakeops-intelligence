@@ -1,24 +1,26 @@
 {% load static %}
-<aside class="analytics-sidebar" aria-label="BakeOps analytics navigation">
-    <div class="analytics-brand-block">
-        <div class="analytics-brand-mark">BI</div>
+<aside class="analytics-sidebar ref-sidebar" aria-label="BakeOps analytics navigation">
+    <div class="analytics-brand-block ref-brand-block">
+        <div class="analytics-brand-mark ref-brand-mark">
+            <span>BO</span>
+        </div>
         <div>
             <p class="analytics-brand-kicker">BakeOps</p>
             <h1>Intelligence</h1>
         </div>
     </div>
 
-    <nav class="analytics-nav-list" aria-label="Analytics pages">
+    <nav class="analytics-nav-list ref-nav-list" aria-label="Analytics pages">
         <a class="analytics-nav-link {% if active_page == 'dashboard' %}is-active{% endif %}" href="{% url 'bakeops:analytics-dashboard' %}">
             <span class="analytics-nav-icon">⌂</span>
             <span>Dashboard</span>
         </a>
         <a class="analytics-nav-link {% if active_page == 'products' %}is-active{% endif %}" href="{% url 'bakeops:product-profitability' %}">
-            <span class="analytics-nav-icon">£</span>
+            <span class="analytics-nav-icon">◔</span>
             <span>Product Profitability</span>
         </a>
         <a class="analytics-nav-link {% if active_page == 'ingredients' %}is-active{% endif %}" href="{% url 'bakeops:ingredient-risk' %}">
-            <span class="analytics-nav-icon">●</span>
+            <span class="analytics-nav-icon">⚠</span>
             <span>Ingredient Risk</span>
         </a>
         <a class="analytics-nav-link {% if active_page == 'waste' %}is-active{% endif %}" href="{% url 'bakeops:waste-analysis' %}">
@@ -45,23 +47,29 @@
 
     <div class="analytics-sidebar-spacer"></div>
 
-    <section class="analytics-sidebar-card">
+    <section class="analytics-sidebar-card ref-workspace-card">
         <span class="analytics-sidebar-label">Workspace</span>
         <strong>SweetCakes Bakery</strong>
-        <small>Seeded demo data · reviewer evidence</small>
+        <small>Seeded demo data · evidence mode</small>
     </section>
 
-    <section class="analytics-sidebar-card analytics-sidebar-card-muted">
-        <span class="analytics-sidebar-label">Milestone</span>
-        <strong>V3 · Milestone 4</strong>
-        <small>Premium SaaS layout upgrade</small>
-    </section>
-
-    <div class="analytics-reviewer-chip">
-        <span class="analytics-reviewer-avatar">SC</span>
+    <div class="analytics-reviewer-chip ref-reviewer-chip">
+        <span class="analytics-reviewer-avatar">BI</span>
         <div>
             <strong>Reviewer</strong>
-            <small>Portfolio demo mode</small>
+            <small>Portfolio evidence mode</small>
         </div>
+    </div>
+
+    <div class="ref-sidebar-tools" aria-label="Sidebar utilities">
+        <span>⚙</span>
+        <span>?</span>
+        <span>◷</span>
+        <span>◌</span>
+    </div>
+
+    <div class="ref-sidebar-collapse">
+        <span>⌫</span>
+        <small>Collapse</small>
     </div>
 </aside>
