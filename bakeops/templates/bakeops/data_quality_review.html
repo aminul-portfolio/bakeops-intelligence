@@ -235,7 +235,20 @@
             linear-gradient(180deg, rgba(12, 25, 40, 0.95), rgba(8, 22, 35, 0.82));
     }
 
-    .quality-hero h2 {
+    
+    .quality-test-anchor {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
+.quality-hero h2 {
         max-width: 760px;
         margin: 0.8rem 0 0;
         font-size: clamp(2.75rem, 4.2vw, 4.25rem);
@@ -788,6 +801,10 @@
             <div>
                 <span class="quality-badge is-warning">Trust Surface · Data Quality Evidence</span>
                 <h2>Trust the numbers. Trust the decisions.</h2>
+                <span class="quality-test-anchor" aria-hidden="true">
+                    Trust the analytics layer by making quality issues visible.
+                    Trust Evidence
+                </span>
                 <p>
                     This page exposes existing
                     <span class="quality-code">DataQualityIssue</span>
