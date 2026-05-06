@@ -83,10 +83,20 @@ Birthday Classic 1 4 review
 
 ## Visual Evidence
 
-The screenshots below follow the complete analytics flow: command centre → profitability insight → ingredient risk → waste impact → occasion demand → customer value → data quality → BI export contract.
+The screenshots below follow the strongest verified analytics evidence flow:
 
-### 1. Dashboard
+```text
+command centre
+→ profitability insight
+→ ingredient risk
+→ waste margin impact
+→ data quality trust
+→ BI export contract
+```
 
+### 1. Dashboard Command Centre
+
+![Dashboard — Analytics command centre with KPI layer, signature insight, revenue trend, and recommended actions](docs/3e/final-screenshots/01_dashboard_command_centre.png)
 
 ---
 
@@ -94,36 +104,53 @@ The screenshots below follow the complete analytics flow: command centre → pro
 
 ![Product Profitability — Rank inversion hero: Birthday Classic drops from revenue rank #1 to margin rank #4](docs/3e/final-screenshots/03_product_profitability_top.png)
 
+<details>
+<summary>Product profitability deep-dive table</summary>
+
+![Product Profitability — Deep-dive table with revenue, margin, waste cost, waste-adjusted margin, rank movement, and action flags](docs/3e/final-screenshots/05_product_profitability_deep_dive_table.png)
+
+</details>
+
+---
+
+### 3. Ingredient Risk
+
+![Ingredient Risk — Stock and reorder visibility with immediate review signal](docs/3e/final-screenshots/06_ingredient_risk_top.png)
+
+<details>
+<summary>Ingredient stock visual</summary>
+
+![Ingredient Risk — Stock visual comparing current stock against reorder levels](docs/3e/final-screenshots/07_ingredient_risk_stock_visual.png)
+
+</details>
+
 ---
 
 ### 4. Waste Analysis
 
+![Waste Analysis — Waste and margin impact visibility](docs/3e/final-screenshots/09_waste_analysis_top.png)
 
 ---
 
-### 5. Occasion Analytics
-
-
----
-
-### 6. Customer Analytics
-
-
----
-
-### 7. Data Quality Review
+### 5. Data Quality Review
 
 ![Data Quality Review — Trust surface: 12 open issues, severity breakdown, highest-priority issue](docs/3e/final-screenshots/18_data_quality_review_top.png)
 
+<details>
+<summary>Data quality issue register</summary>
+
+![Data Quality Review — Issue register with severity, type, status, trust impact, and suggested action](docs/3e/final-screenshots/20_data_quality_issue_register.png)
+
+</details>
+
 ---
 
-### 8. Export Centre
+### 6. Export Centre
 
 ![Export Centre — BI export contract with 11 CSV files, repeatable workflow, and contract principles](docs/3e/final-screenshots/21_export_centre_top.png)
 
 <details>
-<summary>Export workflow and file contract table</summary>
-
+<summary>Export file contract table</summary>
 
 ![Export Centre — File contract: fact tables, dimension tables, and gold-layer snapshots](docs/3e/final-screenshots/23_export_file_contract.png)
 
