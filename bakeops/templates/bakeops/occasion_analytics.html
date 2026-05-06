@@ -8,829 +8,331 @@
 {% endblock %}
 
 {% block page_styles %}
-<style>
-:root {
-            --bg: #111827;
-            --panel: #1f2937;
-            --text: #f9fafb;
-            --muted: #9ca3af;
-            --line: rgba(255, 255, 255, 0.1);
-            --orange: #f97316;
-            --orange-soft: rgba(249, 115, 22, 0.13);
-            --red-soft: rgba(239, 68, 68, 0.13);
-            --green-soft: rgba(34, 197, 94, 0.12);
-            --blue-soft: rgba(56, 189, 248, 0.12);
-            --yellow-soft: rgba(250, 204, 21, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Inter, Arial, sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), transparent 34rem),
-                radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 30rem),
-                var(--bg);
-            color: var(--text);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .shell {
-            width: min(1240px, calc(100% - 32px));
-            margin: 0 auto;
-            padding: 32px 0 56px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: center;
-            padding: 16px 0 28px;
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .brand small {
-            color: var(--muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .brand strong {
-            font-size: 1.25rem;
-        }
-
-        .nav-actions,
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .nav-actions {
-            justify-content: flex-end;
-        }
-
-        .nav-pill {
-            border: 1px solid var(--line);
-            background: rgba(31, 41, 55, 0.8);
-            padding: 10px 14px;
-            border-radius: 999px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .hero {
-            display: grid;
-            grid-template-columns: 1.45fr 0.95fr;
-            gap: 20px;
-            margin-bottom: 22px;
-        }
-
-        .card {
-            border: 1px solid var(--line);
-            background: rgba(31, 41, 55, 0.86);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            line-height: 1;
-            margin: 12px 0;
-            letter-spacing: -0.05em;
-        }
-
-        .hero-copy {
-            color: var(--muted);
-            font-size: 1rem;
-            max-width: 780px;
-            line-height: 1.65;
-        }
-
-        .badge,
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            border-radius: 999px;
-            padding: 7px 10px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--muted);
-            font-size: 0.82rem;
-            font-weight: 700;
-        }
-
-        .badge.orange,
-        .pill.capacity {
-            color: #fed7aa;
-            border-color: rgba(249, 115, 22, 0.35);
-            background: var(--orange-soft);
-        }
-
-        .pill.active {
-            color: #bbf7d0;
-            background: var(--green-soft);
-            border-color: rgba(34, 197, 94, 0.28);
-        }
-
-        .pill.upcoming {
-            color: #bae6fd;
-            background: var(--blue-soft);
-            border-color: rgba(56, 189, 248, 0.28);
-        }
-
-        .pill.monitor {
-            color: #fef08a;
-            background: var(--yellow-soft);
-            border-color: rgba(250, 204, 21, 0.3);
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .kpi-label {
-            color: var(--muted);
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 800;
-        }
-
-        .kpi-value {
-            margin-top: 8px;
-            font-size: clamp(1.9rem, 4vw, 3rem);
-            font-weight: 900;
-            letter-spacing: -0.05em;
-        }
-
-        .kpi-foot {
-            color: var(--muted);
-            margin-top: 8px;
-            line-height: 1.5;
-            font-size: 0.9rem;
-        }
-
-        .section {
-            margin-top: 24px;
-        }
-
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: flex-end;
-            margin-bottom: 14px;
-        }
-
-        h1,
-        h2,
-        h3,
-        p {
-            margin-top: 0;
-        }
-
-        h2 {
-            margin-bottom: 6px;
-            letter-spacing: -0.03em;
-        }
-
-        .section-head p {
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .focus {
-            border-color: rgba(249, 115, 22, 0.42);
-            background:
-                linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(31, 41, 55, 0.86));
-        }
-
-        .focus-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 18px;
-        }
-
-        .mini-panel {
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 18px;
-            padding: 16px;
-        }
-
-        .mini-panel strong {
-            display: block;
-            font-size: 1.6rem;
-            letter-spacing: -0.04em;
-            margin-bottom: 4px;
-        }
-
-        .mini-panel span,
-        .muted {
-            color: var(--muted);
-        }
-
-        .table-wrap {
-            overflow-x: auto;
-            border: 1px solid var(--line);
-            border-radius: 22px;
-            background: rgba(31, 41, 55, 0.72);
-        }
-
-        table {
-            width: 100%;
-            min-width: 1120px;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 14px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--line);
-            vertical-align: top;
-        }
-
-        th {
-            color: var(--muted);
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr.top-row {
-            background: rgba(249, 115, 22, 0.08);
-        }
-
-        .metric {
-            display: inline-flex;
-            min-width: 58px;
-            justify-content: center;
-            border-radius: 999px;
-            padding: 6px 10px;
-            font-weight: 900;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--line);
-        }
-
-        .negative {
-            color: #fed7aa;
-            font-weight: 900;
-        }
-
-        .positive {
-            color: #bbf7d0;
-            font-weight: 900;
-        }
-
-        .code {
-            display: inline-block;
-            font-family: Consolas, Monaco, monospace;
-            color: #fed7aa;
-            background: rgba(249, 115, 22, 0.12);
-            border: 1px solid rgba(249, 115, 22, 0.25);
-            border-radius: 8px;
-            padding: 2px 6px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 48px 20px;
-            color: var(--muted);
-        }
-
-        .footer-note {
-            margin-top: 32px;
-            color: var(--muted);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        @media (max-width: 980px) {
-            .hero,
-            .grid-4,
-            .focus-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .nav-actions {
-                justify-content: flex-start;
-            }
-        }
-
-        .occasion-visual-layer {
-            margin-top: 24px;
-        }
-
-        .occasion-visual-grid {
-            display: grid;
-            grid-template-columns: 1.05fr 0.95fr;
-            gap: 16px;
-        }
-
-        .occasion-chart-card {
-            overflow: hidden;
-        }
-
-        .occasion-chart-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .occasion-chart-head h2 {
-            margin-bottom: 6px;
-        }
-
-        .occasion-chart-head p {
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
-        .occasion-bar-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .occasion-bar-row {
-            display: grid;
-            gap: 8px;
-            padding: 12px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.035);
-        }
-
-        .occasion-bar-row.is-top {
-            border-color: rgba(249, 115, 22, 0.48);
-            background:
-                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
-                rgba(249, 115, 22, 0.09);
-        }
-
-        .occasion-bar-meta {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            align-items: baseline;
-        }
-
-        .occasion-bar-meta strong {
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-
-        .occasion-bar-meta span {
-            color: var(--muted);
-            font-size: 0.82rem;
-            text-align: right;
-        }
-
-        .occasion-bar-track {
-            height: 13px;
-            overflow: hidden;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .occasion-bar-fill {
-            height: 100%;
-            min-width: 4px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, rgba(56, 189, 248, 0.68), rgba(249, 115, 22, 0.92));
-            box-shadow: 0 0 22px rgba(249, 115, 22, 0.18);
-        }
-
-        .occasion-bar-fill.demand {
-            background: linear-gradient(90deg, rgba(124, 58, 237, 0.65), rgba(34, 197, 94, 0.9));
-        }
-
-        .occasion-demand-card {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 12px;
-            align-items: center;
-            padding: 14px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .occasion-demand-card + .occasion-demand-card {
-            margin-top: 12px;
-        }
-
-        .occasion-demand-card.is-pressure {
-            border-color: rgba(249, 115, 22, 0.42);
-            background: rgba(249, 115, 22, 0.09);
-        }
-
-        .occasion-demand-card strong {
-            display: block;
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-
-        .occasion-demand-card span {
-            display: block;
-            margin-top: 4px;
-            color: var(--muted);
-            font-size: 0.82rem;
-            line-height: 1.45;
-        }
-
-        .occasion-demand-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 92px;
-            padding: 8px 11px;
-            border-radius: 999px;
-            color: #fed7aa;
-            font-weight: 900;
-            border: 1px solid rgba(249, 115, 22, 0.42);
-            background: rgba(249, 115, 22, 0.12);
-            white-space: nowrap;
-        }
-
-        .occasion-mini-proof {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .occasion-mini-proof .mini-panel {
-            min-height: 92px;
-        }
-
-        .occasion-proof-note {
-            margin-top: 14px;
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 1100px) {
-            .occasion-visual-grid,
-            .occasion-mini-proof {
-                grid-template-columns: 1fr;
-            }
-        }
-
-</style>
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/analytics-dashboard.css' %}?v=5s-reference-base">
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/occasion-analytics.css' %}?v=5s-page">
 {% endblock %}
 
 {% block analytics_content %}
-<main class="shell">
-        <header class="topbar">
-            <div class="brand">
-                <small>BakeOps Intelligence</small>
-                <strong>Occasion Analytics</strong>
-            </div>
+<main class="dash-ref analytics-reference-page occasion-ref-page">
+    <section class="occasion-page-header">
+        <div class="occasion-page-title">
+            <small>BakeOps Intelligence</small>
+            <h1>Occasion Analytics</h1>
+            <p>Understand occasion-driven demand, upcoming pressure, and delivery risk.</p>
+        </div>
 
-            <div class="nav-actions">
-                <a class="nav-pill" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
-                <a class="nav-pill" href="{% url 'bakeops:customer-analytics' %}">Customer analytics</a>
-                <a class="nav-pill" href="/">Back to catalogue</a>
-            </div>
-        </header>
+        <nav class="occasion-actions" aria-label="Occasion analytics actions">
+            <a class="occasion-btn" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
+            <a class="occasion-btn" href="{% url 'bakeops:customer-analytics' %}">Customer analytics</a>
+            <a class="occasion-btn" href="/">Back to catalogue</a>
+        </nav>
+    </section>
 
-        {% if latest_metric %}
-            <section class="hero">
-                <div class="card">
-                    <span class="badge orange">V2 Sprint 4 · Trusted Occasion Analytics</span>
-                    <h1 class="hero-title">Occasion demand shows where bakery planning pressure comes from.</h1>
-                    <p class="hero-copy">
-                        This page uses the existing V1 gold-layer
-                        <span class="code">OccasionDemandSnapshot</span>
-                        records to explain revenue, quantity sold, upcoming demand, and delivery-slot pressure by occasion.
-                        It helps a reviewer see how customer occasions affect production planning, stock readiness, and bakery capacity.
-                    </p>
-
-                    <div class="badge-row">
-                        <span class="badge">Workspace: {{ workspace.name }}</span>
-                        <span class="badge">Snapshot: {{ snapshot_date }}</span>
-                        <span class="badge">Occasions: {{ occasion_count }}</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Reviewer Proof Point</div>
-                    <div class="kpi-value">£{{ total_occasion_revenue }}</div>
-                    <div class="kpi-foot">
-                        total occasion-linked revenue from the latest metric build.<br>
-                        This page explains demand patterns without rebuilding metrics.
-                    </div>
-                </div>
-            </section>
-
-            <section class="grid-4">
-                <div class="card">
-                    <div class="kpi-label">Occasions Analysed</div>
-                    <div class="kpi-value">{{ occasion_count }}</div>
-                    <div class="kpi-foot">Latest occasion demand snapshot rows.</div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Occasion Orders</div>
-                    <div class="kpi-value">{{ total_occasion_orders }}</div>
-                    <div class="kpi-foot">Orders linked to tracked occasions.</div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Upcoming Orders</div>
-                    <div class="kpi-value">{{ total_upcoming_orders }}</div>
-                    <div class="kpi-foot">Future demand already visible in the snapshot.</div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Delivery Pressure</div>
-                    <div class="kpi-value">{{ total_delivery_pressure }}</div>
-                    <div class="kpi-foot">Occasion demand rows with delivery-slot pressure.</div>
-                </div>
-            </section>
-
-            {% if top_occasion %}
-                <section class="card section focus">
-                    <span class="badge orange">Top Occasion Demand</span>
-                    <h2>{{ top_occasion.occasion.name }} is the strongest occasion revenue signal.</h2>
-
-                    <p class="hero-copy">
-                        {{ top_occasion.occasion.name }} generated
-                        <strong>£{{ top_occasion.snapshot.revenue }}</strong>
-                        revenue from
-                        <strong>{{ top_occasion.snapshot.order_count }}</strong>
-                        order{{ top_occasion.snapshot.order_count|pluralize }} and
-                        <strong>{{ top_occasion.snapshot.quantity_sold }}</strong>
-                        item{{ top_occasion.snapshot.quantity_sold|pluralize }} sold.
-                    </p>
-
-                    <div class="focus-grid">
-                        <div class="mini-panel">
-                            <strong>£{{ top_occasion.snapshot.revenue }}</strong>
-                            <span>Occasion revenue</span>
-                        </div>
-
-                        <div class="mini-panel">
-                            <strong>{{ top_occasion.revenue_share_percent }}%</strong>
-                            <span>Revenue share</span>
-                        </div>
-
-                        <div class="mini-panel">
-                            <strong>{{ top_occasion.snapshot.upcoming_order_count }}</strong>
-                            <span>Upcoming orders</span>
-                        </div>
-                    </div>
-
-                    <p class="hero-copy" style="margin-top: 18px;">
-                        Why this matters: occasion demand helps the bakery prepare ingredients, batches, staffing,
-                        and delivery capacity before customer demand turns into operational pressure.
-                    </p>
-                </section>
-            {% endif %}
-
-            
-            <section class="occasion-visual-layer">
-                <div class="occasion-visual-grid">
-                    <div class="card occasion-chart-card">
-                        <div class="occasion-chart-head">
-                            <div>
-                                <span class="badge orange">Demand Visual</span>
-                                <h2>Occasion revenue concentration</h2>
-                                <p>
-                                    Shows which occasion contributes the strongest revenue signal in the latest
-                                    trusted demand snapshot.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="occasion-bar-list">
-                            {% if total_occasion_revenue %}
-                                {% for row in occasion_rows %}
-                                    <div class="occasion-bar-row {% if forloop.first %}is-top{% endif %}">
-                                        <div class="occasion-bar-meta">
-                                            <strong>{{ row.occasion.name }}</strong>
-                                            <span>
-                                                £{{ row.snapshot.revenue }}
-                                                · {{ row.revenue_share_percent }}%
-                                            </span>
-                                        </div>
-                                        <div class="occasion-bar-track" aria-hidden="true">
-                                            <div class="occasion-bar-fill" style="width: {% widthratio row.snapshot.revenue total_occasion_revenue 100 %}%;"></div>
-                                        </div>
-                                    </div>
-                                {% empty %}
-                                    <div class="empty-state">No occasion demand rows found.</div>
-                                {% endfor %}
-                            {% else %}
-                                <div class="empty-state">No occasion revenue found for this snapshot.</div>
-                            {% endif %}
-                        </div>
-
-                        <p class="occasion-proof-note">
-                            This visual uses existing occasion snapshot data only. It does not forecast demand
-                            or imply live order monitoring.
-                        </p>
-                    </div>
-
-                    <div class="card occasion-chart-card">
-                        <div class="occasion-chart-head">
-                            <div>
-                                <span class="badge orange">Capacity Signal</span>
-                                <h2>Upcoming demand and delivery pressure</h2>
-                                <p>
-                                    Highlights upcoming occasion demand before the full evidence table.
-                                </p>
-                            </div>
-                        </div>
-
-                        {% for row in occasion_rows %}
-                            <div class="occasion-demand-card {% if row.has_delivery_pressure %}is-pressure{% endif %}">
-                                <div>
-                                    <strong>{{ row.occasion.name }}</strong>
-                                    <span>
-                                        {{ row.snapshot.upcoming_order_count }} upcoming order{{ row.snapshot.upcoming_order_count|pluralize }}
-                                        · {{ row.snapshot.delivery_slot_pressure_count }} delivery pressure signal{{ row.snapshot.delivery_slot_pressure_count|pluralize }}
-                                    </span>
-                                </div>
-                                <div class="occasion-demand-badge">
-                                    {{ row.demand_label }}
-                                </div>
-                            </div>
-                        {% empty %}
-                            <div class="empty-state">No upcoming occasion demand rows found.</div>
-                        {% endfor %}
-
-                        {% if top_occasion %}
-                            <div class="occasion-mini-proof">
-                                <div class="mini-panel">
-                                    <strong>{{ top_occasion.occasion.name }}</strong>
-                                    <span>Top occasion signal</span>
-                                </div>
-
-                                <div class="mini-panel">
-                                    <strong>£{{ top_occasion.snapshot.revenue }}</strong>
-                                    <span>Occasion revenue</span>
-                                </div>
-
-                                <div class="mini-panel">
-                                    <strong>{{ top_occasion.snapshot.upcoming_order_count }}</strong>
-                                    <span>Upcoming orders</span>
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        <p class="occasion-proof-note">
-                            The table below remains the evidence layer for revenue, orders, quantity sold,
-                            upcoming demand, delivery pressure, and recommended action.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-
-<section class="section">
-                <div class="section-head">
-                    <div>
-                        <h2>Occasion Demand Deep Dive</h2>
-                        <p>Revenue, margin, upcoming demand, and delivery-slot pressure by occasion.</p>
-                    </div>
-                </div>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Occasion</th>
-                                <th>Revenue</th>
-                                <th>Orders</th>
-                                <th>Quantity Sold</th>
-                                <th>Gross Margin</th>
-                                <th>Upcoming Demand</th>
-                                <th>Demand Signal</th>
-                                <th>Recommended Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {% for row in occasion_rows %}
-                                <tr class="{% if forloop.first %}top-row{% endif %}">
-                                    <td>
-                                        <strong>{{ row.occasion.name }}</strong>
-                                        {% if forloop.first %}
-                                            <br><span class="badge orange" style="margin-top: 8px;">Top occasion</span>
-                                        {% endif %}
-                                    </td>
-
-                                    <td>
-                                        <span class="metric">£{{ row.snapshot.revenue }}</span><br>
-                                        <span class="muted">{{ row.revenue_share_percent }}% of occasion revenue</span>
-                                    </td>
-
-                                    <td>{{ row.snapshot.order_count }}</td>
-
-                                    <td>{{ row.snapshot.quantity_sold }}</td>
-
-                                    <td>
-                                        £{{ row.snapshot.gross_margin }}<br>
-                                        <span class="muted">{{ row.gross_margin_percent }}% margin rate</span>
-                                    </td>
-
-                                    <td>
-                                        <strong>{{ row.snapshot.upcoming_order_count }}</strong> upcoming<br>
-                                        {% if row.has_delivery_pressure %}
-                                            <span class="negative">{{ row.snapshot.delivery_slot_pressure_count }} delivery pressure signal{{ row.snapshot.delivery_slot_pressure_count|pluralize }}</span>
-                                        {% else %}
-                                            <span class="positive">No delivery-slot pressure</span>
-                                        {% endif %}
-                                    </td>
-
-                                    <td>
-                                        {% if row.demand_label == "Capacity pressure" %}
-                                            <span class="pill capacity">{{ row.demand_label }}</span>
-                                        {% elif row.demand_label == "Active demand" %}
-                                            <span class="pill active">{{ row.demand_label }}</span>
-                                        {% elif row.demand_label == "Upcoming demand" %}
-                                            <span class="pill upcoming">{{ row.demand_label }}</span>
-                                        {% else %}
-                                            <span class="pill monitor">{{ row.demand_label }}</span>
-                                        {% endif %}
-
-                                        <p class="muted" style="margin: 10px 0 0;">
-                                            {{ row.demand_explanation }}
-                                        </p>
-                                    </td>
-
-                                    <td>
-                                        <p class="muted" style="margin: 0;">
-                                            {{ row.recommended_action }}
-                                        </p>
-                                    </td>
-                                </tr>
-                            {% empty %}
-                                <tr>
-                                    <td colspan="8">
-                                        <div class="empty-state">
-                                            No occasion analytics snapshots found.
-                                            Run <span class="code">python manage.py build_bakery_metrics</span>.
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        {% else %}
-            <section class="card empty-state">
-                <h1>No occasion analytics data found.</h1>
+    {% if latest_metric %}
+        <section class="occasion-hero-grid">
+            <article class="occasion-card occasion-hero">
+                <span class="occasion-badge is-warning">Trusted Occasion Analytics</span>
+                <h2>Occasion demand shows where bakery planning pressure comes from.</h2>
                 <p>
-                    Run the seeded demo and metric build commands first:
+                    This page uses trusted gold-layer
+                    <span class="occasion-code">OccasionDemandSnapshot</span>
+                    records to explain revenue, quantity sold, upcoming demand, and delivery-slot pressure by occasion.
+                    It helps reviewers see how customer occasions affect production planning, stock readiness, staffing, and bakery capacity.
                 </p>
+
+                <div class="occasion-meta-row">
+                    <span class="occasion-pill">Workspace: {{ workspace.name }}</span>
+                    <span class="occasion-pill">Snapshot: {{ snapshot_date }}</span>
+                    <span class="occasion-pill">Occasions: {{ occasion_count }}</span>
+                </div>
+
+                <div class="occasion-meta-row">
+                    <a class="occasion-cta" href="#occasion-demand-table">View demand deep-dive →</a>
+                </div>
+            </article>
+
+            <aside class="occasion-card occasion-proof-card">
+                <div class="occasion-proof-head">
+                    <div class="occasion-proof-title">
+                        <span>Reviewer Proof Point</span>
+                        <strong>£{{ total_occasion_revenue }}</strong>
+                    </div>
+                    <div class="occasion-proof-icon">◷</div>
+                </div>
+
                 <p>
-                    <span class="code">python manage.py seed_demo_data --reset</span><br>
-                    <span class="code">python manage.py build_bakery_metrics</span>
+                    Total occasion-linked revenue from the latest metric build. This page explains demand patterns without rebuilding metrics.
+                </p>
+
+                <div class="occasion-proof-mini">
+                    <div class="occasion-proof-tile">
+                        <strong>{{ total_occasion_orders }}</strong>
+                        <span>occasion orders</span>
+                    </div>
+                    <div class="occasion-proof-tile">
+                        <strong>{{ total_delivery_pressure }}</strong>
+                        <span>pressure signals</span>
+                    </div>
+                </div>
+
+                <p class="occasion-muted">
+                    Reviewer note: occasion demand is surfaced before production and delivery capacity become urgent.
+                </p>
+            </aside>
+        </section>
+
+        <section class="occasion-kpi-grid">
+            <article class="occasion-card occasion-kpi">
+                <div class="occasion-kpi-icon">◷</div>
+                <span>Occasions Analysed</span>
+                <strong>{{ occasion_count }}</strong>
+                <small>Latest occasion demand snapshot rows.</small>
+            </article>
+
+            <article class="occasion-card occasion-kpi">
+                <div class="occasion-kpi-icon is-green">✓</div>
+                <span>Occasion Orders</span>
+                <strong>{{ total_occasion_orders }}</strong>
+                <small>Orders linked to tracked occasions.</small>
+            </article>
+
+            <article class="occasion-card occasion-kpi">
+                <div class="occasion-kpi-icon is-blue">↗</div>
+                <span>Upcoming Orders</span>
+                <strong>{{ total_upcoming_orders }}</strong>
+                <small>Future demand already visible in the snapshot.</small>
+            </article>
+
+            <article class="occasion-card occasion-kpi">
+                <div class="occasion-kpi-icon is-orange">!</div>
+                <span>Delivery Pressure</span>
+                <strong>{{ total_delivery_pressure }}</strong>
+                <small>Occasion demand rows with delivery-slot pressure.</small>
+            </article>
+        </section>
+
+        {% if top_occasion %}
+            <section class="occasion-card occasion-insight">
+                <span class="occasion-badge is-warning">Top Occasion Demand</span>
+                <h2>{{ top_occasion.occasion.name }} is the strongest occasion revenue signal.</h2>
+
+                <p>
+                    {{ top_occasion.occasion.name }} generated
+                    <strong>£{{ top_occasion.snapshot.revenue }}</strong>
+                    revenue from
+                    <strong>{{ top_occasion.snapshot.order_count }}</strong>
+                    order{{ top_occasion.snapshot.order_count|pluralize }} and
+                    <strong>{{ top_occasion.snapshot.quantity_sold }}</strong>
+                    item{{ top_occasion.snapshot.quantity_sold|pluralize }} sold.
+                </p>
+
+                <div class="occasion-focus-grid">
+                    <div class="occasion-mini-panel">
+                        <strong>£{{ top_occasion.snapshot.revenue }}</strong>
+                        <span>Occasion revenue</span>
+                    </div>
+
+                    <div class="occasion-mini-panel">
+                        <strong>{{ top_occasion.revenue_share_percent }}%</strong>
+                        <span>Revenue share</span>
+                    </div>
+
+                    <div class="occasion-mini-panel">
+                        <strong>{{ top_occasion.snapshot.upcoming_order_count }}</strong>
+                        <span>Upcoming orders</span>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1rem;">
+                    Why this matters: occasion demand helps the bakery prepare ingredients, batches, staffing, and delivery capacity before customer demand becomes operational pressure.
                 </p>
             </section>
         {% endif %}
 
-        <p class="footer-note">
-            BakeOps Intelligence V2 Sprint 4 — trusted occasion analytics powered by V1 gold-layer snapshots.
-        </p>
-    </main>
+        <section class="occasion-mid-grid">
+            <article class="occasion-card occasion-panel">
+                <div class="occasion-panel-head">
+                    <div>
+                        <span class="occasion-badge is-warning">Demand Visual</span>
+                        <h2>Occasion revenue concentration</h2>
+                        <p>Shows which occasion contributes the strongest revenue signal in the latest trusted demand snapshot.</p>
+                    </div>
+                </div>
+
+                <div class="occasion-bar-list">
+                    {% if total_occasion_revenue %}
+                        {% for row in occasion_rows %}
+                            <div class="occasion-bar-row {% if forloop.first %}is-top{% endif %}">
+                                <div class="occasion-bar-meta">
+                                    <strong>{{ row.occasion.name }}</strong>
+                                    <span>£{{ row.snapshot.revenue }} · {{ row.revenue_share_percent }}%</span>
+                                </div>
+                                <div class="occasion-bar-track" aria-hidden="true">
+                                    <div class="occasion-bar-fill" style="width: {% widthratio row.snapshot.revenue total_occasion_revenue 100 %}%;"></div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="occasion-empty">No occasion demand rows found.</div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="occasion-empty">No occasion revenue found for this snapshot.</div>
+                    {% endif %}
+                </div>
+
+                <p class="occasion-muted" style="margin-top: 1rem;">
+                    This visual uses existing occasion snapshot data only. It does not forecast demand or imply live order monitoring.
+                </p>
+            </article>
+
+            <article class="occasion-card occasion-panel">
+                <div class="occasion-panel-head">
+                    <div>
+                        <span class="occasion-badge is-warning">Capacity Signal</span>
+                        <h2>Upcoming demand and delivery pressure</h2>
+                        <p>Highlights upcoming occasion demand before the full evidence table.</p>
+                    </div>
+                </div>
+
+                <div class="occasion-demand-list">
+                    {% for row in occasion_rows %}
+                        <div class="occasion-demand-card {% if row.has_delivery_pressure %}is-pressure{% endif %}">
+                            <div>
+                                <strong>{{ row.occasion.name }}</strong>
+                                <span>
+                                    {{ row.snapshot.upcoming_order_count }} upcoming order{{ row.snapshot.upcoming_order_count|pluralize }}
+                                    · {{ row.snapshot.delivery_slot_pressure_count }} delivery pressure signal{{ row.snapshot.delivery_slot_pressure_count|pluralize }}
+                                </span>
+                            </div>
+                            <div class="occasion-demand-badge">{{ row.demand_label }}</div>
+                        </div>
+                    {% empty %}
+                        <div class="occasion-empty">No upcoming occasion demand rows found.</div>
+                    {% endfor %}
+                </div>
+
+                {% if top_occasion %}
+                    <div class="occasion-focus-grid">
+                        <div class="occasion-mini-panel">
+                            <strong>{{ top_occasion.occasion.name }}</strong>
+                            <span>Top occasion signal</span>
+                        </div>
+
+                        <div class="occasion-mini-panel">
+                            <strong>£{{ top_occasion.snapshot.revenue }}</strong>
+                            <span>Occasion revenue</span>
+                        </div>
+
+                        <div class="occasion-mini-panel">
+                            <strong>{{ top_occasion.snapshot.upcoming_order_count }}</strong>
+                            <span>Upcoming orders</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <p class="occasion-muted" style="margin-top: 1rem;">
+                    The table below remains the evidence layer for revenue, orders, quantity sold, upcoming demand, delivery pressure, and recommended action.
+                </p>
+            </article>
+        </section>
+
+        <section class="occasion-section" id="occasion-demand-table">
+            <h2>Occasion Demand Deep Dive</h2>
+            <p>Revenue, margin, upcoming demand, and delivery-slot pressure by occasion.</p>
+
+            <div class="occasion-table-wrap">
+                <table class="occasion-table">
+                    <thead>
+                        <tr>
+                            <th>Occasion</th>
+                            <th>Revenue</th>
+                            <th>Orders</th>
+                            <th>Quantity Sold</th>
+                            <th>Gross Margin</th>
+                            <th>Upcoming Demand</th>
+                            <th>Demand Signal</th>
+                            <th>Recommended Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in occasion_rows %}
+                            <tr class="{% if forloop.first %}is-top{% endif %}">
+                                <td>
+                                    <strong>{{ row.occasion.name }}</strong>
+                                    {% if forloop.first %}
+                                        <br><span class="occasion-badge is-warning" style="margin-top: 0.5rem;">Top occasion</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <span class="occasion-metric">£{{ row.snapshot.revenue }}</span><br>
+                                    <span class="occasion-muted">{{ row.revenue_share_percent }}% of occasion revenue</span>
+                                </td>
+
+                                <td>{{ row.snapshot.order_count }}</td>
+
+                                <td>{{ row.snapshot.quantity_sold }}</td>
+
+                                <td>
+                                    £{{ row.snapshot.gross_margin }}<br>
+                                    <span class="occasion-muted">{{ row.gross_margin_percent }}% margin rate</span>
+                                </td>
+
+                                <td>
+                                    <strong>{{ row.snapshot.upcoming_order_count }}</strong> upcoming<br>
+                                    {% if row.has_delivery_pressure %}
+                                        <span class="occasion-negative">{{ row.snapshot.delivery_slot_pressure_count }} delivery pressure signal{{ row.snapshot.delivery_slot_pressure_count|pluralize }}</span>
+                                    {% else %}
+                                        <span class="occasion-positive">No delivery-slot pressure</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if row.demand_label == "Capacity pressure" %}
+                                        <span class="occasion-pill capacity">{{ row.demand_label }}</span>
+                                    {% elif row.demand_label == "Active demand" %}
+                                        <span class="occasion-pill active">{{ row.demand_label }}</span>
+                                    {% elif row.demand_label == "Upcoming demand" %}
+                                        <span class="occasion-pill upcoming">{{ row.demand_label }}</span>
+                                    {% else %}
+                                        <span class="occasion-pill monitor">{{ row.demand_label }}</span>
+                                    {% endif %}
+
+                                    <p class="occasion-muted" style="margin: 0.65rem 0 0;">
+                                        {{ row.demand_explanation }}
+                                    </p>
+                                </td>
+
+                                <td>
+                                    <p class="occasion-muted" style="margin: 0;">{{ row.recommended_action }}</p>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="8">
+                                    <div class="occasion-empty">
+                                        No occasion analytics snapshots found.
+                                        Run <span class="occasion-code">python manage.py build_bakery_metrics</span>.
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    {% else %}
+        <section class="occasion-card occasion-empty">
+            <h1>No occasion analytics data found.</h1>
+            <p>
+                Run <span class="occasion-code">python manage.py seed_demo_data --reset</span>
+                and <span class="occasion-code">python manage.py build_bakery_metrics</span>, then refresh this page.
+            </p>
+        </section>
+    {% endif %}
+
+    <p class="occasion-footer">
+        BakeOps Intelligence V3 — trusted occasion analytics powered by gold-layer snapshots.
+    </p>
+</main>
 {% endblock %}

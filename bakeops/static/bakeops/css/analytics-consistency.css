@@ -1,0 +1,562 @@
+/* ============================================================
+   BakeOps Analytics Consistency Layer
+   Version: 6.0 Hybrid
+   Scope: premium visual polish + content safety only.
+   Important: no fixed/sticky/sidebar width/page-frame authority here.
+   Final geometry lives in analytics-final-lock.css.
+   ============================================================ */
+
+@keyframes bo-fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bo-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bo-pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.58; transform: scale(0.84); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+html {
+    scrollbar-gutter: stable;
+}
+
+body.analytics-shell-body.reference-match-shell {
+    font-family: var(--bo-font-sans);
+    color: var(--bo-text);
+    background:
+        radial-gradient(circle at 12% 0%, rgba(124, 58, 237, 0.20), transparent 26rem),
+        radial-gradient(circle at 82% 4%, rgba(14, 165, 233, 0.14), transparent 28rem),
+        radial-gradient(circle at 70% 90%, rgba(249, 115, 22, 0.07), transparent 26rem),
+        var(--bo-page-bg);
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+}
+
+body.analytics-shell-body.reference-match-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.72), transparent 78%);
+    z-index: 0;
+}
+
+/* Shell visual skin only. Geometry is in analytics-final-lock.css. */
+.analytics-sidebar {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    border-right: 1px solid var(--bo-border);
+    background:
+        linear-gradient(180deg, rgba(8, 13, 28, 0.98), rgba(3, 7, 18, 0.99)),
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.18), transparent 15rem);
+    box-shadow: var(--bo-shadow-sidebar);
+    backdrop-filter: blur(22px);
+}
+
+.analytics-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0.35rem 0.95rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.analytics-brand-mark {
+    position: relative;
+    isolation: isolate;
+    width: 2.7rem;
+    height: 2.7rem;
+    display: grid;
+    place-items: center;
+    border-radius: 0.95rem;
+    color: #ffffff;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(251, 191, 36, 0.95), transparent 32%),
+        linear-gradient(135deg, #2563eb 0%, #7c3aed 52%, #f97316 100%);
+    box-shadow:
+        0 18px 38px rgba(124, 58, 237, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.analytics-brand-mark::after {
+    content: "";
+    position: absolute;
+    inset: 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 0.65rem;
+    transform: rotate(12deg);
+    z-index: -1;
+}
+
+.analytics-brand-mark span {
+    font-size: 0.78rem;
+}
+
+.analytics-brand-kicker {
+    margin: 0;
+    color: var(--bo-text);
+    font-size: 0.86rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+}
+
+.analytics-brand-block h1 {
+    margin: 0.1rem 0 0;
+    color: var(--bo-text-muted);
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.analytics-nav-list {
+    display: grid;
+    gap: 0.34rem;
+}
+
+.analytics-nav-link {
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.72rem;
+    padding: 0.62rem 0.68rem;
+    border: 1px solid transparent;
+    border-radius: 0.9rem;
+    color: var(--bo-text-soft);
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 850;
+    transition: transform 180ms var(--bo-ease-out), background 180ms var(--bo-ease-out), border-color 180ms var(--bo-ease-out), color 180ms var(--bo-ease-out);
+}
+
+.analytics-nav-link:hover {
+    color: var(--bo-text-strong);
+    background: rgba(148, 163, 184, 0.075);
+    transform: translateX(2px);
+}
+
+.analytics-nav-link.is-active,
+.analytics-nav-link[aria-current="page"] {
+    color: var(--bo-text-strong);
+    border-color: var(--bo-purple-border);
+    background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.48), rgba(30, 64, 175, 0.28)),
+        rgba(15, 23, 42, 0.86);
+    box-shadow:
+        inset 3px 0 0 rgba(251, 191, 36, 0.95),
+        0 16px 36px rgba(76, 29, 149, 0.28);
+}
+
+.analytics-nav-icon {
+    flex: 0 0 auto;
+    width: 1.7rem;
+    height: 1.7rem;
+    display: grid;
+    place-items: center;
+    border-radius: 0.66rem;
+    color: #dbeafe;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(124, 58, 237, 0.14));
+}
+
+.analytics-nav-icon svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.analytics-nav-link.is-active .analytics-nav-icon,
+.analytics-nav-link[aria-current="page"] .analytics-nav-icon {
+    color: #fff7ed;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.24), rgba(249, 115, 22, 0.18));
+}
+
+.analytics-sidebar-spacer {
+    flex: 1 1 auto;
+    min-height: 1rem;
+}
+
+.analytics-sidebar-card,
+.analytics-reviewer-chip {
+    padding: 0.78rem;
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 1rem;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.44));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.analytics-sidebar-label,
+.analytics-sidebar-card small,
+.analytics-reviewer-chip small {
+    display: block;
+    margin-top: 0.24rem;
+    color: var(--bo-text-muted);
+    font-size: 0.74rem;
+    line-height: 1.35;
+}
+
+.analytics-sidebar-card strong,
+.analytics-reviewer-chip strong {
+    display: block;
+    color: var(--bo-text);
+    font-size: 0.9rem;
+}
+
+.analytics-reviewer-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.72rem;
+}
+
+.analytics-reviewer-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: #ffffff;
+    font-weight: 950;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(96, 165, 250, 0.95), transparent 35%),
+        linear-gradient(135deg, #0ea5e9, #7c3aed);
+    box-shadow: 0 12px 28px rgba(14, 165, 233, 0.20);
+}
+
+.ref-sidebar-tools {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+}
+
+.ref-sidebar-tools button,
+.ref-sidebar-tools span,
+.ref-sidebar-collapse,
+.ref-kebab {
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    color: var(--bo-text-muted);
+    background: rgba(15, 23, 42, 0.55);
+    font: inherit;
+}
+
+.ref-sidebar-tools button,
+.ref-sidebar-tools span {
+    min-height: 2.05rem;
+    display: grid;
+    place-items: center;
+    border-radius: 0.75rem;
+}
+
+.ref-sidebar-collapse {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: fit-content;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--bo-text-faint);
+    font-size: 0.75rem;
+    font-weight: 850;
+}
+
+.ref-sidebar-tools button:hover,
+.ref-kebab:hover,
+.ref-sidebar-collapse:hover {
+    color: var(--bo-text);
+    border-color: var(--bo-border-strong);
+    background: rgba(148, 163, 184, 0.08);
+}
+
+/* Topbar visual skin only. Geometry is in analytics-final-lock.css. */
+.analytics-topbar {
+    min-height: var(--bo-topbar-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.1rem;
+    border-bottom: 1px solid var(--bo-border);
+    background:
+        linear-gradient(90deg, rgba(3, 7, 18, 0.92), rgba(15, 23, 42, 0.82)),
+        radial-gradient(circle at 78% 0%, rgba(14, 165, 233, 0.12), transparent 18rem);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    animation: bo-fade-in 260ms var(--bo-ease-out) both;
+}
+
+.ref-topbar-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.58rem;
+    flex-wrap: wrap;
+}
+
+.ref-topbar-actions {
+    justify-content: flex-end;
+}
+
+.ref-topbar-pill,
+.ref-status-pill,
+.ref-export-button,
+.ref-kebab {
+    min-height: 2.18rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    background: rgba(15, 23, 42, 0.72);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.ref-topbar-pill {
+    gap: 0.4rem;
+    padding: 0.32rem 0.72rem;
+}
+
+.ref-topbar-pill span {
+    color: var(--bo-text-muted);
+    font-size: 0.68rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ref-topbar-pill strong {
+    color: var(--bo-text);
+    font-size: 0.78rem;
+    font-weight: 950;
+}
+
+.ref-status-pill {
+    padding: 0.32rem 0.72rem;
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.ref-status-pill.is-demo {
+    color: #bfdbfe;
+    border-color: rgba(59, 130, 246, 0.36);
+    background: rgba(30, 64, 175, 0.20);
+}
+
+.ref-status-pill.is-evidence {
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.34);
+    background: rgba(22, 101, 52, 0.20);
+}
+
+.ref-status-pill.is-evidence::before {
+    content: "";
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-right: 0.4rem;
+    border-radius: 999px;
+    background: currentColor;
+    animation: bo-pulse-dot 1.8s ease-in-out infinite;
+}
+
+.ref-export-button {
+    gap: 0.4rem;
+    padding: 0.34rem 0.85rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-color: var(--bo-purple-border);
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.30), rgba(37, 99, 235, 0.20));
+}
+
+.ref-kebab {
+    width: 2.18rem;
+    padding: 0;
+}
+
+/* Optional reviewer guidance remains available but hidden in reference screenshots. */
+body.analytics-shell-body.reference-match-shell .analytics-state-guidance.is-compact {
+    display: none;
+}
+
+.analytics-state-guidance {
+    margin: 0.75rem 0 1rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 0.9rem;
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.10), rgba(15, 23, 42, 0.52));
+    color: var(--bo-text-soft);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.analytics-state-guidance__header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    color: var(--bo-text);
+    font-weight: 850;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.analytics-state-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: var(--bo-success);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+/* Content safety and data density */
+.analytics-page-frame table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.analytics-page-frame .table-wrap,
+.analytics-page-frame .table-shell,
+.analytics-page-frame .table-card,
+.analytics-page-frame .data-table-wrap,
+.analytics-page-frame .evidence-table-wrap,
+.analytics-page-frame section:has(table),
+.analytics-page-frame [class$="-table-wrap"] {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+.analytics-page-frame th,
+.analytics-page-frame td {
+    vertical-align: top;
+}
+
+.analytics-page-frame td,
+.analytics-page-frame th,
+.analytics-page-frame .metric-value,
+.analytics-page-frame .kpi-value,
+.analytics-page-frame .rank-node,
+.analytics-page-frame [class*="metric"],
+.analytics-page-frame [class*="kpi"] {
+    font-variant-numeric: tabular-nums;
+}
+
+.analytics-page-frame .card,
+.analytics-page-frame .mini-panel,
+.analytics-page-frame [class*="card"],
+.analytics-page-frame [class*="panel"],
+.analytics-page-frame [class*="grid"] > * {
+    min-width: 0;
+}
+
+.analytics-page-frame p,
+.analytics-page-frame span,
+.analytics-page-frame small,
+.analytics-page-frame td,
+.analytics-page-frame th {
+    overflow-wrap: anywhere;
+}
+
+.analytics-page-frame a,
+.analytics-page-frame button,
+.analytics-page-frame .btn,
+.analytics-page-frame .pill,
+.analytics-page-frame .badge {
+    max-width: 100%;
+}
+
+.analytics-page-frame code {
+    border: 1px solid rgba(251, 146, 60, 0.18);
+    border-radius: 999px;
+    background: rgba(124, 45, 18, 0.28);
+    color: #fed7aa;
+}
+
+.analytics-page-frame > main {
+    animation: bo-fade-up 360ms var(--bo-ease-out) both;
+}
+
+:where(a, button, [tabindex]):focus-visible {
+    outline: none;
+    box-shadow: var(--bo-focus-ring);
+}
+
+@media (max-width: 1100px) {
+    .analytics-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--bo-border);
+    }
+
+    .analytics-nav-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analytics-sidebar-card,
+    .analytics-reviewer-chip,
+    .analytics-sidebar-spacer,
+    .ref-sidebar-tools,
+    .ref-sidebar-collapse {
+        display: none;
+    }
+
+    .analytics-topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 900px) {
+    .analytics-page-frame table {
+        min-width: 760px;
+    }
+}
+
+@media (max-width: 640px) {
+    .analytics-nav-list {
+        grid-template-columns: 1fr;
+    }
+
+    .ref-topbar-cluster,
+    .ref-topbar-pill,
+    .ref-status-pill,
+    .ref-export-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .analytics-page-frame table {
+        min-width: 680px;
+        font-size: 0.82rem;
+    }
+
+    .analytics-page-frame th,
+    .analytics-page-frame td {
+        padding: 0.7rem;
+    }
+}

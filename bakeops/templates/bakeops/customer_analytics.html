@@ -8,819 +8,351 @@
 {% endblock %}
 
 {% block page_styles %}
-<style>
-:root {
-            --bg: #111827;
-            --panel: #1f2937;
-            --text: #f9fafb;
-            --muted: #9ca3af;
-            --line: rgba(255, 255, 255, 0.1);
-            --orange: #f97316;
-            --orange-soft: rgba(249, 115, 22, 0.13);
-            --green-soft: rgba(34, 197, 94, 0.12);
-            --blue-soft: rgba(56, 189, 248, 0.12);
-            --yellow-soft: rgba(250, 204, 21, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Inter, Arial, sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), transparent 34rem),
-                radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 30rem),
-                var(--bg);
-            color: var(--text);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .shell {
-            width: min(1240px, calc(100% - 32px));
-            margin: 0 auto;
-            padding: 32px 0 56px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: center;
-            padding: 16px 0 28px;
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .brand small {
-            color: var(--muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .brand strong {
-            font-size: 1.25rem;
-        }
-
-        .nav-actions,
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .nav-actions {
-            justify-content: flex-end;
-        }
-
-        .nav-pill {
-            border: 1px solid var(--line);
-            background: rgba(31, 41, 55, 0.8);
-            padding: 10px 14px;
-            border-radius: 999px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .hero {
-            display: grid;
-            grid-template-columns: 1.45fr 0.95fr;
-            gap: 20px;
-            margin-bottom: 22px;
-        }
-
-        .card {
-            border: 1px solid var(--line);
-            background: rgba(31, 41, 55, 0.86);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            line-height: 1;
-            margin: 12px 0;
-            letter-spacing: -0.05em;
-        }
-
-        .hero-copy {
-            color: var(--muted);
-            font-size: 1rem;
-            max-width: 780px;
-            line-height: 1.65;
-        }
-
-        .badge,
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            border-radius: 999px;
-            padding: 7px 10px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--muted);
-            font-size: 0.82rem;
-            font-weight: 700;
-        }
-
-        .badge.orange,
-        .pill.high-value {
-            color: #fed7aa;
-            border-color: rgba(249, 115, 22, 0.35);
-            background: var(--orange-soft);
-        }
-
-        .pill.repeat {
-            color: #bbf7d0;
-            background: var(--green-soft);
-            border-color: rgba(34, 197, 94, 0.28);
-        }
-
-        .pill.new {
-            color: #bae6fd;
-            background: var(--blue-soft);
-            border-color: rgba(56, 189, 248, 0.28);
-        }
-
-        .pill.monitor {
-            color: #fef08a;
-            background: var(--yellow-soft);
-            border-color: rgba(250, 204, 21, 0.3);
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .kpi-label {
-            color: var(--muted);
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 800;
-        }
-
-        .kpi-value {
-            margin-top: 8px;
-            font-size: clamp(1.9rem, 4vw, 3rem);
-            font-weight: 900;
-            letter-spacing: -0.05em;
-        }
-
-        .kpi-foot {
-            color: var(--muted);
-            margin-top: 8px;
-            line-height: 1.5;
-            font-size: 0.9rem;
-        }
-
-        .section {
-            margin-top: 24px;
-        }
-
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: flex-end;
-            margin-bottom: 14px;
-        }
-
-        h1,
-        h2,
-        h3,
-        p {
-            margin-top: 0;
-        }
-
-        h2 {
-            margin-bottom: 6px;
-            letter-spacing: -0.03em;
-        }
-
-        .section-head p {
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .focus {
-            border-color: rgba(249, 115, 22, 0.42);
-            background:
-                linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(31, 41, 55, 0.86));
-        }
-
-        .focus-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 18px;
-        }
-
-        .mini-panel {
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 18px;
-            padding: 16px;
-        }
-
-        .mini-panel strong {
-            display: block;
-            font-size: 1.6rem;
-            letter-spacing: -0.04em;
-            margin-bottom: 4px;
-        }
-
-        .mini-panel span,
-        .muted {
-            color: var(--muted);
-        }
-
-        .table-wrap {
-            overflow-x: auto;
-            border: 1px solid var(--line);
-            border-radius: 22px;
-            background: rgba(31, 41, 55, 0.72);
-        }
-
-        table {
-            width: 100%;
-            min-width: 1120px;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 14px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--line);
-            vertical-align: top;
-        }
-
-        th {
-            color: var(--muted);
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr.top-row {
-            background: rgba(249, 115, 22, 0.08);
-        }
-
-        .metric {
-            display: inline-flex;
-            min-width: 58px;
-            justify-content: center;
-            border-radius: 999px;
-            padding: 6px 10px;
-            font-weight: 900;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--line);
-        }
-
-        .code {
-            display: inline-block;
-            font-family: Consolas, Monaco, monospace;
-            color: #fed7aa;
-            background: rgba(249, 115, 22, 0.12);
-            border: 1px solid rgba(249, 115, 22, 0.25);
-            border-radius: 8px;
-            padding: 2px 6px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 48px 20px;
-            color: var(--muted);
-        }
-
-        .footer-note {
-            margin-top: 32px;
-            color: var(--muted);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        @media (max-width: 980px) {
-            .hero,
-            .grid-4,
-            .focus-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .nav-actions {
-                justify-content: flex-start;
-            }
-        }
-
-        .customer-visual-layer {
-            margin-top: 24px;
-        }
-
-        .customer-visual-grid {
-            display: grid;
-            grid-template-columns: 1.05fr 0.95fr;
-            gap: 16px;
-        }
-
-        .customer-chart-card {
-            overflow: hidden;
-        }
-
-        .customer-chart-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .customer-chart-head h2 {
-            margin-bottom: 6px;
-        }
-
-        .customer-chart-head p {
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
-        .customer-bar-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .customer-bar-row {
-            display: grid;
-            gap: 8px;
-            padding: 12px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.035);
-        }
-
-        .customer-bar-row.is-top {
-            border-color: rgba(249, 115, 22, 0.48);
-            background:
-                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
-                rgba(249, 115, 22, 0.09);
-        }
-
-        .customer-bar-meta {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            align-items: baseline;
-        }
-
-        .customer-bar-meta strong {
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-
-        .customer-bar-meta span {
-            color: var(--muted);
-            font-size: 0.82rem;
-            text-align: right;
-        }
-
-        .customer-bar-track {
-            height: 13px;
-            overflow: hidden;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .customer-bar-fill {
-            height: 100%;
-            min-width: 4px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, rgba(56, 189, 248, 0.68), rgba(34, 197, 94, 0.9));
-            box-shadow: 0 0 22px rgba(34, 197, 94, 0.18);
-        }
-
-        .customer-behaviour-grid {
-            display: grid;
-            gap: 12px;
-        }
-
-        .customer-behaviour-card {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 12px;
-            align-items: center;
-            padding: 14px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .customer-behaviour-card.is-repeat {
-            border-color: rgba(34, 197, 94, 0.38);
-            background: rgba(34, 197, 94, 0.08);
-        }
-
-        .customer-behaviour-card.is-top {
-            border-color: rgba(249, 115, 22, 0.42);
-            background: rgba(249, 115, 22, 0.09);
-        }
-
-        .customer-behaviour-card strong {
-            display: block;
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-
-        .customer-behaviour-card span {
-            display: block;
-            margin-top: 4px;
-            color: var(--muted);
-            font-size: 0.82rem;
-            line-height: 1.45;
-        }
-
-        .customer-behaviour-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 92px;
-            padding: 8px 11px;
-            border-radius: 999px;
-            color: #bbf7d0;
-            font-weight: 900;
-            border: 1px solid rgba(34, 197, 94, 0.38);
-            background: rgba(34, 197, 94, 0.1);
-            white-space: nowrap;
-        }
-
-        .customer-behaviour-card.is-top .customer-behaviour-badge {
-            color: #fed7aa;
-            border-color: rgba(249, 115, 22, 0.42);
-            background: rgba(249, 115, 22, 0.12);
-        }
-
-        .customer-mini-proof {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .customer-mini-proof .mini-panel {
-            min-height: 92px;
-        }
-
-        .customer-proof-note {
-            margin-top: 14px;
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 1100px) {
-            .customer-visual-grid,
-            .customer-mini-proof {
-                grid-template-columns: 1fr;
-            }
-        }
-
-</style>
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/analytics-dashboard.css' %}?v=5t-reference-base">
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/customer-analytics.css' %}?v=5t-customer-final">
 {% endblock %}
 
 {% block analytics_content %}
-<main class="shell">
-        <header class="topbar">
-            <div class="brand">
-                <small>BakeOps Intelligence</small>
-                <strong>Customer Analytics</strong>
+<main class="dash-ref analytics-reference-page customer-ref-page">
+
+    <section class="dash-ref-page-title customer-page-title-row" aria-labelledby="customer-analytics-title">
+        <div class="dash-ref-title-left">
+            <div class="dash-ref-title-icon" aria-hidden="true">◉</div>
+            <div>
+                <h1 id="customer-analytics-title">Customer Analytics</h1>
+                <p>Understand loyalty, repeat behaviour, customer value, and revenue concentration.</p>
             </div>
+        </div>
 
-            <div class="nav-actions">
-                <a class="nav-pill" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
-                <a class="nav-pill" href="{% url 'bakeops:occasion-analytics' %}">Occasion analytics</a>
-                <a class="nav-pill" href="/">Back to catalogue</a>
-            </div>
-        </header>
+        <nav class="customer-title-actions" aria-label="Customer analytics actions">
+            <span class="dash-ref-date-pill">Snapshot: {{ snapshot_date|default:"30 Apr 2026" }}</span>
+            <a class="dash-ref-button" href="{% url 'bakeops:analytics-dashboard' %}">← Dashboard</a>
+            <a class="dash-ref-button" href="{% url 'bakeops:occasion-analytics' %}">Occasion analytics</a>
+        </nav>
+    </section>
 
-        {% if latest_metric %}
-            <section class="hero">
-                <div class="card">
-                    <span class="badge orange">V2 Sprint 4 · Trusted Customer Analytics</span>
-                    <h1 class="hero-title">Customer loyalty shows where bakery revenue is concentrated.</h1>
-                    <p class="hero-copy">
-                        This page uses the existing V1 gold-layer
-                        <span class="code">CustomerLoyaltySnapshot</span>
-                        records to explain total orders, total revenue, average order value, loyalty points,
-                        and repeat-customer behaviour. It helps a reviewer see whether bakery revenue depends on
-                        repeat customers or one-time customers.
-                    </p>
+    {% if latest_metric %}
 
-                    <div class="badge-row">
-                        <span class="badge">Workspace: {{ workspace.name }}</span>
-                        <span class="badge">Snapshot: {{ snapshot_date }}</span>
-                        <span class="badge">Customers: {{ customer_count }}</span>
-                    </div>
-                </div>
+        <section class="customer-hero-grid" aria-label="Customer analytics summary">
+            <article class="dash-ref-panel dash-ref-panel-pad customer-hero">
+                <span class="dash-ref-kicker is-green">Trusted Customer Analytics</span>
 
-                <div class="card">
-                    <div class="kpi-label">Reviewer Proof Point</div>
-                    <div class="kpi-value">£{{ total_customer_revenue }}</div>
-                    <div class="kpi-foot">
-                        total customer-linked revenue from the latest metric build.<br>
-                        This page explains loyalty patterns without rebuilding metrics.
-                    </div>
-                </div>
-            </section>
+                <h2>Customer loyalty shows where bakery revenue is concentrated.</h2>
 
-            <section class="grid-4">
-                <div class="card">
-                    <div class="kpi-label">Customers Analysed</div>
-                    <div class="kpi-value">{{ customer_count }}</div>
-                    <div class="kpi-foot">Latest customer loyalty snapshot rows.</div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Repeat Customers</div>
-                    <div class="kpi-value">{{ repeat_customer_count }}</div>
-                    <div class="kpi-foot">Customers marked as repeat customers.</div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Customer Orders</div>
-                    <div class="kpi-value">{{ total_customer_orders }}</div>
-                    <div class="kpi-foot">Total orders represented in customer snapshots.</div>
-                </div>
-
-                <div class="card">
-                    <div class="kpi-label">Loyalty Balance</div>
-                    <div class="kpi-value">{{ total_current_points_balance }}</div>
-                    <div class="kpi-foot">Current loyalty points balance across customers.</div>
-                </div>
-            </section>
-
-            {% if top_customer %}
-                <section class="card section focus">
-                    <span class="badge orange">Top Customer Value</span>
-                    <h2>{{ top_customer.customer.full_name }} is the strongest customer revenue signal.</h2>
-
-                    <p class="hero-copy">
-                        {{ top_customer.customer.full_name }} generated
-                        <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
-                        from
-                        <strong>{{ top_customer.snapshot.total_orders }}</strong>
-                        order{{ top_customer.snapshot.total_orders|pluralize }}.
-                        Average order value is
-                        <strong>£{{ top_customer.snapshot.average_order_value }}</strong>.
-                    </p>
-
-                    <div class="focus-grid">
-                        <div class="mini-panel">
-                            <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
-                            <span>Customer revenue</span>
-                        </div>
-
-                        <div class="mini-panel">
-                            <strong>{{ top_customer.revenue_share_percent }}%</strong>
-                            <span>Revenue share</span>
-                        </div>
-
-                        <div class="mini-panel">
-                            <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
-                            <span>Current loyalty points</span>
-                        </div>
-                    </div>
-
-                    <p class="hero-copy" style="margin-top: 18px;">
-                        Why this matters: customer analytics shows whether revenue is supported by repeat behaviour,
-                        loyalty value, and high-value customers rather than only isolated one-off purchases.
-                    </p>
-                </section>
-            {% endif %}
-
-            
-            <section class="customer-visual-layer">
-                <div class="customer-visual-grid">
-                    <div class="card customer-chart-card">
-                        <div class="customer-chart-head">
-                            <div>
-                                <span class="badge orange">Customer Value</span>
-                                <h2>Revenue concentration by customer</h2>
-                                <p>
-                                    Shows whether revenue is concentrated in a small set of customers or spread
-                                    across the current seeded snapshot.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="customer-bar-list">
-                            {% if total_customer_revenue %}
-                                {% for row in customer_rows %}
-                                    <div class="customer-bar-row {% if forloop.first %}is-top{% endif %}">
-                                        <div class="customer-bar-meta">
-                                            <strong>{{ row.customer.full_name }}</strong>
-                                            <span>
-                                                £{{ row.snapshot.total_revenue }}
-                                                · {{ row.revenue_share_percent }}%
-                                            </span>
-                                        </div>
-                                        <div class="customer-bar-track" aria-hidden="true">
-                                            <div class="customer-bar-fill" style="width: {% widthratio row.snapshot.total_revenue total_customer_revenue 100 %}%;"></div>
-                                        </div>
-                                    </div>
-                                {% empty %}
-                                    <div class="empty-state">No customer loyalty rows found.</div>
-                                {% endfor %}
-                            {% else %}
-                                <div class="empty-state">No customer revenue found for this snapshot.</div>
-                            {% endif %}
-                        </div>
-
-                        <p class="customer-proof-note">
-                            This visual uses seeded customer analytics data only. It does not claim CRM usage
-                            or real customer behaviour.
-                        </p>
-                    </div>
-
-                    <div class="card customer-chart-card">
-                        <div class="customer-chart-head">
-                            <div>
-                                <span class="badge teal">Loyalty Behaviour</span>
-                                <h2>Repeat and one-time customer signals</h2>
-                                <p>
-                                    Surfaces customer behaviour categories before the full evidence table.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="customer-behaviour-grid">
-                            {% for row in customer_rows %}
-                                <div class="customer-behaviour-card {% if forloop.first %}is-top{% elif row.customer_label != 'New / one-time customer' %}is-repeat{% endif %}">
-                                    <div>
-                                        <strong>{{ row.customer.full_name }}</strong>
-                                        <span>
-                                            {{ row.snapshot.total_orders }} order{{ row.snapshot.total_orders|pluralize }}
-                                            · {{ row.snapshot.current_points_balance }} current loyalty points
-                                        </span>
-                                    </div>
-                                    <div class="customer-behaviour-badge">
-                                        {{ row.customer_label }}
-                                    </div>
-                                </div>
-                            {% empty %}
-                                <div class="empty-state">No customer behaviour rows found.</div>
-                            {% endfor %}
-                        </div>
-
-                        {% if top_customer %}
-                            <div class="customer-mini-proof">
-                                <div class="mini-panel">
-                                    <strong>{{ top_customer.customer.full_name }}</strong>
-                                    <span>Top customer signal</span>
-                                </div>
-
-                                <div class="mini-panel">
-                                    <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
-                                    <span>Customer revenue</span>
-                                </div>
-
-                                <div class="mini-panel">
-                                    <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
-                                    <span>Current loyalty points</span>
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        <p class="customer-proof-note">
-                            The table below remains the evidence layer for revenue, orders, average order value,
-                            loyalty points, customer signal, and recommended action.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-
-<section class="section">
-                <div class="section-head">
-                    <div>
-                        <h2>Customer Loyalty Deep Dive</h2>
-                        <p>Revenue, order count, average order value, loyalty points, and repeat-customer status.</p>
-                    </div>
-                </div>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Customer</th>
-                                <th>Revenue</th>
-                                <th>Orders</th>
-                                <th>Average Order Value</th>
-                                <th>Loyalty Points</th>
-                                <th>Customer Signal</th>
-                                <th>Recommended Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {% for row in customer_rows %}
-                                <tr class="{% if forloop.first %}top-row{% endif %}">
-                                    <td>
-                                        <strong>{{ row.customer.full_name }}</strong>
-                                        {% if forloop.first %}
-                                            <br><span class="badge orange" style="margin-top: 8px;">Top customer</span>
-                                        {% endif %}
-                                    </td>
-
-                                    <td>
-                                        <span class="metric">£{{ row.snapshot.total_revenue }}</span><br>
-                                        <span class="muted">{{ row.revenue_share_percent }}% of customer revenue</span>
-                                    </td>
-
-                                    <td>{{ row.snapshot.total_orders }}</td>
-
-                                    <td>£{{ row.snapshot.average_order_value }}</td>
-
-                                    <td>
-                                        <strong>{{ row.snapshot.current_points_balance }}</strong> current<br>
-                                        <span class="muted">{{ row.snapshot.loyalty_points_earned }} earned · {{ row.snapshot.loyalty_points_redeemed }} redeemed</span>
-                                    </td>
-
-                                    <td>
-                                        {% if row.customer_label == "High-value repeat" %}
-                                            <span class="pill high-value">{{ row.customer_label }}</span>
-                                        {% elif row.customer_label == "Repeat customer" %}
-                                            <span class="pill repeat">{{ row.customer_label }}</span>
-                                        {% elif row.customer_label == "New / one-time customer" %}
-                                            <span class="pill new">{{ row.customer_label }}</span>
-                                        {% else %}
-                                            <span class="pill monitor">{{ row.customer_label }}</span>
-                                        {% endif %}
-
-                                        <p class="muted" style="margin: 10px 0 0;">
-                                            {{ row.customer_explanation }}
-                                        </p>
-                                    </td>
-
-                                    <td>
-                                        <p class="muted" style="margin: 0;">
-                                            {{ row.recommended_action }}
-                                        </p>
-                                    </td>
-                                </tr>
-                            {% empty %}
-                                <tr>
-                                    <td colspan="7">
-                                        <div class="empty-state">
-                                            No customer analytics snapshots found.
-                                            Run <span class="code">python manage.py build_bakery_metrics</span>.
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        {% else %}
-            <section class="card empty-state">
-                <h1>No customer analytics data found.</h1>
                 <p>
-                    Run the seeded demo and metric build commands first:
+                    This page uses trusted gold-layer
+                    <span class="customer-code">CustomerLoyaltySnapshot</span>
+                    records to explain total orders, total revenue, average order value, loyalty points,
+                    and repeat-customer behaviour. It helps reviewers see whether revenue depends on repeat customers or one-time customers.
                 </p>
+
+                <div class="customer-meta-row" aria-label="Snapshot metadata">
+                    <span class="customer-pill">Workspace: {{ workspace.name }}</span>
+                    <span class="customer-pill">Snapshot: {{ snapshot_date }}</span>
+                    <span class="customer-pill">Customers: {{ customer_count }}</span>
+                </div>
+
+                <a class="dash-ref-button customer-hero-button" href="#customer-loyalty-table">
+                    View loyalty deep-dive →
+                </a>
+            </article>
+
+            <aside class="dash-ref-panel dash-ref-panel-pad customer-proof-card" aria-label="Reviewer proof point">
+                <div class="customer-proof-head">
+                    <div>
+                        <span class="dash-ref-kicker is-green">Reviewer Proof Point</span>
+                        <strong>£{{ total_customer_revenue }}</strong>
+                    </div>
+                    <div class="customer-proof-icon" aria-hidden="true">★</div>
+                </div>
+
                 <p>
-                    <span class="code">python manage.py seed_demo_data --reset</span><br>
-                    <span class="code">python manage.py build_bakery_metrics</span>
+                    Total customer-linked revenue from the latest metric build. This page explains loyalty patterns without rebuilding metrics.
+                </p>
+
+                <div class="customer-proof-mini">
+                    <div class="customer-proof-tile">
+                        <span>Customer orders</span>
+                        <strong>{{ total_customer_orders }}</strong>
+                    </div>
+
+                    <div class="customer-proof-tile">
+                        <span>Repeat customers</span>
+                        <strong>{{ repeat_customer_count }}</strong>
+                    </div>
+                </div>
+
+                <p class="dash-ref-muted customer-proof-note">
+                    Reviewer note: customer concentration is surfaced before the full evidence table.
+                </p>
+            </aside>
+        </section>
+
+        <section class="dash-ref-kpi-grid customer-kpi-grid" aria-label="Customer analytics KPI cards">
+            <article class="dash-ref-kpi">
+                <span>Customers Analysed</span>
+                <strong>{{ customer_count }}</strong>
+                <small>Latest customer loyalty snapshot rows.</small>
+            </article>
+
+            <article class="dash-ref-kpi">
+                <span>Repeat Customers</span>
+                <strong>{{ repeat_customer_count }}</strong>
+                <small>Customers marked as repeat customers.</small>
+            </article>
+
+            <article class="dash-ref-kpi">
+                <span>Customer Orders</span>
+                <strong>{{ total_customer_orders }}</strong>
+                <small>Total orders represented in customer snapshots.</small>
+            </article>
+
+            <article class="dash-ref-kpi">
+                <span>Loyalty Balance</span>
+                <strong>{{ total_current_points_balance }}</strong>
+                <small>Current loyalty points balance across customers.</small>
+            </article>
+        </section>
+
+        {% if top_customer %}
+            <section class="dash-ref-panel dash-ref-panel-pad customer-insight" aria-label="Top customer value insight">
+                <span class="dash-ref-kicker">Top Customer Value</span>
+
+                <h2>{{ top_customer.customer.full_name }} is the strongest customer revenue signal.</h2>
+
+                <p>
+                    {{ top_customer.customer.full_name }} generated
+                    <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
+                    from
+                    <strong>{{ top_customer.snapshot.total_orders }}</strong>
+                    order{{ top_customer.snapshot.total_orders|pluralize }}.
+                    Average order value is
+                    <strong>£{{ top_customer.snapshot.average_order_value }}</strong>.
+                </p>
+
+                <div class="customer-focus-grid">
+                    <div class="customer-mini-panel">
+                        <span>Customer revenue</span>
+                        <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
+                    </div>
+
+                    <div class="customer-mini-panel">
+                        <span>Revenue share</span>
+                        <strong>{{ top_customer.revenue_share_percent }}%</strong>
+                    </div>
+
+                    <div class="customer-mini-panel">
+                        <span>Current loyalty points</span>
+                        <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
+                    </div>
+                </div>
+
+                <p class="customer-insight-note">
+                    Why this matters: customer analytics shows whether revenue is supported by repeat behaviour,
+                    loyalty value, and high-value customers rather than only isolated one-off purchases.
                 </p>
             </section>
         {% endif %}
 
-        <p class="footer-note">
-            BakeOps Intelligence V2 Sprint 4 — trusted customer analytics powered by V1 gold-layer snapshots.
-        </p>
-    </main>
+        <section class="customer-mid-grid" aria-label="Customer value and behaviour panels">
+            <article class="dash-ref-panel dash-ref-panel-pad customer-panel">
+                <div class="dash-ref-card-head">
+                    <div>
+                        <span class="dash-ref-kicker">Customer Value</span>
+                        <h2>Revenue concentration by customer</h2>
+                        <p>Shows whether revenue is concentrated in a small customer set or spread across the current seeded snapshot.</p>
+                    </div>
+                </div>
+
+                <div class="customer-bar-list">
+                    {% if total_customer_revenue %}
+                        {% for row in customer_rows %}
+                            <div class="customer-bar-row {% if forloop.first %}is-top{% endif %}">
+                                <div class="customer-bar-meta">
+                                    <strong>{{ row.customer.full_name }}</strong>
+                                    <span>£{{ row.snapshot.total_revenue }} · {{ row.revenue_share_percent }}%</span>
+                                </div>
+
+                                <div class="customer-bar-track" aria-hidden="true">
+                                    <div class="customer-bar-fill" style="width: {% widthratio row.snapshot.total_revenue total_customer_revenue 100 %}%;"></div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="dash-ref-empty">No customer loyalty rows found.</div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="dash-ref-empty">No customer revenue found for this snapshot.</div>
+                    {% endif %}
+                </div>
+
+                <p class="dash-ref-muted customer-panel-note">
+                    This visual uses seeded customer analytics data only. It does not claim CRM usage or real customer behaviour.
+                </p>
+            </article>
+
+            <article class="dash-ref-panel dash-ref-panel-pad customer-panel">
+                <div class="dash-ref-card-head">
+                    <div>
+                        <span class="dash-ref-kicker is-green">Loyalty Behaviour</span>
+                        <h2>Repeat and one-time customer signals</h2>
+                        <p>Surfaces customer behaviour categories before the full evidence table.</p>
+                    </div>
+                </div>
+
+                <div class="customer-behaviour-list">
+                    {% for row in customer_rows %}
+                        <div class="customer-behaviour-card {% if forloop.first %}is-top{% elif row.customer_label != 'New / one-time customer' %}is-repeat{% endif %}">
+                            <div>
+                                <strong>{{ row.customer.full_name }}</strong>
+                                <span>
+                                    {{ row.snapshot.total_orders }} order{{ row.snapshot.total_orders|pluralize }}
+                                    · {{ row.snapshot.current_points_balance }} current loyalty points
+                                </span>
+                            </div>
+
+                            <div class="customer-behaviour-badge">
+                                {{ row.customer_label }}
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="dash-ref-empty">No customer behaviour rows found.</div>
+                    {% endfor %}
+                </div>
+
+                {% if top_customer %}
+                    <div class="customer-focus-grid customer-focus-grid--compact">
+                        <div class="customer-mini-panel">
+                            <span>Top customer signal</span>
+                            <strong>{{ top_customer.customer.full_name }}</strong>
+                        </div>
+
+                        <div class="customer-mini-panel">
+                            <span>Customer revenue</span>
+                            <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
+                        </div>
+
+                        <div class="customer-mini-panel">
+                            <span>Current loyalty points</span>
+                            <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <p class="dash-ref-muted customer-panel-note">
+                    The table below remains the evidence layer for revenue, orders, average order value,
+                    loyalty points, customer signal, and recommended action.
+                </p>
+            </article>
+        </section>
+
+        <section class="dash-ref-panel dash-ref-panel-pad customer-table-section" id="customer-loyalty-table" aria-labelledby="customer-loyalty-table-title">
+            <div class="dash-ref-card-head">
+                <div>
+                    <span class="dash-ref-kicker is-blue">Operational Evidence</span>
+                    <h2 id="customer-loyalty-table-title">Customer Loyalty Deep Dive</h2>
+                    <p>Revenue, order count, average order value, loyalty points, and repeat-customer status.</p>
+                </div>
+            </div>
+
+            <div class="dash-ref-table-wrap customer-table-wrap">
+                <table class="dash-ref-table customer-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Revenue</th>
+                            <th scope="col">Orders</th>
+                            <th scope="col">Average Order Value</th>
+                            <th scope="col">Loyalty Points</th>
+                            <th scope="col">Customer Signal</th>
+                            <th scope="col">Recommended Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in customer_rows %}
+                            <tr class="{% if forloop.first %}is-top{% endif %}">
+                                <td>
+                                    <strong>{{ row.customer.full_name }}</strong>
+                                    {% if forloop.first %}
+                                        <br>
+                                        <span class="dash-ref-status customer-status high-value customer-top-badge">
+                                            Top customer
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <span class="customer-metric">£{{ row.snapshot.total_revenue }}</span><br>
+                                    <small>{{ row.revenue_share_percent }}% of customer revenue</small>
+                                </td>
+
+                                <td>
+                                    <strong>{{ row.snapshot.total_orders }}</strong>
+                                </td>
+
+                                <td>
+                                    <strong>£{{ row.snapshot.average_order_value }}</strong>
+                                </td>
+
+                                <td>
+                                    <strong>{{ row.snapshot.current_points_balance }}</strong> current<br>
+                                    <small>
+                                        {{ row.snapshot.loyalty_points_earned }} earned · {{ row.snapshot.loyalty_points_redeemed }} redeemed
+                                    </small>
+                                </td>
+
+                                <td>
+                                    {% if row.customer_label == "High-value repeat" %}
+                                        <span class="dash-ref-status customer-status high-value">{{ row.customer_label }}</span>
+                                    {% elif row.customer_label == "Repeat customer" %}
+                                        <span class="dash-ref-status customer-status repeat">{{ row.customer_label }}</span>
+                                    {% elif row.customer_label == "New / one-time customer" %}
+                                        <span class="dash-ref-status customer-status new">{{ row.customer_label }}</span>
+                                    {% else %}
+                                        <span class="dash-ref-status customer-status monitor">{{ row.customer_label }}</span>
+                                    {% endif %}
+
+                                    <p class="customer-table-note">
+                                        {{ row.customer_explanation }}
+                                    </p>
+                                </td>
+
+                                <td>
+                                    <p class="customer-table-note is-flush">
+                                        {{ row.recommended_action }}
+                                    </p>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="7">
+                                    <div class="dash-ref-empty">
+                                        No customer analytics snapshots found.
+                                        Run <span class="customer-code">python manage.py build_bakery_metrics</span>.
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    {% else %}
+
+        <section class="dash-ref-panel dash-ref-panel-pad" aria-label="No customer analytics data">
+            <span class="dash-ref-kicker">No Customer Analytics Data</span>
+            <h2>No customer analytics data found.</h2>
+            <p class="dash-ref-muted">
+                Run <span class="customer-code">python manage.py seed_demo_data --reset</span>
+                and <span class="customer-code">python manage.py build_bakery_metrics</span>, then refresh this page.
+            </p>
+        </section>
+
+    {% endif %}
+
+    <footer class="dash-ref-footer">
+        BakeOps Intelligence V3 — trusted customer analytics powered by gold-layer snapshots.
+    </footer>
+</main>
 {% endblock %}

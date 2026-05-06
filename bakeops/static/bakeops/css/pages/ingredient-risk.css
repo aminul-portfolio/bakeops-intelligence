@@ -1,0 +1,759 @@
+/* ============================================================
+   Ingredient Risk — Dashboard-Aligned Page Layer
+   Version: 5T Final
+
+   Important:
+   - This file is page-level only.
+   - Load analytics-dashboard.css before this file.
+   - Load analytics-final-lock.css after this file from base_analytics.html.
+   - Do not add global shell/frame/sidebar/topbar rules here.
+   ============================================================ */
+
+.ingredient-ref-page {
+    --ingredient-line: rgba(148, 163, 184, 0.14);
+    --ingredient-line-strong: rgba(148, 163, 184, 0.26);
+    --ingredient-muted: #94a3b8;
+    --ingredient-muted-strong: #cbd5e1;
+    --ingredient-text: #f8fafc;
+    --ingredient-orange: #f97316;
+    --ingredient-amber: #f59e0b;
+    --ingredient-red: #ef4444;
+    --ingredient-green: #22c55e;
+    --ingredient-blue: #38bdf8;
+    --ingredient-purple: #8b5cf6;
+
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-inline: 0 !important;
+    display: grid !important;
+    gap: 1rem !important;
+    box-sizing: border-box !important;
+    color: var(--dash-text, var(--ingredient-text));
+}
+
+.ingredient-ref-page *,
+.ingredient-ref-page *::before,
+.ingredient-ref-page *::after {
+    box-sizing: border-box;
+}
+
+.ingredient-ref-page a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ingredient-ref-page > section,
+.ingredient-page-title-row,
+.ingredient-hero-grid,
+.ingredient-kpi-grid,
+.ingredient-alert-strip,
+.ingredient-mid-grid,
+.ingredient-table-section,
+.ingredient-definitions-section {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* ============================================================
+   Page Header
+   ============================================================ */
+
+.ingredient-page-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.ingredient-title-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.ingredient-title-actions .dash-ref-button,
+.ingredient-title-actions .dash-ref-date-pill,
+.ingredient-alert-button {
+    margin-top: 0;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.ingredient-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(420px, 0.85fr);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.ingredient-hero {
+    position: relative;
+    min-height: 17.5rem;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 82% 24%, rgba(239, 68, 68, 0.22), transparent 13rem),
+        radial-gradient(circle at 74% 10%, rgba(139, 92, 246, 0.16), transparent 16rem),
+        radial-gradient(circle at 8% 0%, rgba(249, 115, 22, 0.14), transparent 18rem),
+        linear-gradient(180deg, rgba(30, 41, 59, 0.82), rgba(15, 23, 42, 0.68));
+}
+
+.ingredient-hero::after {
+    content: "!";
+    position: absolute;
+    right: clamp(1rem, 4vw, 4rem);
+    top: 50%;
+    width: clamp(5.5rem, 12vw, 10rem);
+    height: clamp(5.5rem, 12vw, 10rem);
+    display: grid;
+    place-items: center;
+    border-radius: 1.7rem;
+    color: #fff7ed;
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    font-weight: 950;
+    background:
+        linear-gradient(135deg, rgba(239, 68, 68, 0.64), rgba(139, 92, 246, 0.30)),
+        rgba(15, 23, 42, 0.82);
+    border: 1px solid rgba(248, 113, 113, 0.30);
+    box-shadow:
+        0 28px 65px rgba(239, 68, 68, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transform: translateY(-50%) rotate(-4deg);
+    opacity: 0.92;
+}
+
+.ingredient-hero > * {
+    position: relative;
+    z-index: 2;
+}
+
+.ingredient-hero h2 {
+    max-width: 720px;
+    margin: 0.85rem 0 0;
+    font-size: clamp(2.2rem, 3.65vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+}
+
+.ingredient-hero p {
+    max-width: 730px;
+    margin: 0.9rem 0 0;
+    color: var(--dash-muted-strong, var(--ingredient-muted-strong));
+    font-size: 0.92rem;
+    line-height: 1.58;
+}
+
+.ingredient-hero-button {
+    width: fit-content;
+    margin-top: 1rem;
+}
+
+.ingredient-code {
+    display: inline-flex;
+    padding: 0.08rem 0.42rem;
+    border-radius: 0.45rem;
+    color: #fed7aa;
+    background: rgba(124, 45, 18, 0.28);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.86em;
+}
+
+.ingredient-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.ingredient-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.55rem;
+    padding: 0.24rem 0.58rem;
+    border-radius: 999px;
+    border: 1px solid var(--dash-line, var(--ingredient-line));
+    color: var(--dash-muted-strong, var(--ingredient-muted-strong));
+    background: rgba(15, 23, 42, 0.58);
+    font-size: 0.68rem;
+    font-weight: 950;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   Reviewer Proof Card
+   ============================================================ */
+
+.ingredient-proof-card {
+    min-height: 17.5rem;
+    border-color: rgba(239, 68, 68, 0.20);
+    background:
+        radial-gradient(circle at top right, rgba(239, 68, 68, 0.18), transparent 12rem),
+        radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.08), transparent 12rem),
+        rgba(15, 23, 42, 0.74);
+}
+
+.ingredient-proof-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.ingredient-proof-head strong {
+    display: block;
+    margin-top: 0.65rem;
+    font-size: clamp(3rem, 5vw, 4.65rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+}
+
+.ingredient-proof-icon {
+    width: 2.65rem;
+    height: 2.65rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: #fecaca;
+    border: 1px solid rgba(248, 113, 113, 0.34);
+    background: rgba(127, 29, 29, 0.26);
+    font-weight: 950;
+}
+
+.ingredient-proof-card p {
+    margin: 0.9rem 0 0;
+    color: var(--dash-muted-strong, var(--ingredient-muted-strong));
+    line-height: 1.55;
+    font-size: 0.9rem;
+}
+
+.ingredient-proof-mini {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 1rem;
+}
+
+.ingredient-proof-tile,
+.ingredient-stock-row,
+.ingredient-review-card,
+.ingredient-small-proof-card,
+.ingredient-def-card {
+    border: 1px solid var(--dash-line, var(--ingredient-line));
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.ingredient-proof-tile {
+    padding: 0.78rem;
+}
+
+.ingredient-proof-tile span,
+.ingredient-small-proof-card span {
+    display: block;
+    color: var(--dash-muted, var(--ingredient-muted));
+    font-size: 0.68rem;
+    font-weight: 950;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.ingredient-proof-tile strong {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 1.35rem;
+    letter-spacing: -0.045em;
+}
+
+/* ============================================================
+   KPI Grid
+   ============================================================ */
+
+.ingredient-ref-page .ingredient-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.ingredient-ref-page .dash-ref-kpi {
+    min-width: 0;
+}
+
+/* ============================================================
+   Immediate Review Alert
+   ============================================================ */
+
+.ingredient-alert-strip {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(150px, 0.42fr)) auto;
+    gap: 0.9rem;
+    align-items: center;
+    border-color: rgba(248, 113, 113, 0.34);
+    background:
+        radial-gradient(circle at 90% 10%, rgba(239, 68, 68, 0.18), transparent 16rem),
+        linear-gradient(90deg, rgba(127, 29, 29, 0.30), rgba(15, 23, 42, 0.72));
+}
+
+.ingredient-alert-title span {
+    color: #fecaca;
+    font-weight: 950;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ingredient-alert-title strong {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: clamp(1.25rem, 1.7vw, 1.8rem);
+    letter-spacing: -0.04em;
+}
+
+.ingredient-alert-metric {
+    padding: 0.75rem;
+    border: 1px solid rgba(248, 113, 113, 0.18);
+    border-radius: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.ingredient-alert-metric span {
+    display: block;
+    color: var(--dash-muted, var(--ingredient-muted));
+    font-size: 0.66rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ingredient-alert-metric strong {
+    display: block;
+    margin-top: 0.28rem;
+    font-size: 1.35rem;
+    letter-spacing: -0.04em;
+}
+
+/* ============================================================
+   Mid Panels
+   ============================================================ */
+
+.ingredient-mid-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(420px, 0.9fr);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.ingredient-panel {
+    min-height: 22rem;
+    background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 12rem),
+        rgba(15, 23, 42, 0.70);
+}
+
+.ingredient-stock-list,
+.ingredient-review-list {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.ingredient-stock-row {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.78rem;
+}
+
+.ingredient-stock-row.is-risk,
+.ingredient-review-card.is-risk {
+    border-color: rgba(248, 113, 113, 0.34);
+    background:
+        radial-gradient(circle at right, rgba(239, 68, 68, 0.10), transparent 12rem),
+        rgba(127, 29, 29, 0.18);
+}
+
+.ingredient-stock-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    align-items: baseline;
+}
+
+.ingredient-stock-meta strong,
+.ingredient-review-card strong {
+    font-size: 0.88rem;
+}
+
+.ingredient-stock-meta span,
+.ingredient-stock-scale,
+.ingredient-review-card span {
+    color: var(--dash-muted, var(--ingredient-muted));
+    font-size: 0.74rem;
+    line-height: 1.4;
+}
+
+.ingredient-stock-meta span {
+    text-align: right;
+}
+
+.ingredient-stock-track {
+    height: 0.8rem;
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.ingredient-stock-fill {
+    height: 100%;
+    max-width: 100%;
+    min-width: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.82), rgba(34, 197, 94, 0.86));
+}
+
+.ingredient-stock-row.is-risk .ingredient-stock-fill {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.86), rgba(239, 68, 68, 0.88));
+}
+
+.ingredient-stock-scale {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredient-review-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.78rem;
+}
+
+.ingredient-shortage {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.35rem 0.58rem;
+    color: #fecaca;
+    border: 1px solid rgba(248, 113, 113, 0.34);
+    background: rgba(127, 29, 29, 0.24);
+    font-size: 0.7rem;
+    font-weight: 950;
+    white-space: nowrap;
+}
+
+.ingredient-small-proof {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 1rem;
+}
+
+.ingredient-small-proof-card,
+.ingredient-def-card {
+    padding: 0.78rem;
+}
+
+.ingredient-small-proof-card strong {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 1rem;
+    letter-spacing: -0.035em;
+}
+
+/* ============================================================
+   Table
+   ============================================================ */
+
+.ingredient-table-section {
+    overflow: hidden;
+}
+
+.ingredient-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.ingredient-table {
+    width: 100%;
+    min-width: 1080px;
+    table-layout: fixed;
+}
+
+.ingredient-table th,
+.ingredient-table td {
+    padding: 0.68rem 0.58rem;
+    font-size: 0.74rem;
+    line-height: 1.38;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+}
+
+.ingredient-table th {
+    font-size: 0.61rem;
+    letter-spacing: 0.07em;
+}
+
+.ingredient-table tr.is-risk {
+    background: linear-gradient(90deg, rgba(127, 29, 29, 0.18), rgba(15, 23, 42, 0.35));
+}
+
+.ingredient-table th:nth-child(1),
+.ingredient-table td:nth-child(1) {
+    width: 100px;
+}
+
+.ingredient-table th:nth-child(2),
+.ingredient-table td:nth-child(2) {
+    width: 210px;
+}
+
+.ingredient-table th:nth-child(3),
+.ingredient-table td:nth-child(3) {
+    width: 120px;
+}
+
+.ingredient-table th:nth-child(4),
+.ingredient-table td:nth-child(4) {
+    width: 120px;
+}
+
+.ingredient-table th:nth-child(5),
+.ingredient-table td:nth-child(5) {
+    width: 105px;
+}
+
+.ingredient-table th:nth-child(6),
+.ingredient-table td:nth-child(6) {
+    width: 105px;
+}
+
+.ingredient-table th:nth-child(7),
+.ingredient-table td:nth-child(7) {
+    width: 130px;
+}
+
+.ingredient-table th:nth-child(8),
+.ingredient-table td:nth-child(8) {
+    width: 190px;
+}
+
+.ingredient-table-note {
+    margin: 0.55rem 0 0;
+    color: var(--dash-muted, var(--ingredient-muted));
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+
+.ingredient-table-note.is-flush {
+    margin: 0;
+}
+
+.ingredient-metric {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    min-height: 1.3rem;
+    padding: 0.12rem 0.36rem;
+    border-radius: 999px;
+    color: var(--dash-text, var(--ingredient-text));
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    font-size: 0.66rem;
+    font-weight: 950;
+}
+
+/* ============================================================
+   Status / Risk Pills
+   ============================================================ */
+
+.ingredient-risk-pill {
+    white-space: nowrap;
+}
+
+.dash-ref-status.ingredient-risk-pill.critical,
+.dash-ref-status.ingredient-risk-pill.high {
+    color: #fecaca;
+    border-color: rgba(248, 113, 113, 0.36);
+    background: rgba(127, 29, 29, 0.22);
+}
+
+.dash-ref-status.ingredient-risk-pill.medium {
+    color: #fed7aa;
+    border-color: rgba(249, 115, 22, 0.36);
+    background: rgba(124, 45, 18, 0.24);
+}
+
+.dash-ref-status.ingredient-risk-pill.low {
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.34);
+    background: rgba(22, 101, 52, 0.20);
+}
+
+.ingredient-negative {
+    color: #fed7aa;
+    font-weight: 950;
+}
+
+.ingredient-positive {
+    color: #bbf7d0;
+    font-weight: 950;
+}
+
+/* ============================================================
+   Definitions
+   ============================================================ */
+
+.ingredient-def-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.72rem;
+}
+
+.ingredient-def-card {
+    min-height: 8.5rem;
+}
+
+.ingredient-def-card p {
+    margin: 0.7rem 0 0;
+    color: var(--dash-muted-strong, var(--ingredient-muted-strong));
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   Final Width + Grid Parity
+   Keep this at the bottom.
+   ============================================================ */
+
+.ingredient-ref-page .dash-ref-panel,
+.ingredient-ref-page .dash-ref-kpi,
+.ingredient-ref-page .ingredient-stock-row,
+.ingredient-ref-page .ingredient-review-card,
+.ingredient-ref-page .ingredient-def-card,
+.ingredient-ref-page .ingredient-proof-card,
+.ingredient-ref-page .ingredient-panel {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Desktop: do not collapse early. */
+@media (min-width: 1101px) {
+    .ingredient-page-title-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 1rem !important;
+    }
+
+    .ingredient-hero-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1.65fr) minmax(420px, 0.85fr) !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+
+    .ingredient-ref-page .ingredient-kpi-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 0.85rem !important;
+    }
+
+    .ingredient-alert-strip {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(150px, 0.42fr)) auto !important;
+        gap: 0.9rem !important;
+        align-items: center !important;
+    }
+
+    .ingredient-mid-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1.1fr) minmax(420px, 0.9fr) !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+
+    .ingredient-def-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 0.72rem !important;
+    }
+}
+
+/* Tablet/mobile: collapse only after the desktop shell changes. */
+@media (max-width: 1100px) {
+    .ingredient-page-title-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .ingredient-title-actions {
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+
+    .ingredient-hero-grid,
+    .ingredient-ref-page .ingredient-kpi-grid,
+    .ingredient-alert-strip,
+    .ingredient-mid-grid,
+    .ingredient-def-grid,
+    .ingredient-proof-mini,
+    .ingredient-small-proof {
+        grid-template-columns: 1fr !important;
+    }
+
+    .ingredient-hero::after {
+        opacity: 0.25;
+    }
+}
+
+/* Mobile polish */
+@media (max-width: 640px) {
+    .ingredient-title-actions,
+    .ingredient-title-actions .dash-ref-button,
+    .ingredient-title-actions .dash-ref-date-pill {
+        width: 100% !important;
+    }
+
+    .ingredient-hero::after {
+        display: none !important;
+    }
+
+    .ingredient-hero h2 {
+        font-size: clamp(2rem, 11vw, 3rem) !important;
+    }
+
+    .ingredient-stock-meta,
+    .ingredient-stock-scale,
+    .ingredient-review-card {
+        grid-template-columns: 1fr !important;
+        align-items: flex-start;
+    }
+
+    .ingredient-stock-meta {
+        flex-direction: column;
+    }
+
+    .ingredient-stock-meta span {
+        text-align: left;
+    }
+}
