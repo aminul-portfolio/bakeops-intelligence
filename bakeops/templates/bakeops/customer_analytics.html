@@ -8,840 +8,37 @@
 {% endblock %}
 
 {% block page_styles %}
-<style>
-    /* 5F.1 — Customer Analytics Exact-Reference Rebuild */
-
-    @media (min-width: 1101px) {
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-app-shell {
-            display: grid !important;
-            grid-template-columns: 292px minmax(0, 1fr) !important;
-            padding-left: 0 !important;
-            align-items: start !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-sidebar {
-            position: relative !important;
-            width: 292px !important;
-            min-width: 292px !important;
-            max-width: 292px !important;
-            height: 100vh !important;
-            min-height: 100vh !important;
-            overflow-y: auto !important;
-            z-index: 20 !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-main-frame {
-            grid-column: 2 !important;
-            width: 100% !important;
-            min-width: 0 !important;
-            margin-left: 0 !important;
-            padding-left: 2.25rem !important;
-            padding-right: 1.5rem !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-topbar {
-            position: relative !important;
-            top: auto !important;
-            z-index: 5 !important;
-            width: 100% !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-page-frame {
-            width: 100% !important;
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 1.15rem 0 2rem !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-page-frame > main.customer-ref-page {
-            width: 100% !important;
-            max-width: 1240px !important;
-            margin-left: 0 !important;
-            margin-right: auto !important;
-        }
-    }
-
-    .customer-ref-page {
-        --panel: rgba(8, 22, 35, 0.86);
-        --panel-2: rgba(10, 28, 45, 0.78);
-        --line: rgba(125, 158, 190, 0.16);
-        --line-strong: rgba(125, 158, 190, 0.26);
-        --text: #f8fafc;
-        --muted: #8fa5ba;
-        --muted-strong: #cbd5e1;
-        --orange: #f59e0b;
-        --orange-2: #f97316;
-        --red: #ef4444;
-        --green: #22c55e;
-        --blue: #38bdf8;
-        --purple: #7c3aed;
-
-        width: 100%;
-        max-width: 1240px;
-        margin-inline: auto;
-        display: grid;
-        gap: 1rem;
-        color: var(--text);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.01em;
-    }
-
-    .customer-ref-page *,
-    .customer-ref-page *::before,
-    .customer-ref-page *::after {
-        box-sizing: border-box;
-    }
-
-    .customer-ref-page a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .customer-page-header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: end;
-        gap: 1rem;
-        margin-top: 0.25rem;
-    }
-
-    .customer-page-title small {
-        display: block;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-    }
-
-    .customer-page-title h1 {
-        margin: 0.2rem 0 0;
-        font-size: clamp(1.9rem, 2.25vw, 2.4rem);
-        line-height: 1.05;
-        letter-spacing: -0.045em;
-    }
-
-    .customer-page-title p {
-        margin: 0.35rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.9rem;
-        line-height: 1.5;
-    }
-
-    .customer-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 0.55rem;
-    }
-
-    .customer-btn,
-    .customer-cta {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.35rem;
-        padding: 0.48rem 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.75rem;
-        color: var(--muted-strong);
-        background: rgba(15, 33, 52, 0.62);
-        font-size: 0.82rem;
-        font-weight: 800;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
-    }
-
-    .customer-cta {
-        color: #fff7ed;
-        border-color: rgba(245, 158, 11, 0.42);
-        background:
-            linear-gradient(135deg, rgba(245, 158, 11, 0.38), rgba(249, 115, 22, 0.22)),
-            rgba(15, 33, 52, 0.72);
-    }
-
-    .customer-card {
-        border: 1px solid var(--line);
-        border-radius: 1rem;
-        background:
-            linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)),
-            var(--panel);
-        box-shadow:
-            0 16px 42px rgba(0, 0, 0, 0.22),
-            inset 0 1px 0 rgba(255,255,255,0.035);
-        overflow: hidden;
-    }
-
-    .customer-badge,
-    .customer-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: fit-content;
-        min-height: 1.55rem;
-        padding: 0.24rem 0.58rem;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        color: var(--muted-strong);
-        background: rgba(15, 33, 52, 0.58);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    .customer-badge.is-warning,
-    .customer-pill.high-value {
-        color: #fed7aa;
-        border-color: rgba(245, 158, 11, 0.38);
-        background: rgba(120, 53, 15, 0.26);
-    }
-
-    .customer-pill.repeat {
-        color: #bbf7d0;
-        border-color: rgba(34, 197, 94, 0.34);
-        background: rgba(22, 101, 52, 0.22);
-    }
-
-    .customer-pill.new {
-        color: #bae6fd;
-        border-color: rgba(56, 189, 248, 0.30);
-        background: rgba(14, 116, 144, 0.18);
-    }
-
-    .customer-pill.monitor {
-        color: #fef08a;
-        border-color: rgba(250, 204, 21, 0.30);
-        background: rgba(113, 63, 18, 0.22);
-    }
-
-    .customer-hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.52fr) minmax(340px, 0.78fr);
-        gap: 1rem;
-        align-items: stretch;
-    }
-
-    .customer-hero {
-        position: relative;
-        min-height: 18.5rem;
-        padding: 1.15rem;
-        background:
-            radial-gradient(circle at 80% 28%, rgba(34, 197, 94, 0.18), transparent 13rem),
-            radial-gradient(circle at 74% 12%, rgba(124, 58, 237, 0.16), transparent 16rem),
-            radial-gradient(circle at 8% 0%, rgba(245, 158, 11, 0.12), transparent 18rem),
-            linear-gradient(180deg, rgba(12, 25, 40, 0.95), rgba(8, 22, 35, 0.82));
-    }
-
-    .customer-hero::after {
-        content: "★";
-        position: absolute;
-        right: clamp(1rem, 4vw, 4rem);
-        top: 50%;
-        width: clamp(6rem, 13vw, 11rem);
-        height: clamp(6rem, 13vw, 11rem);
-        display: grid;
-        place-items: center;
-        border-radius: 1.8rem;
-        color: #fff7ed;
-        font-size: clamp(2.8rem, 5.4vw, 5rem);
-        font-weight: 900;
-        background:
-            linear-gradient(135deg, rgba(34, 197, 94, 0.52), rgba(124, 58, 237, 0.34)),
-            rgba(15, 23, 42, 0.82);
-        border: 1px solid rgba(34, 197, 94, 0.28);
-        box-shadow:
-            0 28px 65px rgba(34, 197, 94, 0.14),
-            inset 0 1px 0 rgba(255,255,255,0.06);
-        transform: translateY(-50%) rotate(-4deg);
-        opacity: 0.94;
-    }
-
-    .customer-hero > * {
-        position: relative;
-        z-index: 2;
-    }
-
-    .customer-hero h2 {
-        max-width: 710px;
-        margin: 1rem 0 0;
-        font-size: clamp(2.95rem, 4.35vw, 4.55rem);
-        line-height: 0.98;
-        letter-spacing: -0.06em;
-        font-weight: 780;
-    }
-
-    .customer-hero p {
-        max-width: 700px;
-        margin: 1rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.98rem;
-        line-height: 1.58;
-    }
-
-    .customer-code {
-        display: inline-flex;
-        padding: 0.08rem 0.42rem;
-        border-radius: 0.45rem;
-        color: #fed7aa;
-        background: rgba(120, 53, 15, 0.34);
-        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 0.86em;
-    }
-
-    .customer-meta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1.1rem;
-    }
-
-    .customer-proof-card {
-        min-height: 18.5rem;
-        padding: 1.1rem;
-        border-color: rgba(34, 197, 94, 0.22);
-        background:
-            radial-gradient(circle at top right, rgba(34, 197, 94, 0.18), transparent 12rem),
-            radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.08), transparent 12rem),
-            rgba(8, 22, 35, 0.90);
-    }
-
-    .customer-proof-head {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-
-    .customer-proof-title span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-    }
-
-    .customer-proof-title strong {
-        display: block;
-        margin-top: 0.65rem;
-        font-size: clamp(2.5rem, 4.4vw, 4rem);
-        line-height: 1;
-        letter-spacing: -0.06em;
-    }
-
-    .customer-proof-icon {
-        width: 2.65rem;
-        height: 2.65rem;
-        display: grid;
-        place-items: center;
-        border-radius: 999px;
-        color: #bbf7d0;
-        border: 1px solid rgba(34, 197, 94, 0.34);
-        background: rgba(22, 101, 52, 0.24);
-        font-weight: 900;
-    }
-
-    .customer-proof-card p {
-        margin: 1rem 0 0;
-        color: var(--muted-strong);
-        line-height: 1.58;
-    }
-
-    .customer-proof-mini {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-
-    .customer-proof-tile {
-        padding: 0.8rem;
-        border: 1px solid var(--line);
-        border-radius: 0.8rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .customer-proof-tile strong {
-        display: block;
-        font-size: 1.35rem;
-        letter-spacing: -0.04em;
-    }
-
-    .customer-proof-tile span {
-        display: block;
-        margin-top: 0.35rem;
-        color: var(--muted);
-        font-size: 0.76rem;
-    }
-
-    .customer-kpi-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.8rem;
-    }
-
-    .customer-kpi {
-        position: relative;
-        min-height: 8rem;
-        padding: 1rem;
-        background:
-            radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 9rem),
-            rgba(10, 28, 45, 0.78);
-    }
-
-    .customer-kpi-icon {
-        width: 2.45rem;
-        height: 2.45rem;
-        display: grid;
-        place-items: center;
-        margin-bottom: 0.75rem;
-        border-radius: 999px;
-        color: #bbf7d0;
-        background: rgba(22, 101, 52, 0.22);
-        border: 1px solid rgba(34, 197, 94, 0.28);
-        font-weight: 900;
-    }
-
-    .customer-kpi-icon.is-purple {
-        color: #ddd6fe;
-        background: rgba(88, 28, 135, 0.28);
-        border-color: rgba(168, 85, 247, 0.28);
-    }
-
-    .customer-kpi-icon.is-blue {
-        color: #bae6fd;
-        background: rgba(14, 116, 144, 0.18);
-        border-color: rgba(56, 189, 248, 0.28);
-    }
-
-    .customer-kpi-icon.is-orange {
-        color: #fed7aa;
-        background: rgba(120, 53, 15, 0.28);
-        border-color: rgba(245, 158, 11, 0.28);
-    }
-
-    .customer-kpi span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.7rem;
-        font-weight: 900;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-    }
-
-    .customer-kpi strong {
-        display: block;
-        margin-top: 0.45rem;
-        font-size: 2.35rem;
-        line-height: 1;
-        letter-spacing: -0.055em;
-    }
-
-    .customer-kpi small {
-        display: block;
-        margin-top: 0.42rem;
-        color: var(--muted-strong);
-        line-height: 1.42;
-    }
-
-    .customer-insight {
-        padding: 1rem;
-        border-color: rgba(249, 115, 22, 0.40);
-        background:
-            radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 14rem),
-            linear-gradient(180deg, rgba(39, 31, 27, 0.86), rgba(8, 22, 35, 0.76));
-    }
-
-    .customer-insight h2,
-    .customer-panel-head h2,
-    .customer-section h2 {
-        margin: 0;
-        font-size: clamp(1.45rem, 2vw, 2rem);
-        letter-spacing: -0.04em;
-    }
-
-    .customer-insight p,
-    .customer-panel-head p,
-    .customer-section p {
-        margin: 0.25rem 0 0;
-        color: var(--muted-strong);
-        line-height: 1.5;
-        font-size: 0.9rem;
-    }
-
-    .customer-focus-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-
-    .customer-mini-panel {
-        min-height: 5.5rem;
-        padding: 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.8rem;
-        background: rgba(255,255,255,0.04);
-    }
-
-    .customer-mini-panel strong {
-        display: block;
-        font-size: 1.35rem;
-        line-height: 1.05;
-        letter-spacing: -0.04em;
-    }
-
-    .customer-mini-panel span {
-        display: block;
-        margin-top: 0.35rem;
-        color: var(--muted);
-        font-size: 0.76rem;
-    }
-
-    .customer-mid-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
-        gap: 1rem;
-        align-items: stretch;
-    }
-
-    .customer-panel {
-        padding: 1rem;
-        min-height: 22rem;
-        background:
-            radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 12rem),
-            rgba(8, 22, 35, 0.82);
-    }
-
-    .customer-panel-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .customer-bar-list {
-        display: grid;
-        gap: 0.75rem;
-    }
-
-    .customer-bar-row {
-        display: grid;
-        gap: 0.55rem;
-        padding: 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.9rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .customer-bar-row.is-top {
-        border-color: rgba(249, 115, 22, 0.38);
-        background:
-            radial-gradient(circle at right, rgba(249, 115, 22, 0.14), transparent 10rem),
-            rgba(120, 53, 15, 0.18);
-    }
-
-    .customer-bar-meta {
-        display: flex;
-        justify-content: space-between;
-        gap: 0.8rem;
-        align-items: baseline;
-    }
-
-    .customer-bar-meta strong {
-        font-size: 0.92rem;
-    }
-
-    .customer-bar-meta span {
-        color: var(--muted);
-        font-size: 0.78rem;
-        text-align: right;
-    }
-
-    .customer-bar-track {
-        height: 0.85rem;
-        overflow: hidden;
-        border-radius: 999px;
-        border: 1px solid rgba(125, 158, 190, 0.12);
-        background: rgba(255,255,255,0.07);
-    }
-
-    .customer-bar-fill {
-        height: 100%;
-        max-width: 100%;
-        min-width: 4px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgba(56, 189, 248, 0.70), rgba(34, 197, 94, 0.92));
-    }
-
-    .customer-behaviour-list {
-        display: grid;
-        gap: 0.75rem;
-    }
-
-    .customer-behaviour-card {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 0.75rem;
-        align-items: center;
-        padding: 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.9rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .customer-behaviour-card.is-repeat {
-        border-color: rgba(34, 197, 94, 0.34);
-        background:
-            radial-gradient(circle at right, rgba(34, 197, 94, 0.10), transparent 10rem),
-            rgba(22, 101, 52, 0.14);
-    }
-
-    .customer-behaviour-card.is-top {
-        border-color: rgba(249, 115, 22, 0.38);
-        background:
-            radial-gradient(circle at right, rgba(249, 115, 22, 0.12), transparent 10rem),
-            rgba(120, 53, 15, 0.20);
-    }
-
-    .customer-behaviour-card strong {
-        display: block;
-        font-size: 0.92rem;
-    }
-
-    .customer-behaviour-card span {
-        display: block;
-        margin-top: 0.25rem;
-        color: var(--muted);
-        font-size: 0.78rem;
-        line-height: 1.4;
-    }
-
-    .customer-behaviour-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 7.8rem;
-        padding: 0.42rem 0.62rem;
-        border-radius: 999px;
-        color: #bbf7d0;
-        border: 1px solid rgba(34, 197, 94, 0.38);
-        background: rgba(22, 101, 52, 0.22);
-        font-size: 0.72rem;
-        font-weight: 850;
-        white-space: nowrap;
-    }
-
-    .customer-behaviour-card.is-top .customer-behaviour-badge {
-        color: #fed7aa;
-        border-color: rgba(245, 158, 11, 0.38);
-        background: rgba(120, 53, 15, 0.26);
-    }
-
-    .customer-table-wrap {
-        width: 100%;
-        overflow-x: auto;
-        border: 1px solid var(--line);
-        border-radius: 0.95rem;
-        background: rgba(8, 22, 35, 0.78);
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.20);
-    }
-
-    .customer-table {
-        width: 100%;
-        min-width: 980px;
-        border-collapse: collapse;
-        table-layout: fixed;
-    }
-
-    .customer-table th,
-    .customer-table td {
-        padding: 0.68rem 0.52rem;
-        border-right: 1px solid rgba(125, 158, 190, 0.09);
-        border-bottom: 1px solid rgba(125, 158, 190, 0.10);
-        text-align: left;
-        vertical-align: top;
-        font-size: 0.71rem;
-        line-height: 1.34;
-        overflow-wrap: anywhere;
-    }
-
-    .customer-table th {
-        color: var(--muted);
-        background: rgba(10, 28, 45, 0.92);
-        font-size: 0.58rem;
-        font-weight: 900;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-    }
-
-    .customer-table tr.is-top {
-        background:
-            linear-gradient(90deg, rgba(120, 53, 15, 0.22), rgba(8, 22, 35, 0.55));
-    }
-
-    .customer-table tr:last-child td {
-        border-bottom: 0;
-    }
-
-    .customer-table td:last-child,
-    .customer-table th:last-child {
-        border-right: 0;
-    }
-
-    .customer-table th:nth-child(1),
-    .customer-table td:nth-child(1) { width: 14%; }
-
-    .customer-table th:nth-child(2),
-    .customer-table td:nth-child(2) { width: 13%; }
-
-    .customer-table th:nth-child(3),
-    .customer-table td:nth-child(3) { width: 7%; }
-
-    .customer-table th:nth-child(4),
-    .customer-table td:nth-child(4) { width: 13%; }
-
-    .customer-table th:nth-child(5),
-    .customer-table td:nth-child(5) { width: 15%; }
-
-    .customer-table th:nth-child(6),
-    .customer-table td:nth-child(6) { width: 19%; }
-
-    .customer-table th:nth-child(7),
-    .customer-table td:nth-child(7) { width: 19%; }
-
-    .customer-metric {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 2.25rem;
-        min-height: 1.28rem;
-        padding: 0.1rem 0.32rem;
-        border-radius: 999px;
-        color: var(--text);
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(125, 158, 190, 0.14);
-        font-size: 0.63rem;
-        font-weight: 850;
-    }
-
-    .customer-muted {
-        color: var(--muted);
-        font-size: 0.66rem;
-        line-height: 1.3;
-    }
-
-    .customer-empty {
-        padding: 1rem;
-        border: 1px dashed rgba(125, 158, 190, 0.28);
-        border-radius: 0.9rem;
-        color: var(--muted);
-        background: rgba(8, 22, 35, 0.56);
-    }
-
-    .customer-footer {
-        padding: 0.8rem 0 1rem;
-        margin: 0;
-        text-align: center;
-        color: var(--muted);
-        font-size: 0.82rem;
-    }
-
-    @media (max-width: 1200px) {
-        .customer-hero-grid,
-        .customer-mid-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .customer-kpi-grid,
-        .customer-focus-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .customer-hero::after {
-            opacity: 0.25;
-        }
-    }
-
-    @media (max-width: 900px) {
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-app-shell {
-            display: flex !important;
-            flex-direction: column;
-            padding-left: 0 !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-sidebar {
-            position: relative !important;
-            width: 100% !important;
-            max-width: none !important;
-            height: auto !important;
-            min-height: auto !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-main-frame {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.customer-ref-page) .analytics-page-frame {
-            padding: 1rem !important;
-        }
-
-        .customer-page-header {
-            grid-template-columns: 1fr;
-        }
-
-        .customer-actions {
-            justify-content: flex-start;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .customer-kpi-grid,
-        .customer-proof-mini,
-        .customer-focus-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .customer-behaviour-card {
-            grid-template-columns: 1fr;
-        }
-
-        .customer-hero::after {
-            display: none;
-        }
-
-        .customer-hero h2 {
-            font-size: clamp(2.2rem, 11vw, 3.2rem);
-        }
-    }
-</style>
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/analytics-dashboard.css' %}?v=5t-reference-base">
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/customer-analytics.css' %}?v=5t-customer-final">
 {% endblock %}
 
 {% block analytics_content %}
-<main class="customer-ref-page">
-    <section class="customer-page-header">
-        <div class="customer-page-title">
-            <small>BakeOps Intelligence</small>
-            <h1>Customer Analytics</h1>
-            <p>Understand loyalty, repeat behaviour, customer value, and revenue concentration.</p>
+<main class="dash-ref analytics-reference-page customer-ref-page">
+
+    <section class="dash-ref-page-title customer-page-title-row" aria-labelledby="customer-analytics-title">
+        <div class="dash-ref-title-left">
+            <div class="dash-ref-title-icon" aria-hidden="true">◉</div>
+            <div>
+                <h1 id="customer-analytics-title">Customer Analytics</h1>
+                <p>Understand loyalty, repeat behaviour, customer value, and revenue concentration.</p>
+            </div>
         </div>
 
-        <nav class="customer-actions" aria-label="Customer analytics actions">
-            <a class="customer-btn" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
-            <a class="customer-btn" href="{% url 'bakeops:occasion-analytics' %}">Occasion analytics</a>
-            <a class="customer-btn" href="/">Back to catalogue</a>
+        <nav class="customer-title-actions" aria-label="Customer analytics actions">
+            <span class="dash-ref-date-pill">Snapshot: {{ snapshot_date|default:"30 Apr 2026" }}</span>
+            <a class="dash-ref-button" href="{% url 'bakeops:analytics-dashboard' %}">← Dashboard</a>
+            <a class="dash-ref-button" href="{% url 'bakeops:occasion-analytics' %}">Occasion analytics</a>
         </nav>
     </section>
 
     {% if latest_metric %}
-        <section class="customer-hero-grid">
-            <article class="customer-card customer-hero">
-                <span class="customer-badge is-warning">Trusted Customer Analytics</span>
+
+        <section class="customer-hero-grid" aria-label="Customer analytics summary">
+            <article class="dash-ref-panel dash-ref-panel-pad customer-hero">
+                <span class="dash-ref-kicker is-green">Trusted Customer Analytics</span>
+
                 <h2>Customer loyalty shows where bakery revenue is concentrated.</h2>
+
                 <p>
                     This page uses trusted gold-layer
                     <span class="customer-code">CustomerLoyaltySnapshot</span>
@@ -849,24 +46,24 @@
                     and repeat-customer behaviour. It helps reviewers see whether revenue depends on repeat customers or one-time customers.
                 </p>
 
-                <div class="customer-meta-row">
+                <div class="customer-meta-row" aria-label="Snapshot metadata">
                     <span class="customer-pill">Workspace: {{ workspace.name }}</span>
                     <span class="customer-pill">Snapshot: {{ snapshot_date }}</span>
                     <span class="customer-pill">Customers: {{ customer_count }}</span>
                 </div>
 
-                <div class="customer-meta-row">
-                    <a class="customer-cta" href="#customer-loyalty-table">View loyalty deep-dive →</a>
-                </div>
+                <a class="dash-ref-button customer-hero-button" href="#customer-loyalty-table">
+                    View loyalty deep-dive →
+                </a>
             </article>
 
-            <aside class="customer-card customer-proof-card">
+            <aside class="dash-ref-panel dash-ref-panel-pad customer-proof-card" aria-label="Reviewer proof point">
                 <div class="customer-proof-head">
-                    <div class="customer-proof-title">
-                        <span>Reviewer Proof Point</span>
+                    <div>
+                        <span class="dash-ref-kicker is-green">Reviewer Proof Point</span>
                         <strong>£{{ total_customer_revenue }}</strong>
                     </div>
-                    <div class="customer-proof-icon">★</div>
+                    <div class="customer-proof-icon" aria-hidden="true">★</div>
                 </div>
 
                 <p>
@@ -875,45 +72,42 @@
 
                 <div class="customer-proof-mini">
                     <div class="customer-proof-tile">
+                        <span>Customer orders</span>
                         <strong>{{ total_customer_orders }}</strong>
-                        <span>customer orders</span>
                     </div>
+
                     <div class="customer-proof-tile">
+                        <span>Repeat customers</span>
                         <strong>{{ repeat_customer_count }}</strong>
-                        <span>repeat customers</span>
                     </div>
                 </div>
 
-                <p class="customer-muted">
+                <p class="dash-ref-muted customer-proof-note">
                     Reviewer note: customer concentration is surfaced before the full evidence table.
                 </p>
             </aside>
         </section>
 
-        <section class="customer-kpi-grid">
-            <article class="customer-card customer-kpi">
-                <div class="customer-kpi-icon is-purple">◉</div>
+        <section class="dash-ref-kpi-grid customer-kpi-grid" aria-label="Customer analytics KPI cards">
+            <article class="dash-ref-kpi">
                 <span>Customers Analysed</span>
                 <strong>{{ customer_count }}</strong>
                 <small>Latest customer loyalty snapshot rows.</small>
             </article>
 
-            <article class="customer-card customer-kpi">
-                <div class="customer-kpi-icon">✓</div>
+            <article class="dash-ref-kpi">
                 <span>Repeat Customers</span>
                 <strong>{{ repeat_customer_count }}</strong>
                 <small>Customers marked as repeat customers.</small>
             </article>
 
-            <article class="customer-card customer-kpi">
-                <div class="customer-kpi-icon is-blue">↗</div>
+            <article class="dash-ref-kpi">
                 <span>Customer Orders</span>
                 <strong>{{ total_customer_orders }}</strong>
                 <small>Total orders represented in customer snapshots.</small>
             </article>
 
-            <article class="customer-card customer-kpi">
-                <div class="customer-kpi-icon is-orange">★</div>
+            <article class="dash-ref-kpi">
                 <span>Loyalty Balance</span>
                 <strong>{{ total_current_points_balance }}</strong>
                 <small>Current loyalty points balance across customers.</small>
@@ -921,8 +115,9 @@
         </section>
 
         {% if top_customer %}
-            <section class="customer-card customer-insight">
-                <span class="customer-badge is-warning">Top Customer Value</span>
+            <section class="dash-ref-panel dash-ref-panel-pad customer-insight" aria-label="Top customer value insight">
+                <span class="dash-ref-kicker">Top Customer Value</span>
+
                 <h2>{{ top_customer.customer.full_name }} is the strongest customer revenue signal.</h2>
 
                 <p>
@@ -937,33 +132,33 @@
 
                 <div class="customer-focus-grid">
                     <div class="customer-mini-panel">
-                        <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
                         <span>Customer revenue</span>
+                        <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
                     </div>
 
                     <div class="customer-mini-panel">
-                        <strong>{{ top_customer.revenue_share_percent }}%</strong>
                         <span>Revenue share</span>
+                        <strong>{{ top_customer.revenue_share_percent }}%</strong>
                     </div>
 
                     <div class="customer-mini-panel">
-                        <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
                         <span>Current loyalty points</span>
+                        <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
                     </div>
                 </div>
 
-                <p style="margin-top: 1rem;">
+                <p class="customer-insight-note">
                     Why this matters: customer analytics shows whether revenue is supported by repeat behaviour,
                     loyalty value, and high-value customers rather than only isolated one-off purchases.
                 </p>
             </section>
         {% endif %}
 
-        <section class="customer-mid-grid">
-            <article class="customer-card customer-panel">
-                <div class="customer-panel-head">
+        <section class="customer-mid-grid" aria-label="Customer value and behaviour panels">
+            <article class="dash-ref-panel dash-ref-panel-pad customer-panel">
+                <div class="dash-ref-card-head">
                     <div>
-                        <span class="customer-badge is-warning">Customer Value</span>
+                        <span class="dash-ref-kicker">Customer Value</span>
                         <h2>Revenue concentration by customer</h2>
                         <p>Shows whether revenue is concentrated in a small customer set or spread across the current seeded snapshot.</p>
                     </div>
@@ -977,27 +172,28 @@
                                     <strong>{{ row.customer.full_name }}</strong>
                                     <span>£{{ row.snapshot.total_revenue }} · {{ row.revenue_share_percent }}%</span>
                                 </div>
+
                                 <div class="customer-bar-track" aria-hidden="true">
                                     <div class="customer-bar-fill" style="width: {% widthratio row.snapshot.total_revenue total_customer_revenue 100 %}%;"></div>
                                 </div>
                             </div>
                         {% empty %}
-                            <div class="customer-empty">No customer loyalty rows found.</div>
+                            <div class="dash-ref-empty">No customer loyalty rows found.</div>
                         {% endfor %}
                     {% else %}
-                        <div class="customer-empty">No customer revenue found for this snapshot.</div>
+                        <div class="dash-ref-empty">No customer revenue found for this snapshot.</div>
                     {% endif %}
                 </div>
 
-                <p class="customer-muted" style="margin-top: 1rem;">
+                <p class="dash-ref-muted customer-panel-note">
                     This visual uses seeded customer analytics data only. It does not claim CRM usage or real customer behaviour.
                 </p>
             </article>
 
-            <article class="customer-card customer-panel">
-                <div class="customer-panel-head">
+            <article class="dash-ref-panel dash-ref-panel-pad customer-panel">
+                <div class="dash-ref-card-head">
                     <div>
-                        <span class="customer-badge is-warning">Loyalty Behaviour</span>
+                        <span class="dash-ref-kicker is-green">Loyalty Behaviour</span>
                         <h2>Repeat and one-time customer signals</h2>
                         <p>Surfaces customer behaviour categories before the full evidence table.</p>
                     </div>
@@ -1013,56 +209,62 @@
                                     · {{ row.snapshot.current_points_balance }} current loyalty points
                                 </span>
                             </div>
+
                             <div class="customer-behaviour-badge">
                                 {{ row.customer_label }}
                             </div>
                         </div>
                     {% empty %}
-                        <div class="customer-empty">No customer behaviour rows found.</div>
+                        <div class="dash-ref-empty">No customer behaviour rows found.</div>
                     {% endfor %}
                 </div>
 
                 {% if top_customer %}
-                    <div class="customer-focus-grid">
+                    <div class="customer-focus-grid customer-focus-grid--compact">
                         <div class="customer-mini-panel">
-                            <strong>{{ top_customer.customer.full_name }}</strong>
                             <span>Top customer signal</span>
+                            <strong>{{ top_customer.customer.full_name }}</strong>
                         </div>
 
                         <div class="customer-mini-panel">
-                            <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
                             <span>Customer revenue</span>
+                            <strong>£{{ top_customer.snapshot.total_revenue }}</strong>
                         </div>
 
                         <div class="customer-mini-panel">
-                            <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
                             <span>Current loyalty points</span>
+                            <strong>{{ top_customer.snapshot.current_points_balance }}</strong>
                         </div>
                     </div>
                 {% endif %}
 
-                <p class="customer-muted" style="margin-top: 1rem;">
+                <p class="dash-ref-muted customer-panel-note">
                     The table below remains the evidence layer for revenue, orders, average order value,
                     loyalty points, customer signal, and recommended action.
                 </p>
             </article>
         </section>
 
-        <section class="customer-section" id="customer-loyalty-table">
-            <h2>Customer Loyalty Deep Dive</h2>
-            <p>Revenue, order count, average order value, loyalty points, and repeat-customer status.</p>
+        <section class="dash-ref-panel dash-ref-panel-pad customer-table-section" id="customer-loyalty-table" aria-labelledby="customer-loyalty-table-title">
+            <div class="dash-ref-card-head">
+                <div>
+                    <span class="dash-ref-kicker is-blue">Operational Evidence</span>
+                    <h2 id="customer-loyalty-table-title">Customer Loyalty Deep Dive</h2>
+                    <p>Revenue, order count, average order value, loyalty points, and repeat-customer status.</p>
+                </div>
+            </div>
 
-            <div class="customer-table-wrap">
-                <table class="customer-table">
+            <div class="dash-ref-table-wrap customer-table-wrap">
+                <table class="dash-ref-table customer-table">
                     <thead>
                         <tr>
-                            <th>Customer</th>
-                            <th>Revenue</th>
-                            <th>Orders</th>
-                            <th>Average Order Value</th>
-                            <th>Loyalty Points</th>
-                            <th>Customer Signal</th>
-                            <th>Recommended Action</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Revenue</th>
+                            <th scope="col">Orders</th>
+                            <th scope="col">Average Order Value</th>
+                            <th scope="col">Loyalty Points</th>
+                            <th scope="col">Customer Signal</th>
+                            <th scope="col">Recommended Action</th>
                         </tr>
                     </thead>
 
@@ -1072,50 +274,59 @@
                                 <td>
                                     <strong>{{ row.customer.full_name }}</strong>
                                     {% if forloop.first %}
-                                        <br><span class="customer-badge is-warning" style="margin-top: 0.5rem;">Top customer</span>
+                                        <br>
+                                        <span class="dash-ref-status customer-status high-value customer-top-badge">
+                                            Top customer
+                                        </span>
                                     {% endif %}
                                 </td>
 
                                 <td>
                                     <span class="customer-metric">£{{ row.snapshot.total_revenue }}</span><br>
-                                    <span class="customer-muted">{{ row.revenue_share_percent }}% of customer revenue</span>
+                                    <small>{{ row.revenue_share_percent }}% of customer revenue</small>
                                 </td>
 
-                                <td>{{ row.snapshot.total_orders }}</td>
+                                <td>
+                                    <strong>{{ row.snapshot.total_orders }}</strong>
+                                </td>
 
-                                <td>£{{ row.snapshot.average_order_value }}</td>
+                                <td>
+                                    <strong>£{{ row.snapshot.average_order_value }}</strong>
+                                </td>
 
                                 <td>
                                     <strong>{{ row.snapshot.current_points_balance }}</strong> current<br>
-                                    <span class="customer-muted">
+                                    <small>
                                         {{ row.snapshot.loyalty_points_earned }} earned · {{ row.snapshot.loyalty_points_redeemed }} redeemed
-                                    </span>
+                                    </small>
                                 </td>
 
                                 <td>
                                     {% if row.customer_label == "High-value repeat" %}
-                                        <span class="customer-pill high-value">{{ row.customer_label }}</span>
+                                        <span class="dash-ref-status customer-status high-value">{{ row.customer_label }}</span>
                                     {% elif row.customer_label == "Repeat customer" %}
-                                        <span class="customer-pill repeat">{{ row.customer_label }}</span>
+                                        <span class="dash-ref-status customer-status repeat">{{ row.customer_label }}</span>
                                     {% elif row.customer_label == "New / one-time customer" %}
-                                        <span class="customer-pill new">{{ row.customer_label }}</span>
+                                        <span class="dash-ref-status customer-status new">{{ row.customer_label }}</span>
                                     {% else %}
-                                        <span class="customer-pill monitor">{{ row.customer_label }}</span>
+                                        <span class="dash-ref-status customer-status monitor">{{ row.customer_label }}</span>
                                     {% endif %}
 
-                                    <p class="customer-muted" style="margin: 0.5rem 0 0;">
+                                    <p class="customer-table-note">
                                         {{ row.customer_explanation }}
                                     </p>
                                 </td>
 
                                 <td>
-                                    <p class="customer-muted" style="margin: 0;">{{ row.recommended_action }}</p>
+                                    <p class="customer-table-note is-flush">
+                                        {{ row.recommended_action }}
+                                    </p>
                                 </td>
                             </tr>
                         {% empty %}
                             <tr>
                                 <td colspan="7">
-                                    <div class="customer-empty">
+                                    <div class="dash-ref-empty">
                                         No customer analytics snapshots found.
                                         Run <span class="customer-code">python manage.py build_bakery_metrics</span>.
                                     </div>
@@ -1126,18 +337,22 @@
                 </table>
             </div>
         </section>
+
     {% else %}
-        <section class="customer-card customer-empty">
-            <h1>No customer analytics data found.</h1>
-            <p>
+
+        <section class="dash-ref-panel dash-ref-panel-pad" aria-label="No customer analytics data">
+            <span class="dash-ref-kicker">No Customer Analytics Data</span>
+            <h2>No customer analytics data found.</h2>
+            <p class="dash-ref-muted">
                 Run <span class="customer-code">python manage.py seed_demo_data --reset</span>
                 and <span class="customer-code">python manage.py build_bakery_metrics</span>, then refresh this page.
             </p>
         </section>
+
     {% endif %}
 
-    <p class="customer-footer">
+    <footer class="dash-ref-footer">
         BakeOps Intelligence V3 — trusted customer analytics powered by gold-layer snapshots.
-    </p>
+    </footer>
 </main>
 {% endblock %}

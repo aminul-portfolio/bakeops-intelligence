@@ -1,12 +1,13 @@
-﻿<aside class="analytics-state-guidance is-compact" aria-label="Reviewer data-state guidance">
+﻿{% load static %}
+<aside class="analytics-state-guidance is-compact" aria-label="Reviewer data-state guidance" role="status">
     <div class="analytics-state-guidance__header">
-        <span class="analytics-state-dot"></span>
+        <span class="analytics-state-dot" aria-hidden="true"></span>
         <strong>Reviewer mode:</strong>
         <span>
-            Seeded demo data. If data is missing, run
+            Seeded demo data active. If data appears missing, run
             <code>seed_demo_data</code>,
             <code>build_bakery_metrics</code>,
-            and <code>export_bi_csv</code>.
+            then <code>export_bi_csv</code>.
         </span>
     </div>
 </aside>

@@ -1,20 +1,35 @@
-<header class="analytics-topbar ref-topbar">
-    <div class="ref-topbar-cluster">
-        <div class="ref-topbar-pill">
+{% load static %}
+<header class="analytics-topbar ref-topbar" role="banner">
+    <div class="ref-topbar-cluster" aria-label="Workspace context">
+        <div class="ref-topbar-pill" aria-label="Current workspace">
             <span>Workspace</span>
             <strong>SweetCakes Bakery</strong>
         </div>
 
-        <div class="ref-topbar-pill">
+        <div class="ref-topbar-pill" aria-label="Snapshot date">
             <span>Snapshot</span>
             <strong>30 Apr 2026</strong>
         </div>
     </div>
 
-    <div class="ref-topbar-cluster ref-topbar-actions">
-        <span class="ref-status-pill is-demo">Demo Data</span>
-        <span class="ref-status-pill is-evidence">Evidence On</span>
-        <a class="ref-export-button" href="{% url 'bakeops:export-centre' %}">Export Centre</a>
-        <span class="ref-kebab" aria-hidden="true">•••</span>
+    <div class="ref-topbar-cluster ref-topbar-actions" role="toolbar" aria-label="Topbar actions">
+        <span class="ref-status-pill is-demo" aria-label="Using seeded demo data">Demo Data</span>
+        <span class="ref-status-pill is-evidence" aria-label="Evidence mode active">Evidence On</span>
+
+        <a class="ref-export-button" href="{% url 'bakeops:export-centre' %}" aria-label="Open Export Centre">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 2v8m0 0L5 7m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2.5 12.5h11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
+            </svg>
+            Export Centre
+        </a>
+
+        <button class="ref-kebab" aria-label="More options" type="button">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="4" r="1.15" fill="currentColor"/>
+                <circle cx="8" cy="8" r="1.15" fill="currentColor"/>
+                <circle cx="8" cy="12" r="1.15" fill="currentColor"/>
+            </svg>
+        </button>
     </div>
 </header>

@@ -6,13 +6,30 @@
     <title>{% block title %}BakeOps Intelligence{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {# Premium display/body/data fonts. Fallbacks are defined in CSS tokens. #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Geist+Mono:wght@400;500;600&display=swap">
+
+    {# 1. Design tokens first. #}
+    <link rel="stylesheet" href="{% static 'bakeops/css/bakeops-design-tokens.css' %}?v=6-premium-tokens">
+
+    {# 2. Existing global/project shell files. #}
     <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
     <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
     <link rel="stylesheet" href="{% static 'css/components.css' %}">
-    <link rel="stylesheet" href="{% static 'bakeops/css/analytics-shell.css' %}">
+    <link rel="stylesheet" href="{% static 'bakeops/css/analytics-shell.css' %}?v=6-shell-base">
 
+    {# 3. Page-specific styles. #}
     {% block page_styles %}{% endblock %}
+
+    {# 4. Non-layout polish and content safety. #}
+    <link rel="stylesheet" href="{% static 'bakeops/css/analytics-consistency.css' %}?v=6-premium-consistency">
+
+    {# 5. Final layout authority. Must always load last. #}
+    <link rel="stylesheet" href="{% static 'bakeops/css/analytics-final-lock.css' %}?v=6-6-small-metadata-readability">
 </head>
+
 <body class="analytics-shell-body reference-match-shell">
     <div class="analytics-app-shell">
         {% block analytics_sidebar %}
@@ -23,7 +40,7 @@
             {% include "bakeops/partials/_analytics_topbar.html" %}
 
             <div class="analytics-page-frame">
-            {% include "bakeops/partials/_analytics_state_guidance.html" %}
+                {% include "bakeops/partials/_analytics_state_guidance.html" %}
                 {% block analytics_content %}{% endblock %}
             </div>
         </div>

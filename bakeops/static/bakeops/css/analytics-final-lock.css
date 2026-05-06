@@ -1,0 +1,829 @@
+/* ============================================================
+   BakeOps Analytics Final Shell Lock
+   Version: 6.0 — Fixed Sidebar + Full-Width Authority
+
+   Load LAST after:
+   - bakeops-design-tokens.css
+   - analytics-shell.css
+   - every page-specific CSS file
+   - analytics-consistency.css
+
+   Purpose:
+   - Strict fixed desktop sidebar that never moves during page scroll.
+   - Main frame offset by sidebar width.
+   - Full remaining viewport width for all analytics pages.
+   - No dashboard/page max-width cap.
+   - Table/card overflow safety without cutting edges.
+   ============================================================ */
+
+html,
+body {
+    margin: 0 !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+}
+
+body.analytics-shell-body.reference-match-shell {
+    --analytics-sidebar-width: var(--bo-sidebar-w, 292px);
+    --analytics-main-width: calc(100vw - var(--analytics-sidebar-width));
+    --analytics-page-pad-x: var(--bo-page-pad-x, 1.55rem);
+    --analytics-page-pad-y: var(--bo-page-pad-y, 1.15rem);
+
+    width: 100% !important;
+    min-height: 100vh !important;
+    background: var(--bo-page-bg, #050814) !important;
+    overflow-x: hidden !important;
+}
+
+@media (min-width: 1101px) {
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: block !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > aside.analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .ref-sidebar {
+        position: fixed !important;
+        inset: 0 auto 0 0 !important;
+        top: 0 !important;
+        right: auto !important;
+        bottom: 0 !important;
+        left: 0 !important;
+
+        width: var(--analytics-sidebar-width) !important;
+        min-width: var(--analytics-sidebar-width) !important;
+        max-width: var(--analytics-sidebar-width) !important;
+
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        overscroll-behavior: contain !important;
+
+        z-index: 999 !important;
+        box-sizing: border-box !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > aside.analytics-sidebar::-webkit-scrollbar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .analytics-sidebar::-webkit-scrollbar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .ref-sidebar::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        margin-left: var(--analytics-sidebar-width) !important;
+        width: var(--analytics-main-width) !important;
+        max-width: var(--analytics-main-width) !important;
+        min-width: 0 !important;
+        min-height: 100vh !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-topbar,
+    html body.analytics-shell-body.reference-match-shell .ref-topbar {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 500 !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        position: relative !important;
+        z-index: 1 !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: var(--analytics-page-pad-y) var(--analytics-page-pad-x) 2rem !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main,
+    html body.analytics-shell-body.reference-match-shell main.dash-ref,
+    html body.analytics-shell-body.reference-match-shell .dash-ref,
+    html body.analytics-shell-body.reference-match-shell main.analytics-reference-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-reference-page,
+    html body.analytics-shell-body.reference-match-shell .dashboard-ref-page,
+    html body.analytics-shell-body.reference-match-shell .product-ref-page,
+    html body.analytics-shell-body.reference-match-shell .profit-exact,
+    html body.analytics-shell-body.reference-match-shell .ingredient-ref-page,
+    html body.analytics-shell-body.reference-match-shell .waste-ref-page,
+    html body.analytics-shell-body.reference-match-shell .occasion-ref-page,
+    html body.analytics-shell-body.reference-match-shell .customer-ref-page,
+    html body.analytics-shell-body.reference-match-shell .quality-ref-page,
+    html body.analytics-shell-body.reference-match-shell .export-ref-page {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-inline: 0 !important;
+        justify-self: stretch !important;
+        align-self: stretch !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main > section,
+    html body.analytics-shell-body.reference-match-shell .dash-ref > section,
+    html body.analytics-shell-body.reference-match-shell .analytics-reference-page > section,
+    html body.analytics-shell-body.reference-match-shell .dashboard-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .product-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .profit-exact > section,
+    html body.analytics-shell-body.reference-match-shell .ingredient-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .waste-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .occasion-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .customer-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .quality-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .export-ref-page > section {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > aside.analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .ref-sidebar {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-topbar,
+    html body.analytics-shell-body.reference-match-shell .ref-topbar {
+        position: relative !important;
+        top: auto !important;
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main,
+    html body.analytics-shell-body.reference-match-shell main {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Safety: wide content stays inside cards without cutting edges. */
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table {
+    width: 100%;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table-wrap,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame [class$="-table-wrap"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    box-sizing: border-box !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-panel,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-kpi,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ref-card,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ref-panel,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame [class*="card"],
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame [class*="panel"] {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+/* ============================================================
+   5X — Final Page Width Override
+   Purpose:
+   analytics-dashboard.css gives .dash-ref max-width: 1240px.
+   Other pages reuse .dash-ref, so we remove that cap globally.
+   Must stay at the absolute bottom of analytics-final-lock.css.
+   ============================================================ */
+
+@media (min-width: 1101px) {
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.analytics-reference-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.dashboard-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.product-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.ingredient-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.customer-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.waste-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.occasion-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.quality-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref.export-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.profit-exact {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-inline: 0 !important;
+
+        justify-self: stretch !important;
+        align-self: stretch !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ============================================================
+   6.1 — Absolute Final Layout + Sidebar Polish Authority
+   Purpose:
+   - Restores strict fixed sidebar if earlier CSS tries sticky/auto.
+   - Forces exact 292px sidebar rail with border-box sizing.
+   - Removes dashboard .dash-ref max-width caps on every analytics page.
+   - Adds dark SaaS styling for bottom sidebar utility controls.
+   Keep this section at the absolute bottom of analytics-final-lock.css.
+   ============================================================ */
+
+@media (min-width: 1101px) {
+    html,
+    body {
+        margin: 0 !important;
+        min-height: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell {
+        --analytics-sidebar-width: 292px;
+        --analytics-main-width: calc(100vw - var(--analytics-sidebar-width));
+        --analytics-page-pad-x: 1.55rem;
+        --analytics-page-pad-y: 1.15rem;
+        background: #050814 !important;
+        overflow-x: hidden !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: block !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > aside.analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .ref-sidebar {
+        position: fixed !important;
+        inset: 0 auto 0 0 !important;
+        top: 0 !important;
+        right: auto !important;
+        bottom: 0 !important;
+        left: 0 !important;
+
+        width: var(--analytics-sidebar-width) !important;
+        min-width: var(--analytics-sidebar-width) !important;
+        max-width: var(--analytics-sidebar-width) !important;
+
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        overscroll-behavior: contain !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+
+        z-index: 1000 !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > aside.analytics-sidebar::-webkit-scrollbar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .analytics-sidebar::-webkit-scrollbar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .ref-sidebar::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-main-frame {
+        display: flex !important;
+        flex-direction: column !important;
+
+        width: var(--analytics-main-width) !important;
+        max-width: var(--analytics-main-width) !important;
+        min-width: 0 !important;
+        min-height: 100vh !important;
+
+        margin: 0 0 0 var(--analytics-sidebar-width) !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-topbar,
+    html body.analytics-shell-body.reference-match-shell .ref-topbar {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 900 !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        position: relative !important;
+        z-index: 1 !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: var(--analytics-page-pad-y) var(--analytics-page-pad-x) 2rem !important;
+        box-sizing: border-box !important;
+
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dash-ref,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.analytics-reference-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.dashboard-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.product-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.ingredient-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.waste-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.occasion-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.customer-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.quality-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.export-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.profit-exact,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame .analytics-reference-page {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-inline: 0 !important;
+
+        box-sizing: border-box !important;
+        justify-self: stretch !important;
+        align-self: stretch !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main > section,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref > section,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame .analytics-reference-page > section {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-sidebar-spacer {
+        flex: 1 1 auto !important;
+        min-height: 0.75rem !important;
+    }
+
+    /* Dark SaaS sidebar utility controls. Visual-only: no shell width changes. */
+    html body.analytics-shell-body.reference-match-shell .analytics-sidebar .ref-sidebar-tools {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 0.45rem !important;
+        margin-top: 0.65rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-sidebar .ref-sidebar-tools > * {
+        appearance: none !important;
+        -webkit-appearance: none !important;
+
+        display: inline-grid !important;
+        place-items: center !important;
+
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 2.1rem !important;
+        padding: 0.32rem 0.42rem !important;
+
+        border: 1px solid rgba(148, 163, 184, 0.18) !important;
+        border-radius: 0.72rem !important;
+
+        color: #cbd5e1 !important;
+        background:
+            linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.58)) !important;
+
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.045),
+            0 10px 24px rgba(0, 0, 0, 0.16) !important;
+
+        font-size: 0.76rem !important;
+        font-weight: 850 !important;
+        line-height: 1 !important;
+        text-decoration: none !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-sidebar .ref-sidebar-tools > *:hover {
+        color: #ffffff !important;
+        border-color: rgba(139, 92, 246, 0.42) !important;
+        background:
+            linear-gradient(135deg, rgba(124, 58, 237, 0.34), rgba(30, 64, 175, 0.22)),
+            rgba(15, 23, 42, 0.88) !important;
+        transform: translateY(-1px);
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-sidebar .ref-sidebar-collapse {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.45rem !important;
+
+        width: fit-content !important;
+        margin-top: 0.55rem !important;
+        padding: 0.3rem 0.45rem !important;
+
+        color: #94a3b8 !important;
+        background: transparent !important;
+
+        border: 0 !important;
+        border-radius: 0.5rem !important;
+
+        font-size: 0.72rem !important;
+        font-weight: 850 !important;
+        line-height: 1.2 !important;
+        text-decoration: none !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-sidebar .ref-sidebar-collapse:hover {
+        color: #e2e8f0 !important;
+        background: rgba(148, 163, 184, 0.08) !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > aside.analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .analytics-sidebar,
+    html body.analytics-shell-body.reference-match-shell .analytics-app-shell > .ref-sidebar {
+        position: relative !important;
+        inset: auto !important;
+
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-main-frame,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame {
+        padding: 1rem !important;
+    }
+}
+
+/* ============================================================
+   6.2 — Product Profitability Width Override
+   Purpose:
+   Product Profitability still carries max-width: 1540px from
+   page CSS. This forces it to follow the full analytics shell.
+   Keep at absolute bottom of analytics-final-lock.css.
+   ============================================================ */
+
+@media (min-width: 1101px) {
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.profit-exact.product-ref-page,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame > main.product-ref-page.profit-exact,
+    html body.analytics-shell-body.reference-match-shell main.profit-exact.product-ref-page,
+    html body.analytics-shell-body.reference-match-shell main.product-ref-page.profit-exact {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-inline: 0 !important;
+
+        box-sizing: border-box !important;
+        justify-self: stretch !important;
+        align-self: stretch !important;
+    }
+
+    html body.analytics-shell-body.reference-match-shell .profit-exact.product-ref-page > section,
+    html body.analytics-shell-body.reference-match-shell .product-ref-page.profit-exact > section {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+}
+
+/* ============================================================
+   6.3c — Disable Sticky Evidence Table Headers
+   Decision:
+   Normal table headers look cleaner and more premium in this
+   portfolio SaaS layout than sticky headers.
+   ============================================================ */
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table thead th,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table thead th {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+}
+/* Mobile/tablet: topbar is no longer sticky, so table header can sit at top. */
+@media (max-width: 1100px) {
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame table thead th,
+    html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table thead th {
+        top: 0 !important;
+    }
+}
+/* ============================================================
+   6.3d — Hard Disable Sticky Evidence Table Headers
+   Decision:
+   Sticky table headers were tested but rejected because they make
+   the evidence tables feel visually heavy in this portfolio layout.
+   This override must stay at the absolute bottom of
+   analytics-final-lock.css.
+   ============================================================ */
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table thead,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table thead tr,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table thead th,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table thead,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table thead tr,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table thead th {
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    inset: auto !important;
+    z-index: auto !important;
+    transform: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Keep table wrappers clean and scrollable only horizontally. */
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table-wrap,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame [class$="-table-wrap"] {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+/* ============================================================
+   6.4 — Premium Evidence Table Readability
+   Purpose:
+   Slightly improve table breathing room without making tables loose.
+   Applies across all BakeOps analytics evidence tables.
+   ============================================================ */
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table th,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table td,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table th,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table td {
+    padding-top: 0.9rem !important;
+    padding-bottom: 0.9rem !important;
+    line-height: 1.48 !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table td,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table td {
+    color: #dbe4ef !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table td small,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table td small,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table td .dash-ref-muted,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table td .dash-ref-muted {
+    color: #9fb0c5 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table tr + tr td,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table tr + tr td {
+    border-top-color: rgba(148, 163, 184, 0.12) !important;
+}
+
+/* ============================================================
+   6.5 — Standardised Analytics Page Title Typography
+   Purpose:
+   Align the top page title area across Dashboard, Product,
+   Ingredient, Waste, Occasion, Customer, Data Quality, and Export.
+   Visual typography only. Does not affect shell/sidebar width.
+   ============================================================ */
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-page-title,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .profit-exact-header,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ingredient-page-title-row,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .waste-page-header,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .occasion-page-header,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .customer-page-header,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .quality-page-header,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .export-page-header {
+    margin-bottom: 1rem !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-page-title h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .profit-exact-header h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ingredient-page-title-row h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .waste-page-header h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .occasion-page-header h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .customer-page-header h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .quality-page-header h1,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .export-page-header h1 {
+    margin: 0 !important;
+
+    color: #f8fafc !important;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    font-size: clamp(1.9rem, 2.15vw, 2.45rem) !important;
+    font-weight: 850 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.045em !important;
+
+    text-wrap: balance;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-page-title p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .profit-exact-header p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ingredient-page-title-row p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .waste-page-header p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .occasion-page-header p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .customer-page-header p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .quality-page-header p,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .export-page-header p {
+    margin-top: 0.35rem !important;
+
+    color: #a9b7ca !important;
+    font-size: 0.94rem !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.01em !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-title-left {
+    gap: 0.75rem !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-title-icon {
+    flex: 0 0 auto !important;
+}
+/* ============================================================
+   6.6 — Small Metadata Readability Polish
+   Purpose:
+   Improve small labels, helper text, metadata pills, and table
+   supporting text without changing layout, width, or sidebar.
+   ============================================================ */
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame small,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-muted,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ingredient-table-note,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .waste-table-note,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .occasion-table-note,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .customer-table-note,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .quality-table-note,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .export-table-note {
+    color: #a7b5c8 !important;
+    font-size: 0.79rem !important;
+    line-height: 1.48 !important;
+    letter-spacing: -0.005em !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-kicker,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-date-pill,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ingredient-pill,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .ingredient-code,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-status,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-rank-pill {
+    font-size: 0.69rem !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.075em !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table th,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table th {
+    color: #aebbd0 !important;
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.085em !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-table td,
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame table td {
+    color: #dce5f0 !important;
+}
+
+html body.analytics-shell-body.reference-match-shell .analytics-page-frame .dash-ref-footer {
+    color: #91a1b8 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.5 !important;
+}

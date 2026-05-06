@@ -8,1184 +8,117 @@
 {% endblock %}
 
 {% block page_styles %}
-<style>
-    /* 5C.3 — Ingredient Risk Exact-Reference Rebuild */
-
-    @media (min-width: 1101px) {
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-app-shell {
-            display: grid !important;
-            grid-template-columns: 292px minmax(0, 1fr) !important;
-            padding-left: 0 !important;
-            align-items: start !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-sidebar {
-            position: relative !important;
-            width: 292px !important;
-            min-width: 292px !important;
-            max-width: 292px !important;
-            height: 100vh !important;
-            min-height: 100vh !important;
-            overflow-y: auto !important;
-            z-index: 20 !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-main-frame {
-            grid-column: 2 !important;
-            width: 100% !important;
-            min-width: 0 !important;
-            margin-left: 0 !important;
-            padding-left: 2.25rem !important;
-            padding-right: 1.5rem !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-topbar {
-            position: relative !important;
-            top: auto !important;
-            z-index: 5 !important;
-            width: 100% !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-page-frame {
-            width: 100% !important;
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 1.15rem 0 2rem !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-page-frame > main.ingredient-ref-page {
-            width: 100% !important;
-            max-width: 1240px !important;
-            margin-left: 0 !important;
-            margin-right: auto !important;
-        }
-    }
-
-    .ingredient-ref-page {
-        --panel: rgba(8, 22, 35, 0.86);
-        --panel-2: rgba(10, 28, 45, 0.78);
-        --panel-3: rgba(15, 33, 52, 0.72);
-        --line: rgba(125, 158, 190, 0.16);
-        --line-strong: rgba(125, 158, 190, 0.26);
-        --text: #f8fafc;
-        --muted: #8fa5ba;
-        --muted-strong: #cbd5e1;
-        --orange: #f59e0b;
-        --orange-2: #f97316;
-        --red: #ef4444;
-        --green: #22c55e;
-        --blue: #3b82f6;
-        --purple: #7c3aed;
-
-        width: 100%;
-        max-width: 1240px;
-        margin-inline: auto;
-        display: grid;
-        gap: 1rem;
-        color: var(--text);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.01em;
-    }
-
-    .ingredient-ref-page *,
-    .ingredient-ref-page *::before,
-    .ingredient-ref-page *::after {
-        box-sizing: border-box;
-    }
-
-    .ingredient-ref-page a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .ingredient-page-header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: end;
-        gap: 1rem;
-        margin-top: 0.25rem;
-    }
-
-    .ingredient-page-title small {
-        display: block;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-    }
-
-    .ingredient-page-title h1 {
-        margin: 0.2rem 0 0;
-        font-size: clamp(1.9rem, 2.25vw, 2.4rem);
-        line-height: 1.05;
-        letter-spacing: -0.045em;
-    }
-
-    .ingredient-page-title p {
-        margin: 0.35rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.9rem;
-        line-height: 1.5;
-    }
-
-    .ingredient-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 0.55rem;
-    }
-
-    .ingredient-btn,
-    .ingredient-cta {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.35rem;
-        padding: 0.48rem 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.75rem;
-        color: var(--muted-strong);
-        background: rgba(15, 33, 52, 0.62);
-        font-size: 0.82rem;
-        font-weight: 800;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
-    }
-
-    .ingredient-cta {
-        color: #fff7ed;
-        border-color: rgba(245, 158, 11, 0.42);
-        background:
-            linear-gradient(135deg, rgba(245, 158, 11, 0.38), rgba(249, 115, 22, 0.22)),
-            rgba(15, 33, 52, 0.72);
-    }
-
-    .ingredient-card {
-        border: 1px solid var(--line);
-        border-radius: 1rem;
-        background:
-            linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)),
-            var(--panel);
-        box-shadow:
-            0 16px 42px rgba(0, 0, 0, 0.22),
-            inset 0 1px 0 rgba(255,255,255,0.035);
-        overflow: hidden;
-    }
-
-    .ingredient-badge,
-    .ingredient-pill,
-    .ingredient-risk-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: fit-content;
-        min-height: 1.55rem;
-        padding: 0.24rem 0.58rem;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        color: var(--muted-strong);
-        background: rgba(15, 33, 52, 0.58);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    .ingredient-badge.is-danger,
-    .ingredient-risk-pill.critical,
-    .ingredient-risk-pill.high {
-        color: #fecaca;
-        border-color: rgba(239, 68, 68, 0.38);
-        background: rgba(127, 29, 29, 0.28);
-    }
-
-    .ingredient-badge.is-warning,
-    .ingredient-risk-pill.medium {
-        color: #fed7aa;
-        border-color: rgba(245, 158, 11, 0.38);
-        background: rgba(120, 53, 15, 0.26);
-    }
-
-    .ingredient-badge.is-good,
-    .ingredient-risk-pill.low {
-        color: #bbf7d0;
-        border-color: rgba(34, 197, 94, 0.34);
-        background: rgba(22, 101, 52, 0.22);
-    }
-
-    .ingredient-hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.52fr) minmax(340px, 0.78fr);
-        gap: 1rem;
-        align-items: stretch;
-    }
-
-    .ingredient-hero {
-        position: relative;
-        min-height: 18.5rem;
-        padding: 1.15rem;
-        background:
-            radial-gradient(circle at 80% 28%, rgba(239, 68, 68, 0.20), transparent 13rem),
-            radial-gradient(circle at 74% 12%, rgba(124, 58, 237, 0.16), transparent 16rem),
-            radial-gradient(circle at 8% 0%, rgba(245, 158, 11, 0.12), transparent 18rem),
-            linear-gradient(180deg, rgba(12, 25, 40, 0.95), rgba(8, 22, 35, 0.82));
-    }
-
-    .ingredient-hero::after {
-        content: "!";
-        position: absolute;
-        right: clamp(1rem, 4vw, 4rem);
-        top: 50%;
-        width: clamp(6rem, 13vw, 11rem);
-        height: clamp(6rem, 13vw, 11rem);
-        display: grid;
-        place-items: center;
-        border-radius: 1.8rem;
-        color: #fff7ed;
-        font-size: clamp(3rem, 6vw, 5.5rem);
-        font-weight: 900;
-        background:
-            linear-gradient(135deg, rgba(239, 68, 68, 0.64), rgba(124, 58, 237, 0.30)),
-            rgba(15, 23, 42, 0.82);
-        border: 1px solid rgba(248, 113, 113, 0.30);
-        box-shadow:
-            0 28px 65px rgba(239, 68, 68, 0.18),
-            inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        transform: translateY(-50%) rotate(-4deg);
-        opacity: 0.94;
-    }
-
-    .ingredient-hero > * {
-        position: relative;
-        z-index: 2;
-    }
-
-    .ingredient-hero h2 {
-        max-width: 680px;
-        margin: 1rem 0 0;
-        font-size: clamp(2.95rem, 4.35vw, 4.55rem);
-        line-height: 0.98;
-        letter-spacing: -0.06em;
-        font-weight: 780;
-    }
-
-    .ingredient-hero p {
-        max-width: 690px;
-        margin: 1rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.98rem;
-        line-height: 1.58;
-    }
-
-    .ingredient-code {
-        display: inline-flex;
-        padding: 0.08rem 0.42rem;
-        border-radius: 0.45rem;
-        color: #fed7aa;
-        background: rgba(120, 53, 15, 0.34);
-        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 0.86em;
-    }
-
-    .ingredient-meta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1.1rem;
-    }
-
-    .ingredient-proof-card {
-        min-height: 18.5rem;
-        padding: 1.1rem;
-        border-color: rgba(239, 68, 68, 0.20);
-        background:
-            radial-gradient(circle at top right, rgba(239, 68, 68, 0.18), transparent 12rem),
-            radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.08), transparent 12rem),
-            rgba(8, 22, 35, 0.90);
-    }
-
-    .ingredient-proof-head {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-
-    .ingredient-proof-title span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-    }
-
-    .ingredient-proof-title strong {
-        display: block;
-        margin-top: 0.65rem;
-        font-size: clamp(3rem, 5vw, 4.65rem);
-        line-height: 1;
-        letter-spacing: -0.06em;
-    }
-
-    .ingredient-proof-icon {
-        width: 2.65rem;
-        height: 2.65rem;
-        display: grid;
-        place-items: center;
-        border-radius: 999px;
-        color: #fecaca;
-        border: 1px solid rgba(248, 113, 113, 0.34);
-        background: rgba(127, 29, 29, 0.26);
-        font-weight: 900;
-    }
-
-    .ingredient-proof-card p {
-        margin: 1rem 0 0;
-        color: var(--muted-strong);
-        line-height: 1.58;
-    }
-
-    .ingredient-proof-mini {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-
-    .ingredient-proof-tile {
-        padding: 0.8rem;
-        border: 1px solid var(--line);
-        border-radius: 0.8rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .ingredient-proof-tile strong {
-        display: block;
-        font-size: 1.35rem;
-        letter-spacing: -0.04em;
-    }
-
-    .ingredient-proof-tile span {
-        display: block;
-        margin-top: 0.35rem;
-        color: var(--muted);
-        font-size: 0.76rem;
-    }
-
-    .ingredient-kpi-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.8rem;
-    }
-
-    .ingredient-kpi {
-        position: relative;
-        min-height: 8rem;
-        padding: 1rem;
-        background:
-            radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 9rem),
-            rgba(10, 28, 45, 0.78);
-    }
-
-    .ingredient-kpi-icon {
-        width: 2.45rem;
-        height: 2.45rem;
-        display: grid;
-        place-items: center;
-        margin-bottom: 0.75rem;
-        border-radius: 999px;
-        color: #bfdbfe;
-        background: rgba(30, 64, 175, 0.28);
-        border: 1px solid rgba(59, 130, 246, 0.28);
-        font-weight: 900;
-    }
-
-    .ingredient-kpi-icon.is-red {
-        color: #fecaca;
-        background: rgba(127, 29, 29, 0.25);
-        border-color: rgba(239, 68, 68, 0.28);
-    }
-
-    .ingredient-kpi-icon.is-orange {
-        color: #fed7aa;
-        background: rgba(120, 53, 15, 0.32);
-        border-color: rgba(245, 158, 11, 0.32);
-    }
-
-    .ingredient-kpi-icon.is-green {
-        color: #bbf7d0;
-        background: rgba(22, 101, 52, 0.24);
-        border-color: rgba(34, 197, 94, 0.30);
-    }
-
-    .ingredient-kpi span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.7rem;
-        font-weight: 900;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-    }
-
-    .ingredient-kpi strong {
-        display: block;
-        margin-top: 0.45rem;
-        font-size: 2.35rem;
-        line-height: 1;
-        letter-spacing: -0.055em;
-    }
-
-    .ingredient-kpi small {
-        display: block;
-        margin-top: 0.42rem;
-        color: var(--muted-strong);
-        line-height: 1.42;
-    }
-
-    .ingredient-alert-strip {
-        display: grid;
-        grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(150px, 0.38fr)) auto;
-        gap: 0.9rem;
-        align-items: center;
-        padding: 1rem;
-        border: 1px solid rgba(248, 113, 113, 0.42);
-        border-radius: 1rem;
-        background:
-            radial-gradient(circle at 90% 10%, rgba(239, 68, 68, 0.22), transparent 16rem),
-            linear-gradient(90deg, rgba(127, 29, 29, 0.38), rgba(8, 22, 35, 0.72));
-        box-shadow: 0 18px 48px rgba(239, 68, 68, 0.12);
-    }
-
-    .ingredient-alert-title strong {
-        display: block;
-        margin-top: 0.35rem;
-        font-size: clamp(1.35rem, 2vw, 1.95rem);
-        letter-spacing: -0.04em;
-    }
-
-    .ingredient-alert-title span {
-        color: #fecaca;
-        font-weight: 850;
-        font-size: 0.82rem;
-    }
-
-    .ingredient-alert-metric {
-        padding: 0.75rem;
-        border: 1px solid rgba(248, 113, 113, 0.18);
-        border-radius: 0.8rem;
-        background: rgba(255,255,255,0.04);
-    }
-
-    .ingredient-alert-metric span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.66rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    .ingredient-alert-metric strong {
-        display: block;
-        margin-top: 0.28rem;
-        font-size: 1.35rem;
-        letter-spacing: -0.04em;
-    }
-
-    .ingredient-mid-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
-        gap: 1rem;
-        align-items: stretch;
-    }
-
-    .ingredient-panel {
-        padding: 1rem;
-        min-height: 22rem;
-        background:
-            radial-gradient(circle at top right, rgba(59, 130, 246, 0.10), transparent 12rem),
-            rgba(8, 22, 35, 0.82);
-    }
-
-    .ingredient-panel-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .ingredient-panel-head h2,
-    .ingredient-table-section h2,
-    .ingredient-definitions-section h2 {
-        margin: 0;
-        font-size: clamp(1.45rem, 2vw, 2rem);
-        letter-spacing: -0.04em;
-    }
-
-    .ingredient-panel-head p,
-    .ingredient-table-section p,
-    .ingredient-definitions-section p {
-        margin: 0.25rem 0 0;
-        color: var(--muted-strong);
-        line-height: 1.5;
-        font-size: 0.9rem;
-    }
-
-    .ingredient-stock-list {
-        display: grid;
-        gap: 0.75rem;
-    }
-
-    .ingredient-stock-row {
-        display: grid;
-        gap: 0.55rem;
-        padding: 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.9rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .ingredient-stock-row.is-risk {
-        border-color: rgba(248, 113, 113, 0.34);
-        background:
-            radial-gradient(circle at right, rgba(239, 68, 68, 0.12), transparent 12rem),
-            linear-gradient(90deg, rgba(127, 29, 29, 0.24), rgba(8, 22, 35, 0.56));
-    }
-
-    .ingredient-stock-meta {
-        display: flex;
-        justify-content: space-between;
-        gap: 0.8rem;
-        align-items: baseline;
-    }
-
-    .ingredient-stock-meta strong {
-        font-size: 0.92rem;
-    }
-
-    .ingredient-stock-meta span {
-        color: var(--muted);
-        font-size: 0.78rem;
-        text-align: right;
-    }
-
-    .ingredient-stock-track {
-        height: 0.85rem;
-        overflow: hidden;
-        border-radius: 999px;
-        border: 1px solid rgba(125, 158, 190, 0.12);
-        background: rgba(255,255,255,0.07);
-    }
-
-    .ingredient-stock-fill {
-        height: 100%;
-        max-width: 100%;
-        min-width: 4px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgba(59, 130, 246, 0.86), rgba(34, 197, 94, 0.86));
-    }
-
-    .ingredient-stock-row.is-risk .ingredient-stock-fill {
-        background: linear-gradient(90deg, rgba(245, 158, 11, 0.86), rgba(239, 68, 68, 0.88));
-    }
-
-    .ingredient-stock-scale {
-        display: flex;
-        justify-content: space-between;
-        color: var(--muted);
-        font-size: 0.72rem;
-        line-height: 1.4;
-    }
-
-    .ingredient-review-list {
-        display: grid;
-        gap: 0.75rem;
-    }
-
-    .ingredient-review-card {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 0.75rem;
-        align-items: center;
-        padding: 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.9rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .ingredient-review-card.is-risk {
-        border-color: rgba(248, 113, 113, 0.38);
-        background:
-            radial-gradient(circle at right, rgba(239, 68, 68, 0.12), transparent 10rem),
-            rgba(127, 29, 29, 0.22);
-    }
-
-    .ingredient-review-card strong {
-        display: block;
-        font-size: 0.92rem;
-    }
-
-    .ingredient-review-card span {
-        display: block;
-        margin-top: 0.25rem;
-        color: var(--muted);
-        font-size: 0.78rem;
-        line-height: 1.4;
-    }
-
-    .ingredient-shortage {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 999px;
-        padding: 0.42rem 0.62rem;
-        color: #fecaca;
-        border: 1px solid rgba(248, 113, 113, 0.38);
-        background: rgba(127, 29, 29, 0.28);
-        font-size: 0.72rem;
-        font-weight: 850;
-        white-space: nowrap;
-    }
-
-    .ingredient-small-proof {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-
-    .ingredient-small-proof-card {
-        padding: 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: 0.8rem;
-        background: rgba(255,255,255,0.035);
-    }
-
-    .ingredient-small-proof-card strong {
-        display: block;
-        font-size: 1.35rem;
-        letter-spacing: -0.04em;
-    }
-
-    .ingredient-small-proof-card span {
-        display: block;
-        margin-top: 0.35rem;
-        color: var(--muted);
-        font-size: 0.76rem;
-    }
-
-    .ingredient-table-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--line);
-        border-radius: 0.95rem;
-        background: rgba(8, 22, 35, 0.78);
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.20);
-    }
-
-    .ingredient-table {
-        width: 100%;
-        min-width: 1180px;
-        border-collapse: collapse;
-    }
-
-    .ingredient-table th,
-    .ingredient-table td {
-        padding: 0.88rem 0.82rem;
-        border-right: 1px solid rgba(125, 158, 190, 0.09);
-        border-bottom: 1px solid rgba(125, 158, 190, 0.10);
-        text-align: left;
-        vertical-align: top;
-        font-size: 0.8rem;
-        line-height: 1.42;
-    }
-
-    .ingredient-table th {
-        color: var(--muted);
-        background: rgba(10, 28, 45, 0.92);
-        font-size: 0.67rem;
-        font-weight: 900;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-    }
-
-    .ingredient-table td:last-child,
-    .ingredient-table th:last-child {
-        min-width: 230px;
-        border-right: 0;
-    }
-
-    .ingredient-table tr.is-risk {
-        background:
-            linear-gradient(90deg, rgba(127, 29, 29, 0.22), rgba(8, 22, 35, 0.55));
-    }
-
-    .ingredient-table tr:last-child td {
-        border-bottom: 0;
-    }
-
-    .ingredient-metric {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 2.5rem;
-        min-height: 1.55rem;
-        padding: 0.18rem 0.46rem;
-        border-radius: 999px;
-        color: var(--text);
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(125, 158, 190, 0.14);
-        font-size: 0.72rem;
-        font-weight: 850;
-    }
-
-    .ingredient-negative {
-        color: #fed7aa;
-        font-weight: 850;
-    }
-
-    .ingredient-positive {
-        color: #bbf7d0;
-        font-weight: 850;
-    }
-
-    .ingredient-muted {
-        color: var(--muted);
-        font-size: 0.76rem;
-    }
-
-    .ingredient-def-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.8rem;
-    }
-
-    .ingredient-def-card {
-        position: relative;
-        min-height: 9.5rem;
-        padding: 1rem;
-        border: 1px solid var(--line);
-        border-radius: 0.9rem;
-        background:
-            radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 9rem),
-            rgba(10, 28, 45, 0.68);
-        overflow: hidden;
-    }
-
-    .ingredient-def-card::after {
-        content: "";
-        position: absolute;
-        right: 0.9rem;
-        top: 0.9rem;
-        width: 2.1rem;
-        height: 2.1rem;
-        border-radius: 999px;
-        opacity: 0.7;
-        background: rgba(255,255,255,0.045);
-        border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .ingredient-def-card p {
-        margin: 0.7rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.82rem;
-        line-height: 1.5;
-    }
-
-    .ingredient-footer {
-        padding: 0.8rem 0 1rem;
-        margin: 0;
-        text-align: center;
-        color: var(--muted);
-        font-size: 0.82rem;
-    }
-
-    .ingredient-empty {
-        padding: 1rem;
-        border: 1px dashed rgba(125, 158, 190, 0.28);
-        border-radius: 0.9rem;
-        color: var(--muted);
-        background: rgba(8, 22, 35, 0.56);
-    }
-
-    @media (max-width: 1200px) {
-        .ingredient-hero-grid,
-        .ingredient-mid-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .ingredient-kpi-grid,
-        .ingredient-def-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .ingredient-alert-strip {
-            grid-template-columns: 1fr;
-        }
-
-        .ingredient-hero::after {
-            opacity: 0.25;
-        }
-    }
-
-    @media (max-width: 900px) {
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-app-shell {
-            display: flex !important;
-            flex-direction: column;
-            padding-left: 0 !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-sidebar {
-            position: relative !important;
-            width: 100% !important;
-            max-width: none !important;
-            height: auto !important;
-            min-height: auto !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-main-frame {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-
-        body.analytics-shell-body.reference-match-shell:has(.ingredient-ref-page) .analytics-page-frame {
-            padding: 1rem !important;
-        }
-
-        .ingredient-page-header {
-            grid-template-columns: 1fr;
-        }
-
-        .ingredient-actions {
-            justify-content: flex-start;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .ingredient-kpi-grid,
-        .ingredient-proof-mini,
-        .ingredient-small-proof,
-        .ingredient-def-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .ingredient-hero::after {
-            display: none;
-        }
-
-        .ingredient-hero h2 {
-            font-size: clamp(2.2rem, 11vw, 3.2rem);
-        }
-    }
-
-/* 5C.4 — Ingredient Risk Table Density Fix
-   Purpose: improve deep-dive table readability without changing data logic.
-*/
-
-.ingredient-table-wrap {
-    overflow-x: auto;
-    scrollbar-width: thin;
-}
-
-.ingredient-table {
-    table-layout: fixed;
-    min-width: 1220px !important;
-}
-
-.ingredient-table th,
-.ingredient-table td {
-    padding: 0.82rem 0.76rem !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-}
-
-.ingredient-table th:nth-child(1),
-.ingredient-table td:nth-child(1) {
-    width: 105px;
-}
-
-.ingredient-table th:nth-child(2),
-.ingredient-table td:nth-child(2) {
-    width: 240px;
-}
-
-.ingredient-table th:nth-child(3),
-.ingredient-table td:nth-child(3) {
-    width: 125px;
-}
-
-.ingredient-table th:nth-child(4),
-.ingredient-table td:nth-child(4) {
-    width: 120px;
-}
-
-.ingredient-table th:nth-child(5),
-.ingredient-table td:nth-child(5) {
-    width: 105px;
-}
-
-.ingredient-table th:nth-child(6),
-.ingredient-table td:nth-child(6) {
-    width: 95px;
-}
-
-.ingredient-table th:nth-child(7),
-.ingredient-table td:nth-child(7) {
-    width: 135px;
-}
-
-.ingredient-table th:nth-child(8),
-.ingredient-table td:nth-child(8) {
-    width: 295px;
-}
-
-.ingredient-table td:nth-child(1) strong,
-.ingredient-table td:nth-child(7) strong {
-    white-space: normal;
-    overflow-wrap: break-word;
-}
-
-.ingredient-table td:nth-child(2) p,
-.ingredient-table td:nth-child(8) p {
-    max-width: 100%;
-    line-height: 1.48;
-}
-
-.ingredient-table .ingredient-metric {
-    min-width: 3rem;
-}
-
-.ingredient-risk-pill {
-    white-space: nowrap;
-}
-
-.ingredient-muted {
-    overflow-wrap: normal !important;
-    word-break: normal !important;
-}
-
-@media (max-width: 900px) {
-    .ingredient-table {
-        min-width: 1180px !important;
-    }
-}
-
-
-/* 5C.5 — Final Ingredient Table Fit Fix
-   Purpose: keep the deep-dive table visible inside the page frame.
-*/
-
-.ingredient-table-wrap {
-    width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    border-radius: 0.95rem !important;
-}
-
-.ingredient-table {
-    width: 100% !important;
-    min-width: 980px !important;
-    table-layout: fixed !important;
-}
-
-.ingredient-table th,
-.ingredient-table td {
-    padding: 0.72rem 0.58rem !important;
-    font-size: 0.74rem !important;
-    line-height: 1.38 !important;
-    word-break: normal !important;
-    overflow-wrap: anywhere !important;
-    hyphens: none !important;
-}
-
-.ingredient-table th {
-    font-size: 0.61rem !important;
-    letter-spacing: 0.07em !important;
-}
-
-.ingredient-table th:nth-child(1),
-.ingredient-table td:nth-child(1) {
-    width: 90px !important;
-}
-
-.ingredient-table th:nth-child(2),
-.ingredient-table td:nth-child(2) {
-    width: 215px !important;
-}
-
-.ingredient-table th:nth-child(3),
-.ingredient-table td:nth-child(3) {
-    width: 110px !important;
-}
-
-.ingredient-table th:nth-child(4),
-.ingredient-table td:nth-child(4) {
-    width: 95px !important;
-}
-
-.ingredient-table th:nth-child(5),
-.ingredient-table td:nth-child(5) {
-    width: 88px !important;
-}
-
-.ingredient-table th:nth-child(6),
-.ingredient-table td:nth-child(6) {
-    width: 82px !important;
-}
-
-.ingredient-table th:nth-child(7),
-.ingredient-table td:nth-child(7) {
-    width: 112px !important;
-}
-
-.ingredient-table th:nth-child(8),
-.ingredient-table td:nth-child(8) {
-    width: 188px !important;
-    min-width: 188px !important;
-}
-
-.ingredient-table td:nth-child(8) p {
-    max-width: 100% !important;
-    margin: 0 !important;
-    line-height: 1.42 !important;
-}
-
-.ingredient-table td:nth-child(1) strong,
-.ingredient-table td:nth-child(7) strong {
-    display: block;
-    line-height: 1.28 !important;
-}
-
-.ingredient-risk-pill {
-    min-height: 1.25rem !important;
-    padding: 0.16rem 0.42rem !important;
-    font-size: 0.58rem !important;
-    white-space: nowrap !important;
-}
-
-.ingredient-metric {
-    min-width: 2.3rem !important;
-    min-height: 1.35rem !important;
-    padding: 0.12rem 0.36rem !important;
-    font-size: 0.66rem !important;
-}
-
-.ingredient-muted {
-    font-size: 0.68rem !important;
-    line-height: 1.32 !important;
-}
-
-@media (max-width: 1200px) {
-    .ingredient-table {
-        min-width: 960px !important;
-    }
-
-    .ingredient-table th,
-    .ingredient-table td {
-        padding: 0.68rem 0.52rem !important;
-        font-size: 0.72rem !important;
-    }
-}
-
-</style>
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/analytics-dashboard.css' %}?v=5t-reference-base">
+<link rel="stylesheet" href="{% static 'bakeops/css/pages/ingredient-risk.css' %}?v=5t-ingredient-page">
 {% endblock %}
 
 {% block analytics_content %}
-<main class="ingredient-ref-page">
-    <section class="ingredient-page-header">
-        <div class="ingredient-page-title">
-            <small>BakeOps Intelligence</small>
-            <h1>Ingredient Risk</h1>
-            <p>Monitor stock levels, waste, usage, and expiry risk to prevent production issues.</p>
+<main class="dash-ref analytics-reference-page ingredient-ref-page">
+
+    <section class="dash-ref-page-title ingredient-page-title-row" aria-labelledby="ingredient-risk-title">
+        <div class="dash-ref-title-left">
+            <div class="dash-ref-title-icon" aria-hidden="true">⚠</div>
+
+            <div>
+                <h1 id="ingredient-risk-title">Ingredient Risk</h1>
+                <p>Monitor stock levels, waste, usage, and expiry risk before production issues appear.</p>
+            </div>
         </div>
 
-        <nav class="ingredient-actions" aria-label="Ingredient risk actions">
-            <a class="ingredient-btn" href="{% url 'bakeops:analytics-dashboard' %}">← Back to analytics dashboard</a>
-            <a class="ingredient-btn" href="{% url 'bakeops:product-profitability' %}">Product profitability</a>
-            <a class="ingredient-btn" href="/">Back to catalogue</a>
+        <nav class="ingredient-title-actions" aria-label="Ingredient risk actions">
+            <span class="dash-ref-date-pill">
+                Snapshot: {{ snapshot_date|default:"30 Apr 2026" }}
+            </span>
+
+            <a class="dash-ref-button" href="{% url 'bakeops:analytics-dashboard' %}">
+                ← Dashboard
+            </a>
+
+            <a class="dash-ref-button" href="{% url 'bakeops:product-profitability' %}">
+                Product profitability
+            </a>
         </nav>
     </section>
 
     {% if latest_metric %}
-        <section class="ingredient-hero-grid">
-            <article class="ingredient-card ingredient-hero">
-                <span class="ingredient-badge is-warning">Trusted Ingredient Risk</span>
+
+        <section class="ingredient-hero-grid" aria-label="Ingredient risk summary">
+            <article class="dash-ref-panel dash-ref-panel-pad ingredient-hero">
+                <span class="dash-ref-kicker">Trusted Ingredient Risk</span>
+
                 <h2>Ingredient risk before production problems appear.</h2>
+
                 <p>
                     This page uses trusted gold-layer
                     <span class="ingredient-code">IngredientUsageSnapshot</span>
-                    records to compare current stock, reorder levels, usage, waste, and near-expiry pressure before production demand increases.
+                    records to compare current stock, reorder levels, usage, waste,
+                    and near-expiry pressure before production demand increases.
                 </p>
 
-                <div class="ingredient-meta-row">
+                <div class="ingredient-meta-row" aria-label="Snapshot metadata">
                     <span class="ingredient-pill">Workspace: {{ workspace.name }}</span>
                     <span class="ingredient-pill">Snapshot: {{ snapshot_date }}</span>
                     <span class="ingredient-pill">Source: IngredientUsageSnapshot</span>
                 </div>
 
-                <div class="ingredient-meta-row">
-                    <a class="ingredient-cta" href="#ingredient-risk-table">View risk deep-dive →</a>
-                </div>
+                <a class="dash-ref-button ingredient-hero-button" href="#ingredient-risk-table">
+                    View risk deep-dive →
+                </a>
             </article>
 
-            <aside class="ingredient-card ingredient-proof-card">
+            <aside class="dash-ref-panel dash-ref-panel-pad ingredient-proof-card" aria-label="Reviewer proof point">
                 <div class="ingredient-proof-head">
-                    <div class="ingredient-proof-title">
-                        <span>Reviewer Proof Point</span>
+                    <div>
+                        <span class="dash-ref-kicker is-blue">Reviewer Proof Point</span>
                         <strong>{{ risk_count }}</strong>
                     </div>
-                    <div class="ingredient-proof-icon">!</div>
+
+                    <div class="ingredient-proof-icon" aria-hidden="true">!</div>
                 </div>
 
                 <p>
-                    high-risk ingredient rows found in the latest metric build. This page explains the existing trusted snapshot layer and does not rebuild metrics.
+                    high-risk ingredient rows found in the latest metric build.
+                    This page explains the existing trusted snapshot layer and does not rebuild metrics.
                 </p>
 
                 <div class="ingredient-proof-mini">
                     <div class="ingredient-proof-tile">
+                        <span>Ingredients reviewed</span>
                         <strong>{{ ingredient_count }}</strong>
-                        <span>ingredients reviewed</span>
                     </div>
+
                     <div class="ingredient-proof-tile">
+                        <span>Rows above low risk</span>
                         <strong>{{ risk_count }}</strong>
-                        <span>rows above low risk</span>
                     </div>
                 </div>
 
-                <p class="ingredient-muted">
+                <p class="dash-ref-muted">
                     Reviewer note: stock risk is surfaced before menu growth decisions.
                 </p>
             </aside>
         </section>
 
-        <section class="ingredient-kpi-grid">
-            <article class="ingredient-card ingredient-kpi">
-                <div class="ingredient-kpi-icon">◔</div>
+        <section class="dash-ref-kpi-grid ingredient-kpi-grid" aria-label="Ingredient risk KPI cards">
+            <article class="dash-ref-kpi">
                 <span>Ingredients Analysed</span>
                 <strong>{{ ingredient_count }}</strong>
                 <small>Latest ingredient usage snapshots.</small>
             </article>
 
-            <article class="ingredient-card ingredient-kpi">
-                <div class="ingredient-kpi-icon is-red">⚑</div>
+            <article class="dash-ref-kpi is-red">
                 <span>Risk Rows</span>
                 <strong>{{ risk_count }}</strong>
                 <small>Ingredients above low-risk status.</small>
             </article>
 
-            <article class="ingredient-card ingredient-kpi">
-                <div class="ingredient-kpi-icon is-orange">£</div>
+            <article class="dash-ref-kpi">
                 <span>Ingredient Cost</span>
                 <strong>£{{ total_ingredient_cost }}</strong>
                 <small>Total ingredient cost from snapshot rows.</small>
             </article>
 
-            <article class="ingredient-card ingredient-kpi">
-                <div class="ingredient-kpi-icon is-green">◇</div>
+            <article class="dash-ref-kpi">
                 <span>Waste Cost</span>
                 <strong>£{{ total_waste_cost }}</strong>
                 <small>Waste pressure linked to ingredients.</small>
@@ -1193,7 +126,7 @@
         </section>
 
         {% if top_risk_ingredient %}
-            <section class="ingredient-alert-strip">
+            <section class="dash-ref-panel dash-ref-panel-pad ingredient-alert-strip" aria-label="Immediate ingredient review">
                 <div class="ingredient-alert-title">
                     <span>Needs immediate review</span>
                     <strong>{{ top_risk_ingredient.ingredient.name }} below reorder level</strong>
@@ -1214,15 +147,17 @@
                     <strong>{{ top_risk_ingredient.shortage_quantity }}</strong>
                 </div>
 
-                <a class="ingredient-cta" href="#ingredient-risk-table">Review now →</a>
+                <a class="dash-ref-button ingredient-alert-button" href="#ingredient-risk-table">
+                    Review now →
+                </a>
             </section>
         {% endif %}
 
-        <section class="ingredient-mid-grid">
-            <article class="ingredient-card ingredient-panel">
-                <div class="ingredient-panel-head">
+        <section class="ingredient-mid-grid" aria-label="Ingredient stock and review panels">
+            <article class="dash-ref-panel dash-ref-panel-pad ingredient-panel">
+                <div class="dash-ref-card-head">
                     <div>
-                        <span class="ingredient-badge is-warning">Stock Visual</span>
+                        <span class="dash-ref-kicker">Stock Visual</span>
                         <h2>Current stock vs reorder level</h2>
                         <p>Shows whether each ingredient is above or below its reorder threshold.</p>
                     </div>
@@ -1251,15 +186,15 @@
                             </div>
                         </div>
                     {% empty %}
-                        <div class="ingredient-empty">No ingredient risk rows found.</div>
+                        <div class="dash-ref-empty">No ingredient risk rows found.</div>
                     {% endfor %}
                 </div>
             </article>
 
-            <article class="ingredient-card ingredient-panel">
-                <div class="ingredient-panel-head">
+            <article class="dash-ref-panel dash-ref-panel-pad ingredient-panel">
+                <div class="dash-ref-card-head">
                     <div>
-                        <span class="ingredient-badge is-danger">Risk Focus</span>
+                        <span class="dash-ref-kicker is-purple">Risk Focus</span>
                         <h2>Ingredients needing stock review</h2>
                         <p>Low-stock ingredients are surfaced before the full evidence table.</p>
                     </div>
@@ -1273,51 +208,59 @@
                                     <strong>{{ row.ingredient.name }}</strong>
                                     <span>Current stock {{ row.current_stock }} is below reorder level {{ row.reorder_level }}.</span>
                                 </div>
-                                <div class="ingredient-shortage">Short {{ row.shortage_quantity }}</div>
+
+                                <div class="ingredient-shortage">
+                                    Short {{ row.shortage_quantity }}
+                                </div>
                             </div>
                         {% endif %}
                     {% empty %}
-                        <div class="ingredient-empty">No stock review rows found.</div>
+                        <div class="dash-ref-empty">No stock review rows found.</div>
                     {% endfor %}
                 </div>
 
                 {% if top_risk_ingredient %}
                     <div class="ingredient-small-proof">
                         <div class="ingredient-small-proof-card">
+                            <span>Top ingredient risk</span>
                             <strong>{{ top_risk_ingredient.ingredient.name }}</strong>
-                            <span>top ingredient risk</span>
                         </div>
 
                         <div class="ingredient-small-proof-card">
+                            <span>Current stock</span>
                             <strong>{{ top_risk_ingredient.current_stock }}</strong>
-                            <span>current stock</span>
                         </div>
 
                         <div class="ingredient-small-proof-card">
+                            <span>Shortage quantity</span>
                             <strong>{{ top_risk_ingredient.shortage_quantity }}</strong>
-                            <span>shortage quantity</span>
                         </div>
                     </div>
                 {% endif %}
             </article>
         </section>
 
-        <section class="ingredient-table-section" id="ingredient-risk-table">
-            <h2>Ingredient Risk Deep Dive</h2>
-            <p>Current stock, reorder threshold, usage, waste, expiry, supplier, and recommended operational action.</p>
+        <section class="dash-ref-panel dash-ref-panel-pad ingredient-table-section" id="ingredient-risk-table" aria-labelledby="ingredient-risk-table-title">
+            <div class="dash-ref-card-head">
+                <div>
+                    <span class="dash-ref-kicker is-blue">Operational Evidence</span>
+                    <h2 id="ingredient-risk-table-title">Ingredient Risk Deep Dive</h2>
+                    <p>Current stock, reorder threshold, usage, waste, expiry, supplier, and recommended operational action.</p>
+                </div>
+            </div>
 
-            <div class="ingredient-table-wrap">
-                <table class="ingredient-table">
+            <div class="dash-ref-table-wrap ingredient-table-wrap">
+                <table class="dash-ref-table ingredient-table">
                     <thead>
                         <tr>
-                            <th>Ingredient</th>
-                            <th>Risk</th>
-                            <th>Stock Position</th>
-                            <th>Usage</th>
-                            <th>Waste</th>
-                            <th>Near Expiry</th>
-                            <th>Supplier</th>
-                            <th>Recommended Action</th>
+                            <th scope="col">Ingredient</th>
+                            <th scope="col">Risk</th>
+                            <th scope="col">Stock Position</th>
+                            <th scope="col">Usage</th>
+                            <th scope="col">Waste</th>
+                            <th scope="col">Near Expiry</th>
+                            <th scope="col">Supplier</th>
+                            <th scope="col">Recommended Action</th>
                         </tr>
                     </thead>
 
@@ -1326,21 +269,25 @@
                             <tr class="{% if row.is_stock_below_reorder %}is-risk{% endif %}">
                                 <td>
                                     <strong>{{ row.ingredient.name }}</strong><br>
-                                    <span class="ingredient-muted">{{ row.ingredient.unit }}</span>
+                                    <small>{{ row.ingredient.unit }}</small>
                                 </td>
 
                                 <td>
-                                    <span class="ingredient-risk-pill {{ row.snapshot.stock_risk_level }}">{{ row.risk_label }}</span>
-                                    <p class="ingredient-muted" style="margin: 0.65rem 0 0;">
+                                    <span class="dash-ref-status ingredient-risk-pill {{ row.snapshot.stock_risk_level }}">
+                                        {{ row.risk_label }}
+                                    </span>
+
+                                    <p class="ingredient-table-note">
                                         {{ row.risk_explanation }}
                                     </p>
                                 </td>
 
                                 <td>
                                     <span class="ingredient-metric">{{ row.current_stock }}</span>
-                                    <span class="ingredient-muted">current</span><br>
+                                    <small>current</small><br>
+
                                     <span class="ingredient-metric">{{ row.reorder_level }}</span>
-                                    <span class="ingredient-muted">reorder</span><br>
+                                    <small>reorder</small><br>
 
                                     {% if row.is_stock_below_reorder %}
                                         <span class="ingredient-negative">Short by {{ row.shortage_quantity }}</span>
@@ -1351,42 +298,45 @@
 
                                 <td>
                                     <strong>{{ row.snapshot.quantity_used }}</strong><br>
-                                    <span class="ingredient-muted">quantity used in latest build period</span><br>
-                                    <span class="ingredient-muted">Cost: £{{ row.snapshot.ingredient_cost }}</span>
+                                    <small>quantity used in latest build period</small><br>
+                                    <small>Cost: £{{ row.snapshot.ingredient_cost }}</small>
                                 </td>
 
                                 <td>
                                     <strong>{{ row.snapshot.quantity_wasted }}</strong><br>
-                                    <span class="ingredient-muted">Waste cost: £{{ row.snapshot.waste_cost }}</span><br>
-                                    <span class="ingredient-muted">Waste rate: {{ row.waste_rate_percent }}%</span>
+                                    <small>Waste cost: £{{ row.snapshot.waste_cost }}</small><br>
+                                    <small>Waste rate: {{ row.waste_rate_percent }}%</small>
                                 </td>
 
                                 <td>
                                     <strong>{{ row.snapshot.near_expiry_lot_count }}</strong><br>
+
                                     {% if row.has_near_expiry_risk %}
                                         <span class="ingredient-negative">near-expiry lots need review</span>
                                     {% else %}
-                                        <span class="ingredient-muted">No near-expiry lot signal</span>
+                                        <small>No near-expiry lot signal</small>
                                     {% endif %}
                                 </td>
 
                                 <td>
                                     {% if row.ingredient.supplier %}
                                         <strong>{{ row.ingredient.supplier.name }}</strong><br>
-                                        <span class="ingredient-muted">Supplier linked</span>
+                                        <small>Supplier linked</small>
                                     {% else %}
-                                        <span class="ingredient-muted">No supplier linked</span>
+                                        <small>No supplier linked</small>
                                     {% endif %}
                                 </td>
 
                                 <td>
-                                    <p class="ingredient-muted" style="margin: 0;">{{ row.recommended_action }}</p>
+                                    <p class="ingredient-table-note is-flush">
+                                        {{ row.recommended_action }}
+                                    </p>
                                 </td>
                             </tr>
                         {% empty %}
                             <tr>
                                 <td colspan="8">
-                                    <div class="ingredient-empty">
+                                    <div class="dash-ref-empty">
                                         No ingredient usage snapshots found.
                                         Run <span class="ingredient-code">python manage.py build_bakery_metrics</span>.
                                     </div>
@@ -1398,31 +348,43 @@
             </div>
         </section>
 
-        <section class="ingredient-definitions-section">
-            <h2>Ingredient Risk Definitions</h2>
-            <p>Plain-English interpretation for bakery operations and reviewers.</p>
+        <section class="dash-ref-panel dash-ref-panel-pad ingredient-definitions-section" aria-labelledby="ingredient-risk-definitions-title">
+            <div class="dash-ref-card-head">
+                <div>
+                    <span class="dash-ref-kicker is-green">Definitions</span>
+                    <h2 id="ingredient-risk-definitions-title">Ingredient Risk Definitions</h2>
+                    <p>Plain-English interpretation for bakery operations and reviewers.</p>
+                </div>
+            </div>
 
             <div class="ingredient-def-grid">
                 {% for item in risk_legend %}
                     <article class="ingredient-def-card">
-                        <span class="ingredient-risk-pill {{ item.code }}">{{ item.level }}</span>
+                        <span class="dash-ref-status ingredient-risk-pill {{ item.code }}">
+                            {{ item.level }}
+                        </span>
                         <p>{{ item.meaning }}</p>
                     </article>
                 {% endfor %}
             </div>
         </section>
+
     {% else %}
-        <section class="ingredient-card ingredient-empty">
-            <h1>No ingredient risk data found.</h1>
-            <p>
+
+        <section class="dash-ref-panel dash-ref-panel-pad" aria-label="No ingredient risk data">
+            <span class="dash-ref-kicker">No Ingredient Risk Data</span>
+            <h2>No ingredient risk data found.</h2>
+
+            <p class="dash-ref-muted">
                 Run <span class="ingredient-code">python manage.py seed_demo_data --reset</span>
                 and <span class="ingredient-code">python manage.py build_bakery_metrics</span>, then refresh this page.
             </p>
         </section>
+
     {% endif %}
 
-    <p class="ingredient-footer">
+    <footer class="dash-ref-footer">
         BakeOps Intelligence V3 — trusted ingredient risk review powered by gold-layer snapshots.
-    </p>
+    </footer>
 </main>
 {% endblock %}
