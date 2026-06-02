@@ -279,6 +279,18 @@ Analytics pages
 
 ---
 
+## SQL Evidence Layer
+
+BakeOps includes a SQL evidence layer under [`docs/sql/`](docs/sql/README.md) demonstrating practical analytics SQL against the project's operational exports, dimensional data, and gold-layer metric outputs.
+
+The SQL evidence covers source-table inspection, INNER and LEFT JOIN patterns, row-level transformations (`CASE`, `CAST`, date/string functions), aggregate functions, window functions (`RANK`, `DENSE_RANK`, `ROW_NUMBER`, `LAG`), data-quality validation using SET operators, and a signature business insight comparing revenue rank against waste-adjusted margin rank.
+
+The SQL is SQLite-compatible and provided as reviewer evidence. It does not claim a production warehouse, dbt, Snowflake, BigQuery, Airflow, or cloud pipeline.
+
+The signature insight query requires demo data to be seeded, metrics to be built, and BI CSV exports to be generated before running. See [`docs/sql/README.md`](docs/sql/README.md) for setup and acceptance checks.
+
+---
+
 ## BI Export Contract
 
 ```powershell
