@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BakeOps Intelligence | Choose your reviewer path</title>
+  <meta name="description" content="Choose between the SweetCakes customer-facing site and the BakeOps analytics dashboard demo workspace.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/landing-choice.css' %}">
+</head>
+<body class="landing-choice-page">
+  <main class="landing-shell">
+    <header class="landing-header text-center">
+      <div class="landing-mark" aria-hidden="true">BO</div>
+      <p class="landing-eyebrow">Portfolio demo workspace</p>
+      <h1 class="landing-title">BakeOps Intelligence</h1>
+      <p class="landing-kicker">Choose your reviewer path</p>
+      <p class="landing-lead">
+        Explore the public cake-facing site or review the BakeOps analytics dashboard built for
+        operational insight, profitability analysis, data quality, and BI-ready exports.
+      </p>
+    </header>
+
+    <section class="landing-grid" aria-label="Reviewer path options">
+      <article class="landing-card">
+        <div class="landing-card-icon landing-card-icon-cake" aria-hidden="true">C</div>
+        <h2 class="landing-card-title">Cake site</h2>
+        <p class="landing-card-copy">
+          Open the customer-facing cake and bakery site experience.
+        </p>
+        <a class="landing-btn landing-btn-secondary" href="/cakes/">View Cake Site</a>
+      </article>
+
+      <article class="landing-card landing-card-featured">
+        <div class="landing-card-icon landing-card-icon-analytics" aria-hidden="true">A</div>
+        <h2 class="landing-card-title">Analytics dashboard</h2>
+        <p class="landing-card-copy">
+          Review the analytics command centre, profitability insights, data-quality checks, and export evidence.
+        </p>
+        <a class="landing-btn landing-btn-primary" href="/analytics/">View BakeOps Analytics Dashboard</a>
+      </article>
+    </section>
+
+    <footer class="landing-footer text-center">
+      <p class="landing-note">
+        This is a local demo workspace for portfolio review - not a live SaaS product.
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

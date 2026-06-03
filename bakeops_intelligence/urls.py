@@ -23,9 +23,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from bakeops_intelligence import views as project_views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("analytics/", include("bakeops.urls")),
+    path("", project_views.landing_choice, name="landing-choice"),
+    path("", project_views.landing_choice, name="home"),
     path("", include("cakes.urls")),
 ]
 
