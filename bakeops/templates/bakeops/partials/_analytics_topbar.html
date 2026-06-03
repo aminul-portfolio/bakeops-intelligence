@@ -16,6 +16,19 @@
         <span class="ref-status-pill is-demo" aria-label="Using seeded demo data">Demo Data</span>
         <span class="ref-status-pill is-evidence" aria-label="Evidence mode active">Evidence On</span>
 
+        <a class="ref-storefront-button"
+           href="{% url 'welcome' %}"
+           title="Open the SweetCakes Bakery customer-facing demo storefront"
+           aria-label="View SweetCakes Storefront">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3.5 12.5h9V5.5H3.5v7z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+                <path d="M6 3.5h4l1 2H5l1-2z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+                <path d="M10.5 8.25h2.75v4.25" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11.5 7.25 13.25 5.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>View SweetCakes Storefront</span>
+        </a>
+
         <a class="ref-export-button" href="{% url 'bakeops:export-centre' %}" aria-label="Open Export Centre">
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M8 2v8m0 0L5 7m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
