@@ -5,47 +5,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BakeOps Intelligence | Choose your reviewer path</title>
-  <meta name="description" content="Choose between the SweetCakes customer-facing site and the BakeOps analytics dashboard demo workspace.">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Portfolio demo gateway for SweetCakes Bakery and the BakeOps analytics intelligence layer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'bakeops/css/bakeops-design-tokens.css' %}">
   <link rel="stylesheet" href="{% static 'css/landing-choice.css' %}">
 </head>
 <body class="landing-choice-page">
+  <div class="landing-bg" aria-hidden="true">
+    <div class="landing-bg-grid"></div>
+    <div class="landing-bg-glow landing-bg-glow-teal"></div>
+    <div class="landing-bg-glow landing-bg-glow-amber"></div>
+  </div>
+
   <main class="landing-shell">
-    <header class="landing-header text-center">
-      <div class="landing-mark" aria-hidden="true">BO</div>
-      <p class="landing-eyebrow">Portfolio demo workspace</p>
-      <h1 class="landing-title">BakeOps Intelligence</h1>
-      <p class="landing-kicker">Choose your reviewer path</p>
-      <p class="landing-lead">
-        Explore the public cake-facing site or review the BakeOps analytics dashboard built for
-        operational insight, profitability analysis, data quality, and BI-ready exports.
-      </p>
+    <header class="landing-topbar">
+      <div class="landing-brand-lockup">
+        <span class="landing-brand-mark" aria-hidden="true">BI</span>
+        <span class="landing-brand-text">BakeOps Intelligence</span>
+      </div>
+      <span class="landing-demo-pill">Portfolio demo workspace</span>
     </header>
 
+    <section class="landing-hero">
+      <p class="landing-eyebrow">Reviewer gateway</p>
+      <h1 class="landing-title">Choose your reviewer path</h1>
+      <p class="landing-lead">
+        Start with the SweetCakes customer-facing demo storefront, or review the BakeOps analytics
+        layer built for operational insight, profitability analysis, data quality, and BI-ready exports.
+      </p>
+      <div class="landing-surface-tags" aria-label="Project surfaces">
+        <span class="landing-surface-tag landing-surface-tag-cake">SweetCakes Bakery</span>
+        <span class="landing-surface-tag-divider" aria-hidden="true">+</span>
+        <span class="landing-surface-tag landing-surface-tag-analytics">BakeOps Intelligence</span>
+      </div>
+    </section>
+
     <section class="landing-grid" aria-label="Reviewer path options">
-      <article class="landing-card">
-        <div class="landing-card-icon landing-card-icon-cake" aria-hidden="true">C</div>
-        <h2 class="landing-card-title">Cake site</h2>
+      <article class="landing-card landing-card-cake">
+        <div class="landing-card-head">
+          <div class="landing-card-icon landing-card-icon-cake" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 14c0-3 2.5-5 8-5s8 2 8 5v2H4v-2z"/>
+              <path d="M8 9V7a4 4 0 1 1 8 0v2"/>
+              <path d="M6 18c1.5 1.5 4 2 6 2s4.5-.5 6-2"/>
+            </svg>
+          </div>
+          <div>
+            <p class="landing-card-label">Customer-facing surface</p>
+            <h2 class="landing-card-title">SweetCakes Bakery</h2>
+          </div>
+        </div>
         <p class="landing-card-copy">
-          Open the customer-facing cake and bakery site experience.
+          Explore the customer-facing bakery experience, including the storefront landing page, cake
+          catalogue, product detail pages, and demo order journey.
         </p>
-        <a class="landing-btn landing-btn-secondary" href="/cakes/">View Cake Site</a>
+        <ul class="landing-card-features">
+          <li>Premium bakery storefront</li>
+          <li>Cake catalogue and detail pages</li>
+          <li>Demo order journey</li>
+        </ul>
+        <a class="landing-btn landing-btn-cake" href="{% url 'welcome' %}">
+          <span>Explore SweetCakes Bakery</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 10h12M11 5l5 5-5 5"/>
+          </svg>
+        </a>
       </article>
 
-      <article class="landing-card landing-card-featured">
-        <div class="landing-card-icon landing-card-icon-analytics" aria-hidden="true">A</div>
-        <h2 class="landing-card-title">Analytics dashboard</h2>
+      <article class="landing-card landing-card-analytics">
+        <div class="landing-card-badge">Primary review surface</div>
+        <div class="landing-card-head">
+          <div class="landing-card-icon landing-card-icon-analytics" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19V5"/>
+              <path d="M4 19h16"/>
+              <path d="M8 15V9"/>
+              <path d="M12 17V7"/>
+              <path d="M16 13v-2"/>
+            </svg>
+          </div>
+          <div>
+            <p class="landing-card-label">Operations intelligence layer</p>
+            <h2 class="landing-card-title">BakeOps Intelligence</h2>
+          </div>
+        </div>
         <p class="landing-card-copy">
           Review the analytics command centre, profitability insights, data-quality checks, and export evidence.
         </p>
-        <a class="landing-btn landing-btn-primary" href="/analytics/">View BakeOps Analytics Dashboard</a>
+        <ul class="landing-card-features">
+          <li>Command centre dashboard and KPI snapshots</li>
+          <li>Profitability, waste, and data-quality views</li>
+          <li>BI-ready CSV export evidence</li>
+        </ul>
+        <a class="landing-btn landing-btn-analytics" href="/analytics/">
+          <span>View BakeOps Analytics Dashboard</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 10h12M11 5l5 5-5 5"/>
+          </svg>
+        </a>
       </article>
     </section>
 
-    <footer class="landing-footer text-center">
+    <footer class="landing-footer">
       <p class="landing-note">
-        This is a local demo workspace for portfolio review - not a live SaaS product.
+        Local portfolio demo for technical review - not a live SaaS product or production deployment.
       </p>
     </footer>
   </main>

@@ -1,0 +1,99 @@
+{% extends "cakes/base.html" %}
+
+{% block title %}Plan Demo Order | SweetCakes Bakery{% endblock %}
+
+{% block content %}
+<section class="sc-page">
+  <div class="sc-container">
+
+    <header class="sc-page-hero text-center">
+      <p class="sc-eyebrow">Demo order planning</p>
+      <h1 class="sc-page-title" style="max-width:none;margin-inline:auto;">Plan your demo order</h1>
+      <p class="sc-page-lead sc-page-lead--center">
+        Share date, servings, and style preferences to continue the portfolio customer journey.
+      </p>
+    </header>
+
+    <div class="sc-contact-grid sc-section">
+      <aside class="sc-contact-card">
+        <h2 class="sc-contact-card__heading">What happens next</h2>
+        <p class="sc-contact-card__value">
+          This is a portfolio demo workflow. Your details are validated in the browser only and are not stored or emailed.
+        </p>
+        <ul class="sc-detail-list">
+          <li>Review items in your demo cart</li>
+          <li>Complete the demo checkout screen</li>
+          <li>Switch to BakeOps Intelligence for operational analytics</li>
+        </ul>
+        <p class="sc-form-note mb-0">
+          Demo checkout only — no real payment is processed.
+        </p>
+      </aside>
+
+      <div class="sc-contact-card">
+        <h2 class="sc-contact-card__heading">Order details</h2>
+
+        <form class="sc-form-stack needs-validation" id="plan-order-form" novalidate>
+          <div>
+            <label class="sc-form-label" for="order-name">Full name <span class="text-danger" aria-hidden="true">*</span></label>
+            <input class="sc-form-input" id="order-name" name="name" required>
+            <div class="invalid-feedback">Please enter your full name.</div>
+          </div>
+          <div>
+            <label class="sc-form-label" for="order-email">Email <span class="text-danger" aria-hidden="true">*</span></label>
+            <input class="sc-form-input" id="order-email" name="email" type="email" required>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+          <div>
+            <label class="sc-form-label" for="order-date">Event date <span class="text-danger" aria-hidden="true">*</span></label>
+            <input class="sc-form-input" id="order-date" name="event_date" type="date" required>
+            <div class="invalid-feedback">Please choose an event date.</div>
+          </div>
+          <div>
+            <label class="sc-form-label" for="order-servings">Approximate servings <span class="text-danger" aria-hidden="true">*</span></label>
+            <input class="sc-form-input" id="order-servings" name="servings" type="number" min="1" required>
+            <div class="invalid-feedback">Please enter estimated servings.</div>
+          </div>
+          <div>
+            <label class="sc-form-label" for="order-notes">Order notes <span class="text-danger" aria-hidden="true">*</span></label>
+            <textarea class="sc-form-textarea" id="order-notes" name="notes" rows="4" required></textarea>
+            <div class="invalid-feedback">Please add a short description of your request.</div>
+          </div>
+          <button type="submit" class="sc-btn sc-btn--primary">Continue to demo checkout</button>
+          <p class="sc-form-note mb-0">
+            This is a portfolio demo checkout. Payment screens are included to demonstrate the customer journey; no real transactions are processed.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <div class="sc-journey-strip sc-section" aria-label="Demo customer journey">
+      <div class="sc-journey-step is-complete"><span>1</span> Browse catalogue</div>
+      <div class="sc-journey-step is-complete"><span>2</span> Demo cart</div>
+      <div class="sc-journey-step is-active"><span>3</span> Plan order</div>
+      <div class="sc-journey-step"><span>4</span> Demo checkout</div>
+      <div class="sc-journey-step"><span>5</span> BakeOps analytics</div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("plan-order-form");
+    if (!form) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        return;
+      }
+      window.location.href = "{% url 'demo_checkout' %}";
+    });
+  });
+</script>
+{% endblock %}
+

@@ -318,6 +318,7 @@ body.analytics-shell-body.reference-match-shell::before {
 
 .ref-topbar-pill,
 .ref-status-pill,
+.ref-storefront-button,
 .ref-export-button,
 .ref-kebab {
     min-height: 2.18rem;
@@ -390,6 +391,30 @@ body.analytics-shell-body.reference-match-shell::before {
     text-transform: uppercase;
     border-color: var(--bo-purple-border);
     background: linear-gradient(135deg, rgba(124, 58, 237, 0.30), rgba(37, 99, 235, 0.20));
+}
+
+.ref-storefront-button {
+    gap: 0.4rem;
+    padding: 0.34rem 0.85rem;
+    color: #fdba74;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    border-color: rgba(249, 115, 22, 0.34);
+    background: rgba(249, 115, 22, 0.08);
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.ref-storefront-button:hover {
+    color: #ffedd5;
+    border-color: rgba(249, 115, 22, 0.48);
+    background: rgba(249, 115, 22, 0.14);
+}
+
+.ref-storefront-button svg {
+    flex-shrink: 0;
 }
 
 .ref-kebab {
@@ -544,8 +569,14 @@ body.analytics-shell-body.reference-match-shell .analytics-state-guidance.is-com
     .ref-topbar-cluster,
     .ref-topbar-pill,
     .ref-status-pill,
+    .ref-storefront-button,
     .ref-export-button {
         width: 100%;
+    }
+
+    .ref-storefront-button {
+        white-space: normal;
+        text-align: center;
     }
 }
 

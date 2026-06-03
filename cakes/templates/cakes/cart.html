@@ -1,0 +1,101 @@
+{% extends "cakes/base.html" %}
+
+{% block title %}Demo Cart | SweetCakes Bakery{% endblock %}
+
+{% block content %}
+<section class="sc-page">
+  <div class="sc-container">
+
+    <header class="sc-page-hero text-center">
+      <p class="sc-eyebrow">Demo basket</p>
+      <h1 class="sc-page-title" style="max-width:none;margin-inline:auto;">Your demo cart</h1>
+      <p class="sc-page-lead sc-page-lead--center">
+        Review selected cakes before continuing to the portfolio demo order and checkout screens.
+      </p>
+    </header>
+
+    <div class="sc-panel sc-cart-panel">
+      <p class="sc-demo-inline-note">
+        <strong>Demo checkout only — no real payment is processed.</strong>
+        Items are stored in your browser only for this portfolio demonstration.
+      </p>
+
+      <div class="sc-cart-table-wrap">
+        <table class="sc-cart-table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col" class="sc-cart-table__qty">Qty</th>
+              <th scope="col" class="sc-cart-table__price">Line total</th>
+            </tr>
+          </thead>
+          <tbody id="cart-table-body">
+            <tr>
+              <td colspan="3" class="sc-cart-table__empty">Your demo cart is currently empty.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sc-cart-summary">
+        <p class="sc-cart-summary__total">Estimated total: <span id="cart-total-amount">&pound;0.00</span></p>
+        <div class="sc-cart-summary__actions">
+          <a href="{% url 'cake_list' %}" class="sc-btn sc-btn--ghost">Continue browsing</a>
+          <a href="{% url 'plan_order' %}" class="sc-btn sc-btn--primary" id="cart-plan-order-link">Plan demo order</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-journey-strip sc-section" aria-label="Demo customer journey">
+      <div class="sc-journey-step is-complete"><span>1</span> Browse catalogue</div>
+      <div class="sc-journey-step is-active"><span>2</span> Demo cart</div>
+      <div class="sc-journey-step"><span>3</span> Plan order</div>
+      <div class="sc-journey-step"><span>4</span> Demo checkout</div>
+      <div class="sc-journey-step"><span>5</span> BakeOps analytics</div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const body = document.getElementById("cart-table-body");
+    const totalEl = document.getElementById("cart-total-amount");
+    const planLink = document.getElementById("cart-plan-order-link");
+    if (!body || !totalEl) return;
+
+    let cart = { items: [], totalAmount: 0 };
+    try {
+      cart = JSON.parse(localStorage.getItem("cakeCart")) || cart;
+    } catch (_err) {
+      cart = { items: [], totalAmount: 0 };
+    }
+
+    if (!Array.isArray(cart.items) || !cart.items.length) {
+      if (planLink) {
+        planLink.classList.add("is-disabled");
+        planLink.setAttribute("aria-disabled", "true");
+        planLink.addEventListener("click", (event) => event.preventDefault());
+      }
+      return;
+    }
+
+    body.innerHTML = "";
+    cart.items.forEach((item) => {
+      const row = document.createElement("tr");
+      const lineTotal = Number((item.price || 0) * (item.qty || 0)).toFixed(2);
+      row.innerHTML = `
+        <td>${item.name || "Demo cake item"}</td>
+        <td class="sc-cart-table__qty">${item.qty || 0}</td>
+        <td class="sc-cart-table__price">&pound;${lineTotal}</td>
+      `;
+      body.appendChild(row);
+    });
+
+    totalEl.textContent = `£${Number(cart.totalAmount || 0).toFixed(2)}`;
+  });
+</script>
+{% endblock %}
+

@@ -1,6 +1,9 @@
+import shutil
 from datetime import date, time, timedelta
 from decimal import Decimal
+from pathlib import Path
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -26,6 +29,21 @@ from bakeops.models import (
 )
 from cakes.models import Cake, CakeCollection, CakeVariant
 
+DEMO_PRODUCT_IMAGES = (
+    "birthday-classic.jpg",
+    "lemon-poppy.jpg",
+    "luxury-chocolate.jpg",
+    "wedding-rose.jpg",
+    "red-velvet-celebration.jpg",
+    "vanilla-berry-cloud.jpg",
+    "kids-rainbow-cake.jpg",
+    "office-treat-box.jpg",
+    "matcha-citrus-slice.jpg",
+    "chocolate-hazelnut-deluxe.jpg",
+    "vegan-raspberry-loaf.jpg",
+    "mini-cupcake-selection.jpg",
+)
+
 
 class Command(BaseCommand):
     help = "Seed realistic BakeOps demo data for V1 development."
@@ -49,6 +67,7 @@ class Command(BaseCommand):
         occasions = self._create_occasions(workspace)
         customers = self._create_customers(workspace, today)
         collections = self._create_collections()
+        self._copy_demo_product_images()
         cakes = self._create_cakes(collections)
         variants = self._create_variants(cakes)
         self._create_reviews(workspace, customers, cakes, variants, today)
@@ -248,6 +267,30 @@ class Command(BaseCommand):
 
         return collections
 
+    def _copy_demo_product_images(self):
+        static_dir = (
+            Path(settings.BASE_DIR)
+            / "cakes"
+            / "static"
+            / "img"
+            / "sweetcakes"
+            / "products"
+        )
+        media_dir = Path(settings.MEDIA_ROOT) / "cakes"
+        media_dir.mkdir(parents=True, exist_ok=True)
+
+        for filename in DEMO_PRODUCT_IMAGES:
+            source = static_dir / filename
+            destination = media_dir / filename
+
+            if not source.exists():
+                self.stdout.write(
+                    self.style.WARNING(f"Missing tracked demo product image: {source}")
+                )
+                continue
+
+            shutil.copy2(source, destination)
+
     def _create_cakes(self, collections):
         data = [
             {
@@ -255,15 +298,23 @@ class Command(BaseCommand):
                 "name": "Birthday Classic",
                 "occasion_type": Cake.OccasionType.PARTY,
                 "category": "Birthday",
-                "image": "cakes/bd01.jpg",
+                "image": "cakes/birthday-classic.jpg",
                 "collections": ["demo-birthday"],
+            },
+            {
+                "slug": "demo-lemon-poppy",
+                "name": "Lemon Poppy",
+                "occasion_type": Cake.OccasionType.OTHER,
+                "category": "Everyday",
+                "image": "cakes/lemon-poppy.jpg",
+                "collections": ["demo-everyday"],
             },
             {
                 "slug": "demo-luxury-chocolate",
                 "name": "Luxury Chocolate",
                 "occasion_type": Cake.OccasionType.OTHER,
                 "category": "Chocolate",
-                "image": "cakes/dark_choco.jpg",
+                "image": "cakes/luxury-chocolate.jpg",
                 "collections": ["demo-chocolate"],
             },
             {
@@ -271,15 +322,71 @@ class Command(BaseCommand):
                 "name": "Wedding Rose",
                 "occasion_type": Cake.OccasionType.WEDDING,
                 "category": "Wedding",
-                "image": "cakes/wd01.jpg",
+                "image": "cakes/wedding-rose.jpg",
                 "collections": ["demo-wedding"],
             },
             {
-                "slug": "demo-lemon-poppy",
-                "name": "Lemon Poppy",
+                "slug": "demo-red-velvet-celebration",
+                "name": "Red Velvet Celebration",
+                "occasion_type": Cake.OccasionType.PARTY,
+                "category": "Birthday",
+                "image": "cakes/red-velvet-celebration.jpg",
+                "collections": ["demo-birthday"],
+            },
+            {
+                "slug": "demo-vanilla-berry-cloud",
+                "name": "Vanilla Berry Cloud",
                 "occasion_type": Cake.OccasionType.OTHER,
                 "category": "Everyday",
-                "image": "cakes/lemon_poppy.jpg",
+                "image": "cakes/vanilla-berry-cloud.jpg",
+                "collections": ["demo-everyday"],
+            },
+            {
+                "slug": "demo-kids-rainbow-cake",
+                "name": "Kids Rainbow Cake",
+                "occasion_type": Cake.OccasionType.PARTY,
+                "category": "Kids",
+                "image": "cakes/kids-rainbow-cake.jpg",
+                "collections": ["demo-birthday"],
+            },
+            {
+                "slug": "demo-office-treat-box",
+                "name": "Office Treat Box",
+                "occasion_type": Cake.OccasionType.OTHER,
+                "category": "Treat Box",
+                "image": "cakes/office-treat-box.jpg",
+                "collections": ["demo-everyday"],
+            },
+            {
+                "slug": "demo-matcha-citrus-slice",
+                "name": "Matcha Citrus Slice",
+                "occasion_type": Cake.OccasionType.OTHER,
+                "category": "Everyday",
+                "image": "cakes/matcha-citrus-slice.jpg",
+                "collections": ["demo-everyday"],
+            },
+            {
+                "slug": "demo-chocolate-hazelnut-deluxe",
+                "name": "Chocolate Hazelnut Deluxe",
+                "occasion_type": Cake.OccasionType.OTHER,
+                "category": "Chocolate",
+                "image": "cakes/chocolate-hazelnut-deluxe.jpg",
+                "collections": ["demo-chocolate"],
+            },
+            {
+                "slug": "demo-vegan-raspberry-loaf",
+                "name": "Vegan Raspberry Loaf",
+                "occasion_type": Cake.OccasionType.OTHER,
+                "category": "Vegan",
+                "image": "cakes/vegan-raspberry-loaf.jpg",
+                "collections": ["demo-everyday"],
+            },
+            {
+                "slug": "demo-mini-cupcake-selection",
+                "name": "Mini Cupcake Selection",
+                "occasion_type": Cake.OccasionType.PARTY,
+                "category": "Cupcakes",
+                "image": "cakes/mini-cupcake-selection.jpg",
                 "collections": ["demo-everyday"],
             },
         ]
@@ -312,9 +419,17 @@ class Command(BaseCommand):
     def _create_variants(self, cakes):
         data = [
             ("Birthday Classic", '8" • serves 10–12', 10, 12, Decimal("45.00"), True),
+            ("Lemon Poppy", '6" • serves 6–8', 6, 8, Decimal("28.00"), True),
             ("Luxury Chocolate", '6" • serves 6–8', 6, 8, Decimal("38.00"), True),
             ("Wedding Rose", '10" • serves 20–24', 20, 24, Decimal("95.00"), True),
-            ("Lemon Poppy", '6" • serves 6–8', 6, 8, Decimal("28.00"), True),
+            ("Red Velvet Celebration", '8" • serves 10–12', 10, 12, Decimal("48.00"), True),
+            ("Vanilla Berry Cloud", '6" • serves 6–8', 6, 8, Decimal("32.00"), True),
+            ("Kids Rainbow Cake", '8" • serves 12–14', 12, 14, Decimal("42.00"), True),
+            ("Office Treat Box", "12-piece box", 12, 12, Decimal("36.00"), True),
+            ("Matcha Citrus Slice", "Slice • serves 1–2", 1, 2, Decimal("6.50"), True),
+            ("Chocolate Hazelnut Deluxe", '8" • serves 10–12', 10, 12, Decimal("52.00"), True),
+            ("Vegan Raspberry Loaf", "Loaf • serves 8–10", 8, 10, Decimal("24.00"), True),
+            ("Mini Cupcake Selection", "12 mini cupcakes", 12, 12, Decimal("22.00"), True),
         ]
 
         variants = {}
@@ -444,9 +559,17 @@ class Command(BaseCommand):
     def _create_recipes(self, workspace, cakes, variants):
         data = [
             ("Birthday Classic Recipe", "Birthday Classic", "1.00", 55, "4.50"),
+            ("Lemon Poppy Recipe", "Lemon Poppy", "1.00", 45, "3.50"),
             ("Luxury Chocolate Recipe", "Luxury Chocolate", "1.00", 65, "5.50"),
             ("Wedding Rose Recipe", "Wedding Rose", "1.00", 140, "15.00"),
-            ("Lemon Poppy Recipe", "Lemon Poppy", "1.00", 45, "3.50"),
+            ("Red Velvet Celebration Recipe", "Red Velvet Celebration", "1.00", 58, "4.75"),
+            ("Vanilla Berry Cloud Recipe", "Vanilla Berry Cloud", "1.00", 48, "3.80"),
+            ("Kids Rainbow Cake Recipe", "Kids Rainbow Cake", "1.00", 62, "5.00"),
+            ("Office Treat Box Recipe", "Office Treat Box", "1.00", 40, "3.20"),
+            ("Matcha Citrus Slice Recipe", "Matcha Citrus Slice", "1.00", 25, "1.80"),
+            ("Chocolate Hazelnut Deluxe Recipe", "Chocolate Hazelnut Deluxe", "1.00", 70, "6.00"),
+            ("Vegan Raspberry Loaf Recipe", "Vegan Raspberry Loaf", "1.00", 35, "2.50"),
+            ("Mini Cupcake Selection Recipe", "Mini Cupcake Selection", "1.00", 30, "2.20"),
         ]
 
         recipes = {}
@@ -500,6 +623,59 @@ class Command(BaseCommand):
                 ("Butter", "0.180", "3.00"),
                 ("Eggs", "5.000", "2.00"),
                 ("Lemon Zest", "0.180", "6.00"),
+            ],
+            "Red Velvet Celebration": [
+                ("Flour", "0.700", "3.50"),
+                ("Sugar", "0.400", "2.50"),
+                ("Butter", "0.350", "4.00"),
+                ("Eggs", "7.000", "2.00"),
+                ("Fresh Cream", "0.600", "10.00"),
+            ],
+            "Vanilla Berry Cloud": [
+                ("Flour", "0.450", "3.00"),
+                ("Sugar", "0.260", "2.00"),
+                ("Butter", "0.220", "3.00"),
+                ("Eggs", "5.000", "2.00"),
+                ("Fresh Cream", "0.400", "8.00"),
+            ],
+            "Kids Rainbow Cake": [
+                ("Flour", "0.680", "3.50"),
+                ("Sugar", "0.380", "2.50"),
+                ("Butter", "0.360", "4.00"),
+                ("Eggs", "7.000", "2.00"),
+                ("Decorative Icing", "0.700", "12.00"),
+            ],
+            "Office Treat Box": [
+                ("Flour", "0.500", "3.00"),
+                ("Sugar", "0.320", "2.00"),
+                ("Butter", "0.280", "3.00"),
+                ("Eggs", "6.000", "2.00"),
+            ],
+            "Matcha Citrus Slice": [
+                ("Flour", "0.120", "2.00"),
+                ("Sugar", "0.080", "1.50"),
+                ("Butter", "0.060", "2.00"),
+                ("Eggs", "1.000", "1.00"),
+                ("Lemon Zest", "0.040", "4.00"),
+            ],
+            "Chocolate Hazelnut Deluxe": [
+                ("Flour", "0.720", "3.50"),
+                ("Sugar", "0.420", "2.50"),
+                ("Butter", "0.400", "4.00"),
+                ("Eggs", "8.000", "2.00"),
+                ("Dark Chocolate", "0.650", "5.00"),
+            ],
+            "Vegan Raspberry Loaf": [
+                ("Flour", "0.380", "3.00"),
+                ("Sugar", "0.220", "2.00"),
+                ("Fresh Cream", "0.180", "6.00"),
+            ],
+            "Mini Cupcake Selection": [
+                ("Flour", "0.320", "2.50"),
+                ("Sugar", "0.200", "2.00"),
+                ("Butter", "0.160", "2.50"),
+                ("Eggs", "4.000", "2.00"),
+                ("Decorative Icing", "0.250", "8.00"),
             ],
         }
 

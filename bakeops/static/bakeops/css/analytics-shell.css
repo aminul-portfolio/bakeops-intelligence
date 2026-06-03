@@ -1153,6 +1153,7 @@ body.analytics-shell-body.reference-match-shell .ref-topbar-cluster {
 
 body.analytics-shell-body.reference-match-shell .ref-topbar-pill,
 body.analytics-shell-body.reference-match-shell .ref-status-pill,
+body.analytics-shell-body.reference-match-shell .ref-storefront-button,
 body.analytics-shell-body.reference-match-shell .ref-export-button,
 body.analytics-shell-body.reference-match-shell .ref-kebab {
     display: inline-flex;
@@ -1215,6 +1216,30 @@ body.analytics-shell-body.reference-match-shell .ref-export-button {
     border-color: rgba(168, 85, 247, 0.36);
     background:
         linear-gradient(135deg, rgba(124, 58, 237, 0.30), rgba(37, 99, 235, 0.20));
+}
+
+body.analytics-shell-body.reference-match-shell .ref-storefront-button {
+    gap: 0.4rem;
+    padding: 0.34rem 0.85rem;
+    color: #fdba74;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    border-color: rgba(249, 115, 22, 0.34);
+    background: rgba(249, 115, 22, 0.08);
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+body.analytics-shell-body.reference-match-shell .ref-storefront-button:hover {
+    color: #ffedd5;
+    border-color: rgba(249, 115, 22, 0.48);
+    background: rgba(249, 115, 22, 0.14);
+}
+
+body.analytics-shell-body.reference-match-shell .ref-storefront-button svg {
+    flex-shrink: 0;
 }
 
 body.analytics-shell-body.reference-match-shell .ref-kebab {
@@ -1311,8 +1336,14 @@ body.analytics-shell-body.reference-match-shell .analytics-page-frame > main {
 
     body.analytics-shell-body.reference-match-shell .ref-topbar-pill,
     body.analytics-shell-body.reference-match-shell .ref-status-pill,
+    body.analytics-shell-body.reference-match-shell .ref-storefront-button,
     body.analytics-shell-body.reference-match-shell .ref-export-button {
         width: 100%;
+    }
+
+    body.analytics-shell-body.reference-match-shell .ref-storefront-button {
+        white-space: normal;
+        text-align: center;
     }
 }
 

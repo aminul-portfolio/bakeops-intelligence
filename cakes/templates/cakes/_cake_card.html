@@ -1,68 +1,54 @@
-{% load static %}
-
-<article
-  class="cake-card card h-100"
-  data-category="{{ cake.occasion_type }} {% for col in cake.collections.all %}{{ col.key }} {% endfor %}"
->
-  <a href="{% url 'cake_detail' slug=cake.slug %}"
-     class="cake-card-link text-decoration-none text-reset">
-    <div class="cake-card-visual">
-      <div class="cake-card-border"></div>
-
-      {% if cake.main_image %}
-        <img src="{{ cake.main_image.url }}"
-             alt="{{ cake.name }}"
-             class="cake-card-img"
-             loading="lazy">
-      {% else %}
-        <img src="{% static 'img/placeholder.jpg' %}"
-             alt="{{ cake.name }}"
-             class="cake-card-img"
-             loading="lazy">
-      {% endif %}
-
-      <div class="cake-card-overlay">
-        <div class="cake-card-overlay-inner">
-          <h3 class="cake-card-title">{{ cake.name }}</h3>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <div class="cake-card-body card-body d-flex justify-content-between align-items-center">
-    <div>
-      <h3 class="cake-card-title h6 mb-1">{{ cake.name }}</h3>
-
-      {% with v=cake.default_variant %}
-        {% if v %}
-          <div class="text-success fw-semibold small">
-            From £{{ v.price }}
-          </div>
-        {% else %}
-          <div class="text-muted small">
-            Price coming soon
-          </div>
-        {% endif %}
-      {% endwith %}
-    </div>
-
-    <div class="d-flex flex-column align-items-end gap-1">
-      <a href="{% url 'cake_detail' slug=cake.slug %}"
-         class="btn btn-outline-secondary btn-sm">
-        Details
-      </a>
-
-      {% if show_add_to_cart %}
-        {% with v=cake.default_variant %}
-          <button class="btn btn-sm hc-btn-primary"
-                  type="button"
-                  data-add-to-cart="{{ cake.slug }}"
-                  data-cake-name="{{ cake.name }}"
-                  {% if v %}data-price="{{ v.price }}"{% endif %}>
-            Add to cart
-          </button>
-        {% endwith %}
-      {% endif %}
-    </div>
-  </div>
-</article>
+{% load static %}
+
+<article class="sc-product-card" data-category="{{ cake.occasion_type }} {% for col in cake.collections.all %}{{ col.key }} {% endfor %}">
+  <a href="{% url 'cake_detail' slug=cake.slug %}" class="sc-product-card__link">
+    <div class="sc-product-card__media">
+      {% if cake.main_image %}
+        <img src="{{ cake.main_image.url }}"
+             alt="{{ cake.name }}"
+             class="sc-product-card__image"
+             loading="lazy"
+             decoding="async"
+             onerror="this.onerror=null;this.src='{% static 'img/sweetcakes/placeholder.svg' %}';this.classList.add('sc-product-card__image--placeholder');">
+      {% else %}
+        <img src="{% static 'img/sweetcakes/placeholder.svg' %}"
+             alt=""
+             class="sc-product-card__image sc-product-card__image--placeholder"
+             loading="lazy"
+             decoding="async">
+      {% endif %}
+
+      {% if cake.get_occasion_type_display %}
+        <span class="sc-product-card__badge">{{ cake.get_occasion_type_display }}</span>
+      {% endif %}
+    </div>
+
+    <div class="sc-product-card__body">
+      <h3 class="sc-product-card__title">{{ cake.name }}</h3>
+
+      {% with v=cake.default_variant %}
+        {% if v %}
+          <p class="sc-product-card__variant">{{ v.label }}</p>
+        {% endif %}
+      {% endwith %}
+
+      {% if cake.short_description %}
+        <p class="sc-product-card__desc">{{ cake.short_description|truncatechars:72 }}</p>
+      {% else %}
+        <p class="sc-product-card__desc">&nbsp;</p>
+      {% endif %}
+
+      <div class="sc-product-card__footer">
+        {% with v=cake.default_variant %}
+          {% if v %}
+            <span class="sc-product-card__price">From &pound;{{ v.price }}</span>
+          {% else %}
+            <span class="sc-product-card__price sc-product-card__price--muted">Price coming soon</span>
+          {% endif %}
+        {% endwith %}
+        <span class="sc-product-card__cta">View details</span>
+      </div>
+    </div>
+  </a>
+</article>
+
