@@ -1,7 +1,8 @@
 from decimal import Decimal
 from types import SimpleNamespace
 
-from django.db.models import Avg
+from django.core.paginator import Paginator
+from django.db.models import Avg, Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ReviewForm
@@ -181,19 +182,35 @@ def home(request):
 
 
 def cake_list(request):
-    """
-    Product profitability reference page.
+    """Customer-facing cake catalogue with category filter, search, and pagination."""
+    search_query = request.GET.get("q", "").strip()
+    active_category = request.GET.get("category", "").strip().lower()
 
-    This keeps your existing cake catalogue available, but positions it as
-    the source catalogue that will feed BakeOps V1 seed data, recipe costing,
-    reviews, and ProductPerformanceSnapshot records.
-    """
-    cakes = (
+    cakes_qs = (
         Cake.objects
         .filter(is_active=True)
         .prefetch_related("variants", "collections")
         .order_by("name")
     )
+
+    if active_category and active_category != "all":
+        cakes_qs = cakes_qs.filter(
+            Q(occasion_type__iexact=active_category) |
+            Q(collections__key__iexact=active_category)
+        ).distinct()
+
+    if search_query:
+        cakes_qs = cakes_qs.filter(
+            Q(name__icontains=search_query) |
+            Q(description__icontains=search_query) |
+            Q(short_description__icontains=search_query) |
+            Q(category__icontains=search_query) |
+            Q(collections__label__icontains=search_query)
+        ).distinct()
+
+    total_results = cakes_qs.count()
+    paginator = Paginator(cakes_qs, 8)
+    page_obj = paginator.get_page(request.GET.get("page"))
 
     collections = (
         CakeCollection.objects
@@ -205,8 +222,12 @@ def cake_list(request):
         request,
         "cakes/cakes.html",
         {
-            "cakes": cakes,
+            "cakes": page_obj.object_list,
+            "page_obj": page_obj,
             "collections": collections,
+            "search_query": search_query,
+            "active_category": active_category,
+            "total_results": total_results,
         },
     )
 
@@ -263,13 +284,23 @@ def cake_detail(request, slug):
 
 
 def offers(request):
-    """
-    Legacy route kept temporarily so existing URLs do not break.
-
-    Recommendation:
-    Remove this route from the main navigation during BakeOps V1.
-    """
+    """Demo offers page for portfolio storefront."""
     return render(request, "cakes/offers.html")
+
+
+def cart(request):
+    """Demo cart page backed by browser localStorage only."""
+    return render(request, "cakes/cart.html")
+
+
+def plan_order(request):
+    """Demo order planning form — no persisted orders."""
+    return render(request, "cakes/plan_order.html")
+
+
+def demo_checkout(request):
+    """Demo checkout screen — portfolio UI only, no payment processing."""
+    return render(request, "cakes/demo_checkout.html")
 
 
 def about(request):
@@ -290,7 +321,25 @@ def contact(request):
 
 
 def welcome(request):
-    """
-    Reframed by the revised template as the data quality and trust layer page.
-    """
-    return render(request, "cakes/welcome.html")
+    """SweetCakes Bakery customer-facing landing page."""
+    featured_slugs = [
+        "demo-birthday-classic",
+        "demo-lemon-poppy",
+        "demo-luxury-chocolate",
+        "demo-wedding-rose",
+    ]
+    slug_order = {slug: index for index, slug in enumerate(featured_slugs)}
+
+    featured_cakes = list(
+        Cake.objects.filter(slug__in=featured_slugs, is_active=True)
+        .prefetch_related("variants", "collections")
+    )
+    featured_cakes.sort(key=lambda cake: slug_order.get(cake.slug, len(featured_slugs)))
+
+    return render(
+        request,
+        "cakes/welcome.html",
+        {
+            "featured_cakes": featured_cakes,
+        },
+    )

@@ -1,0 +1,121 @@
+{% extends "cakes/base.html" %}
+
+{% block title %}Demo Checkout | SweetCakes Bakery{% endblock %}
+
+{% block content %}
+<section class="sc-page">
+  <div class="sc-container">
+
+    <header class="sc-page-hero text-center">
+      <p class="sc-eyebrow">Demo checkout</p>
+      <h1 class="sc-page-title" style="max-width:none;margin-inline:auto;">Review and complete demo checkout</h1>
+      <p class="sc-page-lead sc-page-lead--center">
+        This screen demonstrates a checkout step for portfolio review. No payment gateway is connected.
+      </p>
+    </header>
+
+    <div class="sc-demo-checkout-alert" role="alert">
+      <strong>Demo checkout only — no real payment is processed.</strong>
+      This is a portfolio demo checkout. Payment fields are illustrative only; no real transactions are processed and no card data is sent anywhere.
+    </div>
+
+    <div class="sc-contact-grid sc-section">
+      <div class="sc-contact-card">
+        <h2 class="sc-contact-card__heading">Order summary</h2>
+        <div id="checkout-summary" class="sc-checkout-summary">
+          <p class="sc-form-note">Loading demo cart summary…</p>
+        </div>
+        <p class="sc-cart-summary__total mb-0">Estimated total: <span id="checkout-total-amount">&pound;0.00</span></p>
+      </div>
+
+      <div class="sc-contact-card">
+        <h2 class="sc-contact-card__heading">Demo payment details</h2>
+        <form class="sc-form-stack" id="demo-checkout-form">
+          <div>
+            <label class="sc-form-label" for="card-name">Name on card</label>
+            <input class="sc-form-input" id="card-name" name="card_name" placeholder="Demo Customer" autocomplete="off">
+          </div>
+          <div>
+            <label class="sc-form-label" for="card-number">Card number</label>
+            <input class="sc-form-input" id="card-number" name="card_number" placeholder="4242 4242 4242 4242" autocomplete="off" inputmode="numeric">
+          </div>
+          <div class="sc-checkout-split">
+            <div>
+              <label class="sc-form-label" for="card-expiry">Expiry</label>
+              <input class="sc-form-input" id="card-expiry" name="card_expiry" placeholder="12/30" autocomplete="off">
+            </div>
+            <div>
+              <label class="sc-form-label" for="card-cvc">CVC</label>
+              <input class="sc-form-input" id="card-cvc" name="card_cvc" placeholder="123" autocomplete="off" inputmode="numeric">
+            </div>
+          </div>
+          <button type="submit" class="sc-btn sc-btn--primary">Complete demo order</button>
+          <a href="/analytics/" class="sc-btn sc-btn--outline">View BakeOps analytics</a>
+          <p class="sc-form-note mb-0">
+            Completing this demo order shows a confirmation message only. Operational analytics live in BakeOps Intelligence.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <div class="sc-journey-strip sc-section" aria-label="Demo customer journey">
+      <div class="sc-journey-step is-complete"><span>1</span> Browse catalogue</div>
+      <div class="sc-journey-step is-complete"><span>2</span> Demo cart</div>
+      <div class="sc-journey-step is-complete"><span>3</span> Plan order</div>
+      <div class="sc-journey-step is-active"><span>4</span> Demo checkout</div>
+      <div class="sc-journey-step"><span>5</span> BakeOps analytics</div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const summary = document.getElementById("checkout-summary");
+    const totalEl = document.getElementById("checkout-total-amount");
+    const form = document.getElementById("demo-checkout-form");
+
+    let cart = { items: [], totalAmount: 0 };
+    try {
+      cart = JSON.parse(localStorage.getItem("cakeCart")) || cart;
+    } catch (_err) {
+      cart = { items: [], totalAmount: 0 };
+    }
+
+    if (summary) {
+      if (!Array.isArray(cart.items) || !cart.items.length) {
+        summary.innerHTML = "<p class=\"sc-form-note mb-0\">No demo cart items found. <a href=\"{% url 'cake_list' %}\">Browse cakes</a> to add items first.</p>";
+      } else {
+        summary.innerHTML = "<ul class=\"sc-checkout-list\"></ul>";
+        const list = summary.querySelector(".sc-checkout-list");
+        cart.items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = `${item.qty || 1} × ${item.name || "Demo cake"} — £${Number((item.price || 0) * (item.qty || 1)).toFixed(2)}`;
+          list.appendChild(li);
+        });
+      }
+    }
+
+    if (totalEl) {
+      totalEl.textContent = `£${Number(cart.totalAmount || 0).toFixed(2)}`;
+    }
+
+    if (form) {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        alert("Demo order complete. No payment was processed. Explore BakeOps Intelligence analytics to review seeded operational data.");
+        try {
+          localStorage.removeItem("cakeCart");
+        } catch (_err) {
+          /* ignore */
+        }
+        document.dispatchEvent(new CustomEvent("cart:updated", { detail: { cart: { items: [], totalQty: 0, totalAmount: 0 } } }));
+        window.location.href = "/analytics/";
+      });
+    }
+  });
+</script>
+{% endblock %}
+
