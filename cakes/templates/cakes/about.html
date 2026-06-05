@@ -1,83 +1,165 @@
-{% extends "cakes/base.html" %}
-{% load static %}
-
-{% block title %}About | SweetCakes Bakery{% endblock %}
-
-{% block content %}
-<section class="sc-page">
-  <div class="sc-container">
-
-    <header class="sc-page-hero">
-      <p class="sc-eyebrow">Our story</p>
-      <h1 class="sc-page-title">SweetCakes Bakery, baked in small batches</h1>
-      <p class="sc-page-lead">
-        A customer-facing demo bakery for portfolio review - crafted to feel warm, commercial, and believable
-        without claiming a live production business.
-      </p>
-    </header>
-
-    <div class="sc-about-grid sc-section">
-      <div>
-        <div class="sc-about-copy">
-          <p>
-            SweetCakes Bakery started with a simple question:
-            <em>"Can a cake feel good after the last slice?"</em>
-            We loved the look of celebration cakes, but not the heavy feeling that often came afterwards.
-          </p>
-          <p>
-            Today our bakers switch on the ovens every morning in a small London kitchen, whisking and
-            folding in small batches. We use good cocoa, whole-grain flours where it makes sense and real
-            fruit for colour.
-          </p>
-          <ul>
-            <li>Recipes developed to be lighter and more balanced - not sugar bombs.</li>
-            <li>Options for less sugar, vegan and nut-free recipes where clearly marked.</li>
-            <li>Every cake is finished by hand with a quick visual check before delivery.</li>
-          </ul>
-          <p class="mb-0">
-            Whether it is a quiet tea break, a big milestone or the office Friday treat table, our goal is
-            simple: cakes that look beautiful, taste indulgent and still feel kind to your day.
-          </p>
-        </div>
-      </div>
-
-      <div>
-        <div class="sc-about-media">
-          <img src="{% static 'img/sweetcakes/bakery-story.svg' %}" alt="" loading="lazy">
-        </div>
-        <div class="sc-proof-chips">
-          <span class="sc-proof-chip sc-proof-chip--success">Same-day London delivery*</span>
-          <span class="sc-proof-chip sc-proof-chip--neutral">Made to order</span>
-          <span class="sc-proof-chip sc-proof-chip--neutral">Demo portfolio bakery</span>
-        </div>
-        <p class="sc-form-note mt-2 mb-0">*On selected designs when you order before 2 PM.</p>
-      </div>
-    </div>
-
-    <div class="sc-values-grid sc-section" aria-label="What we stand for">
-      <article class="sc-value-card">
-        <h2 class="sc-value-card__title">Balanced recipes</h2>
-        <p class="sc-value-card__copy">Less sugar where it makes sense, without losing the celebration feel.</p>
-      </article>
-      <article class="sc-value-card">
-        <h2 class="sc-value-card__title">Hand-finished detail</h2>
-        <p class="sc-value-card__copy">Messages, ribbons, and decoration checked before every demo order.</p>
-      </article>
-      <article class="sc-value-card">
-        <h2 class="sc-value-card__title">Portfolio-safe demo</h2>
-        <p class="sc-value-card__copy">SweetCakes is the storefront surface; BakeOps powers the analytics layer.</p>
-      </article>
-    </div>
-
-    <div class="sc-cta-band sc-section">
-      <div class="sc-cta-band__copy">
-        <h2 class="sc-cta-band__title">See the cakes behind the story</h2>
-        <p class="sc-cta-band__text">Browse the full SweetCakes catalogue with real product photography and pricing.</p>
-      </div>
-      <a href="{% url 'cake_list' %}" class="sc-btn sc-btn--primary">Browse cakes</a>
-    </div>
-
-  </div>
-</section>
-{% endblock %}
-
+{% extends "cakes/base.html" %}
+
+{% load static %}
+
+
+
+{% block title %}About | SweetCakes Bakery{% endblock %}
+
+
+
+{% block content %}
+
+<section class="sc-page">
+
+  <div class="sc-container">
+
+
+
+    <header class="sc-page-hero">
+
+      <p class="sc-eyebrow">Our story</p>
+
+      <h1 class="sc-page-title">SweetCakes Bakery, baked in small batches</h1>
+
+      <p class="sc-page-lead">
+
+        A customer-facing demo bakery for portfolio review - crafted to feel warm, commercial, and believable
+
+        without claiming a live production business.
+
+      </p>
+
+    </header>
+
+
+
+    <div class="sc-about-grid sc-section">
+
+      <div>
+
+        <div class="sc-about-copy">
+
+          <p>
+
+            SweetCakes Bakery started with a simple question:
+
+            <em>"Can a cake feel good after the last slice?"</em>
+
+            We loved the look of celebration cakes, but not the heavy feeling that often came afterwards.
+
+          </p>
+
+          <p>
+
+            Today our bakers switch on the ovens every morning in a small London kitchen, whisking and
+
+            folding in small batches. We use good cocoa, whole-grain flours where it makes sense and real
+
+            fruit for colour.
+
+          </p>
+
+          <ul>
+
+            <li>Recipes developed to be lighter and more balanced - not sugar bombs.</li>
+
+            <li>Options for less sugar, vegan and nut-free recipes where clearly marked.</li>
+
+            <li>Every cake is finished by hand with a quick visual check before delivery.</li>
+
+          </ul>
+
+          <p class="mb-0">
+
+            Whether it is a quiet tea break, a big milestone or the office Friday treat table, our goal is
+
+            simple: cakes that look beautiful, taste indulgent and still feel kind to your day.
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div>
+
+        <div class="sc-about-media">
+
+          <img src="{% static 'img/sweetcakes/bakery-story.svg' %}" alt="" loading="lazy">
+
+        </div>
+
+        <div class="sc-proof-chips">
+
+          <span class="sc-proof-chip sc-proof-chip--success">Same-day London delivery*</span>
+
+          <span class="sc-proof-chip sc-proof-chip--neutral">Made to order</span>
+
+          <span class="sc-proof-chip sc-proof-chip--neutral">Demo portfolio bakery</span>
+
+        </div>
+
+        <p class="sc-form-note mt-2 mb-0">*On selected designs when you order before 2 PM.</p>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="sc-values-grid sc-section" aria-label="What we stand for">
+
+      <article class="sc-value-card">
+
+        <h2 class="sc-value-card__title">Balanced recipes</h2>
+
+        <p class="sc-value-card__copy">Less sugar where it makes sense, without losing the celebration feel.</p>
+
+      </article>
+
+      <article class="sc-value-card">
+
+        <h2 class="sc-value-card__title">Hand-finished detail</h2>
+
+        <p class="sc-value-card__copy">Messages, ribbons, and decoration checked before every demo order.</p>
+
+      </article>
+
+      <article class="sc-value-card">
+
+        <h2 class="sc-value-card__title">Portfolio-safe demo</h2>
+
+        <p class="sc-value-card__copy">SweetCakes is the storefront surface; BakeOps powers the analytics layer.</p>
+
+      </article>
+
+    </div>
+
+
+
+    <div class="sc-cta-band sc-section">
+
+      <div class="sc-cta-band__copy">
+
+        <h2 class="sc-cta-band__title">See the cakes behind the story</h2>
+
+        <p class="sc-cta-band__text">Browse the full SweetCakes catalogue with real product photography and pricing.</p>
+
+      </div>
+
+      <a href="{% url 'cake_list' %}" class="sc-btn sc-btn--primary">Browse cakes</a>
+
+    </div>
+
+
+
+  </div>
+
+</section>
+
+{% endblock %}
+
+

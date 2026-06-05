@@ -1,54 +1,107 @@
-{% load static %}
-
-<article class="sc-product-card" data-category="{{ cake.occasion_type }} {% for col in cake.collections.all %}{{ col.key }} {% endfor %}">
-  <a href="{% url 'cake_detail' slug=cake.slug %}" class="sc-product-card__link">
-    <div class="sc-product-card__media">
-      {% if cake.main_image %}
-        <img src="{{ cake.main_image.url }}"
-             alt="{{ cake.name }}"
-             class="sc-product-card__image"
-             loading="lazy"
-             decoding="async"
-             onerror="this.onerror=null;this.src='{% static 'img/sweetcakes/placeholder.svg' %}';this.classList.add('sc-product-card__image--placeholder');">
-      {% else %}
-        <img src="{% static 'img/sweetcakes/placeholder.svg' %}"
-             alt=""
-             class="sc-product-card__image sc-product-card__image--placeholder"
-             loading="lazy"
-             decoding="async">
-      {% endif %}
-
-      {% if cake.get_occasion_type_display %}
-        <span class="sc-product-card__badge">{{ cake.get_occasion_type_display }}</span>
-      {% endif %}
-    </div>
-
-    <div class="sc-product-card__body">
-      <h3 class="sc-product-card__title">{{ cake.name }}</h3>
-
-      {% with v=cake.default_variant %}
-        {% if v %}
-          <p class="sc-product-card__variant">{{ v.label }}</p>
-        {% endif %}
-      {% endwith %}
-
-      {% if cake.short_description %}
-        <p class="sc-product-card__desc">{{ cake.short_description|truncatechars:72 }}</p>
-      {% else %}
-        <p class="sc-product-card__desc">&nbsp;</p>
-      {% endif %}
-
-      <div class="sc-product-card__footer">
-        {% with v=cake.default_variant %}
-          {% if v %}
-            <span class="sc-product-card__price">From &pound;{{ v.price }}</span>
-          {% else %}
-            <span class="sc-product-card__price sc-product-card__price--muted">Price coming soon</span>
-          {% endif %}
-        {% endwith %}
-        <span class="sc-product-card__cta">View details</span>
-      </div>
-    </div>
-  </a>
-</article>
-
+{% load static %}
+
+
+
+<article class="sc-product-card" data-category="{{ cake.occasion_type }} {% for col in cake.collections.all %}{{ col.key }} {% endfor %}">
+
+  <a href="{% url 'cake_detail' slug=cake.slug %}" class="sc-product-card__link">
+
+    <div class="sc-product-card__media">
+
+      {% if cake.main_image %}
+
+        <img src="{{ cake.main_image.url }}"
+
+             alt="{{ cake.name }}"
+
+             class="sc-product-card__image"
+
+             loading="lazy"
+
+             decoding="async"
+
+             onerror="this.onerror=null;this.src='{% static 'img/sweetcakes/placeholder.svg' %}';this.classList.add('sc-product-card__image--placeholder');">
+
+      {% else %}
+
+        <img src="{% static 'img/sweetcakes/placeholder.svg' %}"
+
+             alt=""
+
+             class="sc-product-card__image sc-product-card__image--placeholder"
+
+             loading="lazy"
+
+             decoding="async">
+
+      {% endif %}
+
+
+
+      {% if cake.get_occasion_type_display %}
+
+        <span class="sc-product-card__badge">{{ cake.get_occasion_type_display }}</span>
+
+      {% endif %}
+
+    </div>
+
+
+
+    <div class="sc-product-card__body">
+
+      <h3 class="sc-product-card__title">{{ cake.name }}</h3>
+
+
+
+      {% with v=cake.default_variant %}
+
+        {% if v %}
+
+          <p class="sc-product-card__variant">{{ v.label }}</p>
+
+        {% endif %}
+
+      {% endwith %}
+
+
+
+      {% if cake.short_description %}
+
+        <p class="sc-product-card__desc">{{ cake.short_description|truncatechars:72 }}</p>
+
+      {% else %}
+
+        <p class="sc-product-card__desc">&nbsp;</p>
+
+      {% endif %}
+
+
+
+      <div class="sc-product-card__footer">
+
+        {% with v=cake.default_variant %}
+
+          {% if v %}
+
+            <span class="sc-product-card__price">From &pound;{{ v.price }}</span>
+
+          {% else %}
+
+            <span class="sc-product-card__price sc-product-card__price--muted">Price coming soon</span>
+
+          {% endif %}
+
+        {% endwith %}
+
+        <span class="sc-product-card__cta">View details</span>
+
+      </div>
+
+    </div>
+
+  </a>
+
+</article>
+
+
