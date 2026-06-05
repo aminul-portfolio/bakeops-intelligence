@@ -1,18 +1,18 @@
-﻿-- DEPENDENCY NOTICE
+-- DEPENDENCY NOTICE
 -- This query reads from the gold-layer analytical snapshot (ProductPerformanceSnapshot).
 -- Before running: seed demo data with `python manage.py seed_demo_data --reset`
 -- then build metrics with `python manage.py build_bakery_metrics`.
 -- Running against an empty snapshot will return zero rows.
--- BakeOps Phase 1 â€” Signature insight SQL
+-- BakeOps Phase 1 - Signature insight SQL
 -- Business proof: top revenue product can weaken after waste-adjusted margin.
--- Demo expectation (current seed): Birthday Classic â€” revenue rank 1, margin rank 4, action review.
+-- Demo expectation (current seed): Birthday Classic - revenue rank 1, margin rank 4, action review.
 -- Dashboard gap: margin_rank_gap = 4 - 1 = 3 (positive means rank dropped after waste).
 -- Case study movement: rank_movement = 1 - 4 = -3 (negative means margin rank weakened).
 -- Source of truth for ranks: product_performance_snapshot (built by build_bakery_metrics).
 -- Filter: workspace_id = 1 (SweetCakes Bakery demo), latest snapshot_date only.
 
 -- ---------------------------------------------------------------------------
--- 1. Primary reviewer query â€” signature product rank movement
+-- 1. Primary reviewer query - signature product rank movement
 -- ---------------------------------------------------------------------------
 SELECT
     cake_name,
@@ -40,7 +40,7 @@ WHERE workspace_id = 1
   );
 
 -- ---------------------------------------------------------------------------
--- 2. All products â€” highlight rank inversion on latest snapshot
+-- 2. All products - highlight rank inversion on latest snapshot
 -- ---------------------------------------------------------------------------
 SELECT
     cake_name,
@@ -155,7 +155,7 @@ WHERE workspace_id = 1
   );
 
 -- ---------------------------------------------------------------------------
--- 6. Acceptance assertion â€” signature_evidence + rank proof (demo seed)
+-- 6. Acceptance assertion - signature_evidence + rank proof (demo seed)
 -- ---------------------------------------------------------------------------
 WITH latest_signature AS (
     SELECT

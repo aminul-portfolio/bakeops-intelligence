@@ -289,6 +289,8 @@ The SQL is SQLite-compatible and provided as reviewer evidence. It does not clai
 
 The signature insight query requires demo data to be seeded, metrics to be built, and BI CSV exports to be generated before running. See [`docs/sql/README.md`](docs/sql/README.md) for setup and acceptance checks.
 
+Phase 2 adds [`docs/sql/06_dbt_ready_mart_query.sql`](docs/sql/06_dbt_ready_mart_query.sql), a dbt-ready SQL bridge that maps BakeOps product-performance logic into staging, intermediate, and mart-style CTEs for the planned `bakeops-dbt` project. dbt is not implemented in this repository yet.
+
 ---
 
 ## BI Export Contract

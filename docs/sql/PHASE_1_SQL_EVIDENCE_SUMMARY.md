@@ -96,3 +96,26 @@ SQL reads **exports**; it does not replace `build_bakery_metrics`. Rank columns 
 ## Scope confirmation
 
 No changes were made to: Django models, migrations, views, services, templates, dashboards, seed logic, CI configuration, or production database setup.
+
+## Phase 2 - dbt-Ready SQL Mart Bridge
+
+Phase 2 adds a focused bridge from the existing SQL evidence layer to the planned `bakeops-dbt` project.
+
+### Added in Phase 2
+
+- Cleaned encoding/mojibake in `05_signature_insight_sql.sql`.
+- Added `06_dbt_ready_mart_query.sql`.
+- Added sample outputs for files 05 and 06 under `docs/sql/sample_outputs/`.
+- Documented how the CTE structure maps to future dbt staging, intermediate, and mart models.
+
+### Why this matters
+
+The new SQL bridge shows how BakeOps product-performance logic can be organised as:
+
+staging -> intermediate -> mart
+
+without claiming dbt is implemented yet.
+
+### Next phase
+
+Phase 3 will create `bakeops-dbt` as a separate project using dbt Core + DuckDB.
