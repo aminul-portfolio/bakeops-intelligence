@@ -73,6 +73,7 @@ Get-Content docs/sql/05_signature_insight_sql.sql | sqlite3 bakeops_evidence.db
 | `03_aggregation_and_window_functions.sql` | `GROUP BY`, `HAVING`, `RANK`, `DENSE_RANK`, `ROW_NUMBER`, `LAG` |
 | `04_data_quality_and_set_operators.sql` | Null/orphan checks, `UNION` / `EXCEPT` reconciliation |
 | `05_signature_insight_sql.sql` | Revenue vs waste-adjusted margin ranks (demo proof) |
+| `06_dbt_ready_mart_query.sql` | Phase 2 dbt-ready mart bridge that maps BakeOps product-performance logic into staging, intermediate, and mart-style CTEs for future bakeops-dbt implementation |
 | `PHASE_1_SQL_EVIDENCE_SUMMARY.md` | Reviewer checklist and claim-safe evidence notes |
 
 ## Data layers (export contract)
@@ -94,6 +95,19 @@ Lineage reference: `docs/LINEAGE.md`, `docs/METRIC_GOVERNANCE.md`.
 
 Gold-layer `revenue_rank` and `waste_adjusted_margin_rank` come from `build_bakery_metrics`; SQL reads them from `product_performance_snapshot`.
 
+## Phase 2 - Bridge to bakeops-dbt
+
+- Phase 2 does not implement dbt.
+- It adds `06_dbt_ready_mart_query.sql` as a dbt-ready reference query.
+- The query maps:
+  - `stg_orders` -> future `models/staging/stg_orders.sql`
+  - `stg_order_items` -> future `models/staging/stg_order_items.sql`
+  - `int_product_revenue` -> future `models/intermediate/int_product_revenue.sql`
+  - `int_product_margins` -> future `models/intermediate/int_product_margins.sql`
+  - final SELECT -> future `models/marts/mart_product_performance.sql`
+- Sample outputs are stored in `docs/sql/sample_outputs/`.
+- The signature Birthday Classic rank-inversion insight is preserved.
+
 ## CSV typing note
 
 SQLite `.import` may store numeric export columns as TEXT. Evidence queries in `02`, `03`, and `05` use `CAST(... AS REAL)` / `CAST(... AS INTEGER)` before arithmetic.
@@ -107,6 +121,8 @@ After seed, build, export, DDL, and CSV import:
 - [ ] `03_aggregation_and_window_functions.sql` runs without error (includes `RANK`, `DENSE_RANK`, `ROW_NUMBER`, `LAG`)
 - [ ] `05_signature_insight_sql.sql` query 5 returns `Birthday Classic 1 4 review`
 - [ ] Query 1 in `05` shows `margin_rank_gap = 3` and `rank_movement = -3` for Birthday Classic
+- [ ] `06_dbt_ready_mart_query.sql` runs against the evidence DB and preserves Birthday Classic rank inversion.
+- [ ] Sample outputs for files 05 and 06 are available under `docs/sql/sample_outputs/`.
 - [ ] No claim of production warehouse, dbt, Snowflake, BigQuery, Airflow, or cloud orchestration
 
 ## Claim safety
@@ -114,6 +130,7 @@ After seed, build, export, DDL, and CSV import:
 - Demo workspace **SweetCakes Bakery** (`workspace_id = 1`) only; row counts change if seed data changes.
 - Signature insight is defined in gold-layer snapshots built by `build_bakery_metrics`, not invented in SQL.
 - SQL here **reads** exports; it does not replace the metric build pipeline.
+- This SQL evidence does not claim dbt, Snowflake, BigQuery, or production warehouse implementation. It prepares the model structure for the future `bakeops-dbt` project.
 
 ## Expected demo anchors (current seed)
 
