@@ -2,53 +2,40 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
 # Virtual environments
 .venv/
 venv/
 env/
 ENV/
-
 # Django
 db.sqlite3
 *.sqlite3
 staticfiles/
-
 # Environment variables
 .env
 .env.*
 !.env.example
-
 # Generated exports
 exports/*
 !exports/.gitkeep
-
 # User-uploaded media files
 media/
-
 # Logs
 *.log
 logs/
-
 # IDE / editor
 .idea/
 .vscode/
-
 # OS files
 .DS_Store
 Thumbs.db
-
 # Test / coverage / lint caches
 .coverage
 htmlcov/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-
 # Build artifacts
 dist/
 build/
 *.egg-info/
-
-*.css linguist-vendored
-*.html linguist-vendored
