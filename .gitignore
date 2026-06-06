@@ -49,3 +49,6 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+*.css linguist-vendored
+*.html linguist-vendored
