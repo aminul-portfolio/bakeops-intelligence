@@ -1,0 +1,5 @@
+id,snapshot_date,revenue,quantity_sold,paid_order_count,ingredient_cost,gross_margin,gross_margin_percent,waste_cost,waste_adjusted_margin,waste_adjusted_margin_percent,revenue_rank,waste_adjusted_margin_rank,action_flag,action_reason,created_at,cake_id,variant_id,workspace_id
+237,2026-06-03,405,9,3,121.77,283.23,69.93,32.75,250.48,61.85,1,4,review,"This product sells strongly, but waste-adjusted margin rank is weaker than revenue rank.",2026-06-03 16:17:43.193026,233,233,59
+238,2026-06-03,190,2,1,55.06,134.94,71.02,0,134.94,71.02,2,2,stable,This product has stable revenue and margin performance.,2026-06-03 16:17:43.194030,235,235,59
+239,2026-06-03,56,2,1,9.4,46.6,83.21,1.4,45.2,80.71,4,1,promote,This product has stronger waste-adjusted margin performance than revenue ranking suggests.,2026-06-03 16:17:43.194534,236,236,59
+240,2026-06-03,76,2,1,25.98,50.02,65.82,0,50.02,65.82,3,3,stable,This product has stable revenue and margin performance.,2026-06-03 16:17:43.194534,234,234,59

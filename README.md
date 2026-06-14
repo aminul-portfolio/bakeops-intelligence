@@ -325,6 +325,20 @@ Generated CSV files are intentionally excluded from Git — reproducible from se
 
 ---
 
+## Sprint 61 - Power BI Rank Inversion Evidence
+
+Sprint 61 adds a portfolio Power BI evidence pack under `proof_pack/powerbi/`. The workbook uses CSV import only from BakeOps Wave 3 outputs. No live database connection, DirectQuery, cloud warehouse link, automated refresh pipeline, or Power BI Service publishing is claimed.
+
+The model follows a simple star-schema pattern with `Fact_ProductPerformanceSnapshot`, `Fact_DailyBakeryMetric`, `Dim_Product`, `Dim_Date`, and a dedicated `z_Measures` table for DAX measures. The lead visual focuses on rank inversion: products that look strong by revenue but weaken once waste-adjusted margin is included.
+
+Signature insight: `cake_id=233` has `revenue_rank=1`, `waste_adjusted_margin_rank=4`, `action_flag=review`, and `margin_rank_gap=3`. In plain English, it is the best seller by revenue but weakest by margin. Review it before treating it as a safe hero product.
+
+Hidden gem insight: `cake_id=236` has `revenue_rank=4`, `waste_adjusted_margin_rank=1`, and `action_flag=promote`. In plain English, it has the lowest revenue rank but strongest waste-adjusted margin rank. Promote it as an under-marketed high-margin option.
+
+Reviewer artefacts are stored under `proof_pack/powerbi/`, including the `.pbix` workbook, PDF export, imported CSV sources, and screenshots for the rank inversion page, Hiring Manager Summary page, and model view. This is local portfolio evidence only; it does not claim forecasting, production automation, dbt, Airflow, Snowflake, or BigQuery.
+
+---
+
 ## Data Quality Visibility
 
 BakeOps does not hide trust issues. The metric build creates `DataQualityIssue` records when operational data requires review. The data quality page surfaces severity, issue type, status, affected area, trust impact, and suggested review action.
