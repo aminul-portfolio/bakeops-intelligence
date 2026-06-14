@@ -1,0 +1,2 @@
+id,metric_date,revenue,paid_orders,average_order_value,total_items_sold,ingredient_cost,gross_margin,gross_margin_percent,waste_cost,waste_adjusted_margin,waste_adjusted_margin_percent,created_at,updated_at,workspace_id
+57,2026-06-03,727,6,121.17,15,212.21,514.79,70.81,37.99,476.8,65.58,2026-06-03 16:17:43.197044,2026-06-03 16:17:43.197044,59
