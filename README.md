@@ -210,6 +210,36 @@ http://127.0.0.1:8000/analytics/
 
 ---
 
+## Local Docker Workflow
+
+This project includes a lightweight Docker setup for local reviewer validation.
+
+The Docker scaffold builds the Django application from `python:3.12-slim`, installs the project requirements, mounts the working tree into `/app`, and runs the local Django settings module. It is intended for local portfolio review and repeatable validation, not as a production deployment claim.
+
+To build and run the local container:
+
+```powershell
+docker compose build
+docker compose up
+```
+
+The application is exposed on:
+
+```text
+http://localhost:8000
+```
+
+Reviewer checks can also be run inside the container:
+
+```powershell
+docker compose run --rm web python manage.py check
+docker compose run --rm web python manage.py test
+```
+
+The container resolves the SQLite database path inside the container as `/app/db.sqlite3`.
+
+---
+
 ## Analytics Workflow
 
 ```text
