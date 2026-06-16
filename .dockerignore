@@ -1,0 +1,16 @@
+.git
+.venv
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+.env
+.env.*
+proof_pack/
+exports/
+staticfiles/
+media/
